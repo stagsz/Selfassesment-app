@@ -1,0 +1,112 @@
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+// User types
+interface User {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+  organizationId: string;
+  organization?: {
+    id: string;
+    name: string;
+  };
+}
+
+// Auth store
+interface AuthState {
+  user: User | null;
+  accessToken: string | null;
+  refreshToken: string | null;
+  isAuthenticated: boolean;
+  setAuth: (user: User, accessToken: string, refreshToken: string) => void;
+  clearAuth: () => void;
+}
+
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      user: null,
+      accessToken: null,
+      refreshToken: null,
+      isAuthenticated: false,
+      setAuth: (user, accessToken, refreshToken) => {
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
+        set({ user, accessToken, refreshToken, isAuthenticated: true });
+      },
+      clearAuth: () => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        set({ user: null, accessToken: null, refreshToken: null, isAuthenticated: false });
+      },
+    }),
+    {
+      name: 'auth-storage',
+      partialize: (state) => ({
+        user: state.user,
+        isAuthenticated: state.isAuthenticated,
+      }),
+    }
+  )
+);
+
+// Assessment draft store (for auto-save)
+interface DraftResponse {
+  questionId: string;
+  score?: number;
+  justification?: string;
+  verifiedSubPoints?: string[];
+  actionProposal?: string;
+  conclusion?: string;
+}
+
+interface AssessmentDraftState {
+  assessmentId: string | null;
+  responses: Record<string, DraftResponse>;
+  lastSaved: Date | null;
+  isDirty: boolean;
+  setAssessmentId: (id: string) => void;
+  updateResponse: (questionId: string, data: Partial<DraftResponse>) => void;
+  clearDraft: () => void;
+  markSaved: () => void;
+}
+
+export const useAssessmentDraftStore = create<AssessmentDraftState>()((set) => ({
+  assessmentId: null,
+  responses: {},
+  lastSaved: null,
+  isDirty: false,
+  setAssessmentId: (id) => set({ assessmentId: id, responses: {}, isDirty: false }),
+  updateResponse: (questionId, data) =>
+    set((state) => ({
+      responses: {
+        ...state.responses,
+        [questionId]: {
+          ...state.responses[questionId],
+          questionId,
+          ...data,
+        },
+      },
+      isDirty: true,
+    })),
+  clearDraft: () => set({ assessmentId: null, responses: {}, isDirty: false }),
+  markSaved: () => set({ isDirty: false, lastSaved: new Date() }),
+}));
+
+// UI store
+interface UIState {
+  sidebarOpen: boolean;
+  currentSection: string | null;
+  toggleSidebar: () => void;
+  setCurrentSection: (section: string | null) => void;
+}
+
+export const useUIStore = create<UIState>()((set) => ({
+  sidebarOpen: true,
+  currentSection: null,
+  toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
+  setCurrentSection: (section) => set({ currentSection: section }),
+}));

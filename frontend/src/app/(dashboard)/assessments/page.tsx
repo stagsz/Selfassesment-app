@@ -1,0 +1,251 @@
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { useQuery } from '@tanstack/react-query';
+import { format } from 'date-fns';
+import {
+  Plus,
+  Search,
+  Filter,
+  MoreVertical,
+  Eye,
+  Edit,
+  Copy,
+  Trash2,
+} from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { ProgressBar } from '@/components/ui/progress-bar';
+import { assessmentsApi } from '@/lib/api';
+
+// Mock data for demonstration
+const mockAssessments = [
+  {
+    id: '1',
+    title: 'Q4 2024 Internal Audit',
+    status: 'COMPLETED',
+    auditType: 'INTERNAL',
+    overallScore: 72.5,
+    progress: 100,
+    scheduledDate: '2024-12-10',
+    completedDate: '2024-12-15',
+    leadAuditor: { firstName: 'John', lastName: 'Doe' },
+    _count: { responses: 45, nonConformities: 3 },
+  },
+  {
+    id: '2',
+    title: 'Q1 2025 Pre-Certification',
+    status: 'IN_PROGRESS',
+    auditType: 'INTERNAL',
+    overallScore: null,
+    progress: 65,
+    scheduledDate: '2025-01-15',
+    completedDate: null,
+    leadAuditor: { firstName: 'Jane', lastName: 'Smith' },
+    _count: { responses: 29, nonConformities: 1 },
+  },
+  {
+    id: '3',
+    title: 'Operations Department Audit',
+    status: 'DRAFT',
+    auditType: 'INTERNAL',
+    overallScore: null,
+    progress: 0,
+    scheduledDate: '2025-02-01',
+    completedDate: null,
+    leadAuditor: { firstName: 'Mike', lastName: 'Johnson' },
+    _count: { responses: 0, nonConformities: 0 },
+  },
+];
+
+const statusColors = {
+  DRAFT: 'bg-gray-100 text-gray-700',
+  IN_PROGRESS: 'bg-blue-100 text-blue-700',
+  UNDER_REVIEW: 'bg-yellow-100 text-yellow-700',
+  COMPLETED: 'bg-green-100 text-green-700',
+  ARCHIVED: 'bg-gray-100 text-gray-500',
+};
+
+export default function AssessmentsPage() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState<string>('');
+
+  // In production:
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ['assessments', { q: searchTerm, status: statusFilter }],
+  //   queryFn: () => assessmentsApi.list({ q: searchTerm, status: statusFilter }),
+  // });
+
+  const data = { data: mockAssessments };
+  const isLoading = false;
+
+  const assessments = data?.data || [];
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Assessments</h1>
+          <p className="text-gray-500">Manage your ISO 9001 self-assessments and audits</p>
+        </div>
+        <Link href="/assessments/new">
+          <Button>
+            <Plus className="mr-2 h-4 w-4" />
+            New Assessment
+          </Button>
+        </Link>
+      </div>
+
+      {/* Filters */}
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+                <Input
+                  placeholder="Search assessments..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <select
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+                className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+              >
+                <option value="">All Status</option>
+                <option value="DRAFT">Draft</option>
+                <option value="IN_PROGRESS">In Progress</option>
+                <option value="UNDER_REVIEW">Under Review</option>
+                <option value="COMPLETED">Completed</option>
+                <option value="ARCHIVED">Archived</option>
+              </select>
+              <Button variant="outline">
+                <Filter className="mr-2 h-4 w-4" />
+                More Filters
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Assessments List */}
+      <div className="space-y-4">
+        {isLoading ? (
+          <div className="flex items-center justify-center h-64">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600" />
+          </div>
+        ) : assessments.length === 0 ? (
+          <Card>
+            <CardContent className="py-12 text-center">
+              <p className="text-gray-500">No assessments found</p>
+              <Link href="/assessments/new">
+                <Button className="mt-4">Create your first assessment</Button>
+              </Link>
+            </CardContent>
+          </Card>
+        ) : (
+          assessments.map((assessment) => (
+            <Card key={assessment.id} className="hover:shadow-md transition-shadow">
+              <CardContent className="py-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3">
+                      <Link
+                        href={`/assessments/${assessment.id}`}
+                        className="text-lg font-semibold text-gray-900 hover:text-primary-600"
+                      >
+                        {assessment.title}
+                      </Link>
+                      <span
+                        className={`px-2 py-1 text-xs font-medium rounded-full ${
+                          statusColors[assessment.status as keyof typeof statusColors]
+                        }`}
+                      >
+                        {assessment.status.replace('_', ' ')}
+                      </span>
+                      <span className="px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded-full">
+                        {assessment.auditType}
+                      </span>
+                    </div>
+                    <div className="mt-2 flex items-center gap-6 text-sm text-gray-500">
+                      <span>
+                        Lead: {assessment.leadAuditor.firstName} {assessment.leadAuditor.lastName}
+                      </span>
+                      <span>
+                        Scheduled: {format(new Date(assessment.scheduledDate), 'MMM d, yyyy')}
+                      </span>
+                      <span>Responses: {assessment._count.responses}</span>
+                      {assessment._count.nonConformities > 0 && (
+                        <span className="text-red-600">
+                          NC: {assessment._count.nonConformities}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-6">
+                    {/* Progress or Score */}
+                    <div className="w-40">
+                      {assessment.status === 'COMPLETED' ? (
+                        <div className="text-center">
+                          <span
+                            className={`text-2xl font-bold ${
+                              (assessment.overallScore || 0) >= 70
+                                ? 'text-green-600'
+                                : (assessment.overallScore || 0) >= 50
+                                ? 'text-yellow-600'
+                                : 'text-red-600'
+                            }`}
+                          >
+                            {assessment.overallScore?.toFixed(1)}%
+                          </span>
+                          <p className="text-xs text-gray-500">Compliance Score</p>
+                        </div>
+                      ) : (
+                        <ProgressBar
+                          value={assessment.progress}
+                          label="Progress"
+                          size="sm"
+                        />
+                      )}
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex items-center gap-2">
+                      <Link href={`/assessments/${assessment.id}`}>
+                        <Button variant="ghost" size="icon" title="View">
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                      </Link>
+                      {assessment.status !== 'COMPLETED' && (
+                        <Link href={`/assessments/${assessment.id}/edit`}>
+                          <Button variant="ghost" size="icon" title="Edit">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                      )}
+                      <Button variant="ghost" size="icon" title="Clone">
+                        <Copy className="h-4 w-4" />
+                      </Button>
+                      <Button variant="ghost" size="icon" title="More">
+                        <MoreVertical className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))
+        )}
+      </div>
+    </div>
+  );
+}
