@@ -47,3 +47,18 @@ prisma/*.db-journal
 
 # Uploads
 uploads/
+
+# Ralph Template (autonomous AI workflow)
+loop.ps1
+loop.sh
+loop.bat
+PROMPT_Plan.md
+PROMPT_Build.md
+AGENTS.md
+IMPLEMENTATION_PLAN.md
+PRD.json
+CLAUDE.md
+evaluate_loop.ps1
+check_prompt_injection.ps1
+ralph_log_*.txt
+evaluation_protocol_*.md
