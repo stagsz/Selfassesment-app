@@ -154,7 +154,14 @@ model Assessment {
   title           String
   description     String?
   status          AssessmentStatus @default(DRAFT)
+  auditType       AuditType @default(INTERNAL)
+  scope           String?
+  objectives      Json?
   overallScore    Float?
+  sectionScores   Json?
+  scheduledDate   DateTime?
+  dueDate         DateTime?
+  completedDate   DateTime?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
@@ -167,11 +174,16 @@ model Assessment {
   templateId      String?
   template        AssessmentTemplate? @relation(fields: [templateId], references: [id])
 
+  previousAssessmentId String?
+  previousAssessment   Assessment? @relation("AssessmentHistory", fields: [previousAssessmentId], references: [id])
+  followUpAssessments  Assessment[] @relation("AssessmentHistory")
+
   responses       QuestionResponse[]
   teamMembers     AssessmentTeamMember[]
 
   @@index([organizationId])
   @@index([templateId])
+  @@index([previousAssessmentId])
   @@map("assessments")
 }
 
