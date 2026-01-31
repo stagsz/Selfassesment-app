@@ -6,7 +6,7 @@ export class AuthController {
    * POST /api/auth/register
    */
   async register(req: Request, res: Response): Promise<void> {
-    const { email, password, firstName, lastName, organizationId, role, department } = req.body;
+    const { email, password, firstName, lastName, organizationId, role } = req.body;
 
     const user = await authService.register({
       email,
@@ -15,7 +15,6 @@ export class AuthController {
       lastName,
       organizationId,
       role,
-      department,
     });
 
     res.status(201).json({

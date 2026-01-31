@@ -7,76 +7,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// User roles for access control
-enum UserRole {
-  SYSTEM_ADMIN
-  QUALITY_MANAGER
-  INTERNAL_AUDITOR
-  DEPARTMENT_HEAD
-  VIEWER
-}
-
-// Assessment lifecycle states
-enum AssessmentStatus {
-  DRAFT
-  IN_PROGRESS
-  UNDER_REVIEW
-  COMPLETED
-  ARCHIVED
-}
-
-// Type of audit being conducted
-enum AuditType {
-  INTERNAL
-  EXTERNAL
-  SURVEILLANCE
-  CERTIFICATION
-}
-
-// Role within an assessment team
-enum TeamMemberRole {
-  LEAD_AUDITOR
-  AUDITOR
-  OBSERVER
-}
-
-// Severity level for non-conformities
-enum Severity {
-  MINOR
-  MAJOR
-  CRITICAL
-}
-
-// Non-conformity report status
-enum NCRStatus {
-  OPEN
-  IN_PROGRESS
-  RESOLVED
-  CLOSED
-}
-
-// Corrective action status
-enum ActionStatus {
-  PENDING
-  IN_PROGRESS
-  COMPLETED
-  VERIFIED
-}
-
-// Priority for corrective actions
-enum Priority {
-  LOW
-  MEDIUM
-  HIGH
-  CRITICAL
-}
-
-// Type of evidence attachment
-enum EvidenceType {
-  DOCUMENT
-  IMAGE
-  LINK
-}
+// NOTE: SQLite does not support native enums. The following enum values are enforced
+// at the application layer. When migrating to PostgreSQL, uncomment the enum definitions
+// and update the field types.
+//
+// UserRole: SYSTEM_ADMIN, QUALITY_MANAGER, INTERNAL_AUDITOR, DEPARTMENT_HEAD, VIEWER
+// AssessmentStatus: DRAFT, IN_PROGRESS, UNDER_REVIEW, COMPLETED, ARCHIVED
+// AuditType: INTERNAL, EXTERNAL, SURVEILLANCE, CERTIFICATION
+// TeamMemberRole: LEAD_AUDITOR, AUDITOR, OBSERVER
+// Severity: MINOR, MAJOR, CRITICAL
+// NCRStatus: OPEN, IN_PROGRESS, RESOLVED, CLOSED
+// ActionStatus: PENDING, IN_PROGRESS, COMPLETED, VERIFIED
+// Priority: LOW, MEDIUM, HIGH, CRITICAL
+// EvidenceType: DOCUMENT, IMAGE, LINK
 
 model Organization {
   id          String   @id @default(uuid())
@@ -133,7 +76,7 @@ model User {
   passwordHash    String
   firstName       String
   lastName        String
-  role            UserRole  @default(VIEWER)
+  role            String    @default("VIEWER")
   isActive        Boolean   @default(true)
   lastLoginAt     DateTime?
   createdAt       DateTime  @default(now())
@@ -157,12 +100,12 @@ model Assessment {
   id              String    @id @default(uuid())
   title           String
   description     String?
-  status          AssessmentStatus @default(DRAFT)
-  auditType       AuditType @default(INTERNAL)
+  status          String    @default("DRAFT")
+  auditType       String    @default("INTERNAL")
   scope           String?
-  objectives      Json?
+  objectives      String?
   overallScore    Float?
-  sectionScores   Json?
+  sectionScores   String?
   scheduledDate   DateTime?
   dueDate         DateTime?
   completedDate   DateTime?
@@ -194,7 +137,7 @@ model Assessment {
 
 model AssessmentTeamMember {
   id           String         @id @default(uuid())
-  role         TeamMemberRole @default(AUDITOR)
+  role         String         @default("AUDITOR")
   createdAt    DateTime       @default(now())
 
   assessmentId String
@@ -264,7 +207,7 @@ model QuestionResponse {
 
 model Evidence {
   id            String       @id @default(uuid())
-  type          EvidenceType
+  type          String
   fileName      String
   filePath      String
   fileSize      Int
@@ -287,8 +230,8 @@ model NonConformity {
   id              String    @id @default(uuid())
   title           String
   description     String
-  severity        Severity
-  status          NCRStatus @default(OPEN)
+  severity        String
+  status          String    @default("OPEN")
   identifiedDate  DateTime  @default(now())
   rootCause       String?
   rootCauseMethod String?
@@ -311,8 +254,8 @@ model NonConformity {
 model CorrectiveAction {
   id                 String       @id @default(uuid())
   description        String
-  priority           Priority     @default(MEDIUM)
-  status             ActionStatus @default(PENDING)
+  priority           String       @default("MEDIUM")
+  status             String       @default("PENDING")
   targetDate         DateTime?
   completedDate      DateTime?
   verifiedDate       DateTime?

@@ -3,12 +3,12 @@ import jwt from 'jsonwebtoken';
 import { prisma } from '../config/database';
 import { config } from '../config';
 import { AuthenticationError, ValidationError, NotFoundError } from '../utils/errors';
-import { UserRole } from '@prisma/client';
+import { UserRole } from '../types/enums';
 
 interface TokenPayload {
   userId: string;
   email: string;
-  role: UserRole;
+  role: string;
   organizationId: string;
 }
 
@@ -23,8 +23,7 @@ interface UserWithOrg {
   email: string;
   firstName: string;
   lastName: string;
-  role: UserRole;
-  department: string | null;
+  role: string;
   isActive: boolean;
   organizationId: string;
   organization: {
@@ -46,7 +45,6 @@ export class AuthService {
     lastName: string;
     organizationId: string;
     role?: UserRole;
-    department?: string;
   }): Promise<UserWithOrg> {
     // Check if email already exists
     const existingUser = await prisma.user.findUnique({
@@ -77,7 +75,6 @@ export class AuthService {
         firstName: data.firstName,
         lastName: data.lastName,
         role: data.role || 'VIEWER',
-        department: data.department,
         organizationId: data.organizationId,
       },
       select: {
@@ -86,7 +83,6 @@ export class AuthService {
         firstName: true,
         lastName: true,
         role: true,
-        department: true,
         isActive: true,
         organizationId: true,
         organization: {
@@ -144,10 +140,17 @@ export class AuthService {
       organizationId: user.organizationId,
     });
 
-    const { passwordHash: _, ...userWithoutPassword } = user;
-
     return {
-      user: userWithoutPassword,
+      user: {
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: user.role,
+        isActive: user.isActive,
+        organizationId: user.organizationId,
+        organization: user.organization,
+      },
       tokens,
     };
   }
@@ -211,11 +214,11 @@ export class AuthService {
    */
   private generateTokens(payload: TokenPayload): AuthTokens {
     const accessToken = jwt.sign(payload, config.jwt.secret, {
-      expiresIn: config.jwt.expiresIn,
+      expiresIn: config.jwt.expiresIn as jwt.SignOptions['expiresIn'],
     });
 
     const refreshToken = jwt.sign(payload, config.jwt.refreshSecret, {
-      expiresIn: config.jwt.refreshExpiresIn,
+      expiresIn: config.jwt.refreshExpiresIn as jwt.SignOptions['expiresIn'],
     });
 
     // Parse expiration time

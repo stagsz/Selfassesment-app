@@ -1,6 +1,6 @@
 import { prisma } from '../config/database';
 import { NotFoundError, ValidationError, AuthorizationError } from '../utils/errors';
-import { AssessmentStatus, AuditType, UserRole } from '@prisma/client';
+import { AssessmentStatus, AuditType, UserRole } from '../types/enums';
 
 interface CreateAssessmentData {
   title: string;
@@ -83,7 +83,7 @@ export class AssessmentService {
         description: data.description,
         auditType: data.auditType || 'INTERNAL',
         scope: data.scope,
-        objectives: data.objectives || [],
+        objectives: JSON.stringify(data.objectives || []),
         scheduledDate: data.scheduledDate,
         dueDate: data.dueDate,
         organizationId,
@@ -303,15 +303,19 @@ export class AssessmentService {
 
     // Validate status transitions
     if (data.status) {
-      this.validateStatusTransition(assessment.status, data.status);
+      this.validateStatusTransition(assessment.status as AssessmentStatus, data.status);
     }
+
+    // Prepare update data, converting objectives array to JSON string if present
+    const updateData: Record<string, unknown> = {
+      ...data,
+      ...(data.objectives && { objectives: JSON.stringify(data.objectives) }),
+      ...(data.status === 'COMPLETED' && { completedDate: new Date() }),
+    };
 
     const updated = await prisma.assessment.update({
       where: { id },
-      data: {
-        ...data,
-        ...(data.status === 'COMPLETED' && { completedDate: new Date() }),
-      },
+      data: updateData,
       include: {
         leadAuditor: {
           select: {
@@ -390,7 +394,7 @@ export class AssessmentService {
     const sectionResponses = new Map<string, typeof assessment.responses>();
 
     for (const response of assessment.responses) {
-      const sectionId = response.sectionId;
+      const sectionId = response.sectionId || 'uncategorized';
       if (!sectionResponses.has(sectionId)) {
         sectionResponses.set(sectionId, []);
       }
@@ -413,8 +417,8 @@ export class AssessmentService {
 
         sectionScores.push({
           sectionId,
-          sectionNumber: section.sectionNumber,
-          sectionTitle: section.title,
+          sectionNumber: section?.sectionNumber || 'N/A',
+          sectionTitle: section?.title || 'Uncategorized',
           score: Math.round(scorePercentage * 10) / 10,
           actualScore,
           maxPossibleScore,
@@ -436,7 +440,7 @@ export class AssessmentService {
       where: { id },
       data: {
         overallScore,
-        sectionScores,
+        sectionScores: JSON.stringify(sectionScores),
       },
     });
 
@@ -465,7 +469,7 @@ export class AssessmentService {
       data: {
         title: newTitle,
         description: original.description,
-        auditType: original.auditType,
+        auditType: original.auditType as string,
         scope: original.scope,
         objectives: original.objectives,
         organizationId,
@@ -475,7 +479,7 @@ export class AssessmentService {
         teamMembers: {
           create: original.teamMembers.map((tm) => ({
             userId: tm.userId,
-            role: tm.role,
+            role: tm.role as string,
           })),
         },
       },

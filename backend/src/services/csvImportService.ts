@@ -11,9 +11,7 @@ interface CSVRow {
   score1Criteria: string;
   score2Criteria: string;
   score3Criteria: string;
-  referenceDocuments?: string;
   guidance?: string;
-  subPoints?: string;
 }
 
 interface ImportResult {
@@ -95,9 +93,7 @@ export class CSVImportService {
                 title: sectionData.title,
                 description: sectionData.description,
                 order: this.calculateSectionOrder(sectionNumber),
-                weight: this.calculateSectionWeight(sectionNumber),
-                isCritical: this.isCriticalSection(sectionNumber),
-                parentSectionId: await this.getParentSectionId(tx, sectionNumber),
+                parentId: await this.getParentSectionId(tx, sectionNumber),
               },
             });
             sectionId = existingSection.id;
@@ -109,9 +105,7 @@ export class CSVImportService {
                 title: sectionData.title,
                 description: sectionData.description,
                 order: this.calculateSectionOrder(sectionNumber),
-                weight: this.calculateSectionWeight(sectionNumber),
-                isCritical: this.isCriticalSection(sectionNumber),
-                parentSectionId: await this.getParentSectionId(tx, sectionNumber),
+                parentId: await this.getParentSectionId(tx, sectionNumber),
               },
             });
             sectionId = section.id;
@@ -133,8 +127,7 @@ export class CSVImportService {
                   score1Criteria: question.score1Criteria,
                   score2Criteria: question.score2Criteria,
                   score3Criteria: question.score3Criteria,
-                  subPoints: question.subPoints,
-                  referenceDocuments: question.referenceDocuments,
+                  standardReference: question.standardReference,
                   order: question.order,
                   sectionId,
                 },
@@ -149,8 +142,7 @@ export class CSVImportService {
                   score1Criteria: question.score1Criteria,
                   score2Criteria: question.score2Criteria,
                   score3Criteria: question.score3Criteria,
-                  subPoints: question.subPoints,
-                  referenceDocuments: question.referenceDocuments,
+                  standardReference: question.standardReference,
                   order: question.order,
                   sectionId,
                 },
@@ -293,8 +285,7 @@ export class CSVImportService {
       score1Criteria: string;
       score2Criteria: string;
       score3Criteria: string;
-      subPoints?: any;
-      referenceDocuments: string[];
+      standardReference: string;
       order: number;
     }[];
   }> {
@@ -323,10 +314,7 @@ export class CSVImportService {
         score1Criteria: row.score1Criteria,
         score2Criteria: row.score2Criteria,
         score3Criteria: row.score3Criteria,
-        subPoints: row.subPoints ? this.parseSubPoints(row.subPoints) : undefined,
-        referenceDocuments: row.referenceDocuments
-          ? row.referenceDocuments.split(',').map((d) => d.trim())
-          : [],
+        standardReference: row.standardReference,
         order: currentCount,
       });
     }
@@ -359,23 +347,6 @@ export class CSVImportService {
   }
 
   /**
-   * Parse sub-points from string
-   */
-  private parseSubPoints(subPointsStr: string): any {
-    try {
-      // Try JSON format first
-      return JSON.parse(subPointsStr);
-    } catch {
-      // Fall back to semicolon-separated format
-      return subPointsStr.split(';').map((sp, i) => ({
-        id: `sp-${i + 1}`,
-        text: sp.trim(),
-        order: i + 1,
-      }));
-    }
-  }
-
-  /**
    * Calculate section order based on section number
    */
   private calculateSectionOrder(sectionNumber: string): number {
@@ -384,25 +355,6 @@ export class CSVImportService {
     return parts.reduce((acc, part, index) => {
       return acc + part * Math.pow(100, 2 - index);
     }, 0);
-  }
-
-  /**
-   * Calculate section weight based on importance
-   */
-  private calculateSectionWeight(sectionNumber: string): number {
-    // Critical sections have higher weights
-    const criticalSections = ['8', '9', '10'];
-    const mainSection = sectionNumber.split('.')[0];
-    return criticalSections.includes(mainSection) ? 1.5 : 1.0;
-  }
-
-  /**
-   * Determine if section is critical for certification
-   */
-  private isCriticalSection(sectionNumber: string): boolean {
-    const criticalSections = ['8', '9', '10'];
-    const mainSection = sectionNumber.split('.')[0];
-    return criticalSections.includes(mainSection);
   }
 
   /**
