@@ -1,6 +1,23 @@
 import { Router } from 'express';
+import multer from 'multer';
 import { standardsController } from '../controllers/standardsController';
 import { withAuth, withAuthAndRoles, asyncHandler } from '../proxy';
+
+// Configure multer for CSV file uploads (memory storage)
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB limit for CSV files
+  },
+  fileFilter: (_req, file, cb) => {
+    // Accept only CSV files
+    if (file.mimetype === 'text/csv' || file.originalname.endsWith('.csv')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only CSV files are allowed'));
+    }
+  },
+});
 
 const router = Router();
 
@@ -46,6 +63,16 @@ router.put(
   withAuthAndRoles(
     ['SYSTEM_ADMIN', 'QUALITY_MANAGER'],
     asyncHandler(standardsController.updateQuestion.bind(standardsController))
+  )
+);
+
+// POST /api/standards/import - Import questions from CSV (admin/quality manager only)
+router.post(
+  '/import',
+  withAuthAndRoles(
+    ['SYSTEM_ADMIN', 'QUALITY_MANAGER'],
+    upload.single('file'),
+    asyncHandler(standardsController.importCSV.bind(standardsController))
   )
 );
 

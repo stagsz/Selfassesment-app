@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
 import { standardsService } from '../services/standardsService';
+import { csvImportService } from '../services/csvImportService';
 import { withValidation, commonSchemas } from '../proxy/validationProxy';
+import { ValidationError } from '../utils/errors';
 
 // -----------------------------------------------------------------------------
 // Validation Schemas
@@ -160,6 +162,39 @@ export class StandardsController {
       });
     }
   );
+
+  /**
+   * POST /api/standards/import
+   * Import questions from CSV file
+   * Accepts multipart/form-data with 'file' field or JSON with 'csvContent' field
+   */
+  importCSV = async (req: Request, res: Response): Promise<void> => {
+    let csvContent: string;
+
+    // Check if file was uploaded via multer
+    if (req.file) {
+      csvContent = req.file.buffer.toString('utf-8');
+    } else if (req.body.csvContent && typeof req.body.csvContent === 'string') {
+      // Accept CSV content directly in request body
+      csvContent = req.body.csvContent;
+    } else {
+      throw new ValidationError('No CSV file or content provided. Upload a file or provide csvContent in request body.');
+    }
+
+    const result = await csvImportService.importFromContent(csvContent);
+
+    res.status(result.success ? 200 : 400).json({
+      success: result.success,
+      data: {
+        sectionsCreated: result.sectionsCreated,
+        sectionsUpdated: result.sectionsUpdated,
+        questionsCreated: result.questionsCreated,
+        questionsUpdated: result.questionsUpdated,
+      },
+      errors: result.errors.length > 0 ? result.errors : undefined,
+      warnings: result.warnings.length > 0 ? result.warnings : undefined,
+    });
+  };
 }
 
 export const standardsController = new StandardsController();
