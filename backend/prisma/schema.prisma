@@ -86,8 +86,26 @@ model Organization {
 
   users       User[]
   assessments Assessment[]
+  templates   AssessmentTemplate[]
 
   @@map("organizations")
+}
+
+model AssessmentTemplate {
+  id            String   @id @default(uuid())
+  name          String
+  description   String?
+  isDefault     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+
+  assessments    Assessment[]
+
+  @@index([organizationId])
+  @@map("assessment_templates")
 }
 
 model ISOStandardSection {
@@ -145,9 +163,13 @@ model Assessment {
   leadAuditorId   String
   leadAuditor     User @relation(fields: [leadAuditorId], references: [id])
 
+  templateId      String?
+  template        AssessmentTemplate? @relation(fields: [templateId], references: [id])
+
   responses       QuestionResponse[]
 
   @@index([organizationId])
+  @@index([templateId])
   @@map("assessments")
 }
 
