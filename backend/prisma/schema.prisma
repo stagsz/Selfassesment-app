@@ -1,34 +1,20 @@
-// =============================================================================
-// ISO 9001 Self-Assessment & Audit Management - Prisma Schema
-// =============================================================================
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
-
-// -----------------------------------------------------------------------------
-// Organization & User Models
-// -----------------------------------------------------------------------------
 
 model Organization {
   id          String   @id @default(uuid())
   name        String
-  description String?
-  industry    String?
-  size        String?
-  logoUrl     String?
-  settings    Json     @default("{}")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   users       User[]
   assessments Assessment[]
-  templates   AssessmentTemplate[]
 
   @@map("organizations")
 }
@@ -39,380 +25,75 @@ model User {
   passwordHash    String
   firstName       String
   lastName        String
-  role            UserRole  @default(VIEWER)
-  department      String?
+  role            String    @default("VIEWER")
   isActive        Boolean   @default(true)
   lastLoginAt     DateTime?
-  profileImageUrl String?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
   organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
 
-  // Assessments where user is lead auditor
-  leadAssessments Assessment[] @relation("LeadAuditor")
-
-  // Assessments where user is team member
-  teamAssessments AssessmentTeamMember[]
-
-  // Actions assigned to user
-  assignedActions    CorrectiveAction[] @relation("ActionAssignee")
-  reviewingActions   CorrectiveAction[] @relation("ActionReviewer")
-
-  // Audit trail
-  createdResponses   QuestionResponse[] @relation("ResponseCreator")
-  updatedResponses   QuestionResponse[] @relation("ResponseUpdater")
-  createdEvidence    Evidence[]         @relation("EvidenceCreator")
-  createdNonConformities NonConformity[] @relation("NCCreator")
-  createdActions     CorrectiveAction[] @relation("ActionCreator")
+  assessments     Assessment[]
+  responses       QuestionResponse[]
 
   @@index([organizationId])
-  @@index([email])
   @@map("users")
 }
 
-enum UserRole {
-  SYSTEM_ADMIN
-  QUALITY_MANAGER
-  INTERNAL_AUDITOR
-  DEPARTMENT_HEAD
-  VIEWER
-}
-
-// -----------------------------------------------------------------------------
-// ISO Standard Structure Models
-// -----------------------------------------------------------------------------
-
-model ISOStandardSection {
-  id              String   @id @default(uuid())
-  sectionNumber   String   @unique  // e.g., "4.1", "4.2", "9.2"
-  title           String
-  description     String   @db.Text
-  parentSectionId String?
-  order           Int
-  weight          Float    @default(1.0)
-  isCritical      Boolean  @default(false)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  parentSection  ISOStandardSection?  @relation("SectionHierarchy", fields: [parentSectionId], references: [id])
-  childSections  ISOStandardSection[] @relation("SectionHierarchy")
-  questions      AuditQuestion[]
-  responses      QuestionResponse[]
-
-  @@index([sectionNumber])
-  @@map("iso_standard_sections")
-}
-
-model AuditQuestion {
-  id                 String   @id @default(uuid())
-  questionNumber     String   @unique  // e.g., "4.1.1", "4.1.2"
-  questionText       String   @db.Text
-  guidance           String?  @db.Text
-  score1Criteria     String   @db.Text  // Non-compliant criteria
-  score2Criteria     String   @db.Text  // Partially compliant criteria
-  score3Criteria     String   @db.Text  // Fully compliant criteria
-  subPoints          Json?    // Array of sub-points for verification
-  order              Int
-  isRequired         Boolean  @default(true)
-  referenceDocuments String[] @default([])
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-
-  sectionId String
-  section   ISOStandardSection @relation(fields: [sectionId], references: [id])
-
-  responses QuestionResponse[]
-
-  @@index([sectionId])
-  @@index([questionNumber])
-  @@map("audit_questions")
-}
-
-// -----------------------------------------------------------------------------
-// Assessment Models
-// -----------------------------------------------------------------------------
-
-model AssessmentTemplate {
-  id          String   @id @default(uuid())
-  name        String
-  description String?
-  isDefault   Boolean  @default(false)
-  config      Json     @default("{}")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  organizationId String
-  organization   Organization @relation(fields: [organizationId], references: [id])
-
-  assessments Assessment[]
-
-  @@index([organizationId])
-  @@map("assessment_templates")
-}
-
 model Assessment {
-  id               String           @id @default(uuid())
-  title            String
-  description      String?          @db.Text
-  status           AssessmentStatus @default(DRAFT)
-  auditType        AuditType        @default(INTERNAL)
-  scope            String?          @db.Text
-  objectives       String[]         @default([])
-  auditCriteria    String?          @db.Text
-  scheduledDate    DateTime?
-  completedDate    DateTime?
-  dueDate          DateTime?
-  overallScore     Float?
-  sectionScores    Json             @default("[]")  // Array of SectionScore objects
-  metadata         Json             @default("{}")
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
+  id              String    @id @default(uuid())
+  title           String
+  description     String?
+  status          String    @default("DRAFT")
+  overallScore    Float?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
-  organizationId          String
-  organization            Organization        @relation(fields: [organizationId], references: [id])
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id])
 
-  leadAuditorId           String
-  leadAuditor             User                @relation("LeadAuditor", fields: [leadAuditorId], references: [id])
+  leadAuditorId   String
+  leadAuditor     User @relation(fields: [leadAuditorId], references: [id])
 
-  templateId              String?
-  template                AssessmentTemplate? @relation(fields: [templateId], references: [id])
-
-  previousAssessmentId    String?             @unique
-  previousAssessment      Assessment?         @relation("AssessmentHistory", fields: [previousAssessmentId], references: [id])
-  nextAssessment          Assessment?         @relation("AssessmentHistory")
-
-  teamMembers      AssessmentTeamMember[]
-  responses        QuestionResponse[]
-  nonConformities  NonConformity[]
+  responses       QuestionResponse[]
 
   @@index([organizationId])
-  @@index([leadAuditorId])
-  @@index([status])
-  @@index([scheduledDate])
   @@map("assessments")
 }
 
-model AssessmentTeamMember {
-  id           String   @id @default(uuid())
-  assessmentId String
-  userId       String
-  role         String   @default("AUDITOR")
-  createdAt    DateTime @default(now())
+model AuditQuestion {
+  id              String    @id @default(uuid())
+  questionNumber  String    @unique
+  questionText    String
+  guidance        String?
+  score1Criteria  String?
+  score2Criteria  String?
+  score3Criteria  String?
+  createdAt       DateTime  @default(now())
 
-  assessment Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
-  user       User       @relation(fields: [userId], references: [id])
+  responses       QuestionResponse[]
 
-  @@unique([assessmentId, userId])
-  @@map("assessment_team_members")
+  @@map("audit_questions")
 }
-
-enum AssessmentStatus {
-  DRAFT
-  IN_PROGRESS
-  UNDER_REVIEW
-  COMPLETED
-  ARCHIVED
-}
-
-enum AuditType {
-  INTERNAL
-  EXTERNAL
-  SURVEILLANCE
-  CERTIFICATION
-}
-
-// -----------------------------------------------------------------------------
-// Question Response Models
-// -----------------------------------------------------------------------------
 
 model QuestionResponse {
-  id              String   @id @default(uuid())
-  score           Int?     // 1, 2, or 3
-  justification   String?  @db.Text
-  verifiedSubPoints String[] @default([])  // IDs of verified sub-points
-  actionProposal  String?  @db.Text
-  conclusion      String?  @db.Text
-  isDraft         Boolean  @default(true)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id              String    @id @default(uuid())
+  score           Int?
+  justification   String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
-  assessmentId String
-  assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  assessmentId    String
+  assessment      Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
 
-  questionId String
-  question   AuditQuestion @relation(fields: [questionId], references: [id])
+  questionId      String
+  question        AuditQuestion @relation(fields: [questionId], references: [id])
 
-  sectionId String
-  section   ISOStandardSection @relation(fields: [sectionId], references: [id])
-
-  createdById String
-  createdBy   User @relation("ResponseCreator", fields: [createdById], references: [id])
-
-  updatedById String
-  updatedBy   User @relation("ResponseUpdater", fields: [updatedById], references: [id])
-
-  evidence       Evidence[]
-  nonConformities NonConformity[]
+  userId          String
+  user            User @relation(fields: [userId], references: [id])
 
   @@unique([assessmentId, questionId])
   @@index([assessmentId])
-  @@index([questionId])
-  @@index([sectionId])
-  @@index([score])
   @@map("question_responses")
-}
-
-// -----------------------------------------------------------------------------
-// Evidence Models
-// -----------------------------------------------------------------------------
-
-model Evidence {
-  id                String       @id @default(uuid())
-  type              EvidenceType
-  name              String
-  description       String?      @db.Text
-  url               String?
-  fileName          String?
-  fileSize          Int?
-  mimeType          String?
-  storagePath       String?
-  version           Int          @default(1)
-  previousVersionId String?
-  tags              String[]     @default([])
-  createdAt         DateTime     @default(now())
-  updatedAt         DateTime     @updatedAt
-
-  questionResponseId String
-  questionResponse   QuestionResponse @relation(fields: [questionResponseId], references: [id], onDelete: Cascade)
-
-  createdById String
-  createdBy   User @relation("EvidenceCreator", fields: [createdById], references: [id])
-
-  previousVersion Evidence?  @relation("EvidenceVersions", fields: [previousVersionId], references: [id])
-  newerVersions   Evidence[] @relation("EvidenceVersions")
-
-  @@index([questionResponseId])
-  @@index([type])
-  @@map("evidence")
-}
-
-enum EvidenceType {
-  DOCUMENT
-  IMAGE
-  URL
-  VIDEO
-}
-
-// -----------------------------------------------------------------------------
-// Non-Conformity & Corrective Action Models
-// -----------------------------------------------------------------------------
-
-model NonConformity {
-  id            String           @id @default(uuid())
-  title         String
-  description   String           @db.Text
-  severity      NCSeverity       @default(MINOR)
-  category      String?
-  status        ActionStatus     @default(OPEN)
-  sectionNumber String
-  dueDate       DateTime?
-  closedDate    DateTime?
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
-
-  assessmentId String
-  assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
-
-  questionResponseId String
-  questionResponse   QuestionResponse @relation(fields: [questionResponseId], references: [id])
-
-  createdById String
-  createdBy   User @relation("NCCreator", fields: [createdById], references: [id])
-
-  correctiveActions CorrectiveAction[]
-
-  @@index([assessmentId])
-  @@index([questionResponseId])
-  @@index([status])
-  @@index([severity])
-  @@map("non_conformities")
-}
-
-model CorrectiveAction {
-  id               String         @id @default(uuid())
-  title            String
-  description      String         @db.Text
-  priority         ActionPriority @default(MEDIUM)
-  status           ActionStatus   @default(OPEN)
-  dueDate          DateTime?
-  completedDate    DateTime?
-  verifiedDate     DateTime?
-  rootCauseAnalysis Json?         // RootCauseAnalysis object
-  effectiveness    Json?          // ActionEffectiveness object
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @updatedAt
-
-  nonConformityId String
-  nonConformity   NonConformity @relation(fields: [nonConformityId], references: [id], onDelete: Cascade)
-
-  assigneeId String
-  assignee   User @relation("ActionAssignee", fields: [assigneeId], references: [id])
-
-  reviewerId String?
-  reviewer   User? @relation("ActionReviewer", fields: [reviewerId], references: [id])
-
-  createdById String
-  createdBy   User @relation("ActionCreator", fields: [createdById], references: [id])
-
-  @@index([nonConformityId])
-  @@index([assigneeId])
-  @@index([status])
-  @@index([priority])
-  @@index([dueDate])
-  @@map("corrective_actions")
-}
-
-enum NCSeverity {
-  MINOR
-  MAJOR
-  CRITICAL
-}
-
-enum ActionStatus {
-  OPEN
-  IN_PROGRESS
-  COMPLETED
-  VERIFIED
-  CLOSED
-}
-
-enum ActionPriority {
-  LOW
-  MEDIUM
-  HIGH
-  CRITICAL
-}
-
-// -----------------------------------------------------------------------------
-// Audit Trail Model
-// -----------------------------------------------------------------------------
-
-model AuditLog {
-  id         String   @id @default(uuid())
-  entityType String   // e.g., "Assessment", "QuestionResponse"
-  entityId   String
-  action     String   // e.g., "CREATE", "UPDATE", "DELETE"
-  changes    Json?    // Before/after values
-  userId     String
-  userEmail  String
-  ipAddress  String?
-  userAgent  String?
-  createdAt  DateTime @default(now())
-
-  @@index([entityType, entityId])
-  @@index([userId])
-  @@index([createdAt])
-  @@map("audit_logs")
 }
