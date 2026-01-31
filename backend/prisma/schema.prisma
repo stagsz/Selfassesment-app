@@ -180,8 +180,9 @@ model Assessment {
   previousAssessment   Assessment? @relation("AssessmentHistory", fields: [previousAssessmentId], references: [id])
   followUpAssessments  Assessment[] @relation("AssessmentHistory")
 
-  responses       QuestionResponse[]
-  teamMembers     AssessmentTeamMember[]
+  responses        QuestionResponse[]
+  teamMembers      AssessmentTeamMember[]
+  nonConformities  NonConformity[]
 
   @@index([organizationId])
   @@index([templateId])
@@ -251,6 +252,7 @@ model QuestionResponse {
   section         ISOStandardSection? @relation(fields: [sectionId], references: [id])
 
   evidence        Evidence[]
+  nonConformities NonConformity[]
 
   @@unique([assessmentId, questionId])
   @@index([assessmentId])
@@ -277,4 +279,27 @@ model Evidence {
   @@index([responseId])
   @@index([uploadedById])
   @@map("evidence")
+}
+
+model NonConformity {
+  id              String    @id @default(uuid())
+  title           String
+  description     String
+  severity        Severity
+  status          NCRStatus @default(OPEN)
+  identifiedDate  DateTime  @default(now())
+  rootCause       String?
+  rootCauseMethod String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  assessmentId    String
+  assessment      Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+
+  responseId      String?
+  response        QuestionResponse? @relation(fields: [responseId], references: [id])
+
+  @@index([assessmentId])
+  @@index([responseId])
+  @@map("non_conformities")
 }
