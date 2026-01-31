@@ -121,6 +121,7 @@ model ISOStandardSection {
   children      ISOStandardSection[] @relation("SectionHierarchy")
 
   questions     AuditQuestion[]
+  responses     QuestionResponse[]
 
   @@index([parentId])
   @@map("iso_standard_sections")
@@ -242,7 +243,11 @@ model QuestionResponse {
   userId          String
   user            User @relation(fields: [userId], references: [id])
 
+  sectionId       String?
+  section         ISOStandardSection? @relation(fields: [sectionId], references: [id])
+
   @@unique([assessmentId, questionId])
   @@index([assessmentId])
+  @@index([sectionId])
   @@map("question_responses")
 }
