@@ -231,6 +231,9 @@ model QuestionResponse {
   id              String    @id @default(uuid())
   score           Int?
   justification   String?
+  isDraft         Boolean   @default(true)
+  actionProposal  String?
+  conclusion      String?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
