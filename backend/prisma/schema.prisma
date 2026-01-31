@@ -90,6 +90,24 @@ model Organization {
   @@map("organizations")
 }
 
+model ISOStandardSection {
+  id            String   @id @default(uuid())
+  sectionNumber String   @unique
+  title         String
+  description   String?
+  order         Int      @default(0)
+  createdAt     DateTime @default(now())
+
+  parentId      String?
+  parent        ISOStandardSection?  @relation("SectionHierarchy", fields: [parentId], references: [id])
+  children      ISOStandardSection[] @relation("SectionHierarchy")
+
+  questions     AuditQuestion[]
+
+  @@index([parentId])
+  @@map("iso_standard_sections")
+}
+
 model User {
   id              String    @id @default(uuid())
   email           String    @unique
@@ -143,8 +161,12 @@ model AuditQuestion {
   score3Criteria  String?
   createdAt       DateTime  @default(now())
 
+  sectionId       String?
+  section         ISOStandardSection? @relation(fields: [sectionId], references: [id])
+
   responses       QuestionResponse[]
 
+  @@index([sectionId])
   @@map("audit_questions")
 }
 
