@@ -152,19 +152,22 @@ model Assessment {
 }
 
 model AuditQuestion {
-  id              String    @id @default(uuid())
-  questionNumber  String    @unique
-  questionText    String
-  guidance        String?
-  score1Criteria  String?
-  score2Criteria  String?
-  score3Criteria  String?
-  createdAt       DateTime  @default(now())
+  id                String    @id @default(uuid())
+  questionNumber    String    @unique
+  questionText      String
+  guidance          String?
+  score1Criteria    String?
+  score2Criteria    String?
+  score3Criteria    String?
+  standardReference String?
+  isActive          Boolean   @default(true)
+  order             Int       @default(0)
+  createdAt         DateTime  @default(now())
 
-  sectionId       String?
-  section         ISOStandardSection? @relation(fields: [sectionId], references: [id])
+  sectionId         String?
+  section           ISOStandardSection? @relation(fields: [sectionId], references: [id])
 
-  responses       QuestionResponse[]
+  responses         QuestionResponse[]
 
   @@index([sectionId])
   @@map("audit_questions")
