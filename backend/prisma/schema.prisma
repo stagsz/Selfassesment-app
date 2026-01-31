@@ -7,6 +7,77 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// User roles for access control
+enum UserRole {
+  SYSTEM_ADMIN
+  QUALITY_MANAGER
+  INTERNAL_AUDITOR
+  DEPARTMENT_HEAD
+  VIEWER
+}
+
+// Assessment lifecycle states
+enum AssessmentStatus {
+  DRAFT
+  IN_PROGRESS
+  UNDER_REVIEW
+  COMPLETED
+  ARCHIVED
+}
+
+// Type of audit being conducted
+enum AuditType {
+  INTERNAL
+  EXTERNAL
+  SURVEILLANCE
+  CERTIFICATION
+}
+
+// Role within an assessment team
+enum TeamMemberRole {
+  LEAD_AUDITOR
+  AUDITOR
+  OBSERVER
+}
+
+// Severity level for non-conformities
+enum Severity {
+  MINOR
+  MAJOR
+  CRITICAL
+}
+
+// Non-conformity report status
+enum NCRStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+// Corrective action status
+enum ActionStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  VERIFIED
+}
+
+// Priority for corrective actions
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+// Type of evidence attachment
+enum EvidenceType {
+  DOCUMENT
+  IMAGE
+  LINK
+}
+
 model Organization {
   id          String   @id @default(uuid())
   name        String
@@ -25,7 +96,7 @@ model User {
   passwordHash    String
   firstName       String
   lastName        String
-  role            String    @default("VIEWER")
+  role            UserRole  @default(VIEWER)
   isActive        Boolean   @default(true)
   lastLoginAt     DateTime?
   createdAt       DateTime  @default(now())
@@ -45,7 +116,7 @@ model Assessment {
   id              String    @id @default(uuid())
   title           String
   description     String?
-  status          String    @default("DRAFT")
+  status          AssessmentStatus @default(DRAFT)
   overallScore    Float?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
