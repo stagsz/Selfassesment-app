@@ -142,9 +142,10 @@ model User {
   organizationId String
   organization   Organization @relation(fields: [organizationId], references: [id])
 
-  assessments     Assessment[]
-  responses       QuestionResponse[]
-  teamMemberships AssessmentTeamMember[]
+  assessments       Assessment[]
+  responses         QuestionResponse[]
+  teamMemberships   AssessmentTeamMember[]
+  uploadedEvidence  Evidence[]
 
   @@index([organizationId])
   @@map("users")
@@ -249,8 +250,31 @@ model QuestionResponse {
   sectionId       String?
   section         ISOStandardSection? @relation(fields: [sectionId], references: [id])
 
+  evidence        Evidence[]
+
   @@unique([assessmentId, questionId])
   @@index([assessmentId])
   @@index([sectionId])
   @@map("question_responses")
+}
+
+model Evidence {
+  id            String       @id @default(uuid())
+  type          EvidenceType
+  fileName      String
+  filePath      String
+  fileSize      Int
+  mimeType      String
+  description   String?
+  uploadedAt    DateTime     @default(now())
+
+  responseId    String
+  response      QuestionResponse @relation(fields: [responseId], references: [id], onDelete: Cascade)
+
+  uploadedById  String
+  uploadedBy    User @relation(fields: [uploadedById], references: [id])
+
+  @@index([responseId])
+  @@index([uploadedById])
+  @@map("evidence")
 }
