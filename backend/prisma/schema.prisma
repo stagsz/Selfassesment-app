@@ -143,6 +143,7 @@ model User {
 
   assessments     Assessment[]
   responses       QuestionResponse[]
+  teamMemberships AssessmentTeamMember[]
 
   @@index([organizationId])
   @@map("users")
@@ -167,10 +168,28 @@ model Assessment {
   template        AssessmentTemplate? @relation(fields: [templateId], references: [id])
 
   responses       QuestionResponse[]
+  teamMembers     AssessmentTeamMember[]
 
   @@index([organizationId])
   @@index([templateId])
   @@map("assessments")
+}
+
+model AssessmentTeamMember {
+  id           String         @id @default(uuid())
+  role         TeamMemberRole @default(AUDITOR)
+  createdAt    DateTime       @default(now())
+
+  assessmentId String
+  assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+
+  userId       String
+  user         User @relation(fields: [userId], references: [id])
+
+  @@unique([assessmentId, userId])
+  @@index([assessmentId])
+  @@index([userId])
+  @@map("assessment_team_members")
 }
 
 model AuditQuestion {
