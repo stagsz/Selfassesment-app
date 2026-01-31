@@ -2,6 +2,106 @@
 
 A comprehensive web application for conducting ISO 9001:2015 Quality Management System (QMS) self-assessments and audits.
 
+---
+
+## What is This Platform?
+
+This application helps organizations achieve and maintain ISO 9001:2015 certification by providing a structured approach to:
+
+- **Self-Assessment**: Evaluate your organization's compliance with ISO 9001:2015 requirements
+- **Audit Management**: Plan, conduct, and track internal and external audits
+- **Non-Conformity Tracking**: Identify gaps and manage corrective actions
+- **Continuous Improvement**: Monitor trends and drive quality improvements over time
+
+Whether you're preparing for certification, conducting surveillance audits, or maintaining your QMS, this platform streamlines the entire process.
+
+---
+
+## Who is This For?
+
+| Role | What You Can Do |
+|------|-----------------|
+| **System Administrator** | Full system access, manage users, configure settings |
+| **Quality Manager** | Create assessments, assign auditors, generate reports, oversee the entire QMS |
+| **Internal Auditor** | Conduct assessments, score requirements, document findings and evidence |
+| **Department Head** | View your department's sections, respond to findings, track improvements |
+| **Viewer** | Read-only access to assessments and reports |
+
+---
+
+## How to Use the Platform
+
+### Getting Started
+
+1. **Login**: Navigate to the application and sign in with your credentials
+2. **Dashboard**: After login, you'll land on the Dashboard - your central hub for QMS insights
+
+### Navigation Guide
+
+The sidebar menu provides access to all features:
+
+| Menu Item | Purpose |
+|-----------|---------|
+| **Dashboard** | View overall compliance score, trends, open actions, and upcoming audits |
+| **Assessments** | Create, manage, and conduct ISO 9001 self-assessments |
+| **Non-Conformities** | Track and manage gaps identified during assessments |
+| **Actions** | Manage corrective and preventive actions |
+| **Reports** | Generate PDF reports and view compliance analytics |
+| **Standards** | View ISO 9001 sections and audit questions |
+
+*Administrators also see:*
+| **Users** | Manage user accounts and permissions |
+| **Settings** | Configure system-wide settings |
+
+### Conducting an Assessment
+
+1. **Create Assessment**: Click "New Assessment" from the Dashboard or Assessments page
+2. **Configure Details**: Set the assessment title, type (internal/external), scheduled date, and assign a lead auditor
+3. **Answer Questions**: Work through each ISO 9001 section and score each requirement:
+   - **Score 1 (Red)**: Non-compliant - requirement is not met
+   - **Score 2 (Yellow)**: Partially compliant - requirement is partially met
+   - **Score 3 (Green)**: Fully compliant - requirement is fully met
+4. **Add Evidence**: Attach documents, notes, or observations to support your scores
+5. **Auto-Save**: Your progress is automatically saved every 30 seconds
+6. **Complete**: When finished, submit the assessment for review
+
+### Understanding the Dashboard
+
+The Dashboard provides at-a-glance insights:
+
+- **Overall Compliance Score**: Your current compliance percentage with trend indicator
+- **Section Breakdown**: Bar and radar charts showing compliance by ISO 9001 section
+- **Open Actions**: Number of pending corrective actions (with overdue count)
+- **Active Non-Conformities**: Current gaps requiring attention
+- **Compliance Trend**: Historical view of your compliance journey
+- **Priority Actions**: Critical items requiring immediate attention
+- **Upcoming Audits**: Scheduled internal and external audits
+
+### Managing Non-Conformities
+
+When you score a requirement as 1 or 2, a non-conformity is automatically created. To manage them:
+
+1. Navigate to **Non-Conformities** in the sidebar
+2. View all open, in-progress, and closed non-conformities
+3. Click on any item to:
+   - Assign responsibility
+   - Set target completion dates
+   - Document root cause analysis (5 Whys, Fishbone)
+   - Track corrective actions through completion and verification
+
+### Generating Reports
+
+1. Navigate to **Reports** in the sidebar
+2. Select report type:
+   - Assessment summary
+   - Compliance trends
+   - Section comparison
+   - Executive summary
+3. Choose date range and filters
+4. Generate PDF or view interactive charts
+
+---
+
 ## Project Structure
 
 ```
@@ -37,6 +137,7 @@ iso9001-audit-management/
 
 - Node.js >= 18.0.0
 - PostgreSQL database
+- Docker Desktop (optional, for running PostgreSQL via Docker)
 - npm or yarn
 
 ### Installation
@@ -59,10 +160,30 @@ iso9001-audit-management/
 
 4. Set up the database:
    ```bash
+   # Note: Run these commands from the project ROOT directory
    npm run db:generate --workspace=backend
    npm run db:migrate --workspace=backend
    npm run db:seed --workspace=backend
+   
+   # Or run directly from backend directory without --workspace flag:
+   cd backend
+   npm run db:generate
+   npm run db:migrate
+   npm run db:seed
    ```
+
+    **Optional: Run PostgreSQL with Docker** (recommended for local dev)
+    ```bash
+    docker run --name iso9001-postgres \
+       -e POSTGRES_USER=postgres \
+       -e POSTGRES_PASSWORD=postgres123 \
+       -e POSTGRES_DB=iso9001_audit \
+       -p 5433:5432 -d postgres:16-alpine
+    ```
+    Update `backend/.env`:
+    ```bash
+    DATABASE_URL="postgresql://postgres:postgres123@localhost:5433/iso9001_audit?schema=public"
+    ```
 
 5. Start development servers:
    ```bash
@@ -171,5 +292,3 @@ The application supports importing ISO 9001 questions from CSV with the followin
 ## License
 
 Private - All rights reserved
-# Selfassesment-app
-
