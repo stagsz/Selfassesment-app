@@ -81,7 +81,7 @@ export class AssessmentService {
       data: {
         title: data.title,
         description: data.description,
-        auditType: data.auditType || 'INTERNAL',
+        auditType: data.auditType || AuditType.INTERNAL,
         scope: data.scope,
         objectives: JSON.stringify(data.objectives || []),
         scheduledDate: data.scheduledDate,
@@ -293,8 +293,8 @@ export class AssessmentService {
 
     // Check permissions
     const canEdit =
-      userRole === 'SYSTEM_ADMIN' ||
-      userRole === 'QUALITY_MANAGER' ||
+      userRole === UserRole.SYSTEM_ADMIN ||
+      userRole === UserRole.QUALITY_MANAGER ||
       assessment.leadAuditorId === userId;
 
     if (!canEdit) {
@@ -310,7 +310,7 @@ export class AssessmentService {
     const updateData: Record<string, unknown> = {
       ...data,
       ...(data.objectives && { objectives: JSON.stringify(data.objectives) }),
-      ...(data.status === 'COMPLETED' && { completedDate: new Date() }),
+      ...(data.status === AssessmentStatus.COMPLETED && { completedDate: new Date() }),
     };
 
     const updated = await prisma.assessment.update({
@@ -356,14 +356,14 @@ export class AssessmentService {
     }
 
     // Only admins and quality managers can delete
-    if (userRole !== 'SYSTEM_ADMIN' && userRole !== 'QUALITY_MANAGER') {
+    if (userRole !== UserRole.SYSTEM_ADMIN && userRole !== UserRole.QUALITY_MANAGER) {
       throw new AuthorizationError('You do not have permission to delete assessments');
     }
 
     // Archive instead of hard delete
     await prisma.assessment.update({
       where: { id },
-      data: { status: 'ARCHIVED' },
+      data: { status: AssessmentStatus.ARCHIVED },
     });
 
     return { success: true };
@@ -469,7 +469,7 @@ export class AssessmentService {
       data: {
         title: newTitle,
         description: original.description,
-        auditType: original.auditType as string,
+        auditType: original.auditType,
         scope: original.scope,
         objectives: original.objectives,
         organizationId,
@@ -479,7 +479,7 @@ export class AssessmentService {
         teamMembers: {
           create: original.teamMembers.map((tm) => ({
             userId: tm.userId,
-            role: tm.role as string,
+            role: tm.role,
           })),
         },
       },
@@ -503,11 +503,11 @@ export class AssessmentService {
    */
   private validateStatusTransition(currentStatus: AssessmentStatus, newStatus: AssessmentStatus): void {
     const validTransitions: Record<AssessmentStatus, AssessmentStatus[]> = {
-      DRAFT: ['IN_PROGRESS', 'ARCHIVED'],
-      IN_PROGRESS: ['UNDER_REVIEW', 'DRAFT', 'ARCHIVED'],
-      UNDER_REVIEW: ['COMPLETED', 'IN_PROGRESS', 'ARCHIVED'],
-      COMPLETED: ['ARCHIVED'],
-      ARCHIVED: ['DRAFT'],
+      [AssessmentStatus.DRAFT]: [AssessmentStatus.IN_PROGRESS, AssessmentStatus.ARCHIVED],
+      [AssessmentStatus.IN_PROGRESS]: [AssessmentStatus.UNDER_REVIEW, AssessmentStatus.DRAFT, AssessmentStatus.ARCHIVED],
+      [AssessmentStatus.UNDER_REVIEW]: [AssessmentStatus.COMPLETED, AssessmentStatus.IN_PROGRESS, AssessmentStatus.ARCHIVED],
+      [AssessmentStatus.COMPLETED]: [AssessmentStatus.ARCHIVED],
+      [AssessmentStatus.ARCHIVED]: [AssessmentStatus.DRAFT],
     };
 
     if (!validTransitions[currentStatus]?.includes(newStatus)) {
