@@ -12,7 +12,7 @@ router.use(withAuth((req, res, next) => next()));
 router.get(
   '/',
   withValidation(
-    { query: commonSchemas.pagination.merge(commonSchemas.search) },
+    { query: assessmentSchemas.listQuery },
     asyncHandler(assessmentController.list.bind(assessmentController))
   )
 );
@@ -74,7 +74,7 @@ router.post(
   withAuthAndRoles(
     ['SYSTEM_ADMIN', 'QUALITY_MANAGER', 'INTERNAL_AUDITOR'],
     withValidation(
-      { params: commonSchemas.uuidParam },
+      { params: commonSchemas.uuidParam, body: assessmentSchemas.clone },
       asyncHandler(assessmentController.clone.bind(assessmentController))
     )
   )

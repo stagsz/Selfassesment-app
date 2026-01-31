@@ -130,6 +130,29 @@ export const assessmentSchemas = {
     dueDate: z.coerce.date().optional(),
     completedDate: z.coerce.date().optional(),
   }),
+
+  listQuery: commonSchemas.pagination.merge(commonSchemas.search).merge(
+    z.object({
+      status: z.string().transform((val) => val.split(',')).pipe(
+        z.array(z.enum(['DRAFT', 'IN_PROGRESS', 'UNDER_REVIEW', 'COMPLETED', 'ARCHIVED']))
+      ).optional(),
+      startDate: z.coerce.date().optional(),
+      endDate: z.coerce.date().optional(),
+      leadAuditorId: z.string().uuid().optional(),
+    })
+  ).refine(
+    (data) => {
+      if (data.startDate && data.endDate) {
+        return data.startDate <= data.endDate;
+      }
+      return true;
+    },
+    { message: 'Start date must be before or equal to end date' }
+  ),
+
+  clone: z.object({
+    title: z.string().min(1, 'Title is required').max(255),
+  }),
 };
 
 // -----------------------------------------------------------------------------
