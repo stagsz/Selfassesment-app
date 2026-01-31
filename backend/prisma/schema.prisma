@@ -146,6 +146,8 @@ model User {
   responses         QuestionResponse[]
   teamMemberships   AssessmentTeamMember[]
   uploadedEvidence  Evidence[]
+  assignedActions   CorrectiveAction[] @relation("AssignedActions")
+  verifiedActions   CorrectiveAction[] @relation("VerifiedActions")
 
   @@index([organizationId])
   @@map("users")
@@ -299,7 +301,36 @@ model NonConformity {
   responseId      String?
   response        QuestionResponse? @relation(fields: [responseId], references: [id])
 
+  correctiveActions CorrectiveAction[]
+
   @@index([assessmentId])
   @@index([responseId])
   @@map("non_conformities")
+}
+
+model CorrectiveAction {
+  id                 String       @id @default(uuid())
+  description        String
+  priority           Priority     @default(MEDIUM)
+  status             ActionStatus @default(PENDING)
+  targetDate         DateTime?
+  completedDate      DateTime?
+  verifiedDate       DateTime?
+  effectivenessNotes String?
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+
+  nonConformityId    String
+  nonConformity      NonConformity @relation(fields: [nonConformityId], references: [id], onDelete: Cascade)
+
+  assignedToId       String?
+  assignedTo         User? @relation("AssignedActions", fields: [assignedToId], references: [id])
+
+  verifiedById       String?
+  verifiedBy         User? @relation("VerifiedActions", fields: [verifiedById], references: [id])
+
+  @@index([nonConformityId])
+  @@index([assignedToId])
+  @@index([verifiedById])
+  @@map("corrective_actions")
 }
