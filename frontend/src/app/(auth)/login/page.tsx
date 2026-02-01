@@ -8,6 +8,7 @@ import { z } from 'zod';
 import { toast } from 'sonner';
 import { authApi } from '@/lib/api';
 import { useAuthStore } from '@/lib/store';
+import { getAuthErrorInfo, isNetworkError } from '@/lib/auth-errors';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -39,9 +40,16 @@ export default function LoginPage() {
       setAuth(user, accessToken, refreshToken);
       toast.success('Welcome back!');
       router.push('/dashboard');
-    } catch (err: any) {
-      const errorMessage = err.response?.data?.error?.message || 'Login failed. Please try again.';
-      toast.error(errorMessage);
+    } catch (err: unknown) {
+      // Network errors are already handled by the API interceptor with a toast
+      if (isNetworkError(err)) {
+        return;
+      }
+
+      const errorInfo = getAuthErrorInfo(err);
+      toast.error(errorInfo.message, {
+        description: errorInfo.title !== 'Error' ? errorInfo.title : undefined,
+      });
     }
   };
 

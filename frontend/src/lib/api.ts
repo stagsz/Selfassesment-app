@@ -1,12 +1,19 @@
 import axios from 'axios';
+import { toast } from 'sonner';
+import { isNetworkError, getNetworkErrorInfo } from './auth-errors';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+
+// Flag to prevent multiple session expired toasts
+let isRefreshing = false;
+let sessionExpiredToastShown = false;
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 30000, // 30 second timeout
 });
 
 // Request interceptor to add auth token
@@ -25,13 +32,39 @@ api.interceptors.request.use(
 
 // Response interceptor to handle errors
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // Reset the session expired flag on successful responses
+    sessionExpiredToastShown = false;
+    return response;
+  },
   async (error) => {
     const originalRequest = error.config;
+
+    // Handle network errors
+    if (isNetworkError(error)) {
+      const errorInfo = getNetworkErrorInfo();
+      toast.error(errorInfo.message, { id: 'network-error' });
+      return Promise.reject(error);
+    }
 
     // Handle 401 errors (token expired)
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
+
+      // Check if this is an auth endpoint (login/register) - don't try to refresh
+      const isAuthEndpoint = originalRequest.url?.includes('/auth/login') ||
+        originalRequest.url?.includes('/auth/register');
+
+      if (isAuthEndpoint) {
+        return Promise.reject(error);
+      }
+
+      // Prevent multiple refresh attempts
+      if (isRefreshing) {
+        return Promise.reject(error);
+      }
+
+      isRefreshing = true;
 
       try {
         const refreshToken = localStorage.getItem('refreshToken');
@@ -44,13 +77,30 @@ api.interceptors.response.use(
           localStorage.setItem('accessToken', accessToken);
 
           originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+          isRefreshing = false;
           return api(originalRequest);
         }
       } catch {
-        // Refresh failed, clear tokens and redirect to login
+        // Refresh failed
+        isRefreshing = false;
+
+        // Only show toast once per session expiration
+        if (!sessionExpiredToastShown) {
+          sessionExpiredToastShown = true;
+          toast.error('Your session has expired. Please sign in again.', {
+            id: 'session-expired',
+            duration: 5000,
+          });
+        }
+
+        // Clear tokens
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
-        window.location.href = '/login';
+
+        // Redirect to login after a brief delay so toast is visible
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 1000);
       }
     }
 

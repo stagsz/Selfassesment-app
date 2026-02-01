@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'sonner';
 import { authApi } from '@/lib/api';
+import { getAuthErrorInfo, isNetworkError } from '@/lib/auth-errors';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -46,9 +47,16 @@ export default function RegisterPage() {
       });
       toast.success('Account created successfully! Please sign in.');
       router.push('/login');
-    } catch (err: any) {
-      const errorMessage = err.response?.data?.error?.message || 'Registration failed. Please try again.';
-      toast.error(errorMessage);
+    } catch (err: unknown) {
+      // Network errors are already handled by the API interceptor with a toast
+      if (isNetworkError(err)) {
+        return;
+      }
+
+      const errorInfo = getAuthErrorInfo(err);
+      toast.error(errorInfo.message, {
+        description: errorInfo.title !== 'Error' ? errorInfo.title : undefined,
+      });
     }
   };
 
