@@ -29,6 +29,7 @@ import { useAssessments } from '@/hooks/useAssessments';
 import { useDebounce } from '@/hooks/useDebounce';
 import { assessmentsApi } from '@/lib/api';
 import { toast } from 'sonner';
+import { AssessmentsListSkeleton } from '@/components/assessments/AssessmentsListSkeleton';
 
 const statusColors: Record<string, string> = {
   DRAFT: 'bg-gray-100 text-gray-700',
@@ -224,6 +225,11 @@ export default function AssessmentsPage() {
   const assessments = data?.data || [];
   const pagination = data?.pagination;
 
+  // Show full-page skeleton while loading
+  if (isLoading) {
+    return <AssessmentsListSkeleton />;
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -327,11 +333,7 @@ export default function AssessmentsPage() {
 
       {/* Assessments List */}
       <div className="space-y-4">
-        {isLoading ? (
-          <div className="flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600" />
-          </div>
-        ) : isError ? (
+        {isError ? (
           <Card>
             <CardContent className="py-12 text-center">
               <AlertCircle className="mx-auto h-12 w-12 text-red-400 mb-4" />

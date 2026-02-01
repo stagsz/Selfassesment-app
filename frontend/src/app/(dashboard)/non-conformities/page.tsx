@@ -22,6 +22,7 @@ import { Select } from '@/components/ui/select';
 import { Pagination } from '@/components/ui/pagination';
 import { useNonConformities } from '@/hooks/useNonConformities';
 import { useDebounce } from '@/hooks/useDebounce';
+import { NCRsListSkeleton } from '@/components/non-conformities/NCRsListSkeleton';
 
 const statusColors: Record<string, string> = {
   OPEN: 'bg-red-100 text-red-700',
@@ -195,6 +196,11 @@ export default function NonConformitiesPage() {
   const nonConformities = data?.data || [];
   const pagination = data?.pagination;
 
+  // Show full-page skeleton while loading
+  if (isLoading) {
+    return <NCRsListSkeleton />;
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -295,11 +301,7 @@ export default function NonConformitiesPage() {
 
       {/* NCRs List */}
       <div className="space-y-4">
-        {isLoading ? (
-          <div className="flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600" />
-          </div>
-        ) : isError ? (
+        {isError ? (
           <Card>
             <CardContent className="py-12 text-center">
               <AlertCircle className="mx-auto h-12 w-12 text-red-400 mb-4" />

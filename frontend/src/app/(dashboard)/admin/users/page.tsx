@@ -29,6 +29,7 @@ import { useAuthStore } from '@/lib/store';
 import { UserEditModal } from '@/components/users/UserEditModal';
 import { RoleChangeConfirmationDialog } from '@/components/users/RoleChangeConfirmationDialog';
 import { StatusToggleConfirmationDialog } from '@/components/users/StatusToggleConfirmationDialog';
+import { UsersListSkeleton } from '@/components/users/UsersListSkeleton';
 
 const roleColors: Record<string, string> = {
   SYSTEM_ADMIN: 'bg-purple-100 text-purple-700',
@@ -245,6 +246,11 @@ export default function AdminUsersPage() {
 
   const users = data?.data || [];
   const pagination = data?.pagination;
+
+  // Show full-page skeleton while loading (before access check for better UX)
+  if (isLoading) {
+    return <UsersListSkeleton />;
+  }
 
   // Access denied for non-admin users
   if (!canAccessPage) {
