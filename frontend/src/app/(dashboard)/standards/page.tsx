@@ -12,6 +12,7 @@ import {
 import { useSections, ISOSection } from '@/hooks/useStandards';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { SectionDetailPanel } from '@/components/standards/section-detail-panel';
 
 interface SectionTreeItemProps {
   section: ISOSection;
@@ -149,99 +150,6 @@ function StandardsTreeSkeleton() {
   );
 }
 
-function SectionDetailPanel({ section }: { section: ISOSection | null }) {
-  if (!section) {
-    return (
-      <Card className="h-full">
-        <CardContent className="h-full flex items-center justify-center py-12">
-          <div className="text-center text-gray-500">
-            <BookOpen className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-            <p className="font-medium">Select a section</p>
-            <p className="text-sm mt-1">
-              Click on a section to view its details
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-    );
-  }
-
-  return (
-    <Card>
-      <CardHeader>
-        <div className="flex items-start gap-3">
-          <div className="p-2 bg-primary-50 rounded-lg">
-            <BookOpen className="w-5 h-5 text-primary-600" />
-          </div>
-          <div>
-            <CardTitle className="text-lg">
-              {section.sectionNumber} {section.title}
-            </CardTitle>
-            {section.description && (
-              <p className="text-sm text-gray-500 mt-1">{section.description}</p>
-            )}
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          {/* Section metadata */}
-          <div className="grid grid-cols-2 gap-4 pb-4 border-b">
-            <div>
-              <p className="text-xs text-gray-500 uppercase tracking-wide">
-                Section Number
-              </p>
-              <p className="font-medium text-gray-900">{section.sectionNumber}</p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-500 uppercase tracking-wide">
-                Questions
-              </p>
-              <p className="font-medium text-gray-900">
-                {section._count?.questions || 0}
-              </p>
-            </div>
-          </div>
-
-          {/* Subsections summary */}
-          {section.children.length > 0 && (
-            <div>
-              <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">
-                Subsections ({section.children.length})
-              </p>
-              <div className="space-y-1">
-                {section.children.map((child) => (
-                  <div
-                    key={child.id}
-                    className="flex items-center justify-between py-1.5 px-2 bg-gray-50 rounded"
-                  >
-                    <span className="text-sm text-gray-700">
-                      <span className="font-medium">{child.sectionNumber}</span>{' '}
-                      {child.title}
-                    </span>
-                    {(child._count?.questions || 0) > 0 && (
-                      <span className="text-xs text-gray-500">
-                        {child._count?.questions} questions
-                      </span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* No subsections message */}
-          {section.children.length === 0 && (section._count?.questions || 0) === 0 && (
-            <div className="text-center py-6 text-gray-500">
-              <FileText className="w-8 h-8 mx-auto mb-2 text-gray-300" />
-              <p className="text-sm">No questions defined for this section</p>
-            </div>
-          )}
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
 
 export default function StandardsPage() {
   const { data: sectionsData, isLoading, isError } = useSections();
