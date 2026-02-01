@@ -15,6 +15,7 @@ import {
   Calendar,
   Target,
   ClipboardList,
+  PlayCircle,
 } from 'lucide-react';
 import { useAssessment, useDeleteAssessment } from '@/hooks/useAssessments';
 import { useAuthStore } from '@/lib/store';
@@ -55,6 +56,8 @@ const EDIT_ROLES = ['SYSTEM_ADMIN', 'QUALITY_MANAGER', 'INTERNAL_AUDITOR'];
 const DELETE_ROLES = ['SYSTEM_ADMIN', 'QUALITY_MANAGER'];
 // Roles that can generate reports
 const REPORT_ROLES = ['SYSTEM_ADMIN', 'QUALITY_MANAGER', 'INTERNAL_AUDITOR'];
+// Roles that can conduct audits
+const AUDIT_ROLES = ['SYSTEM_ADMIN', 'QUALITY_MANAGER', 'INTERNAL_AUDITOR'];
 
 function AssessmentDetailSkeleton() {
   return (
@@ -110,6 +113,9 @@ export default function AssessmentDetailPage() {
   // Role-based permissions
   const userRole = user?.role || '';
   const isLeadAuditor = assessment?.leadAuditorId === user?.id;
+  const isTeamMember = assessment?.teamMembers?.some(
+    (member: { user: { id: string } }) => member.user.id === user?.id
+  );
   const canEdit =
     EDIT_ROLES.includes(userRole) ||
     isLeadAuditor;
@@ -117,6 +123,9 @@ export default function AssessmentDetailPage() {
   const canGenerateReport =
     REPORT_ROLES.includes(userRole) &&
     (assessment?.status === 'COMPLETED' || assessment?.status === 'UNDER_REVIEW');
+  const canAudit =
+    (AUDIT_ROLES.includes(userRole) || isLeadAuditor || isTeamMember) &&
+    (assessment?.status === 'DRAFT' || assessment?.status === 'IN_PROGRESS');
 
   const handleDelete = async () => {
     try {
@@ -200,6 +209,14 @@ export default function AssessmentDetailPage() {
 
         {/* Action Buttons */}
         <div className="flex items-center gap-2 ml-14 sm:ml-0">
+          {canAudit && (
+            <Link href={`/assessments/${assessmentId}/audit`}>
+              <Button>
+                <PlayCircle className="mr-2 h-4 w-4" />
+                {progressPercentage > 0 ? 'Continue Audit' : 'Start Audit'}
+              </Button>
+            </Link>
+          )}
           {canEdit && assessment.status !== 'COMPLETED' && assessment.status !== 'ARCHIVED' && (
             <Link href={`/assessments/${assessmentId}/edit`}>
               <Button variant="outline">

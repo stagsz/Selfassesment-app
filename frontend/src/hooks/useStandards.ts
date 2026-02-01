@@ -14,9 +14,29 @@ export interface ISOSection {
   };
 }
 
+export interface AuditQuestion {
+  id: string;
+  questionNumber: string;
+  questionText: string;
+  guidance: string | null;
+  standardReference: string | null;
+  score1Criteria: string;
+  score2Criteria: string;
+  score3Criteria: string;
+  sectionId: string;
+  isActive: boolean;
+  order: number;
+  section?: ISOSection;
+}
+
 export interface SectionsResponse {
   success: boolean;
   data: ISOSection[];
+}
+
+export interface QuestionsResponse {
+  success: boolean;
+  data: AuditQuestion[];
 }
 
 export function useSections() {
@@ -26,5 +46,16 @@ export function useSections() {
       const response = await standardsApi.getSections();
       return response.data as SectionsResponse;
     },
+  });
+}
+
+export function useQuestionsBySection(sectionId: string | null) {
+  return useQuery({
+    queryKey: ['questions', sectionId],
+    queryFn: async () => {
+      const response = await standardsApi.getQuestions(sectionId || undefined);
+      return response.data as QuestionsResponse;
+    },
+    enabled: !!sectionId,
   });
 }
