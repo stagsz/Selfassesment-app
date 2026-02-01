@@ -130,6 +130,23 @@ export class AssessmentController {
   }
 
   /**
+   * GET /api/assessments/export
+   * Export assessments list to CSV
+   */
+  async exportCsv(req: Request, res: Response): Promise<void> {
+    const csv = await assessmentService.exportToCsv(req.user!.organizationId);
+
+    const timestamp = new Date().toISOString().split('T')[0];
+    const filename = `assessments-export-${timestamp}.csv`;
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.setHeader('Content-Length', Buffer.byteLength(csv, 'utf8'));
+
+    res.send(csv);
+  }
+
+  /**
    * GET /api/assessments/:id/report
    * Generate and download PDF report for an assessment
    */

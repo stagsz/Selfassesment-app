@@ -514,6 +514,67 @@ export class AssessmentService {
   }
 
   /**
+   * Export assessments list to CSV format
+   */
+  async exportToCsv(organizationId: string): Promise<string> {
+    const assessments = await prisma.assessment.findMany({
+      where: { organizationId },
+      orderBy: { createdAt: 'desc' },
+      include: {
+        leadAuditor: {
+          select: {
+            firstName: true,
+            lastName: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    // CSV header
+    const headers = ['id', 'title', 'status', 'score', 'scheduledDate', 'completedDate', 'leadAuditor'];
+
+    // Escape CSV field (handle commas, quotes, newlines)
+    const escapeField = (field: string | null | undefined): string => {
+      if (field === null || field === undefined) {
+        return '';
+      }
+      const str = String(field);
+      // If the field contains commas, quotes, or newlines, wrap in quotes and escape internal quotes
+      if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
+        return `"${str.replace(/"/g, '""')}"`;
+      }
+      return str;
+    };
+
+    // Format date for CSV
+    const formatDate = (date: Date | null): string => {
+      if (!date) return '';
+      return date.toISOString().split('T')[0]; // YYYY-MM-DD format
+    };
+
+    // Build CSV rows
+    const rows = assessments.map((assessment) => {
+      const leadAuditorName = assessment.leadAuditor
+        ? `${assessment.leadAuditor.firstName} ${assessment.leadAuditor.lastName}`.trim()
+        : '';
+
+      return [
+        escapeField(assessment.id),
+        escapeField(assessment.title),
+        escapeField(assessment.status),
+        assessment.overallScore !== null ? String(assessment.overallScore) : '',
+        formatDate(assessment.scheduledDate),
+        formatDate(assessment.completedDate),
+        escapeField(leadAuditorName),
+      ].join(',');
+    });
+
+    // Combine header and rows
+    return [headers.join(','), ...rows].join('\n');
+  }
+
+  /**
    * Validate status transitions
    */
   private validateStatusTransition(currentStatus: AssessmentStatus, newStatus: AssessmentStatus): void {

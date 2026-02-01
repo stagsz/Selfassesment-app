@@ -18,6 +18,12 @@ router.get(
   )
 );
 
+// Export assessments to CSV (must be before /:id to avoid route conflict)
+router.get(
+  '/export',
+  asyncHandler(assessmentController.exportCsv.bind(assessmentController))
+);
+
 // Create assessment
 router.post(
   '/',
