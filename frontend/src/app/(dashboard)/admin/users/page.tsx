@@ -16,6 +16,7 @@ import {
   Check,
   X,
   Pencil,
+  Power,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -27,6 +28,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { useAuthStore } from '@/lib/store';
 import { UserEditModal } from '@/components/users/UserEditModal';
 import { RoleChangeConfirmationDialog } from '@/components/users/RoleChangeConfirmationDialog';
+import { StatusToggleConfirmationDialog } from '@/components/users/StatusToggleConfirmationDialog';
 
 const roleColors: Record<string, string> = {
   SYSTEM_ADMIN: 'bg-purple-100 text-purple-700',
@@ -197,6 +199,7 @@ export default function AdminUsersPage() {
   // Modal state
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [roleChangeDialogOpen, setRoleChangeDialogOpen] = useState(false);
+  const [statusToggleDialogOpen, setStatusToggleDialogOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
   const handleEditUser = (user: User) => {
@@ -219,8 +222,18 @@ export default function AdminUsersPage() {
     setSelectedUser(null);
   };
 
-  // Check if current user can change roles (SYSTEM_ADMIN only)
-  const canChangeRoles = currentUser?.role === 'SYSTEM_ADMIN';
+  const handleToggleStatus = (user: User) => {
+    setSelectedUser(user);
+    setStatusToggleDialogOpen(true);
+  };
+
+  const handleCloseStatusToggleDialog = () => {
+    setStatusToggleDialogOpen(false);
+    setSelectedUser(null);
+  };
+
+  // Check if current user can manage users (SYSTEM_ADMIN only)
+  const canManageUsers = currentUser?.role === 'SYSTEM_ADMIN';
 
   const { data, isLoading, isError } = useUsers({
     page,
@@ -469,15 +482,29 @@ export default function AdminUsersPage() {
                             <Pencil className="h-4 w-4" />
                             Edit
                           </button>
-                          {canChangeRoles && user.id !== currentUser?.id && (
-                            <button
-                              onClick={() => handleChangeRole(user)}
-                              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-sm font-medium text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-colors"
-                              aria-label={`Change role for ${user.firstName} ${user.lastName}`}
-                            >
-                              <Shield className="h-4 w-4" />
-                              Role
-                            </button>
+                          {canManageUsers && user.id !== currentUser?.id && (
+                            <>
+                              <button
+                                onClick={() => handleChangeRole(user)}
+                                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-sm font-medium text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-colors"
+                                aria-label={`Change role for ${user.firstName} ${user.lastName}`}
+                              >
+                                <Shield className="h-4 w-4" />
+                                Role
+                              </button>
+                              <button
+                                onClick={() => handleToggleStatus(user)}
+                                className={`inline-flex items-center gap-1 px-2.5 py-1.5 text-sm font-medium rounded-md transition-colors ${
+                                  user.isActive
+                                    ? 'text-gray-600 hover:text-red-600 hover:bg-red-50'
+                                    : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+                                }`}
+                                aria-label={`${user.isActive ? 'Deactivate' : 'Activate'} ${user.firstName} ${user.lastName}`}
+                              >
+                                <Power className="h-4 w-4" />
+                                {user.isActive ? 'Deactivate' : 'Activate'}
+                              </button>
+                            </>
                           )}
                         </div>
                       </td>
@@ -518,6 +545,13 @@ export default function AdminUsersPage() {
       <RoleChangeConfirmationDialog
         isOpen={roleChangeDialogOpen}
         onClose={handleCloseRoleChangeDialog}
+        user={selectedUser}
+      />
+
+      {/* Status Toggle Confirmation Dialog */}
+      <StatusToggleConfirmationDialog
+        isOpen={statusToggleDialogOpen}
+        onClose={handleCloseStatusToggleDialog}
         user={selectedUser}
       />
     </div>
