@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { useAssessment, useDeleteAssessment } from '@/hooks/useAssessments';
 import { useAuthStore } from '@/lib/store';
+import { assessmentsApi } from '@/lib/api';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ProgressBar, CircularProgress } from '@/components/ui/progress-bar';
@@ -107,6 +108,7 @@ export default function AssessmentDetailPage() {
   const assessmentId = params.id as string;
   const { data, isLoading, isError } = useAssessment(assessmentId);
   const deleteAssessment = useDeleteAssessment();
+  const [isGeneratingReport, setIsGeneratingReport] = useState(false);
 
   const assessment = data?.data;
 
@@ -137,9 +139,43 @@ export default function AssessmentDetailPage() {
     }
   };
 
-  const handleGenerateReport = () => {
-    // TODO: Implement report generation in future task
-    toast.info('Report generation coming soon');
+  const handleGenerateReport = async () => {
+    if (isGeneratingReport) return;
+
+    setIsGeneratingReport(true);
+    try {
+      const response = await assessmentsApi.downloadReport(assessmentId);
+
+      // Create a blob from the response data
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+
+      // Create a download link and trigger the download
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+
+      // Generate filename from assessment title
+      const sanitizedTitle = (assessment?.title || 'assessment')
+        .replace(/[^a-zA-Z0-9-_]/g, '_')
+        .substring(0, 50);
+      const timestamp = new Date().toISOString().split('T')[0];
+      link.download = `${sanitizedTitle}_report_${timestamp}.pdf`;
+
+      // Trigger download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Clean up the URL object
+      window.URL.revokeObjectURL(url);
+
+      toast.success('Report downloaded successfully');
+    } catch (error) {
+      console.error('Failed to generate report:', error);
+      toast.error('Failed to generate report. Please try again.');
+    } finally {
+      setIsGeneratingReport(false);
+    }
   };
 
   if (isLoading) {
@@ -226,9 +262,14 @@ export default function AssessmentDetailPage() {
             </Link>
           )}
           {canGenerateReport && (
-            <Button variant="outline" onClick={handleGenerateReport}>
+            <Button
+              variant="outline"
+              onClick={handleGenerateReport}
+              disabled={isGeneratingReport}
+              loading={isGeneratingReport}
+            >
               <FileText className="mr-2 h-4 w-4" />
-              Generate Report
+              {isGeneratingReport ? 'Generating...' : 'Generate Report'}
             </Button>
           )}
           {canDelete && (

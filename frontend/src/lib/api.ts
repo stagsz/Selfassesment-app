@@ -151,6 +151,8 @@ export const assessmentsApi = {
     api.post(`/assessments/${id}/calculate-scores`),
   clone: (id: string, title: string) =>
     api.post(`/assessments/${id}/clone`, { title }),
+  downloadReport: (id: string) =>
+    api.get(`/assessments/${id}/report`, { responseType: 'blob' }),
 };
 
 export const responsesApi = {
