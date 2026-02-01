@@ -5,10 +5,10 @@
 ## Current Status
 
 **Phase**: 7 - Frontend - Standards & Settings
-**Progress**: 76 / 88 tasks (6 pre-existing setup tasks completed)
+**Progress**: 77 / 88 tasks (6 pre-existing setup tasks completed)
 **Last Updated**: 2026-02-01
-**Last Completed**: UI-36 (Create /standards page)
-**Next Task**: UI-37 (Create section detail panel)
+**Last Completed**: UI-37 (Create section detail panel)
+**Next Task**: UI-38 (Add CSV import modal)
 
 ### Blocking Issue - RESOLVED
 The schema mismatch has been resolved. The backend now compiles without TypeScript errors.
@@ -514,9 +514,11 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - Expand/collapse with chevron icons
   - Section number + title display
 
-- [ ] **UI-37**: Create section detail panel
+- [x] **UI-37**: Create section detail panel `427f5f3`
   - Shows questions for selected section
   - Displays score criteria (1/2/3 definitions)
+  - Expandable question items with guidance
+  - Expand/collapse all functionality
 
 - [ ] **UI-38**: Add CSV import modal
   - File upload input
@@ -790,6 +792,7 @@ No current blockers.
 | UI-34: Add action status update dropdown | 2dce442 | 2026-02-01 |
 | UI-35: Create verification form modal | 8ab28d7 | 2026-02-01 |
 | UI-36: Create /standards page with collapsible tree view | 953349e | 2026-02-01 |
+| UI-37: Create section detail panel with questions display | 427f5f3 | 2026-02-01 |
 
 ---
 
