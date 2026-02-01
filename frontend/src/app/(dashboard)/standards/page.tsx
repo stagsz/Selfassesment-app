@@ -8,11 +8,14 @@ import {
   BookOpen,
   FileText,
   AlertCircle,
+  Upload,
 } from 'lucide-react';
 import { useSections, ISOSection } from '@/hooks/useStandards';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
 import { SectionDetailPanel } from '@/components/standards/section-detail-panel';
+import { CSVImportModal } from '@/components/standards/csv-import-modal';
 
 interface SectionTreeItemProps {
   section: ISOSection;
@@ -152,13 +155,18 @@ function StandardsTreeSkeleton() {
 
 
 export default function StandardsPage() {
-  const { data: sectionsData, isLoading, isError } = useSections();
+  const { data: sectionsData, isLoading, isError, refetch } = useSections();
   const [expandedSections, setExpandedSections] = useState<Set<string>>(
     new Set()
   );
   const [selectedSection, setSelectedSection] = useState<ISOSection | null>(
     null
   );
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+
+  const handleImportSuccess = () => {
+    refetch();
+  };
 
   const toggleExpanded = (sectionId: string) => {
     setExpandedSections((prev) => {
@@ -289,6 +297,13 @@ export default function StandardsPage() {
               {stats.totalQuestions} questions
             </span>
           </div>
+          <Button
+            onClick={() => setIsImportModalOpen(true)}
+            size="sm"
+          >
+            <Upload className="w-4 h-4 mr-2" />
+            Import CSV
+          </Button>
         </div>
       </div>
 
@@ -340,6 +355,13 @@ export default function StandardsPage() {
           <SectionDetailPanel section={selectedSection} />
         </div>
       </div>
+
+      {/* CSV Import Modal */}
+      <CSVImportModal
+        isOpen={isImportModalOpen}
+        onClose={() => setIsImportModalOpen(false)}
+        onSuccess={handleImportSuccess}
+      />
     </div>
   );
 }
