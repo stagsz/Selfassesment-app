@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuthStore, useUIStore } from '@/lib/store';
 import { Sidebar } from '@/components/layout/sidebar';
 import { Header } from '@/components/layout/header';
+import { useSessionTimeout } from '@/hooks/useSessionTimeout';
 
 export default function DashboardLayout({
   children,
@@ -14,6 +15,9 @@ export default function DashboardLayout({
   const router = useRouter();
   const { isAuthenticated } = useAuthStore();
   const { sidebarOpen } = useUIStore();
+
+  // Initialize session timeout - warns at 25 min, logs out at 30 min
+  useSessionTimeout({ enabled: isAuthenticated });
 
   useEffect(() => {
     if (!isAuthenticated) {
