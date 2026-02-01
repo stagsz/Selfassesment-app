@@ -5,10 +5,10 @@
 ## Current Status
 
 **Phase**: 8 - Reports & Export
-**Progress**: 85 / 88 tasks (6 pre-existing setup tasks completed)
+**Progress**: 86 / 88 tasks (6 pre-existing setup tasks completed)
 **Last Updated**: 2026-02-01
-**Last Completed**: REPORT-01 (Install pdfkit and create reportService.ts)
-**Next Task**: REPORT-02 (Design assessment report template)
+**Last Completed**: REPORT-02 (Design assessment report template)
+**Next Task**: REPORT-03 (Add GET /api/assessments/:id/report endpoint)
 
 ### Blocking Issue - RESOLVED
 The schema mismatch has been resolved. The backend now compiles without TypeScript errors.
@@ -575,9 +575,9 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - Generate assessment PDF with cover page, executive summary
   - Section breakdown, findings list, NCR summary, recommendations
 
-- [ ] **REPORT-02**: Design assessment report template
+- [x] **REPORT-02**: Design assessment report template `a72a840`
   - Executive summary section
-  - Overall score gauge/display
+  - Overall score gauge/display (visual circular gauge with color coding)
   - Section breakdown table
   - Findings list (questions with score < 3)
   - NCR summary table
@@ -813,6 +813,7 @@ No current blockers.
 | UI-43: Create /settings page with user profile card | 872040f | 2026-02-01 |
 | UI-44: Add password change form | 97368a9 | 2026-02-01 |
 | REPORT-01: Install pdfkit and create reportService.ts | 3517aa6 | 2026-02-01 |
+| REPORT-02: Design assessment report template with visual gauge | a72a840 | 2026-02-01 |
 
 ---
 
