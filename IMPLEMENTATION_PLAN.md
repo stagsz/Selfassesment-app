@@ -5,10 +5,10 @@
 ## Current Status
 
 **Phase**: 8 - Reports & Export
-**Progress**: 87 / 88 tasks (6 pre-existing setup tasks completed)
+**Progress**: 88 / 88 tasks (6 pre-existing setup tasks completed)
 **Last Updated**: 2026-02-01
-**Last Completed**: REPORT-03 (Add GET /api/assessments/:id/report endpoint)
-**Next Task**: UI-45 (Add "Generate Report" button on assessment detail)
+**Last Completed**: UI-45 (Add "Generate Report" button on assessment detail)
+**Next Task**: UI-46 (Implement PDF download)
 
 ### Blocking Issue - RESOLVED
 The schema mismatch has been resolved. The backend now compiles without TypeScript errors.
@@ -588,9 +588,10 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - Content-Type: application/pdf
   - Content-Disposition: attachment; filename="assessment-report.pdf"
 
-- [ ] **UI-45**: Add "Generate Report" button on assessment detail
+- [x] **UI-45**: Add "Generate Report" button on assessment detail `dbc6aa1`
   - Visible when status is COMPLETED or UNDER_REVIEW
   - Loading state during generation
+  - Downloads PDF with sanitized filename based on assessment title
 
 - [ ] **UI-46**: Implement PDF download
   - Fetch blob from API
@@ -815,6 +816,7 @@ No current blockers.
 | REPORT-01: Install pdfkit and create reportService.ts | 3517aa6 | 2026-02-01 |
 | REPORT-02: Design assessment report template with visual gauge | a72a840 | 2026-02-01 |
 | REPORT-03: Add GET /api/assessments/:id/report endpoint | ab368b1 | 2026-02-01 |
+| UI-45: Add Generate Report button on assessment detail | dbc6aa1 | 2026-02-01 |
 
 ---
 
