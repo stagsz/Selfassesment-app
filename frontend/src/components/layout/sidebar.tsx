@@ -26,11 +26,11 @@ const navigation = [
   { name: 'Actions', href: '/actions', icon: FileText },
   { name: 'Reports', href: '/reports', icon: BarChart3 },
   { name: 'Standards', href: '/standards', icon: BookOpen },
+  { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
 const adminNavigation = [
   { name: 'Users', href: '/admin/users', icon: Users },
-  { name: 'Settings', href: '/admin/settings', icon: Settings },
 ];
 
 export function Sidebar() {
