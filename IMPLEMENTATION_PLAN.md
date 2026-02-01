@@ -5,10 +5,10 @@
 ## Current Status
 
 **Phase**: 9 - Polish & Error Handling
-**Progress**: 91 / 88 tasks (6 pre-existing setup tasks completed)
+**Progress**: 92 / 88 tasks (6 pre-existing setup tasks completed)
 **Last Updated**: 2026-02-01
-**Last Completed**: UI-47 (Add "Export to CSV" button on assessments list)
-**Next Task**: POLISH-01 (Add global error boundary)
+**Last Completed**: POLISH-01 (Add global error boundary)
+**Next Task**: POLISH-02 (Add loading skeleton components for all list pages)
 
 ### Blocking Issue - RESOLVED
 The schema mismatch has been resolved. The backend now compiles without TypeScript errors.
@@ -613,10 +613,11 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
 
 ## Phase 9: Polish & Error Handling (5 tasks)
 
-- [ ] **POLISH-01**: Add global error boundary
+- [x] **POLISH-01**: Add global error boundary `2cde37b`
   - Wrap app in ErrorBoundary component
   - Fallback UI with: error message, retry button, home link
   - Log errors to console (or external service if desired)
+  - Show error details in development mode
 
 - [ ] **POLISH-02**: Add loading skeleton components for all list pages
   - Assessments list skeleton
@@ -823,6 +824,7 @@ No current blockers.
 | UI-46: Implement PDF download (included in UI-45) | dbc6aa1 | 2026-02-01 |
 | REPORT-04: Add GET /api/assessments/export endpoint | 640cf58 | 2026-02-01 |
 | UI-47: Add Export to CSV button on assessments list | 828fe88 | 2026-02-01 |
+| POLISH-01: Add global error boundary | 2cde37b | 2026-02-01 |
 
 ---
 
