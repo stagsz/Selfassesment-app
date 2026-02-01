@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { evidenceController } from '../controllers/evidenceController';
-import { withAuth, asyncHandler } from '../proxy';
+import { withAuth, asyncHandler, uploadEvidence } from '../proxy';
 
 // Router for routes nested under /responses/:id/evidence
 export const responseEvidenceRouter = Router({ mergeParams: true });
@@ -9,9 +9,10 @@ export const responseEvidenceRouter = Router({ mergeParams: true });
 responseEvidenceRouter.use(withAuth((req, res, next) => next()));
 
 // POST /api/responses/:id/evidence - Upload evidence for a response
-// Note: Multipart file handling is configured via multer middleware in API-13
+// Uses multer middleware for multipart file handling (10MB limit, PDF/DOCX/XLSX/PNG/JPG)
 responseEvidenceRouter.post(
   '/',
+  uploadEvidence,
   asyncHandler(evidenceController.upload.bind(evidenceController))
 );
 

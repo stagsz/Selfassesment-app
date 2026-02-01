@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import multer from 'multer';
 import { AppError } from '../utils/errors';
 import { logger } from '../utils/logger';
 import { config } from '../config';
@@ -40,6 +41,26 @@ export function globalErrorHandler(
     method: req.method,
     userId: req.user?.userId,
   });
+
+  // Handle multer errors (file upload)
+  if (error instanceof multer.MulterError) {
+    let message = 'File upload error';
+    if (error.code === 'LIMIT_FILE_SIZE') {
+      message = 'File too large. Maximum size is 10MB';
+    } else if (error.code === 'LIMIT_UNEXPECTED_FILE') {
+      message = 'Unexpected field name. Use "file" for uploads';
+    } else if (error.code === 'LIMIT_FILE_COUNT') {
+      message = 'Too many files uploaded';
+    }
+    res.status(400).json({
+      success: false,
+      error: {
+        code: 'UPLOAD_ERROR',
+        message,
+      },
+    });
+    return;
+  }
 
   // Handle known errors
   if (error instanceof AppError) {
