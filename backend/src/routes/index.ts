@@ -4,6 +4,7 @@ import assessmentRoutes from './assessmentRoutes';
 import standardsRoutes from './standardsRoutes';
 import { evidenceRouter, responseEvidenceRouter } from './evidenceRoutes';
 import { nonConformityRouter, assessmentNCRRouter } from './nonConformityRoutes';
+import { actionRouter, ncrActionRouter } from './correctiveActionRoutes';
 
 const router = Router();
 
@@ -24,5 +25,7 @@ router.use('/evidence', evidenceRouter);
 router.use('/responses/:id/evidence', responseEvidenceRouter);
 router.use('/non-conformities', nonConformityRouter);
 router.use('/assessments/:id/non-conformities', assessmentNCRRouter);
+router.use('/actions', actionRouter);
+router.use('/non-conformities/:id/actions', ncrActionRouter);
 
 export default router;
