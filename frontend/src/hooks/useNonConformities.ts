@@ -113,3 +113,26 @@ export function useTransitionNCRStatus() {
     },
   });
 }
+
+export interface UpdateNCRData {
+  title?: string;
+  description?: string;
+  severity?: string;
+  rootCause?: string | null;
+  rootCauseMethod?: string | null;
+}
+
+export function useUpdateNonConformity() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, data }: { id: string; data: UpdateNCRData }) => {
+      const response = await nonConformitiesApi.update(id, data);
+      return response.data;
+    },
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['nonConformities'] });
+      queryClient.invalidateQueries({ queryKey: ['nonConformity', variables.id] });
+    },
+  });
+}
