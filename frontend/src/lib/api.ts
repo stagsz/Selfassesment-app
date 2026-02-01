@@ -174,9 +174,10 @@ export const standardsApi = {
 };
 
 export const dashboardApi = {
-  getData: () => api.get('/dashboard'),
-  getTrends: (startDate?: string, endDate?: string) =>
-    api.get('/dashboard/trends', { params: { startDate, endDate } }),
+  getOverview: () => api.get('/dashboard'),
+  getSections: (assessmentId?: string) =>
+    api.get('/dashboard/sections', { params: { assessmentId } }),
+  getTrends: () => api.get('/dashboard/trends'),
 };
 
 export const actionsApi = {

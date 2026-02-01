@@ -1,6 +1,5 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import {
   ClipboardCheck,
   AlertTriangle,
@@ -9,66 +8,19 @@ import {
   TrendingUp,
   TrendingDown,
 } from 'lucide-react';
+import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ProgressBar, CircularProgress } from '@/components/ui/progress-bar';
+import { CircularProgress } from '@/components/ui/progress-bar';
 import {
   ComplianceBarChart,
   ComplianceRadarChart,
   TrendLineChart,
-  ComplianceGauge,
 } from '@/components/charts/compliance-chart';
-import { dashboardApi } from '@/lib/api';
-
-// Mock data for demonstration
-const mockDashboardData = {
-  overallScore: 72.5,
-  trend: 'UP' as const,
-  changeFromPrevious: 3.2,
-  sectionScores: [
-    { section: 'Context of Organization', sectionNumber: '4', score: 85 },
-    { section: 'Leadership', sectionNumber: '5', score: 78 },
-    { section: 'Planning', sectionNumber: '6', score: 65 },
-    { section: 'Support', sectionNumber: '7', score: 72 },
-    { section: 'Operation', sectionNumber: '8', score: 68 },
-    { section: 'Performance Evaluation', sectionNumber: '9', score: 75 },
-    { section: 'Improvement', sectionNumber: '10', score: 70 },
-  ],
-  recentAssessments: [
-    { id: '1', title: 'Q4 2024 Assessment', status: 'COMPLETED', score: 72.5, date: '2024-12-15' },
-    { id: '2', title: 'Q3 2024 Assessment', status: 'COMPLETED', score: 69.3, date: '2024-09-20' },
-    { id: '3', title: 'Q2 2024 Assessment', status: 'COMPLETED', score: 66.8, date: '2024-06-18' },
-  ],
-  openActions: 12,
-  overdueActions: 3,
-  completedActions: 45,
-  trendData: [
-    { date: 'Jan', score: 62 },
-    { date: 'Mar', score: 65 },
-    { date: 'Jun', score: 67 },
-    { date: 'Sep', score: 69 },
-    { date: 'Dec', score: 72.5 },
-  ],
-  upcomingAudits: [
-    { id: '1', title: 'Surveillance Audit', date: '2025-02-15', type: 'EXTERNAL' },
-    { id: '2', title: 'Internal Audit - Operations', date: '2025-01-28', type: 'INTERNAL' },
-  ],
-  priorityActions: [
-    { id: '1', title: 'Update document control procedure', priority: 'HIGH', dueDate: '2025-01-25' },
-    { id: '2', title: 'Complete management review minutes', priority: 'HIGH', dueDate: '2025-01-30' },
-    { id: '3', title: 'Address customer complaint NC-2024-15', priority: 'CRITICAL', dueDate: '2025-01-20' },
-  ],
-};
+import { useDashboard } from '@/hooks/useDashboard';
 
 export default function DashboardPage() {
-  // In production, use this:
-  // const { data, isLoading } = useQuery({
-  //   queryKey: ['dashboard'],
-  //   queryFn: () => dashboardApi.getData(),
-  // });
-
-  const data = mockDashboardData;
-  const isLoading = false;
+  const { overview, sections, trends, isLoading } = useDashboard();
 
   if (isLoading) {
     return (
@@ -78,6 +30,40 @@ export default function DashboardPage() {
     );
   }
 
+  // Transform section data for charts
+  const sectionScores = (sections.data || []).map((s) => ({
+    section: s.sectionTitle,
+    sectionNumber: s.sectionNumber,
+    score: s.score,
+  }));
+
+  // Transform trend data for chart
+  const trendData = (trends.data || []).map((t) => ({
+    date: t.month,
+    score: t.complianceScore,
+  }));
+
+  // Calculate trend direction from trend data
+  const calculateTrend = () => {
+    const data = trends.data || [];
+    if (data.length < 2) return { direction: 'UP' as const, change: 0 };
+    const current = data[data.length - 1]?.complianceScore || 0;
+    const previous = data[data.length - 2]?.complianceScore || 0;
+    const change = Math.abs(current - previous);
+    return {
+      direction: current >= previous ? 'UP' as const : 'DOWN' as const,
+      change: Math.round(change * 10) / 10,
+    };
+  };
+
+  const trendInfo = calculateTrend();
+  const overviewData = overview.data;
+  const complianceScore = overviewData?.complianceScore || 0;
+  const ncrCounts = overviewData?.ncrCounts;
+  const majorCount = ncrCounts?.bySeverity?.MAJOR || 0;
+  const minorCount = ncrCounts?.bySeverity?.MINOR || 0;
+  const openNCRs = ncrCounts?.open || 0;
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -86,10 +72,12 @@ export default function DashboardPage() {
           <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
           <p className="text-gray-500">ISO 9001:2015 Quality Management System Overview</p>
         </div>
-        <Button>
-          <ClipboardCheck className="mr-2 h-4 w-4" />
-          New Assessment
-        </Button>
+        <Link href="/assessments/new">
+          <Button>
+            <ClipboardCheck className="mr-2 h-4 w-4" />
+            New Assessment
+          </Button>
+        </Link>
       </div>
 
       {/* Stats Cards */}
@@ -102,41 +90,45 @@ export default function DashboardPage() {
                 <p className="text-sm font-medium text-gray-500">Overall Compliance</p>
                 <div className="flex items-center mt-1">
                   <span className="text-3xl font-bold text-gray-900">
-                    {data.overallScore.toFixed(1)}%
+                    {complianceScore.toFixed(1)}%
                   </span>
-                  <span
-                    className={`ml-2 flex items-center text-sm ${
-                      data.trend === 'UP' ? 'text-green-600' : 'text-red-600'
-                    }`}
-                  >
-                    {data.trend === 'UP' ? (
-                      <TrendingUp className="h-4 w-4" />
-                    ) : (
-                      <TrendingDown className="h-4 w-4" />
-                    )}
-                    {data.changeFromPrevious}%
-                  </span>
+                  {trendInfo.change > 0 && (
+                    <span
+                      className={`ml-2 flex items-center text-sm ${
+                        trendInfo.direction === 'UP' ? 'text-green-600' : 'text-red-600'
+                      }`}
+                    >
+                      {trendInfo.direction === 'UP' ? (
+                        <TrendingUp className="h-4 w-4" />
+                      ) : (
+                        <TrendingDown className="h-4 w-4" />
+                      )}
+                      {trendInfo.change}%
+                    </span>
+                  )}
                 </div>
               </div>
-              <CircularProgress value={data.overallScore} size={60} colorScheme="compliance" />
+              <CircularProgress value={complianceScore} size={60} colorScheme="compliance" />
             </div>
           </CardContent>
         </Card>
 
-        {/* Open Actions */}
+        {/* Assessments */}
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500">Open Actions</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">{data.openActions}</p>
+                <p className="text-sm font-medium text-gray-500">Total Assessments</p>
+                <p className="text-3xl font-bold text-gray-900 mt-1">
+                  {overviewData?.assessmentCounts?.total || 0}
+                </p>
               </div>
-              <div className="p-3 bg-yellow-100 rounded-full">
-                <Clock className="h-6 w-6 text-yellow-600" />
+              <div className="p-3 bg-blue-100 rounded-full">
+                <ClipboardCheck className="h-6 w-6 text-blue-600" />
               </div>
             </div>
-            <p className="text-sm text-red-600 mt-2">
-              {data.overdueActions} overdue
+            <p className="text-sm text-gray-500 mt-2">
+              {overviewData?.recentActivity?.assessmentsThisMonth || 0} this month
             </p>
           </CardContent>
         </Card>
@@ -147,184 +139,117 @@ export default function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-500">Active Non-Conformities</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">5</p>
+                <p className="text-3xl font-bold text-gray-900 mt-1">{openNCRs}</p>
               </div>
               <div className="p-3 bg-red-100 rounded-full">
                 <AlertTriangle className="h-6 w-6 text-red-600" />
               </div>
             </div>
-            <p className="text-sm text-gray-500 mt-2">2 major, 3 minor</p>
+            <p className="text-sm text-gray-500 mt-2">
+              {majorCount} major, {minorCount} minor
+            </p>
           </CardContent>
         </Card>
 
-        {/* Completed Actions */}
+        {/* Closed NCRs */}
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-500">Actions Completed</p>
-                <p className="text-3xl font-bold text-gray-900 mt-1">{data.completedActions}</p>
+                <p className="text-sm font-medium text-gray-500">NCRs Closed</p>
+                <p className="text-3xl font-bold text-gray-900 mt-1">
+                  {ncrCounts?.closed || 0}
+                </p>
               </div>
               <div className="p-3 bg-green-100 rounded-full">
                 <CheckCircle className="h-6 w-6 text-green-600" />
               </div>
             </div>
-            <p className="text-sm text-gray-500 mt-2">This quarter</p>
+            <p className="text-sm text-gray-500 mt-2">
+              {overviewData?.recentActivity?.ncrsClosedThisMonth || 0} this month
+            </p>
           </CardContent>
         </Card>
       </div>
 
       {/* Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Section Compliance Bar Chart */}
+      {sectionScores.length > 0 && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Section Compliance Bar Chart */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Compliance by Section</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ComplianceBarChart data={sectionScores} height={280} />
+            </CardContent>
+          </Card>
+
+          {/* Radar Chart */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Compliance Overview</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ComplianceRadarChart data={sectionScores} height={280} />
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* Trend Chart */}
+      {trendData.length > 0 && (
         <Card>
           <CardHeader>
-            <CardTitle>Compliance by Section</CardTitle>
+            <CardTitle>Compliance Trend (Last 6 Months)</CardTitle>
           </CardHeader>
           <CardContent>
-            <ComplianceBarChart data={data.sectionScores} height={280} />
+            <TrendLineChart data={trendData} height={250} />
           </CardContent>
         </Card>
+      )}
 
-        {/* Radar Chart */}
+      {/* Assessment Status Breakdown */}
+      {overviewData?.assessmentCounts && (
         <Card>
           <CardHeader>
-            <CardTitle>Compliance Overview</CardTitle>
+            <CardTitle>Assessment Status</CardTitle>
           </CardHeader>
           <CardContent>
-            <ComplianceRadarChart data={data.sectionScores} height={280} />
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Trend and Actions Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Trend Chart */}
-        <Card className="lg:col-span-2">
-          <CardHeader>
-            <CardTitle>Compliance Trend</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <TrendLineChart data={data.trendData} height={250} />
-          </CardContent>
-        </Card>
-
-        {/* Priority Actions */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Priority Actions</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {data.priorityActions.map((action) => (
-                <div
-                  key={action.id}
-                  className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg"
-                >
-                  <div
-                    className={`mt-0.5 w-2 h-2 rounded-full flex-shrink-0 ${
-                      action.priority === 'CRITICAL'
-                        ? 'bg-red-500'
-                        : action.priority === 'HIGH'
-                        ? 'bg-orange-500'
-                        : 'bg-yellow-500'
-                    }`}
-                  />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">
-                      {action.title}
-                    </p>
-                    <p className="text-xs text-gray-500">Due: {action.dueDate}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <Button variant="outline" className="w-full mt-4">
-              View All Actions
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Recent Assessments and Upcoming Audits */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Recent Assessments */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Assessments</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {data.recentAssessments.map((assessment) => (
-                <div
-                  key={assessment.id}
-                  className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  <div>
-                    <p className="font-medium text-gray-900">{assessment.title}</p>
-                    <p className="text-sm text-gray-500">{assessment.date}</p>
-                  </div>
-                  <div className="text-right">
-                    <p
-                      className={`text-lg font-bold ${
-                        assessment.score >= 70
-                          ? 'text-green-600'
-                          : assessment.score >= 50
-                          ? 'text-yellow-600'
-                          : 'text-red-600'
-                      }`}
-                    >
-                      {assessment.score}%
-                    </p>
-                    <span className="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full">
-                      {assessment.status}
-                    </span>
-                  </div>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {Object.entries(overviewData.assessmentCounts.byStatus).map(([status, count]) => (
+                <div key={status} className="p-4 bg-gray-50 rounded-lg text-center">
+                  <p className="text-2xl font-bold text-gray-900">{count}</p>
+                  <p className="text-sm text-gray-500 capitalize">
+                    {status.toLowerCase().replace('_', ' ')}
+                  </p>
                 </div>
               ))}
             </div>
           </CardContent>
         </Card>
+      )}
 
-        {/* Upcoming Audits */}
+      {/* NCR Status Breakdown */}
+      {overviewData?.ncrCounts && overviewData.ncrCounts.total > 0 && (
         <Card>
           <CardHeader>
-            <CardTitle>Upcoming Audits</CardTitle>
+            <CardTitle>Non-Conformity Status</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              {data.upcomingAudits.map((audit) => (
-                <div
-                  key={audit.id}
-                  className="flex items-center justify-between p-4 border rounded-lg"
-                >
-                  <div className="flex items-center space-x-3">
-                    <div
-                      className={`p-2 rounded-full ${
-                        audit.type === 'EXTERNAL'
-                          ? 'bg-purple-100 text-purple-600'
-                          : 'bg-blue-100 text-blue-600'
-                      }`}
-                    >
-                      <ClipboardCheck className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-gray-900">{audit.title}</p>
-                      <p className="text-sm text-gray-500">{audit.type}</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-medium text-gray-900">{audit.date}</p>
-                  </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {Object.entries(overviewData.ncrCounts.byStatus).map(([status, count]) => (
+                <div key={status} className="p-4 bg-gray-50 rounded-lg text-center">
+                  <p className="text-2xl font-bold text-gray-900">{count}</p>
+                  <p className="text-sm text-gray-500 capitalize">
+                    {status.toLowerCase().replace('_', ' ')}
+                  </p>
                 </div>
               ))}
             </div>
-            <Button variant="outline" className="w-full mt-4">
-              Schedule Audit
-            </Button>
           </CardContent>
         </Card>
-      </div>
+      )}
     </div>
   );
 }
