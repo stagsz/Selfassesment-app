@@ -12,7 +12,6 @@ import {
   Eye,
   Edit,
   Copy,
-  ClipboardList,
   AlertCircle,
   ArrowUpDown,
   ArrowUp,
@@ -30,6 +29,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { assessmentsApi } from '@/lib/api';
 import { toast } from 'sonner';
 import { AssessmentsListSkeleton } from '@/components/assessments/AssessmentsListSkeleton';
+import { AssessmentsEmptyState } from '@/components/assessments/AssessmentsEmptyState';
 
 const statusColors: Record<string, string> = {
   DRAFT: 'bg-gray-100 text-gray-700',
@@ -176,6 +176,15 @@ export default function AssessmentsPage() {
       updateQueryParams({ sortBy: field, sortOrder: 'desc' });
     }
   };
+
+  // Check if any filters are active
+  const hasFilters = Boolean(searchTermFromUrl || statusFilter);
+
+  // Clear all filters
+  const handleClearFilters = useCallback(() => {
+    setSearchInput('');
+    router.push(pathname);
+  }, [router, pathname]);
 
   const handleExportCSV = async () => {
     if (isExporting) return;
@@ -343,19 +352,11 @@ export default function AssessmentsPage() {
           </Card>
         ) : assessments.length === 0 ? (
           <Card>
-            <CardContent className="py-12 text-center">
-              <ClipboardList className="mx-auto h-12 w-12 text-gray-300 mb-4" />
-              <p className="text-gray-700 font-medium">No assessments found</p>
-              <p className="text-gray-500 text-sm mt-1">
-                {searchTermFromUrl || statusFilter
-                  ? 'Try adjusting your filters'
-                  : 'Get started by creating your first assessment'}
-              </p>
-              {!searchTermFromUrl && !statusFilter && (
-                <Link href="/assessments/new">
-                  <Button className="mt-4">Create your first assessment</Button>
-                </Link>
-              )}
+            <CardContent className="py-6">
+              <AssessmentsEmptyState
+                hasFilters={hasFilters}
+                onClearFilters={handleClearFilters}
+              />
             </CardContent>
           </Card>
         ) : (

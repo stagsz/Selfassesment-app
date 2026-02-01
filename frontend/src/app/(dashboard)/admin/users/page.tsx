@@ -6,7 +6,6 @@ import { format } from 'date-fns';
 import {
   Search,
   AlertCircle,
-  Users,
   Shield,
   ShieldCheck,
   ShieldOff,
@@ -30,6 +29,7 @@ import { UserEditModal } from '@/components/users/UserEditModal';
 import { RoleChangeConfirmationDialog } from '@/components/users/RoleChangeConfirmationDialog';
 import { StatusToggleConfirmationDialog } from '@/components/users/StatusToggleConfirmationDialog';
 import { UsersListSkeleton } from '@/components/users/UsersListSkeleton';
+import { UsersEmptyState } from '@/components/users/UsersEmptyState';
 
 const roleColors: Record<string, string> = {
   SYSTEM_ADMIN: 'bg-purple-100 text-purple-700',
@@ -197,6 +197,15 @@ export default function AdminUsersPage() {
     }
   };
 
+  // Check if any filters are active
+  const hasFilters = Boolean(searchTermFromUrl || roleFilter || statusFilter);
+
+  // Clear all filters
+  const handleClearFilters = useCallback(() => {
+    setSearchInput('');
+    router.push(pathname);
+  }, [router, pathname]);
+
   // Modal state
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [roleChangeDialogOpen, setRoleChangeDialogOpen] = useState(false);
@@ -356,14 +365,11 @@ export default function AdminUsersPage() {
         </Card>
       ) : users.length === 0 ? (
         <Card>
-          <CardContent className="py-12 text-center">
-            <Users className="mx-auto h-12 w-12 text-gray-300 mb-4" />
-            <p className="text-gray-700 font-medium">No users found</p>
-            <p className="text-gray-500 text-sm mt-1">
-              {searchTermFromUrl || roleFilter || statusFilter
-                ? 'Try adjusting your filters'
-                : 'Users will appear here once registered'}
-            </p>
+          <CardContent className="py-6">
+            <UsersEmptyState
+              hasFilters={hasFilters}
+              onClearFilters={handleClearFilters}
+            />
           </CardContent>
         </Card>
       ) : (

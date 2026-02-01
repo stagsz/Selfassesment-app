@@ -7,7 +7,6 @@ import { format } from 'date-fns';
 import {
   Search,
   Filter,
-  AlertTriangle,
   AlertCircle,
   ChevronRight,
   ArrowUpDown,
@@ -23,6 +22,7 @@ import { Pagination } from '@/components/ui/pagination';
 import { useNonConformities } from '@/hooks/useNonConformities';
 import { useDebounce } from '@/hooks/useDebounce';
 import { NCRsListSkeleton } from '@/components/non-conformities/NCRsListSkeleton';
+import { NCRsEmptyState } from '@/components/non-conformities/NCRsEmptyState';
 
 const statusColors: Record<string, string> = {
   OPEN: 'bg-red-100 text-red-700',
@@ -183,6 +183,15 @@ export default function NonConformitiesPage() {
     }
   };
 
+  // Check if any filters are active
+  const hasFilters = Boolean(searchTermFromUrl || statusFilter || severityFilter);
+
+  // Clear all filters
+  const handleClearFilters = useCallback(() => {
+    setSearchInput('');
+    router.push(pathname);
+  }, [router, pathname]);
+
   const { data, isLoading, isError } = useNonConformities({
     page,
     pageSize,
@@ -311,14 +320,11 @@ export default function NonConformitiesPage() {
           </Card>
         ) : nonConformities.length === 0 ? (
           <Card>
-            <CardContent className="py-12 text-center">
-              <AlertTriangle className="mx-auto h-12 w-12 text-gray-300 mb-4" />
-              <p className="text-gray-700 font-medium">No non-conformities found</p>
-              <p className="text-gray-500 text-sm mt-1">
-                {searchTermFromUrl || statusFilter || severityFilter
-                  ? 'Try adjusting your filters'
-                  : 'Non-conformities will appear here when identified during assessments'}
-              </p>
+            <CardContent className="py-6">
+              <NCRsEmptyState
+                hasFilters={hasFilters}
+                onClearFilters={handleClearFilters}
+              />
             </CardContent>
           </Card>
         ) : (
