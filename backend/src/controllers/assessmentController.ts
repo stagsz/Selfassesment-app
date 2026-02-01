@@ -28,7 +28,8 @@ export class AssessmentController {
     const result = await assessmentService.list(
       req.user!.organizationId,
       {
-        status: status ? (status as string).split(',') as any : undefined,
+        // After validation, status is already an array (transformed by Zod schema)
+        status: status as any,
         startDate: startDate ? new Date(startDate as string) : undefined,
         endDate: endDate ? new Date(endDate as string) : undefined,
         leadAuditorId: leadAuditorId as string,

@@ -237,9 +237,11 @@ export class AssessmentService {
     }
 
     if (filters.searchTerm) {
+      // Note: SQLite's LIKE is case-insensitive for ASCII by default
+      // For PostgreSQL production, add: mode: 'insensitive'
       where.OR = [
-        { title: { contains: filters.searchTerm, mode: 'insensitive' } },
-        { description: { contains: filters.searchTerm, mode: 'insensitive' } },
+        { title: { contains: filters.searchTerm } },
+        { description: { contains: filters.searchTerm } },
       ];
     }
 

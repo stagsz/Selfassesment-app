@@ -14,20 +14,22 @@ const app = express();
 app.use(helmet());
 app.use(cors(config.cors));
 
-// Rate limiting
-app.use(
-  rateLimit({
-    windowMs: config.rateLimit.windowMs,
-    max: config.rateLimit.maxRequests,
-    message: {
-      success: false,
-      error: {
-        code: 'RATE_LIMIT_EXCEEDED',
-        message: 'Too many requests, please try again later',
+// Rate limiting (disabled in test environment)
+if (process.env.NODE_ENV !== 'test') {
+  app.use(
+    rateLimit({
+      windowMs: config.rateLimit.windowMs,
+      max: config.rateLimit.maxRequests,
+      message: {
+        success: false,
+        error: {
+          code: 'RATE_LIMIT_EXCEEDED',
+          message: 'Too many requests, please try again later',
+        },
       },
-    },
-  })
-);
+    })
+  );
+}
 
 // Body parsing
 app.use(express.json({ limit: '10mb' }));

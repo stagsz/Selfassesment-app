@@ -5,6 +5,8 @@ module.exports = {
   roots: ['<rootDir>/src'],
   testMatch: ['**/__tests__/**/*.test.ts', '**/*.test.ts'],
   moduleFileExtensions: ['ts', 'js', 'json'],
+  // Run tests sequentially to prevent database conflicts
+  maxWorkers: 1,
   collectCoverageFrom: [
     'src/**/*.ts',
     '!src/**/*.d.ts',
