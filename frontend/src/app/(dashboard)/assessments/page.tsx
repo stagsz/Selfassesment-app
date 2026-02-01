@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback } from 'react';
 import Link from 'next/link';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { format } from 'date-fns';
 import {
   Plus,
@@ -17,6 +18,7 @@ import {
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Select } from '@/components/ui/select';
 import { ProgressBar } from '@/components/ui/progress-bar';
 import { useAssessments } from '@/hooks/useAssessments';
 
@@ -28,11 +30,56 @@ const statusColors: Record<string, string> = {
   ARCHIVED: 'bg-gray-100 text-gray-500',
 };
 
+const statusOptions = [
+  { value: 'DRAFT', label: 'Draft' },
+  { value: 'IN_PROGRESS', label: 'In Progress' },
+  { value: 'UNDER_REVIEW', label: 'Under Review' },
+  { value: 'COMPLETED', label: 'Completed' },
+  { value: 'ARCHIVED', label: 'Archived' },
+];
+
 export default function AssessmentsPage() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<string>('');
-  const [page, setPage] = useState(1);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Get filter values from URL
+  const statusFilter = searchParams.get('status') || '';
+  const searchTerm = searchParams.get('q') || '';
+  const page = parseInt(searchParams.get('page') || '1', 10);
   const pageSize = 20;
+
+  // Update URL with new filter values
+  const updateQueryParams = useCallback(
+    (updates: Record<string, string | null>) => {
+      const params = new URLSearchParams(searchParams.toString());
+
+      Object.entries(updates).forEach(([key, value]) => {
+        if (value === null || value === '') {
+          params.delete(key);
+        } else {
+          params.set(key, value);
+        }
+      });
+
+      // Reset to page 1 when filters change
+      if (!updates.hasOwnProperty('page') && (updates.status !== undefined || updates.q !== undefined)) {
+        params.delete('page');
+      }
+
+      const queryString = params.toString();
+      router.push(queryString ? `${pathname}?${queryString}` : pathname);
+    },
+    [router, pathname, searchParams]
+  );
+
+  const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    updateQueryParams({ status: e.target.value });
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateQueryParams({ q: e.target.value });
+  };
 
   const { data, isLoading, isError } = useAssessments({
     page,
@@ -42,7 +89,6 @@ export default function AssessmentsPage() {
   });
 
   const assessments = data?.data || [];
-  const pagination = data?.pagination;
 
   return (
     <div className="space-y-6">
@@ -70,30 +116,21 @@ export default function AssessmentsPage() {
                 <Input
                   placeholder="Search assessments..."
                   value={searchTerm}
-                  onChange={(e) => {
-                    setSearchTerm(e.target.value);
-                    setPage(1);
-                  }}
+                  onChange={handleSearchChange}
                   className="pl-10"
                 />
               </div>
             </div>
             <div className="flex gap-2">
-              <select
-                value={statusFilter}
-                onChange={(e) => {
-                  setStatusFilter(e.target.value);
-                  setPage(1);
-                }}
-                className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
-              >
-                <option value="">All Status</option>
-                <option value="DRAFT">Draft</option>
-                <option value="IN_PROGRESS">In Progress</option>
-                <option value="UNDER_REVIEW">Under Review</option>
-                <option value="COMPLETED">Completed</option>
-                <option value="ARCHIVED">Archived</option>
-              </select>
+              <div className="w-44">
+                <Select
+                  value={statusFilter}
+                  onChange={handleStatusChange}
+                  options={statusOptions}
+                  placeholder="All Status"
+                  aria-label="Filter by status"
+                />
+              </div>
               <Button variant="outline">
                 <Filter className="mr-2 h-4 w-4" />
                 More Filters
