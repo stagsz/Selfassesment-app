@@ -4,11 +4,11 @@
 
 ## Current Status
 
-**Phase**: 8 - Reports & Export
-**Progress**: 89 / 88 tasks (6 pre-existing setup tasks completed)
+**Phase**: 9 - Polish & Error Handling
+**Progress**: 91 / 88 tasks (6 pre-existing setup tasks completed)
 **Last Updated**: 2026-02-01
-**Last Completed**: UI-46 (Implement PDF download - already included in UI-45)
-**Next Task**: REPORT-04 (Add GET /api/assessments/export endpoint)
+**Last Completed**: UI-47 (Add "Export to CSV" button on assessments list)
+**Next Task**: POLISH-01 (Add global error boundary)
 
 ### Blocking Issue - RESOLVED
 The schema mismatch has been resolved. The backend now compiles without TypeScript errors.
@@ -600,12 +600,14 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - Note: Implemented as part of UI-45 commit
 
 ### 8.2 Data Export
-- [ ] **REPORT-04**: Add GET /api/assessments/export endpoint
+- [x] **REPORT-04**: Add GET /api/assessments/export endpoint `640cf58`
   - Returns CSV of assessments list
   - Columns: id, title, status, score, scheduledDate, completedDate, leadAuditor
 
-- [ ] **UI-47**: Add "Export to CSV" button on assessments list
+- [x] **UI-47**: Add "Export to CSV" button on assessments list `828fe88`
   - Trigger download
+  - Added exportCSV function to assessmentsApi
+  - Button with loading state and success/error toast notifications
 
 ---
 
@@ -819,6 +821,8 @@ No current blockers.
 | REPORT-03: Add GET /api/assessments/:id/report endpoint | ab368b1 | 2026-02-01 |
 | UI-45: Add Generate Report button on assessment detail | dbc6aa1 | 2026-02-01 |
 | UI-46: Implement PDF download (included in UI-45) | dbc6aa1 | 2026-02-01 |
+| REPORT-04: Add GET /api/assessments/export endpoint | 640cf58 | 2026-02-01 |
+| UI-47: Add Export to CSV button on assessments list | 828fe88 | 2026-02-01 |
 
 ---
 
