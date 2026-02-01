@@ -5,10 +5,10 @@
 ## Current Status
 
 **Phase**: 8 - Reports & Export
-**Progress**: 88 / 88 tasks (6 pre-existing setup tasks completed)
+**Progress**: 89 / 88 tasks (6 pre-existing setup tasks completed)
 **Last Updated**: 2026-02-01
-**Last Completed**: UI-45 (Add "Generate Report" button on assessment detail)
-**Next Task**: UI-46 (Implement PDF download)
+**Last Completed**: UI-46 (Implement PDF download - already included in UI-45)
+**Next Task**: REPORT-04 (Add GET /api/assessments/export endpoint)
 
 ### Blocking Issue - RESOLVED
 The schema mismatch has been resolved. The backend now compiles without TypeScript errors.
@@ -593,10 +593,11 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - Loading state during generation
   - Downloads PDF with sanitized filename based on assessment title
 
-- [ ] **UI-46**: Implement PDF download
+- [x] **UI-46**: Implement PDF download `dbc6aa1`
   - Fetch blob from API
   - Create object URL
   - Trigger download with descriptive filename
+  - Note: Implemented as part of UI-45 commit
 
 ### 8.2 Data Export
 - [ ] **REPORT-04**: Add GET /api/assessments/export endpoint
@@ -817,6 +818,7 @@ No current blockers.
 | REPORT-02: Design assessment report template with visual gauge | a72a840 | 2026-02-01 |
 | REPORT-03: Add GET /api/assessments/:id/report endpoint | ab368b1 | 2026-02-01 |
 | UI-45: Add Generate Report button on assessment detail | dbc6aa1 | 2026-02-01 |
+| UI-46: Implement PDF download (included in UI-45) | dbc6aa1 | 2026-02-01 |
 
 ---
 
