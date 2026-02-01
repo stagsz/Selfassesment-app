@@ -10,11 +10,10 @@ import {
   Download,
   Trash2,
   ExternalLink,
-  AlertCircle,
   Loader2,
 } from 'lucide-react';
 import { Button } from './button';
-import { Card, CardContent, CardHeader, CardTitle } from './card';
+import { DeleteConfirmationDialog } from './confirmation-dialog';
 
 export interface EvidenceItem {
   id: string;
@@ -284,39 +283,19 @@ export function EvidenceList({
       ))}
 
       {/* Delete Confirmation Modal */}
-      {showDeleteConfirm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <Card className="w-full max-w-md mx-4">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-red-600">
-                <AlertCircle className="h-5 w-5" />
-                Delete Evidence
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-gray-600">
-                Are you sure you want to delete this evidence file? This action cannot be undone.
-              </p>
-              <div className="flex justify-end gap-3">
-                <Button
-                  variant="outline"
-                  onClick={() => setShowDeleteConfirm(null)}
-                  disabled={deletingId !== null}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  variant="destructive"
-                  onClick={() => handleDelete(showDeleteConfirm)}
-                  loading={deletingId === showDeleteConfirm}
-                >
-                  Delete
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
+      <DeleteConfirmationDialog
+        isOpen={showDeleteConfirm !== null}
+        onClose={() => setShowDeleteConfirm(null)}
+        onConfirm={() => showDeleteConfirm && handleDelete(showDeleteConfirm)}
+        itemName={
+          showDeleteConfirm
+            ? evidence.find((e) => e.id === showDeleteConfirm)?.fileName || 'this file'
+            : ''
+        }
+        itemType="evidence"
+        isLoading={deletingId === showDeleteConfirm}
+        canBeUndone={false}
+      />
     </div>
   );
 }

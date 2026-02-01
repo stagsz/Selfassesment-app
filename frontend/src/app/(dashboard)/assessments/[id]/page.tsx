@@ -24,6 +24,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ProgressBar, CircularProgress } from '@/components/ui/progress-bar';
 import { Skeleton } from '@/components/ui/skeleton';
+import { DeleteConfirmationDialog } from '@/components/ui/confirmation-dialog';
 import { SectionNavigator } from '@/components/assessments/section-navigator';
 import { SectionScoreSummary } from '@/components/assessments/section-score-summary';
 import { SectionProgressIndicator } from '@/components/assessments/section-progress-indicator';
@@ -286,40 +287,15 @@ export default function AssessmentDetailPage() {
       </div>
 
       {/* Delete Confirmation Modal */}
-      {showDeleteConfirm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <Card className="w-full max-w-md mx-4">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-red-600">
-                <AlertCircle className="h-5 w-5" />
-                Delete Assessment
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-gray-600">
-                Are you sure you want to delete "{assessment.title}"? This action will archive the
-                assessment and it can be restored by an administrator.
-              </p>
-              <div className="flex justify-end gap-3">
-                <Button
-                  variant="outline"
-                  onClick={() => setShowDeleteConfirm(false)}
-                  disabled={deleteAssessment.isPending}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  variant="destructive"
-                  onClick={handleDelete}
-                  loading={deleteAssessment.isPending}
-                >
-                  Delete
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
+      <DeleteConfirmationDialog
+        isOpen={showDeleteConfirm}
+        onClose={() => setShowDeleteConfirm(false)}
+        onConfirm={handleDelete}
+        itemName={assessment.title}
+        itemType="assessment"
+        isLoading={deleteAssessment.isPending}
+        canBeUndone={true}
+      />
 
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
