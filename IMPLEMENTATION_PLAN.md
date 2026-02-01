@@ -5,10 +5,10 @@
 ## Current Status
 
 **Phase**: 10 - Testing (Optional for MVP)
-**Progress**: 96 / 88 tasks (6 pre-existing setup tasks completed)
+**Progress**: 98 / 88 tasks (6 pre-existing setup tasks completed)
 **Last Updated**: 2026-02-01
-**Last Completed**: POLISH-05 (Implement session timeout)
-**Next Task**: TEST-01 (Set up Jest and supertest for backend)
+**Last Completed**: TEST-02 (Write auth API tests)
+**Next Task**: TEST-03 (Write assessment API tests)
 
 ### Blocking Issue - RESOLVED
 The schema mismatch has been resolved. The backend now compiles without TypeScript errors.
@@ -649,15 +649,21 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
 
 ## Phase 10: Testing (Optional for MVP) (6 tasks)
 
-- [ ] **TEST-01**: Set up Jest and supertest for backend
-  - Install dependencies
-  - Configure jest.config.js
-  - Add test script to package.json
+- [x] **TEST-01**: Set up Jest and supertest for backend `f46eaa1`
+  - Install dependencies (supertest, @types/supertest, ts-jest, @types/jest, @types/pdfkit)
+  - Configure jest.config.js with ts-jest preset and module mappings
+  - Create test setup files (globalSetup.ts, setup.ts, helpers.ts)
+  - Create health endpoint test to verify setup works
+  - Add test, test:watch, and test:coverage scripts to package.json
+  - Fix TypeScript errors discovered during test setup
 
-- [ ] **TEST-02**: Write auth API tests
-  - Login success/failure cases
-  - Token refresh flow
-  - Password change validation
+- [x] **TEST-02**: Write auth API tests `2629fc1`
+  - Login success/failure cases (invalid credentials, deactivated user, validation errors)
+  - Token refresh flow (valid/invalid/expired tokens, deactivated user after login)
+  - Password change validation (correct/incorrect current password, min length)
+  - Registration tests (duplicate email, invalid organization, validation)
+  - /me endpoint authentication tests (valid/invalid/expired tokens)
+  - 26 comprehensive tests covering all auth endpoints
 
 - [ ] **TEST-03**: Write assessment API tests
   - CRUD operations
@@ -833,6 +839,8 @@ No current blockers.
 | POLISH-03: Add empty state components for all list pages | 245e4e6 | 2026-02-01 |
 | POLISH-04: Add confirmation dialogs for destructive actions | b15cedf | 2026-02-01 |
 | POLISH-05: Implement session timeout | d28f5e7 | 2026-02-01 |
+| TEST-01: Set up Jest and supertest for backend | f46eaa1 | 2026-02-01 |
+| TEST-02: Write auth API tests | 2629fc1 | 2026-02-01 |
 
 ---
 
