@@ -232,6 +232,8 @@ export const usersApi = {
     search?: string;
   }) => api.get('/users', { params }),
   getById: (id: string) => api.get(`/users/${id}`),
+  toggleActive: (id: string) => api.post(`/users/${id}/toggle-active`),
+  changeRole: (id: string, role: string) => api.post(`/users/${id}/change-role`, { role }),
 };
 
 export const nonConformitiesApi = {
