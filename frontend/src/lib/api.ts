@@ -143,6 +143,7 @@ export const assessmentsApi = {
     scheduledDate?: string;
     dueDate?: string;
     templateId?: string;
+    teamMembers?: Array<{ userId: string; role: string }>;
   }) => api.post('/assessments', data),
   update: (id: string, data: any) => api.put(`/assessments/${id}`, data),
   delete: (id: string) => api.delete(`/assessments/${id}`),
@@ -197,4 +198,15 @@ export const actionsApi = {
 export const templatesApi = {
   list: () => api.get('/templates'),
   getById: (id: string) => api.get(`/templates/${id}`),
+};
+
+export const usersApi = {
+  list: (params?: {
+    page?: number;
+    limit?: number;
+    role?: string;
+    isActive?: boolean;
+    search?: string;
+  }) => api.get('/users', { params }),
+  getById: (id: string) => api.get(`/users/${id}`),
 };

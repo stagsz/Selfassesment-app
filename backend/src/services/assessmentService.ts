@@ -1,6 +1,11 @@
 import { prisma } from '../config/database';
 import { NotFoundError, ValidationError, AuthorizationError } from '../utils/errors';
-import { AssessmentStatus, AuditType, UserRole } from '../types/enums';
+import { AssessmentStatus, AuditType, UserRole, TeamMemberRole } from '../types/enums';
+
+interface TeamMemberInput {
+  userId: string;
+  role: string;
+}
 
 interface CreateAssessmentData {
   title: string;
@@ -11,7 +16,7 @@ interface CreateAssessmentData {
   scheduledDate?: Date;
   dueDate?: Date;
   templateId?: string;
-  teamMemberIds?: string[];
+  teamMembers?: TeamMemberInput[];
 }
 
 interface UpdateAssessmentData {
@@ -63,17 +68,26 @@ export class AssessmentService {
       }
     }
 
-    // Validate team members exist in the organization
-    if (data.teamMemberIds?.length) {
+    // Validate team members exist in the organization and have valid roles
+    if (data.teamMembers?.length) {
+      const userIds = data.teamMembers.map((tm) => tm.userId);
       const validMembers = await prisma.user.count({
         where: {
-          id: { in: data.teamMemberIds },
+          id: { in: userIds },
           organizationId,
           isActive: true,
         },
       });
-      if (validMembers !== data.teamMemberIds.length) {
+      if (validMembers !== userIds.length) {
         throw new ValidationError('One or more team members are invalid');
+      }
+
+      // Validate roles
+      const validRoles = Object.values(TeamMemberRole);
+      for (const tm of data.teamMembers) {
+        if (!validRoles.includes(tm.role as TeamMemberRole)) {
+          throw new ValidationError(`Invalid team member role: ${tm.role}`);
+        }
       }
     }
 
@@ -89,10 +103,11 @@ export class AssessmentService {
         organizationId,
         leadAuditorId,
         templateId: data.templateId,
-        teamMembers: data.teamMemberIds?.length
+        teamMembers: data.teamMembers?.length
           ? {
-              create: data.teamMemberIds.map((userId) => ({
-                userId,
+              create: data.teamMembers.map((tm) => ({
+                userId: tm.userId,
+                role: tm.role,
               })),
             }
           : undefined,

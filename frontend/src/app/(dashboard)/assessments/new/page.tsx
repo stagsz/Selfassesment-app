@@ -13,6 +13,7 @@ import { isNetworkError, getAuthErrorInfo } from '@/lib/auth-errors';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
+import { TeamMemberSelect, TeamMember } from '@/components/ui/team-member-select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface Template {
@@ -53,6 +54,7 @@ export default function NewAssessmentPage() {
   const [descriptionLength, setDescriptionLength] = useState(0);
   const [templates, setTemplates] = useState<Template[]>([]);
   const [templatesLoading, setTemplatesLoading] = useState(true);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
 
   const {
     register,
@@ -109,6 +111,7 @@ export default function NewAssessmentPage() {
         scheduledDate: data.scheduledDate || undefined,
         dueDate: data.dueDate || undefined,
         templateId: data.templateId || undefined,
+        teamMembers: teamMembers.length > 0 ? teamMembers : undefined,
       });
 
       toast.success('Assessment created successfully!');
@@ -232,6 +235,12 @@ export default function NewAssessmentPage() {
                 </div>
               )}
             </div>
+
+            {/* Team Members */}
+            <TeamMemberSelect
+              value={teamMembers}
+              onChange={setTeamMembers}
+            />
 
             {/* Audit Type */}
             <div className="w-full">
