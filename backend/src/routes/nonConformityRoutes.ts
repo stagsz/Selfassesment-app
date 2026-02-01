@@ -38,6 +38,12 @@ export const nonConformityRouter = Router();
 // All routes require authentication
 nonConformityRouter.use(withAuth((req, res, next) => next()));
 
+// GET /api/non-conformities - List all NCRs for the organization
+nonConformityRouter.get(
+  '/',
+  asyncHandler(nonConformityController.listAll.bind(nonConformityController))
+);
+
 // GET /api/non-conformities/:id - Get NCR by ID
 nonConformityRouter.get(
   '/:id',

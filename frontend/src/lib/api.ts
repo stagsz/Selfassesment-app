@@ -211,6 +211,48 @@ export const usersApi = {
   getById: (id: string) => api.get(`/users/${id}`),
 };
 
+export const nonConformitiesApi = {
+  list: (params?: {
+    page?: number;
+    pageSize?: number;
+    status?: string;
+    severity?: string;
+    search?: string;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+  }) => api.get('/non-conformities', { params }),
+  getById: (id: string) => api.get(`/non-conformities/${id}`),
+  listByAssessment: (assessmentId: string, params?: {
+    page?: number;
+    pageSize?: number;
+    status?: string;
+    severity?: string;
+    search?: string;
+  }) => api.get(`/assessments/${assessmentId}/non-conformities`, { params }),
+  create: (assessmentId: string, data: {
+    title: string;
+    description: string;
+    severity: string;
+    responseId?: string | null;
+    rootCause?: string | null;
+    rootCauseMethod?: string | null;
+  }) => api.post(`/assessments/${assessmentId}/non-conformities`, data),
+  update: (id: string, data: {
+    title?: string;
+    description?: string;
+    severity?: string;
+    rootCause?: string | null;
+    rootCauseMethod?: string | null;
+  }) => api.put(`/non-conformities/${id}`, data),
+  delete: (id: string) => api.delete(`/non-conformities/${id}`),
+  transition: (id: string, status: string) =>
+    api.post(`/non-conformities/${id}/transition`, { status }),
+  generateFromFailingResponses: (assessmentId: string) =>
+    api.post(`/assessments/${assessmentId}/non-conformities/generate`),
+  getSummary: (assessmentId: string) =>
+    api.get(`/assessments/${assessmentId}/non-conformities/summary`),
+};
+
 export const evidenceApi = {
   upload: (
     responseId: string,

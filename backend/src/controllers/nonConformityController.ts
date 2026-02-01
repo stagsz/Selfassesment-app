@@ -51,6 +51,39 @@ const transitionStatusSchema = z.object({
 
 export class NonConformityController {
   /**
+   * GET /api/non-conformities
+   * List all non-conformities for the organization with optional filters
+   */
+  listAll = withValidation(
+    {
+      query: ncrListQuerySchema,
+    },
+    async (req: Request, res: Response): Promise<void> => {
+      const { status, severity, search, page, pageSize, sortBy, sortOrder } = req.query as {
+        status?: NCRStatus;
+        severity?: Severity;
+        search?: string;
+        page: number;
+        pageSize: number;
+        sortBy?: string;
+        sortOrder: 'asc' | 'desc';
+      };
+
+      const result = await nonConformityService.listAll(
+        req.user!.organizationId,
+        { status, severity, search },
+        { page, limit: pageSize, sortBy, sortOrder }
+      );
+
+      res.json({
+        success: true,
+        data: result.data,
+        pagination: result.pagination,
+      });
+    }
+  );
+
+  /**
    * GET /api/assessments/:id/non-conformities
    * List all non-conformities for an assessment with optional filters
    */

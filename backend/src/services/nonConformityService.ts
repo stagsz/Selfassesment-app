@@ -42,6 +42,95 @@ const VALID_TRANSITIONS: Record<NCRStatus, NCRStatus[]> = {
 
 export class NonConformityService {
   /**
+   * List all non-conformities for an organization (across all assessments)
+   */
+  async listAll(
+    organizationId: string,
+    filters: NCRFilters = {},
+    options: ListOptions = {}
+  ) {
+    const { page = 1, limit = 20, sortBy = 'createdAt', sortOrder = 'desc' } = options;
+    const skip = (page - 1) * limit;
+
+    const where: Record<string, unknown> = {
+      assessment: {
+        organizationId,
+      },
+    };
+
+    if (filters.status) {
+      where.status = filters.status;
+    }
+
+    if (filters.severity) {
+      where.severity = filters.severity;
+    }
+
+    if (filters.search) {
+      where.OR = [
+        { title: { contains: filters.search } },
+        { description: { contains: filters.search } },
+      ];
+    }
+
+    const [nonConformities, total] = await Promise.all([
+      prisma.nonConformity.findMany({
+        where,
+        skip,
+        take: limit,
+        orderBy: { [sortBy]: sortOrder },
+        include: {
+          assessment: {
+            select: {
+              id: true,
+              title: true,
+              status: true,
+            },
+          },
+          response: {
+            select: {
+              id: true,
+              question: {
+                select: {
+                  id: true,
+                  questionNumber: true,
+                  questionText: true,
+                },
+              },
+              section: {
+                select: {
+                  id: true,
+                  sectionNumber: true,
+                  title: true,
+                },
+              },
+            },
+          },
+          correctiveActions: {
+            select: {
+              id: true,
+              status: true,
+              priority: true,
+              targetDate: true,
+            },
+          },
+        },
+      }),
+      prisma.nonConformity.count({ where }),
+    ]);
+
+    return {
+      data: nonConformities,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    };
+  }
+
+  /**
    * List all non-conformities for an assessment
    */
   async listByAssessment(
