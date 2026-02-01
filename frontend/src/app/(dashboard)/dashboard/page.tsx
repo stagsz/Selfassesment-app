@@ -4,7 +4,6 @@ import {
   ClipboardCheck,
   AlertTriangle,
   CheckCircle,
-  Clock,
   TrendingUp,
   TrendingDown,
 } from 'lucide-react';
@@ -18,16 +17,13 @@ import {
   TrendLineChart,
 } from '@/components/charts/compliance-chart';
 import { useDashboard } from '@/hooks/useDashboard';
+import { DashboardSkeleton } from '@/components/dashboard/dashboard-skeleton';
 
 export default function DashboardPage() {
   const { overview, sections, trends, isLoading } = useDashboard();
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600" />
-      </div>
-    );
+    return <DashboardSkeleton />;
   }
 
   // Transform section data for charts
