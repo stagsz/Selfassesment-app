@@ -2,6 +2,7 @@ import { Router } from 'express';
 import authRoutes from './authRoutes';
 import assessmentRoutes from './assessmentRoutes';
 import standardsRoutes from './standardsRoutes';
+import dashboardRoutes from './dashboardRoutes';
 import { evidenceRouter, responseEvidenceRouter } from './evidenceRoutes';
 import { nonConformityRouter, assessmentNCRRouter } from './nonConformityRoutes';
 import { actionRouter, ncrActionRouter } from './correctiveActionRoutes';
@@ -27,5 +28,6 @@ router.use('/non-conformities', nonConformityRouter);
 router.use('/assessments/:id/non-conformities', assessmentNCRRouter);
 router.use('/actions', actionRouter);
 router.use('/non-conformities/:id/actions', ncrActionRouter);
+router.use('/dashboard', dashboardRoutes);
 
 export default router;
