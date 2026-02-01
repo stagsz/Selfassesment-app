@@ -40,7 +40,7 @@ export const config = {
 
   // CORS
   cors: {
-    origin: (process.env.CORS_ORIGIN || 'http://localhost:3000').split(',').map(origin => origin.trim()),
+    origin: (process.env.CORS_ORIGIN || 'http://localhost:3000,http://172.17.32.1:3000').split(',').map(origin => origin.trim()),
     credentials: true,
   },
 
