@@ -132,6 +132,8 @@ export const assessmentsApi = {
     pageSize?: number;
     status?: string;
     q?: string;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
   }) => api.get('/assessments', { params }),
   getById: (id: string) => api.get(`/assessments/${id}`),
   create: (data: {

@@ -14,6 +14,9 @@ import {
   Copy,
   ClipboardList,
   AlertCircle,
+  ArrowUpDown,
+  ArrowUp,
+  ArrowDown,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -40,6 +43,46 @@ const statusOptions = [
   { value: 'ARCHIVED', label: 'Archived' },
 ];
 
+type SortField = 'createdAt' | 'scheduledDate' | 'overallScore' | 'status';
+type SortOrder = 'asc' | 'desc';
+
+interface SortableColumnHeaderProps {
+  field: SortField;
+  label: string;
+  currentSortBy: string;
+  currentSortOrder: SortOrder;
+  onSort: (field: SortField) => void;
+}
+
+function SortableColumnHeader({
+  field,
+  label,
+  currentSortBy,
+  currentSortOrder,
+  onSort,
+}: SortableColumnHeaderProps) {
+  const isActive = currentSortBy === field;
+
+  return (
+    <button
+      onClick={() => onSort(field)}
+      className="flex items-center gap-1 font-medium text-gray-600 hover:text-gray-900 transition-colors"
+      aria-label={`Sort by ${label}`}
+    >
+      {label}
+      {isActive ? (
+        currentSortOrder === 'asc' ? (
+          <ArrowUp className="h-4 w-4 text-primary-600" />
+        ) : (
+          <ArrowDown className="h-4 w-4 text-primary-600" />
+        )
+      ) : (
+        <ArrowUpDown className="h-4 w-4 text-gray-400" />
+      )}
+    </button>
+  );
+}
+
 export default function AssessmentsPage() {
   const router = useRouter();
   const pathname = usePathname();
@@ -50,6 +93,8 @@ export default function AssessmentsPage() {
   const searchTermFromUrl = searchParams.get('q') || '';
   const page = parseInt(searchParams.get('page') || '1', 10);
   const pageSize = parseInt(searchParams.get('pageSize') || '10', 10);
+  const sortBy = (searchParams.get('sortBy') || 'createdAt') as SortField;
+  const sortOrder = (searchParams.get('sortOrder') || 'desc') as SortOrder;
 
   // Local state for search input (for immediate feedback)
   const [searchInput, setSearchInput] = useState(searchTermFromUrl);
@@ -70,8 +115,10 @@ export default function AssessmentsPage() {
         }
       });
 
-      // Reset to page 1 when filters change
-      if (!updates.hasOwnProperty('page') && (updates.status !== undefined || updates.q !== undefined)) {
+      // Reset to page 1 when filters change (but not when sorting)
+      if (!updates.hasOwnProperty('page') &&
+          (updates.status !== undefined || updates.q !== undefined) &&
+          updates.sortBy === undefined && updates.sortOrder === undefined) {
         params.delete('page');
       }
 
@@ -113,11 +160,23 @@ export default function AssessmentsPage() {
     updateQueryParams({ pageSize: String(newPageSize), page: '1' });
   };
 
+  const handleSort = (field: SortField) => {
+    if (sortBy === field) {
+      // Toggle sort order if same field
+      updateQueryParams({ sortOrder: sortOrder === 'asc' ? 'desc' : 'asc' });
+    } else {
+      // Default to descending for new field
+      updateQueryParams({ sortBy: field, sortOrder: 'desc' });
+    }
+  };
+
   const { data, isLoading, isError } = useAssessments({
     page,
     pageSize,
     status: statusFilter || undefined,
     q: searchTermFromUrl || undefined,
+    sortBy,
+    sortOrder,
   });
 
   const assessments = data?.data || [];
@@ -173,6 +232,45 @@ export default function AssessmentsPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Sort Controls */}
+      {!isLoading && !isError && assessments.length > 0 && (
+        <Card>
+          <CardContent className="py-3">
+            <div className="flex items-center gap-6 text-sm">
+              <span className="text-gray-500 font-medium">Sort by:</span>
+              <SortableColumnHeader
+                field="createdAt"
+                label="Created"
+                currentSortBy={sortBy}
+                currentSortOrder={sortOrder}
+                onSort={handleSort}
+              />
+              <SortableColumnHeader
+                field="scheduledDate"
+                label="Scheduled"
+                currentSortBy={sortBy}
+                currentSortOrder={sortOrder}
+                onSort={handleSort}
+              />
+              <SortableColumnHeader
+                field="overallScore"
+                label="Score"
+                currentSortBy={sortBy}
+                currentSortOrder={sortOrder}
+                onSort={handleSort}
+              />
+              <SortableColumnHeader
+                field="status"
+                label="Status"
+                currentSortBy={sortBy}
+                currentSortOrder={sortOrder}
+                onSort={handleSort}
+              />
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Assessments List */}
       <div className="space-y-4">
