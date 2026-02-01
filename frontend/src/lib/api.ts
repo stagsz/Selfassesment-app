@@ -232,6 +232,11 @@ export const usersApi = {
     search?: string;
   }) => api.get('/users', { params }),
   getById: (id: string) => api.get(`/users/${id}`),
+  update: (id: string, data: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+  }) => api.put(`/users/${id}`, data),
   toggleActive: (id: string) => api.post(`/users/${id}/toggle-active`),
   changeRole: (id: string, role: string) => api.post(`/users/${id}/change-role`, { role }),
 };

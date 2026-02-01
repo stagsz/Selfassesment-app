@@ -15,15 +15,17 @@ import {
   ArrowDown,
   Check,
   X,
+  Pencil,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { Pagination } from '@/components/ui/pagination';
-import { useUsers } from '@/hooks/useUsers';
+import { useUsers, User } from '@/hooks/useUsers';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useAuthStore } from '@/lib/store';
+import { UserEditModal } from '@/components/users/UserEditModal';
 
 const roleColors: Record<string, string> = {
   SYSTEM_ADMIN: 'bg-purple-100 text-purple-700',
@@ -189,6 +191,20 @@ export default function AdminUsersPage() {
     } else {
       updateQueryParams({ sortBy: field, sortOrder: 'desc' });
     }
+  };
+
+  // Modal state
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+  const handleEditUser = (user: User) => {
+    setSelectedUser(user);
+    setEditModalOpen(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setEditModalOpen(false);
+    setSelectedUser(null);
   };
 
   const { data, isLoading, isError } = useUsers({
@@ -366,6 +382,9 @@ export default function AdminUsersPage() {
                         onSort={handleSort}
                       />
                     </th>
+                    <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
@@ -425,6 +444,16 @@ export default function AdminUsersPage() {
                       <td className="px-6 py-4 text-sm text-gray-500">
                         {format(new Date(user.createdAt), 'MMM d, yyyy')}
                       </td>
+                      <td className="px-6 py-4 text-right">
+                        <button
+                          onClick={() => handleEditUser(user)}
+                          className="inline-flex items-center gap-1 px-2.5 py-1.5 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-md transition-colors"
+                          aria-label={`Edit ${user.firstName} ${user.lastName}`}
+                        >
+                          <Pencil className="h-4 w-4" />
+                          Edit
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -450,6 +479,13 @@ export default function AdminUsersPage() {
           </CardContent>
         </Card>
       )}
+
+      {/* Edit User Modal */}
+      <UserEditModal
+        isOpen={editModalOpen}
+        onClose={handleCloseEditModal}
+        user={selectedUser}
+      />
     </div>
   );
 }

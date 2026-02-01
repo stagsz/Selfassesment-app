@@ -88,3 +88,24 @@ export function useChangeUserRole() {
     },
   });
 }
+
+export interface UpdateUserData {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+}
+
+export function useUpdateUser() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ userId, data }: { userId: string; data: UpdateUserData }) => {
+      const response = await usersApi.update(userId, data);
+      return response.data as { success: boolean; data: User };
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+      queryClient.invalidateQueries({ queryKey: ['user'] });
+    },
+  });
+}
