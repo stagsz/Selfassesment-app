@@ -4,6 +4,7 @@ import assessmentRoutes from './assessmentRoutes';
 import standardsRoutes from './standardsRoutes';
 import dashboardRoutes from './dashboardRoutes';
 import userRoutes from './userRoutes';
+import templateRoutes from './templateRoutes';
 import { evidenceRouter, responseEvidenceRouter } from './evidenceRoutes';
 import { nonConformityRouter, assessmentNCRRouter } from './nonConformityRoutes';
 import { actionRouter, ncrActionRouter } from './correctiveActionRoutes';
@@ -31,5 +32,6 @@ router.use('/actions', actionRouter);
 router.use('/non-conformities/:id/actions', ncrActionRouter);
 router.use('/dashboard', dashboardRoutes);
 router.use('/users', userRoutes);
+router.use('/templates', templateRoutes);
 
 export default router;

@@ -142,6 +142,7 @@ export const assessmentsApi = {
     auditType?: string;
     scheduledDate?: string;
     dueDate?: string;
+    templateId?: string;
   }) => api.post('/assessments', data),
   update: (id: string, data: any) => api.put(`/assessments/${id}`, data),
   delete: (id: string) => api.delete(`/assessments/${id}`),
@@ -191,4 +192,9 @@ export const actionsApi = {
   getById: (id: string) => api.get(`/actions/${id}`),
   create: (data: any) => api.post('/actions', data),
   update: (id: string, data: any) => api.put(`/actions/${id}`, data),
+};
+
+export const templatesApi = {
+  list: () => api.get('/templates'),
+  getById: (id: string) => api.get(`/templates/${id}`),
 };

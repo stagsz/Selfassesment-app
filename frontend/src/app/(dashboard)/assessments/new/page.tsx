@@ -1,19 +1,26 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'sonner';
-import { ArrowLeft, Calendar, ClipboardList } from 'lucide-react';
-import { assessmentsApi } from '@/lib/api';
+import { ArrowLeft, ClipboardList, FileText } from 'lucide-react';
+import { assessmentsApi, templatesApi } from '@/lib/api';
 import { isNetworkError, getAuthErrorInfo } from '@/lib/auth-errors';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+
+interface Template {
+  id: string;
+  name: string;
+  description: string | null;
+  isDefault: boolean;
+}
 
 const auditTypeOptions = [
   { value: 'INTERNAL', label: 'Internal Audit' },
@@ -26,6 +33,7 @@ const assessmentSchema = z.object({
   title: z.string().min(1, 'Title is required').max(200, 'Title must be 200 characters or less'),
   description: z.string().max(2000, 'Description must be 2000 characters or less').optional(),
   auditType: z.enum(['INTERNAL', 'EXTERNAL', 'SURVEILLANCE', 'CERTIFICATION']),
+  templateId: z.string().optional(),
   scheduledDate: z.string().optional(),
   dueDate: z.string().optional(),
 }).refine((data) => {
@@ -43,19 +51,54 @@ type AssessmentFormData = z.infer<typeof assessmentSchema>;
 export default function NewAssessmentPage() {
   const router = useRouter();
   const [descriptionLength, setDescriptionLength] = useState(0);
+  const [templates, setTemplates] = useState<Template[]>([]);
+  const [templatesLoading, setTemplatesLoading] = useState(true);
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-    watch,
+    setValue,
   } = useForm<AssessmentFormData>({
     resolver: zodResolver(assessmentSchema),
     defaultValues: {
       auditType: 'INTERNAL',
       description: '',
+      templateId: '',
     },
   });
+
+  // Fetch templates on mount
+  useEffect(() => {
+    const fetchTemplates = async () => {
+      try {
+        const response = await templatesApi.list();
+        const templateList = response.data.data || [];
+        setTemplates(templateList);
+
+        // Auto-select default template if one exists
+        const defaultTemplate = templateList.find((t: Template) => t.isDefault);
+        if (defaultTemplate) {
+          setValue('templateId', defaultTemplate.id);
+        }
+      } catch {
+        // Templates are optional, so we don't need to show an error
+        // Just leave the dropdown empty
+      } finally {
+        setTemplatesLoading(false);
+      }
+    };
+
+    fetchTemplates();
+  }, [setValue]);
+
+  const templateOptions = [
+    { value: '', label: 'No template' },
+    ...templates.map((template) => ({
+      value: template.id,
+      label: template.isDefault ? `${template.name} (Default)` : template.name,
+    })),
+  ];
 
   const onSubmit = async (data: AssessmentFormData) => {
     try {
@@ -65,6 +108,7 @@ export default function NewAssessmentPage() {
         auditType: data.auditType,
         scheduledDate: data.scheduledDate || undefined,
         dueDate: data.dueDate || undefined,
+        templateId: data.templateId || undefined,
       });
 
       toast.success('Assessment created successfully!');
@@ -154,6 +198,39 @@ export default function NewAssessmentPage() {
                   {descriptionLength}/2000
                 </span>
               </div>
+            </div>
+
+            {/* Template Selection */}
+            <div className="w-full">
+              <label
+                htmlFor="templateId"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                <div className="flex items-center gap-2">
+                  <FileText className="h-4 w-4" />
+                  Template
+                  <span className="text-gray-400 font-normal">(optional)</span>
+                </div>
+              </label>
+              {templatesLoading ? (
+                <div className="h-10 w-full rounded-md border border-gray-300 bg-gray-50 animate-pulse" />
+              ) : templates.length > 0 ? (
+                <>
+                  <Select
+                    {...register('templateId')}
+                    id="templateId"
+                    options={templateOptions}
+                    error={errors.templateId?.message}
+                  />
+                  {errors.templateId && (
+                    <p className="mt-1 text-sm text-red-500">{errors.templateId.message}</p>
+                  )}
+                </>
+              ) : (
+                <div className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500 bg-gray-50 rounded-md border border-gray-200">
+                  <span>No templates available</span>
+                </div>
+              )}
             </div>
 
             {/* Audit Type */}
