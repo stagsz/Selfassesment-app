@@ -1,7 +1,7 @@
 'use client';
 
 import { clsx } from 'clsx';
-import { HelpCircle, AlertTriangle } from 'lucide-react';
+import { HelpCircle, AlertTriangle, AlertCircle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { ScoreGroup } from '@/components/ui/score-button';
 
@@ -22,10 +22,13 @@ export interface QuestionResponse {
   isDraft?: boolean;
 }
 
+export const MAX_JUSTIFICATION_LENGTH = 2000;
+
 interface QuestionCardProps {
   question: Question;
   response?: QuestionResponse;
   onScoreChange: (score: 1 | 2 | 3) => void;
+  onJustificationChange?: (justification: string) => void;
   disabled?: boolean;
   showGuidance?: boolean;
   className?: string;
@@ -47,17 +50,21 @@ export function QuestionCard({
   question,
   response,
   onScoreChange,
+  onJustificationChange,
   disabled = false,
   showGuidance = true,
   className,
 }: QuestionCardProps) {
   const currentScore = response?.score;
   const hasScore = currentScore !== null && currentScore !== undefined;
+  const justificationText = response?.justification ?? '';
+  const justificationLength = justificationText.length;
 
   // Determine if justification is required (score < 3)
   const requiresJustification = hasScore && currentScore < 3;
-  const hasJustification = response?.justification && response.justification.trim().length > 0;
+  const hasJustification = justificationText.trim().length > 0;
   const showJustificationWarning = requiresJustification && !hasJustification;
+  const isOverLimit = justificationLength > MAX_JUSTIFICATION_LENGTH;
 
   return (
     <Card
@@ -129,15 +136,69 @@ export function QuestionCard({
           />
         </div>
 
-        {/* Justification Warning */}
-        {showJustificationWarning && (
-          <div className="mt-4 p-3 bg-amber-50 rounded-lg border border-amber-200">
-            <div className="flex items-center gap-2">
-              <AlertTriangle className="h-4 w-4 text-amber-600 flex-shrink-0" />
-              <p className="text-sm text-amber-700">
-                Justification required for scores below "Fully Compliant"
-              </p>
+        {/* Justification Textarea */}
+        {hasScore && (
+          <div className="mt-4">
+            <div className="flex items-center justify-between mb-2">
+              <label
+                htmlFor={`justification-${question.id}`}
+                className="text-sm font-medium text-gray-700 flex items-center gap-1.5"
+              >
+                Justification / Notes
+                {requiresJustification && (
+                  <span className="text-red-500 text-xs font-semibold">
+                    (Required)
+                  </span>
+                )}
+              </label>
+              <span
+                className={clsx(
+                  'text-xs',
+                  isOverLimit ? 'text-red-500 font-medium' : 'text-gray-500'
+                )}
+              >
+                {justificationLength.toLocaleString()} / {MAX_JUSTIFICATION_LENGTH.toLocaleString()}
+              </span>
             </div>
+            <textarea
+              id={`justification-${question.id}`}
+              value={justificationText}
+              onChange={(e) => onJustificationChange?.(e.target.value)}
+              placeholder={
+                requiresJustification
+                  ? 'Please explain why this item is not fully compliant...'
+                  : 'Add notes or evidence references (optional)...'
+              }
+              disabled={disabled}
+              rows={3}
+              className={clsx(
+                'w-full rounded-md border px-3 py-2 text-sm resize-y min-h-[80px] max-h-[200px]',
+                'placeholder:text-gray-400',
+                'focus:outline-none focus:ring-2 focus:border-transparent',
+                'disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-50',
+                requiresJustification && !hasJustification
+                  ? 'border-amber-400 focus:ring-amber-500 bg-amber-50/50'
+                  : isOverLimit
+                  ? 'border-red-500 focus:ring-red-500'
+                  : 'border-gray-300 focus:ring-primary-500 bg-white'
+              )}
+            />
+            {showJustificationWarning && (
+              <div className="mt-2 flex items-center gap-1.5">
+                <AlertCircle className="h-4 w-4 text-amber-600 flex-shrink-0" />
+                <p className="text-xs text-amber-700">
+                  Justification is required for non-compliant scores
+                </p>
+              </div>
+            )}
+            {isOverLimit && (
+              <div className="mt-2 flex items-center gap-1.5">
+                <AlertTriangle className="h-4 w-4 text-red-500 flex-shrink-0" />
+                <p className="text-xs text-red-600">
+                  Justification exceeds maximum length
+                </p>
+              </div>
+            )}
           </div>
         )}
 
