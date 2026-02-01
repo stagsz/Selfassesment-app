@@ -26,6 +26,7 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { NCRStatusWorkflow } from '@/components/ncr/NCRStatusWorkflow';
 import { CorrectiveActionList } from '@/components/ncr/CorrectiveActionList';
+import { CorrectiveActionFormModal } from '@/components/ncr/CorrectiveActionFormModal';
 
 const statusColors: Record<string, string> = {
   OPEN: 'bg-red-100 text-red-700',
@@ -172,6 +173,7 @@ export default function NonConformityDetailPage() {
   const params = useParams();
   const { user } = useAuthStore();
   const [isEditingRootCause, setIsEditingRootCause] = useState(false);
+  const [showActionModal, setShowActionModal] = useState(false);
 
   const ncrId = params.id as string;
   const { data, isLoading, isError } = useNonConformity(ncrId);
@@ -422,10 +424,7 @@ export default function NonConformityDetailPage() {
             ncrId={ncrId}
             ncrStatus={ncr.status}
             canEdit={canEdit}
-            onAddAction={() => {
-              // This will be implemented in UI-33 (action form modal)
-              toast.info('Add action form will be implemented in the next task');
-            }}
+            onAddAction={() => setShowActionModal(true)}
           />
         </div>
 
@@ -529,6 +528,13 @@ export default function NonConformityDetailPage() {
           </Card>
         </div>
       </div>
+
+      {/* Corrective Action Form Modal */}
+      <CorrectiveActionFormModal
+        isOpen={showActionModal}
+        onClose={() => setShowActionModal(false)}
+        ncrId={ncrId}
+      />
     </div>
   );
 }
