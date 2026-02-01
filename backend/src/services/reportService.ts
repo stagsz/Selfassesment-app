@@ -299,7 +299,6 @@ export class ReportService {
   private addCoverPage(doc: typeof PDFDocument.prototype, data: ReportData): void {
     const { assessment } = data;
     const pageWidth = 595.28; // A4 width in points
-    const centerX = pageWidth / 2;
 
     // Title
     doc.fontSize(28)
@@ -322,14 +321,18 @@ export class ReportService {
     doc.fontSize(14)
       .fillColor(COLORS.SECONDARY)
       .text(assessment.organization.name, { align: 'center' })
-      .moveDown(3);
+      .moveDown(2);
+
+    // Visual Score Gauge
+    this.addScoreGauge(doc, assessment.overallScore, pageWidth);
+    doc.moveDown(2);
 
     // Key details box
     const boxY = doc.y;
     const boxWidth = 300;
     const boxX = (pageWidth - boxWidth) / 2 - 50;
 
-    doc.rect(boxX, boxY, boxWidth, 150)
+    doc.rect(boxX, boxY, boxWidth, 130)
       .fillAndStroke(COLORS.LIGHT_GRAY, COLORS.PRIMARY);
 
     doc.fontSize(11)
@@ -350,17 +353,6 @@ export class ReportService {
       .text('Audit Type:', labelX, currentY);
     doc.font('Helvetica-Bold')
       .text(assessment.auditType.replace('_', ' '), valueX, currentY);
-    currentY += 22;
-
-    // Overall Score
-    doc.font('Helvetica')
-      .text('Overall Score:', labelX, currentY);
-    const scoreText = assessment.overallScore !== null
-      ? `${assessment.overallScore.toFixed(1)}%`
-      : 'N/A';
-    doc.font('Helvetica-Bold')
-      .fillColor(this.getScoreColor(assessment.overallScore))
-      .text(scoreText, valueX, currentY);
     currentY += 22;
 
     // Lead Auditor
@@ -395,6 +387,123 @@ export class ReportService {
     }
 
     doc.addPage();
+  }
+
+  /**
+   * Add visual score gauge on cover page
+   */
+  private addScoreGauge(doc: typeof PDFDocument.prototype, score: number | null, pageWidth: number): void {
+    const centerX = pageWidth / 2;
+    const gaugeY = doc.y + 20;
+    const outerRadius = 60;
+    const innerRadius = 45;
+    const startAngle = Math.PI * 0.75; // Start at 135 degrees (bottom-left)
+    const endAngle = Math.PI * 2.25; // End at 405 degrees (bottom-right)
+    const totalAngle = endAngle - startAngle;
+
+    // Draw background arc (gray)
+    doc.save();
+    this.drawArc(doc, centerX, gaugeY + outerRadius, outerRadius, innerRadius, startAngle, endAngle, COLORS.LIGHT_GRAY);
+
+    // Draw score arc (colored based on score)
+    if (score !== null && score > 0) {
+      const scoreAngle = startAngle + (totalAngle * (score / 100));
+      const scoreColor = this.getScoreColor(score);
+      this.drawArc(doc, centerX, gaugeY + outerRadius, outerRadius, innerRadius, startAngle, scoreAngle, scoreColor);
+    }
+
+    // Draw center circle (white background for text)
+    doc.circle(centerX, gaugeY + outerRadius, innerRadius - 5)
+      .fill(COLORS.WHITE);
+
+    // Draw score text in center
+    const scoreText = score !== null ? `${Math.round(score)}%` : 'N/A';
+    const scoreColor = this.getScoreColor(score);
+    doc.fontSize(20)
+      .font('Helvetica-Bold')
+      .fillColor(scoreColor)
+      .text(scoreText, centerX - 30, gaugeY + outerRadius - 12, { width: 60, align: 'center' });
+
+    // Draw label below gauge
+    doc.fontSize(10)
+      .font('Helvetica')
+      .fillColor(COLORS.SECONDARY)
+      .text('Overall Compliance', centerX - 50, gaugeY + outerRadius * 2 + 10, { width: 100, align: 'center' });
+
+    // Draw scale markers
+    this.drawGaugeMarkers(doc, centerX, gaugeY + outerRadius, outerRadius + 8);
+
+    doc.restore();
+
+    // Update doc.y to account for gauge height
+    doc.y = gaugeY + outerRadius * 2 + 35;
+  }
+
+  /**
+   * Draw an arc segment for the gauge
+   */
+  private drawArc(
+    doc: typeof PDFDocument.prototype,
+    cx: number,
+    cy: number,
+    outerRadius: number,
+    innerRadius: number,
+    startAngle: number,
+    endAngle: number,
+    color: string
+  ): void {
+    const segments = 50; // Number of segments for smooth arc
+    const angleStep = (endAngle - startAngle) / segments;
+
+    // Build path for arc segment
+    doc.path(`M ${cx + Math.cos(startAngle) * innerRadius} ${cy + Math.sin(startAngle) * innerRadius}`);
+
+    // Inner arc (going forward)
+    for (let i = 0; i <= segments; i++) {
+      const angle = startAngle + (angleStep * i);
+      const x = cx + Math.cos(angle) * innerRadius;
+      const y = cy + Math.sin(angle) * innerRadius;
+      doc.lineTo(x, y);
+    }
+
+    // Line to outer radius
+    doc.lineTo(cx + Math.cos(endAngle) * outerRadius, cy + Math.sin(endAngle) * outerRadius);
+
+    // Outer arc (going backward)
+    for (let i = segments; i >= 0; i--) {
+      const angle = startAngle + (angleStep * i);
+      const x = cx + Math.cos(angle) * outerRadius;
+      const y = cy + Math.sin(angle) * outerRadius;
+      doc.lineTo(x, y);
+    }
+
+    doc.closePath();
+    doc.fill(color);
+  }
+
+  /**
+   * Draw gauge scale markers (0%, 50%, 100%)
+   */
+  private drawGaugeMarkers(doc: typeof PDFDocument.prototype, cx: number, cy: number, radius: number): void {
+    const startAngle = Math.PI * 0.75;
+    const endAngle = Math.PI * 2.25;
+    const markers = [
+      { value: 0, angle: startAngle },
+      { value: 50, angle: startAngle + (endAngle - startAngle) * 0.5 },
+      { value: 100, angle: endAngle },
+    ];
+
+    doc.fontSize(8)
+      .font('Helvetica')
+      .fillColor(COLORS.SECONDARY);
+
+    for (const marker of markers) {
+      const x = cx + Math.cos(marker.angle) * radius;
+      const y = cy + Math.sin(marker.angle) * radius;
+      const labelX = marker.value === 0 ? x - 15 : marker.value === 100 ? x - 5 : x - 8;
+      const labelY = marker.value === 50 ? y - 12 : y - 4;
+      doc.text(`${marker.value}`, labelX, labelY);
+    }
   }
 
   /**
