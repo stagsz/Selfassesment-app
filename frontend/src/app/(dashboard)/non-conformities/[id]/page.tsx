@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
@@ -14,8 +14,6 @@ import {
   FileText,
   Calendar,
   Hash,
-  CheckCircle2,
-  Clock,
   HelpCircle,
 } from 'lucide-react';
 import {
@@ -27,6 +25,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { NCRStatusWorkflow } from '@/components/ncr/NCRStatusWorkflow';
+import { CorrectiveActionList } from '@/components/ncr/CorrectiveActionList';
 
 const statusColors: Record<string, string> = {
   OPEN: 'bg-red-100 text-red-700',
@@ -171,7 +170,6 @@ function RootCauseForm({ rootCause, rootCauseMethod, onSave, onCancel, isSaving 
 
 export default function NonConformityDetailPage() {
   const params = useParams();
-  const router = useRouter();
   const { user } = useAuthStore();
   const [isEditingRootCause, setIsEditingRootCause] = useState(false);
 
@@ -419,85 +417,16 @@ export default function NonConformityDetailPage() {
             </Card>
           )}
 
-          {/* Corrective Actions Summary */}
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0">
-              <CardTitle className="flex items-center gap-2">
-                <CheckCircle2 className="h-5 w-5 text-primary-600" />
-                Corrective Actions ({ncr.correctiveActions?.length || 0})
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              {ncr.correctiveActions && ncr.correctiveActions.length > 0 ? (
-                <div className="space-y-3">
-                  {ncr.correctiveActions.map((action: {
-                    id: string;
-                    description: string;
-                    status: string;
-                    priority: string;
-                    targetDate: string | null;
-                    assignedTo?: { id: string; firstName: string; lastName: string; email: string } | null;
-                  }) => (
-                    <div
-                      key={action.id}
-                      className="flex items-start justify-between p-3 bg-gray-50 rounded-lg"
-                    >
-                      <div className="flex-1 min-w-0">
-                        <p className="font-medium text-gray-900 truncate">{action.description}</p>
-                        <div className="flex flex-wrap items-center gap-2 mt-1 text-sm text-gray-500">
-                          <span
-                            className={`px-2 py-0.5 rounded text-xs font-medium ${
-                              action.status === 'VERIFIED'
-                                ? 'bg-green-100 text-green-700'
-                                : action.status === 'COMPLETED'
-                                ? 'bg-blue-100 text-blue-700'
-                                : action.status === 'IN_PROGRESS'
-                                ? 'bg-yellow-100 text-yellow-700'
-                                : 'bg-gray-100 text-gray-700'
-                            }`}
-                          >
-                            {action.status.replace('_', ' ')}
-                          </span>
-                          <span
-                            className={`px-2 py-0.5 rounded text-xs font-medium ${
-                              action.priority === 'CRITICAL'
-                                ? 'bg-red-100 text-red-700'
-                                : action.priority === 'HIGH'
-                                ? 'bg-orange-100 text-orange-700'
-                                : action.priority === 'MEDIUM'
-                                ? 'bg-yellow-100 text-yellow-700'
-                                : 'bg-gray-100 text-gray-700'
-                            }`}
-                          >
-                            {action.priority}
-                          </span>
-                          {action.assignedTo && (
-                            <span>
-                              Assigned to: {action.assignedTo.firstName} {action.assignedTo.lastName}
-                            </span>
-                          )}
-                          {action.targetDate && (
-                            <span className="flex items-center gap-1">
-                              <Clock className="h-3 w-3" />
-                              Due: {format(new Date(action.targetDate), 'MMM d, yyyy')}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-6">
-                  <CheckCircle2 className="mx-auto h-10 w-10 text-gray-300 mb-2" />
-                  <p className="text-gray-500">No corrective actions created yet.</p>
-                  <p className="text-gray-400 text-sm mt-1">
-                    Corrective actions will be added in a future update.
-                  </p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+          {/* Corrective Actions List */}
+          <CorrectiveActionList
+            ncrId={ncrId}
+            ncrStatus={ncr.status}
+            canEdit={canEdit}
+            onAddAction={() => {
+              // This will be implemented in UI-33 (action form modal)
+              toast.info('Add action form will be implemented in the next task');
+            }}
+          />
         </div>
 
         {/* Right Column - Sidebar */}

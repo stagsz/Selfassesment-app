@@ -184,15 +184,38 @@ export const dashboardApi = {
   getTrends: () => api.get('/dashboard/trends'),
 };
 
-export const actionsApi = {
-  list: (params?: {
+export const correctiveActionsApi = {
+  listByNCR: (ncrId: string, params?: {
+    page?: number;
+    limit?: number;
     status?: string;
     priority?: string;
-    assigneeId?: string;
-  }) => api.get('/actions', { params }),
+    assignedToId?: string;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+  }) => api.get(`/non-conformities/${ncrId}/actions`, { params }),
   getById: (id: string) => api.get(`/actions/${id}`),
-  create: (data: any) => api.post('/actions', data),
-  update: (id: string, data: any) => api.put(`/actions/${id}`, data),
+  create: (ncrId: string, data: {
+    description: string;
+    priority?: string;
+    assignedToId?: string | null;
+    targetDate?: string | null;
+  }) => api.post(`/non-conformities/${ncrId}/actions`, data),
+  update: (id: string, data: {
+    description?: string;
+    priority?: string;
+    assignedToId?: string | null;
+    targetDate?: string | null;
+  }) => api.put(`/actions/${id}`, data),
+  delete: (id: string) => api.delete(`/actions/${id}`),
+  updateStatus: (id: string, status: string) =>
+    api.post(`/actions/${id}/status`, { status }),
+  verify: (id: string, effectivenessNotes?: string) =>
+    api.post(`/actions/${id}/verify`, { effectivenessNotes }),
+  assign: (id: string, assignedToId: string) =>
+    api.post(`/actions/${id}/assign`, { assignedToId }),
+  getSummary: (ncrId: string) =>
+    api.get(`/non-conformities/${ncrId}/actions/summary`),
 };
 
 export const templatesApi = {
