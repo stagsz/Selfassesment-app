@@ -11,7 +11,6 @@ import {
   Calendar,
   ChevronDown,
   ChevronUp,
-  Loader2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,6 +19,7 @@ import {
   useCorrectiveActionsByNCR,
   CorrectiveAction,
 } from '@/hooks/useCorrectiveActions';
+import { ActionStatusDropdown } from './ActionStatusDropdown';
 
 const statusColors: Record<string, string> = {
   PENDING: 'bg-gray-100 text-gray-700',
@@ -47,12 +47,15 @@ interface CorrectiveActionListProps {
   ncrStatus: string;
   canEdit: boolean;
   onAddAction: () => void;
+  onVerifyAction?: (action: CorrectiveAction) => void;
 }
 
-function ActionRow({ action, isExpanded, onToggle }: {
+function ActionRow({ action, isExpanded, onToggle, canEdit, onVerifyClick }: {
   action: CorrectiveAction;
   isExpanded: boolean;
   onToggle: () => void;
+  canEdit: boolean;
+  onVerifyClick: (action: CorrectiveAction) => void;
 }) {
   const isOverdue = action.targetDate &&
     new Date(action.targetDate) < new Date() &&
@@ -71,14 +74,13 @@ function ActionRow({ action, isExpanded, onToggle }: {
         <div className="flex-1 min-w-0 pr-4">
           <p className="font-medium text-gray-900 truncate">{action.description}</p>
           <div className="flex flex-wrap items-center gap-2 mt-2 text-sm">
-            {/* Status Badge */}
-            <span
-              className={`px-2 py-0.5 rounded text-xs font-medium ${
-                statusColors[action.status] || 'bg-gray-100 text-gray-700'
-              }`}
-            >
-              {statusLabels[action.status] || action.status}
-            </span>
+            {/* Status Dropdown */}
+            <ActionStatusDropdown
+              actionId={action.id}
+              currentStatus={action.status}
+              canEdit={canEdit}
+              onVerifyClick={() => onVerifyClick(action)}
+            />
 
             {/* Priority Badge */}
             <span
@@ -134,13 +136,12 @@ function ActionRow({ action, isExpanded, onToggle }: {
             <div className="space-y-3">
               <div>
                 <p className="text-gray-500 font-medium mb-1">Status</p>
-                <span
-                  className={`inline-flex px-2 py-1 rounded text-sm font-medium ${
-                    statusColors[action.status] || 'bg-gray-100 text-gray-700'
-                  }`}
-                >
-                  {statusLabels[action.status] || action.status}
-                </span>
+                <ActionStatusDropdown
+                  actionId={action.id}
+                  currentStatus={action.status}
+                  canEdit={canEdit}
+                  onVerifyClick={() => onVerifyClick(action)}
+                />
               </div>
 
               <div>
@@ -265,6 +266,7 @@ export function CorrectiveActionList({
   ncrStatus,
   canEdit,
   onAddAction,
+  onVerifyAction,
 }: CorrectiveActionListProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const { data, isLoading, isError, refetch } = useCorrectiveActionsByNCR(ncrId);
@@ -274,6 +276,12 @@ export function CorrectiveActionList({
 
   const handleToggle = (actionId: string) => {
     setExpandedId(expandedId === actionId ? null : actionId);
+  };
+
+  const handleVerifyClick = (action: CorrectiveAction) => {
+    if (onVerifyAction) {
+      onVerifyAction(action);
+    }
   };
 
   // Summary statistics
@@ -365,6 +373,8 @@ export function CorrectiveActionList({
                 action={action}
                 isExpanded={expandedId === action.id}
                 onToggle={() => handleToggle(action.id)}
+                canEdit={canEdit && !isClosed}
+                onVerifyClick={handleVerifyClick}
               />
             ))}
           </div>
