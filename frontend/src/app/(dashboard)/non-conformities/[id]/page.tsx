@@ -26,6 +26,7 @@ import { useAuthStore } from '@/lib/store';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { NCRStatusWorkflow } from '@/components/ncr/NCRStatusWorkflow';
 
 const statusColors: Record<string, string> = {
   OPEN: 'bg-red-100 text-red-700',
@@ -268,6 +269,30 @@ export default function NonConformityDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Status Workflow */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Status Workflow</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <NCRStatusWorkflow
+            ncrId={ncrId}
+            currentStatus={ncr.status as 'OPEN' | 'IN_PROGRESS' | 'RESOLVED' | 'CLOSED'}
+            requirements={{
+              hasCorrectiveActions: (ncr.correctiveActions?.length || 0) > 0,
+              allActionsCompleted: ncr.correctiveActions?.every(
+                (a: { status: string }) => a.status === 'COMPLETED' || a.status === 'VERIFIED'
+              ) ?? false,
+              allActionsVerified: ncr.correctiveActions?.every(
+                (a: { status: string }) => a.status === 'VERIFIED'
+              ) ?? false,
+              hasRootCause: !!ncr.rootCause && ncr.rootCause.trim().length > 0,
+            }}
+            canEdit={canEdit}
+          />
+        </CardContent>
+      </Card>
 
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
