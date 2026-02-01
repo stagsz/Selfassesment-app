@@ -27,6 +27,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { NCRStatusWorkflow } from '@/components/ncr/NCRStatusWorkflow';
 import { CorrectiveActionList } from '@/components/ncr/CorrectiveActionList';
 import { CorrectiveActionFormModal } from '@/components/ncr/CorrectiveActionFormModal';
+import { VerificationFormModal } from '@/components/ncr/VerificationFormModal';
+import { CorrectiveAction } from '@/hooks/useCorrectiveActions';
 
 const statusColors: Record<string, string> = {
   OPEN: 'bg-red-100 text-red-700',
@@ -174,6 +176,7 @@ export default function NonConformityDetailPage() {
   const { user } = useAuthStore();
   const [isEditingRootCause, setIsEditingRootCause] = useState(false);
   const [showActionModal, setShowActionModal] = useState(false);
+  const [actionToVerify, setActionToVerify] = useState<CorrectiveAction | null>(null);
 
   const ncrId = params.id as string;
   const { data, isLoading, isError } = useNonConformity(ncrId);
@@ -425,6 +428,7 @@ export default function NonConformityDetailPage() {
             ncrStatus={ncr.status}
             canEdit={canEdit}
             onAddAction={() => setShowActionModal(true)}
+            onVerifyAction={(action) => setActionToVerify(action)}
           />
         </div>
 
@@ -534,6 +538,13 @@ export default function NonConformityDetailPage() {
         isOpen={showActionModal}
         onClose={() => setShowActionModal(false)}
         ncrId={ncrId}
+      />
+
+      {/* Verification Form Modal */}
+      <VerificationFormModal
+        isOpen={actionToVerify !== null}
+        onClose={() => setActionToVerify(null)}
+        action={actionToVerify}
       />
     </div>
   );
