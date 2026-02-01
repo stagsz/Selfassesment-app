@@ -5,10 +5,10 @@
 ## Current Status
 
 **Phase**: 10 - Testing (Optional for MVP)
-**Progress**: 98 / 88 tasks (6 pre-existing setup tasks completed)
+**Progress**: 99 / 88 tasks (6 pre-existing setup tasks completed)
 **Last Updated**: 2026-02-01
-**Last Completed**: TEST-02 (Write auth API tests)
-**Next Task**: TEST-03 (Write assessment API tests)
+**Last Completed**: TEST-03 (Write assessment API tests)
+**Next Task**: TEST-04 (Set up Jest and React Testing Library for frontend)
 
 ### Blocking Issue - RESOLVED
 The schema mismatch has been resolved. The backend now compiles without TypeScript errors.
@@ -665,10 +665,14 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - /me endpoint authentication tests (valid/invalid/expired tokens)
   - 26 comprehensive tests covering all auth endpoints
 
-- [ ] **TEST-03**: Write assessment API tests
-  - CRUD operations
-  - Score calculation
-  - Status transition validation
+- [x] **TEST-03**: Write assessment API tests `469dec5`
+  - 65 tests covering all assessment API endpoints
+  - CRUD operations (create, get by id, list, update, delete/archive)
+  - Score calculation (overall and section scores, draft response filtering)
+  - Status transition validation (all valid/invalid transitions)
+  - Clone assessment with previousAssessmentId linking
+  - CSV export functionality
+  - Fixed status filter bug, SQLite search compatibility, rate limiting in tests
 
 - [ ] **TEST-04**: Set up Jest and React Testing Library for frontend
   - Install dependencies
