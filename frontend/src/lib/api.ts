@@ -210,3 +210,28 @@ export const usersApi = {
   }) => api.get('/users', { params }),
   getById: (id: string) => api.get(`/users/${id}`),
 };
+
+export const evidenceApi = {
+  upload: (
+    responseId: string,
+    file: File,
+    description?: string,
+    onUploadProgress?: (progressEvent: { loaded: number; total?: number }) => void
+  ) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    if (description) {
+      formData.append('description', description);
+    }
+    return api.post(`/responses/${responseId}/evidence`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress,
+    });
+  },
+  listByResponse: (responseId: string) =>
+    api.get(`/responses/${responseId}/evidence`),
+  getById: (evidenceId: string) => api.get(`/evidence/${evidenceId}`),
+  download: (evidenceId: string) =>
+    api.get(`/evidence/${evidenceId}/download`, { responseType: 'blob' }),
+  delete: (evidenceId: string) => api.delete(`/evidence/${evidenceId}`),
+};
