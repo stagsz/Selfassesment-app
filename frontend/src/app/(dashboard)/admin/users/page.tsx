@@ -26,6 +26,7 @@ import { useUsers, User } from '@/hooks/useUsers';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useAuthStore } from '@/lib/store';
 import { UserEditModal } from '@/components/users/UserEditModal';
+import { RoleChangeConfirmationDialog } from '@/components/users/RoleChangeConfirmationDialog';
 
 const roleColors: Record<string, string> = {
   SYSTEM_ADMIN: 'bg-purple-100 text-purple-700',
@@ -195,6 +196,7 @@ export default function AdminUsersPage() {
 
   // Modal state
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [roleChangeDialogOpen, setRoleChangeDialogOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
   const handleEditUser = (user: User) => {
@@ -206,6 +208,19 @@ export default function AdminUsersPage() {
     setEditModalOpen(false);
     setSelectedUser(null);
   };
+
+  const handleChangeRole = (user: User) => {
+    setSelectedUser(user);
+    setRoleChangeDialogOpen(true);
+  };
+
+  const handleCloseRoleChangeDialog = () => {
+    setRoleChangeDialogOpen(false);
+    setSelectedUser(null);
+  };
+
+  // Check if current user can change roles (SYSTEM_ADMIN only)
+  const canChangeRoles = currentUser?.role === 'SYSTEM_ADMIN';
 
   const { data, isLoading, isError } = useUsers({
     page,
@@ -445,14 +460,26 @@ export default function AdminUsersPage() {
                         {format(new Date(user.createdAt), 'MMM d, yyyy')}
                       </td>
                       <td className="px-6 py-4 text-right">
-                        <button
-                          onClick={() => handleEditUser(user)}
-                          className="inline-flex items-center gap-1 px-2.5 py-1.5 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-md transition-colors"
-                          aria-label={`Edit ${user.firstName} ${user.lastName}`}
-                        >
-                          <Pencil className="h-4 w-4" />
-                          Edit
-                        </button>
+                        <div className="flex items-center justify-end gap-2">
+                          <button
+                            onClick={() => handleEditUser(user)}
+                            className="inline-flex items-center gap-1 px-2.5 py-1.5 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-md transition-colors"
+                            aria-label={`Edit ${user.firstName} ${user.lastName}`}
+                          >
+                            <Pencil className="h-4 w-4" />
+                            Edit
+                          </button>
+                          {canChangeRoles && user.id !== currentUser?.id && (
+                            <button
+                              onClick={() => handleChangeRole(user)}
+                              className="inline-flex items-center gap-1 px-2.5 py-1.5 text-sm font-medium text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-md transition-colors"
+                              aria-label={`Change role for ${user.firstName} ${user.lastName}`}
+                            >
+                              <Shield className="h-4 w-4" />
+                              Role
+                            </button>
+                          )}
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -484,6 +511,13 @@ export default function AdminUsersPage() {
       <UserEditModal
         isOpen={editModalOpen}
         onClose={handleCloseEditModal}
+        user={selectedUser}
+      />
+
+      {/* Role Change Confirmation Dialog */}
+      <RoleChangeConfirmationDialog
+        isOpen={roleChangeDialogOpen}
+        onClose={handleCloseRoleChangeDialog}
         user={selectedUser}
       />
     </div>
