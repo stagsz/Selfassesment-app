@@ -17,6 +17,7 @@ import {
   ArrowUpDown,
   ArrowUp,
   ArrowDown,
+  Download,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -26,6 +27,8 @@ import { ProgressBar } from '@/components/ui/progress-bar';
 import { Pagination } from '@/components/ui/pagination';
 import { useAssessments } from '@/hooks/useAssessments';
 import { useDebounce } from '@/hooks/useDebounce';
+import { assessmentsApi } from '@/lib/api';
+import { toast } from 'sonner';
 
 const statusColors: Record<string, string> = {
   DRAFT: 'bg-gray-100 text-gray-700',
@@ -99,6 +102,9 @@ export default function AssessmentsPage() {
   // Local state for search input (for immediate feedback)
   const [searchInput, setSearchInput] = useState(searchTermFromUrl);
 
+  // State for export loading
+  const [isExporting, setIsExporting] = useState(false);
+
   // Debounce the search input (300ms delay)
   const debouncedSearch = useDebounce(searchInput, 300);
 
@@ -170,6 +176,42 @@ export default function AssessmentsPage() {
     }
   };
 
+  const handleExportCSV = async () => {
+    if (isExporting) return;
+
+    setIsExporting(true);
+    try {
+      const response = await assessmentsApi.exportCSV();
+
+      // Create a blob from the response data
+      const blob = new Blob([response.data], { type: 'text/csv' });
+
+      // Create a download link and trigger the download
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+
+      // Generate filename with timestamp
+      const timestamp = new Date().toISOString().split('T')[0];
+      link.download = `assessments-export-${timestamp}.csv`;
+
+      // Trigger download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Clean up the URL object
+      window.URL.revokeObjectURL(url);
+
+      toast.success('Assessments exported successfully');
+    } catch (error) {
+      console.error('Failed to export assessments:', error);
+      toast.error('Failed to export assessments. Please try again.');
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   const { data, isLoading, isError } = useAssessments({
     page,
     pageSize,
@@ -190,12 +232,23 @@ export default function AssessmentsPage() {
           <h1 className="text-2xl font-bold text-gray-900">Assessments</h1>
           <p className="text-gray-500">Manage your ISO 9001 self-assessments and audits</p>
         </div>
-        <Link href="/assessments/new">
-          <Button>
-            <Plus className="mr-2 h-4 w-4" />
-            New Assessment
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            onClick={handleExportCSV}
+            disabled={isExporting}
+            loading={isExporting}
+          >
+            <Download className="mr-2 h-4 w-4" />
+            {isExporting ? 'Exporting...' : 'Export to CSV'}
           </Button>
-        </Link>
+          <Link href="/assessments/new">
+            <Button>
+              <Plus className="mr-2 h-4 w-4" />
+              New Assessment
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {/* Filters */}

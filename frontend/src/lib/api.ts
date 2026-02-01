@@ -153,6 +153,8 @@ export const assessmentsApi = {
     api.post(`/assessments/${id}/clone`, { title }),
   downloadReport: (id: string) =>
     api.get(`/assessments/${id}/report`, { responseType: 'blob' }),
+  exportCSV: () =>
+    api.get('/assessments/export', { responseType: 'blob' }),
 };
 
 export const responsesApi = {
