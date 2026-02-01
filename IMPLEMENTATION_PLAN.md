@@ -4,11 +4,11 @@
 
 ## Current Status
 
-**Phase**: 9 - Polish & Error Handling
-**Progress**: 94 / 88 tasks (6 pre-existing setup tasks completed)
+**Phase**: 10 - Testing (Optional for MVP)
+**Progress**: 96 / 88 tasks (6 pre-existing setup tasks completed)
 **Last Updated**: 2026-02-01
-**Last Completed**: POLISH-03 (Add empty state components)
-**Next Task**: POLISH-04 (Add confirmation dialogs for destructive actions)
+**Last Completed**: POLISH-05 (Implement session timeout)
+**Next Task**: TEST-01 (Set up Jest and supertest for backend)
 
 ### Blocking Issue - RESOLVED
 The schema mismatch has been resolved. The backend now compiles without TypeScript errors.
@@ -631,16 +631,19 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - Added clear filters functionality with callbacks
   - Call-to-action buttons for creating first item
 
-- [ ] **POLISH-04**: Add confirmation dialogs for destructive actions
-  - Delete assessment
-  - Deactivate user
-  - Delete evidence
-  - Use consistent dialog component
+- [x] **POLISH-04**: Add confirmation dialogs for destructive actions `b15cedf`
+  - Created reusable ConfirmationDialog and DeleteConfirmationDialog components
+  - Supports variants: destructive, warning, info, success
+  - Updated delete assessment dialog to use new component
+  - Updated delete evidence dialog to use new component
+  - Deactivate user already had StatusToggleConfirmationDialog (consistent)
 
-- [ ] **POLISH-05**: Implement session timeout
+- [x] **POLISH-05**: Implement session timeout `d28f5e7`
   - Warning toast at 25 minutes inactivity
   - Auto-logout and redirect to login at 30 minutes
-  - Reset timer on user activity
+  - Reset timer on user activity (mouse, keyboard, touch, scroll)
+  - Created useSessionTimeout hook with throttled activity detection
+  - Integrated into dashboard layout for all authenticated pages
 
 ---
 
@@ -828,6 +831,8 @@ No current blockers.
 | POLISH-01: Add global error boundary | 2cde37b | 2026-02-01 |
 | POLISH-02: Add loading skeleton components for all list pages | d0ca697 | 2026-02-01 |
 | POLISH-03: Add empty state components for all list pages | 245e4e6 | 2026-02-01 |
+| POLISH-04: Add confirmation dialogs for destructive actions | b15cedf | 2026-02-01 |
+| POLISH-05: Implement session timeout | d28f5e7 | 2026-02-01 |
 
 ---
 
