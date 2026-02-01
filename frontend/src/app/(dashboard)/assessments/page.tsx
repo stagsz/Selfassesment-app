@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { format } from 'date-fns';
@@ -21,6 +21,7 @@ import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { ProgressBar } from '@/components/ui/progress-bar';
 import { useAssessments } from '@/hooks/useAssessments';
+import { useDebounce } from '@/hooks/useDebounce';
 
 const statusColors: Record<string, string> = {
   DRAFT: 'bg-gray-100 text-gray-700',
@@ -45,9 +46,15 @@ export default function AssessmentsPage() {
 
   // Get filter values from URL
   const statusFilter = searchParams.get('status') || '';
-  const searchTerm = searchParams.get('q') || '';
+  const searchTermFromUrl = searchParams.get('q') || '';
   const page = parseInt(searchParams.get('page') || '1', 10);
   const pageSize = 20;
+
+  // Local state for search input (for immediate feedback)
+  const [searchInput, setSearchInput] = useState(searchTermFromUrl);
+
+  // Debounce the search input (300ms delay)
+  const debouncedSearch = useDebounce(searchInput, 300);
 
   // Update URL with new filter values
   const updateQueryParams = useCallback(
@@ -73,19 +80,34 @@ export default function AssessmentsPage() {
     [router, pathname, searchParams]
   );
 
+  // Sync URL when debounced search value changes
+  useEffect(() => {
+    // Only update URL if the debounced value differs from the URL value
+    if (debouncedSearch !== searchTermFromUrl) {
+      updateQueryParams({ q: debouncedSearch });
+    }
+  }, [debouncedSearch, searchTermFromUrl, updateQueryParams]);
+
+  // Sync local state when URL changes externally (e.g., browser back/forward)
+  useEffect(() => {
+    if (searchTermFromUrl !== searchInput && searchTermFromUrl !== debouncedSearch) {
+      setSearchInput(searchTermFromUrl);
+    }
+  }, [searchTermFromUrl]);
+
   const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     updateQueryParams({ status: e.target.value });
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateQueryParams({ q: e.target.value });
+    setSearchInput(e.target.value);
   };
 
   const { data, isLoading, isError } = useAssessments({
     page,
     pageSize,
     status: statusFilter || undefined,
-    q: searchTerm || undefined,
+    q: searchTermFromUrl || undefined,
   });
 
   const assessments = data?.data || [];
@@ -114,10 +136,11 @@ export default function AssessmentsPage() {
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                 <Input
-                  placeholder="Search assessments..."
-                  value={searchTerm}
+                  placeholder="Search by title or description..."
+                  value={searchInput}
                   onChange={handleSearchChange}
                   className="pl-10"
+                  aria-label="Search assessments"
                 />
               </div>
             </div>
@@ -160,11 +183,11 @@ export default function AssessmentsPage() {
               <ClipboardList className="mx-auto h-12 w-12 text-gray-300 mb-4" />
               <p className="text-gray-700 font-medium">No assessments found</p>
               <p className="text-gray-500 text-sm mt-1">
-                {searchTerm || statusFilter
+                {searchTermFromUrl || statusFilter
                   ? 'Try adjusting your filters'
                   : 'Get started by creating your first assessment'}
               </p>
-              {!searchTerm && !statusFilter && (
+              {!searchTermFromUrl && !statusFilter && (
                 <Link href="/assessments/new">
                   <Button className="mt-4">Create your first assessment</Button>
                 </Link>
