@@ -4,11 +4,11 @@
 
 ## Current Status
 
-**Phase**: 7 - Frontend - Standards & Settings
-**Progress**: 80 / 88 tasks (6 pre-existing setup tasks completed)
+**Phase**: 8 - Reports & Export
+**Progress**: 85 / 88 tasks (6 pre-existing setup tasks completed)
 **Last Updated**: 2026-02-01
-**Last Completed**: UI-40 (Create user edit modal)
-**Next Task**: UI-41 (Add role change confirmation dialog)
+**Last Completed**: REPORT-01 (Install pdfkit and create reportService.ts)
+**Next Task**: REPORT-02 (Design assessment report template)
 
 ### Blocking Issue - RESOLVED
 The schema mismatch has been resolved. The backend now compiles without TypeScript errors.
@@ -540,20 +540,26 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - Save/Cancel buttons with validation
   - Added update method to usersApi and useUpdateUser mutation hook
 
-- [ ] **UI-41**: Add role change confirmation dialog
+- [x] **UI-41**: Add role change confirmation dialog `bdbc55d`
   - Warning about permission changes
   - "Are you sure?" with role comparison
+  - Created RoleChangeConfirmationDialog component
+  - Role button in admin users page (SYSTEM_ADMIN only)
+  - Prevents changing own role
 
-- [ ] **UI-42**: Add user activate/deactivate toggle
-  - Toggle button in user row
-  - Confirmation dialog
+- [x] **UI-42**: Add user activate/deactivate toggle `9c6d673`
+  - Toggle button in user row (SYSTEM_ADMIN only)
+  - StatusToggleConfirmationDialog with confirmation workflow
+  - Button styling changes based on user's current status
 
 ### 7.3 Settings
-- [ ] **UI-43**: Create /settings page
+- [x] **UI-43**: Create /settings page `872040f`
   - User profile card showing: name, email, role, organization
   - Read-only display
+  - Added account information card with user ID
+  - Moved Settings to main navigation (accessible to all users)
 
-- [ ] **UI-44**: Add password change form
+- [x] **UI-44**: Add password change form `97368a9`
   - Fields: current password, new password, confirm password
   - Validation (min length, match)
   - Success/error toast
@@ -563,9 +569,11 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
 ## Phase 8: Reports & Export (7 tasks)
 
 ### 8.1 Report Generation
-- [ ] **REPORT-01**: Install pdfkit and create reportService.ts
-  - `npm install pdfkit`
+- [x] **REPORT-01**: Install pdfkit and create reportService.ts `3517aa6`
+  - `npm install pdfkit` (v0.17.2)
   - Create `backend/src/services/reportService.ts`
+  - Generate assessment PDF with cover page, executive summary
+  - Section breakdown, findings list, NCR summary, recommendations
 
 - [ ] **REPORT-02**: Design assessment report template
   - Executive summary section
@@ -800,6 +808,11 @@ No current blockers.
 | UI-38: Add CSV import modal for standards page | 4791460 | 2026-02-01 |
 | UI-39: Create /admin/users page with user management | c87d5ce | 2026-02-01 |
 | UI-40: Create user edit modal for admin users page | 5d5da86 | 2026-02-01 |
+| UI-41: Add role change confirmation dialog | bdbc55d | 2026-02-01 |
+| UI-42: Add user activate/deactivate toggle | 9c6d673 | 2026-02-01 |
+| UI-43: Create /settings page with user profile card | 872040f | 2026-02-01 |
+| UI-44: Add password change form | 97368a9 | 2026-02-01 |
+| REPORT-01: Install pdfkit and create reportService.ts | 3517aa6 | 2026-02-01 |
 
 ---
 
