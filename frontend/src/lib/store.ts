@@ -99,14 +99,20 @@ export const useAssessmentDraftStore = create<AssessmentDraftState>()((set) => (
 // UI store
 interface UIState {
   sidebarOpen: boolean;
+  mobileMenuOpen: boolean;
   currentSection: string | null;
   toggleSidebar: () => void;
+  openMobileMenu: () => void;
+  closeMobileMenu: () => void;
   setCurrentSection: (section: string | null) => void;
 }
 
 export const useUIStore = create<UIState>()((set) => ({
   sidebarOpen: true,
+  mobileMenuOpen: false,
   currentSection: null,
   toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
+  openMobileMenu: () => set({ mobileMenuOpen: true }),
+  closeMobileMenu: () => set({ mobileMenuOpen: false }),
   setCurrentSection: (section) => set({ currentSection: section }),
 }));
