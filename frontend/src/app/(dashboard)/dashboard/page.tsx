@@ -18,12 +18,19 @@ import {
 } from '@/components/charts/compliance-chart';
 import { useDashboard } from '@/hooks/useDashboard';
 import { DashboardSkeleton } from '@/components/dashboard/dashboard-skeleton';
+import { DashboardEmptyState } from '@/components/dashboard/dashboard-empty-state';
 
 export default function DashboardPage() {
   const { overview, sections, trends, isLoading } = useDashboard();
 
   if (isLoading) {
     return <DashboardSkeleton />;
+  }
+
+  // Show empty state when no assessments exist
+  const hasNoAssessments = !overview.data?.assessmentCounts?.total;
+  if (hasNoAssessments) {
+    return <DashboardEmptyState />;
   }
 
   // Transform section data for charts
