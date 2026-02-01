@@ -200,6 +200,7 @@ export const userSchemas = {
     password: z.string().min(8).max(100),
     firstName: z.string().min(1).max(100),
     lastName: z.string().min(1).max(100),
+    organizationId: z.string().uuid().optional().default('default-org-001'),
     role: z.enum(['SYSTEM_ADMIN', 'QUALITY_MANAGER', 'INTERNAL_AUDITOR', 'DEPARTMENT_HEAD', 'VIEWER']).default('VIEWER'),
     department: z.string().max(100).optional(),
   }),
