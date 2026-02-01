@@ -5,10 +5,10 @@
 ## Current Status
 
 **Phase**: 7 - Frontend - Standards & Settings
-**Progress**: 79 / 88 tasks (6 pre-existing setup tasks completed)
+**Progress**: 80 / 88 tasks (6 pre-existing setup tasks completed)
 **Last Updated**: 2026-02-01
-**Last Completed**: UI-39 (Create /admin/users page)
-**Next Task**: UI-40 (Create user edit modal)
+**Last Completed**: UI-40 (Create user edit modal)
+**Next Task**: UI-41 (Add role change confirmation dialog)
 
 ### Blocking Issue - RESOLVED
 The schema mismatch has been resolved. The backend now compiles without TypeScript errors.
@@ -535,9 +535,10 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - Sortable columns (email, role, lastLogin, createdAt)
   - Pagination with configurable page size
 
-- [ ] **UI-40**: Create user edit modal
-  - Fields: firstName, lastName, email, role dropdown
-  - Save/Cancel buttons
+- [x] **UI-40**: Create user edit modal `5d5da86`
+  - Fields: firstName, lastName, email (role handled separately via UI-41)
+  - Save/Cancel buttons with validation
+  - Added update method to usersApi and useUpdateUser mutation hook
 
 - [ ] **UI-41**: Add role change confirmation dialog
   - Warning about permission changes
@@ -798,6 +799,7 @@ No current blockers.
 | UI-37: Create section detail panel with questions display | 427f5f3 | 2026-02-01 |
 | UI-38: Add CSV import modal for standards page | 4791460 | 2026-02-01 |
 | UI-39: Create /admin/users page with user management | c87d5ce | 2026-02-01 |
+| UI-40: Create user edit modal for admin users page | 5d5da86 | 2026-02-01 |
 
 ---
 
