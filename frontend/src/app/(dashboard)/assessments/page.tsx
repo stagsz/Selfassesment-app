@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import {
   Plus,
@@ -12,55 +11,16 @@ import {
   Eye,
   Edit,
   Copy,
-  Trash2,
+  ClipboardList,
+  AlertCircle,
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ProgressBar } from '@/components/ui/progress-bar';
-import { assessmentsApi } from '@/lib/api';
+import { useAssessments } from '@/hooks/useAssessments';
 
-// Mock data for demonstration
-const mockAssessments = [
-  {
-    id: '1',
-    title: 'Q4 2024 Internal Audit',
-    status: 'COMPLETED',
-    auditType: 'INTERNAL',
-    overallScore: 72.5,
-    progress: 100,
-    scheduledDate: '2024-12-10',
-    completedDate: '2024-12-15',
-    leadAuditor: { firstName: 'John', lastName: 'Doe' },
-    _count: { responses: 45, nonConformities: 3 },
-  },
-  {
-    id: '2',
-    title: 'Q1 2025 Pre-Certification',
-    status: 'IN_PROGRESS',
-    auditType: 'INTERNAL',
-    overallScore: null,
-    progress: 65,
-    scheduledDate: '2025-01-15',
-    completedDate: null,
-    leadAuditor: { firstName: 'Jane', lastName: 'Smith' },
-    _count: { responses: 29, nonConformities: 1 },
-  },
-  {
-    id: '3',
-    title: 'Operations Department Audit',
-    status: 'DRAFT',
-    auditType: 'INTERNAL',
-    overallScore: null,
-    progress: 0,
-    scheduledDate: '2025-02-01',
-    completedDate: null,
-    leadAuditor: { firstName: 'Mike', lastName: 'Johnson' },
-    _count: { responses: 0, nonConformities: 0 },
-  },
-];
-
-const statusColors = {
+const statusColors: Record<string, string> = {
   DRAFT: 'bg-gray-100 text-gray-700',
   IN_PROGRESS: 'bg-blue-100 text-blue-700',
   UNDER_REVIEW: 'bg-yellow-100 text-yellow-700',
@@ -71,17 +31,18 @@ const statusColors = {
 export default function AssessmentsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('');
+  const [page, setPage] = useState(1);
+  const pageSize = 20;
 
-  // In production:
-  // const { data, isLoading } = useQuery({
-  //   queryKey: ['assessments', { q: searchTerm, status: statusFilter }],
-  //   queryFn: () => assessmentsApi.list({ q: searchTerm, status: statusFilter }),
-  // });
-
-  const data = { data: mockAssessments };
-  const isLoading = false;
+  const { data, isLoading, isError } = useAssessments({
+    page,
+    pageSize,
+    status: statusFilter || undefined,
+    q: searchTerm || undefined,
+  });
 
   const assessments = data?.data || [];
+  const pagination = data?.pagination;
 
   return (
     <div className="space-y-6">
@@ -109,7 +70,10 @@ export default function AssessmentsPage() {
                 <Input
                   placeholder="Search assessments..."
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(e) => {
+                    setSearchTerm(e.target.value);
+                    setPage(1);
+                  }}
                   className="pl-10"
                 />
               </div>
@@ -117,7 +81,10 @@ export default function AssessmentsPage() {
             <div className="flex gap-2">
               <select
                 value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
+                onChange={(e) => {
+                  setStatusFilter(e.target.value);
+                  setPage(1);
+                }}
                 className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
               >
                 <option value="">All Status</option>
@@ -142,13 +109,29 @@ export default function AssessmentsPage() {
           <div className="flex items-center justify-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600" />
           </div>
+        ) : isError ? (
+          <Card>
+            <CardContent className="py-12 text-center">
+              <AlertCircle className="mx-auto h-12 w-12 text-red-400 mb-4" />
+              <p className="text-gray-700 font-medium">Failed to load assessments</p>
+              <p className="text-gray-500 text-sm mt-1">Please try refreshing the page</p>
+            </CardContent>
+          </Card>
         ) : assessments.length === 0 ? (
           <Card>
             <CardContent className="py-12 text-center">
-              <p className="text-gray-500">No assessments found</p>
-              <Link href="/assessments/new">
-                <Button className="mt-4">Create your first assessment</Button>
-              </Link>
+              <ClipboardList className="mx-auto h-12 w-12 text-gray-300 mb-4" />
+              <p className="text-gray-700 font-medium">No assessments found</p>
+              <p className="text-gray-500 text-sm mt-1">
+                {searchTerm || statusFilter
+                  ? 'Try adjusting your filters'
+                  : 'Get started by creating your first assessment'}
+              </p>
+              {!searchTerm && !statusFilter && (
+                <Link href="/assessments/new">
+                  <Button className="mt-4">Create your first assessment</Button>
+                </Link>
+              )}
             </CardContent>
           </Card>
         ) : (
@@ -166,7 +149,7 @@ export default function AssessmentsPage() {
                       </Link>
                       <span
                         className={`px-2 py-1 text-xs font-medium rounded-full ${
-                          statusColors[assessment.status as keyof typeof statusColors]
+                          statusColors[assessment.status] || 'bg-gray-100 text-gray-700'
                         }`}
                       >
                         {assessment.status.replace('_', ' ')}
@@ -179,9 +162,11 @@ export default function AssessmentsPage() {
                       <span>
                         Lead: {assessment.leadAuditor.firstName} {assessment.leadAuditor.lastName}
                       </span>
-                      <span>
-                        Scheduled: {format(new Date(assessment.scheduledDate), 'MMM d, yyyy')}
-                      </span>
+                      {assessment.scheduledDate && (
+                        <span>
+                          Scheduled: {format(new Date(assessment.scheduledDate), 'MMM d, yyyy')}
+                        </span>
+                      )}
                       <span>Responses: {assessment._count.responses}</span>
                       {assessment._count.nonConformities > 0 && (
                         <span className="text-red-600">
