@@ -2,8 +2,8 @@
 
 import { User, Mail, Building2, Shield, Calendar } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { PasswordChangeForm } from '@/components/settings';
 import { useAuthStore } from '@/lib/store';
-import { format } from 'date-fns';
 
 const roleLabels: Record<string, string> = {
   SYSTEM_ADMIN: 'System Administrator',
@@ -138,6 +138,9 @@ export default function SettingsPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Password Change Card */}
+      <PasswordChangeForm />
     </div>
   );
 }
