@@ -346,11 +346,7 @@ export default function AdminUsersPage() {
       </Card>
 
       {/* Users Table */}
-      {isLoading ? (
-        <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600" />
-        </div>
-      ) : isError ? (
+      {isError ? (
         <Card>
           <CardContent className="py-12 text-center">
             <AlertCircle className="mx-auto h-12 w-12 text-red-400 mb-4" />

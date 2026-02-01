@@ -62,3 +62,5 @@ evaluate_loop.ps1
 check_prompt_injection.ps1
 ralph_log_*.txt
 evaluation_protocol_*.md
+.png
+
