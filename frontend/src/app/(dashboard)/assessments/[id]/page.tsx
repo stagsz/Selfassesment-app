@@ -24,6 +24,7 @@ import { ProgressBar, CircularProgress } from '@/components/ui/progress-bar';
 import { Skeleton } from '@/components/ui/skeleton';
 import { SectionNavigator } from '@/components/assessments/section-navigator';
 import { SectionScoreSummary } from '@/components/assessments/section-score-summary';
+import { SectionProgressIndicator } from '@/components/assessments/section-progress-indicator';
 
 const statusColors: Record<string, string> = {
   DRAFT: 'bg-gray-100 text-gray-700',
@@ -443,9 +444,14 @@ export default function AssessmentDetailPage() {
               ) : (
                 <>
                   <CircularProgress value={progressPercentage} size={160} strokeWidth={12} />
-                  <p className="mt-4 text-gray-600 text-center">
-                    {answeredQuestions} of {totalQuestions} questions answered
-                  </p>
+                  <div className="mt-4 w-full">
+                    <SectionProgressIndicator
+                      answered={answeredQuestions}
+                      total={totalQuestions}
+                      size="md"
+                      showProgressBar={true}
+                    />
+                  </div>
                 </>
               )}
             </CardContent>
