@@ -22,6 +22,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ProgressBar, CircularProgress } from '@/components/ui/progress-bar';
 import { Skeleton } from '@/components/ui/skeleton';
+import { SectionNavigator } from '@/components/assessments/section-navigator';
 
 const statusColors: Record<string, string> = {
   DRAFT: 'bg-gray-100 text-gray-700',
@@ -467,18 +468,19 @@ export default function AssessmentDetailPage() {
             </CardContent>
           </Card>
 
-          {/* Section Progress Preview */}
-          {assessment.status !== 'DRAFT' && (
-            <Card>
-              <CardHeader>
-                <CardTitle>Section Progress</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-500 text-center py-4">
-                  Section navigator coming in next update
-                </p>
-              </CardContent>
-            </Card>
+          {/* Section Navigator */}
+          {assessment.status !== 'DRAFT' && assessment.responses && (
+            <SectionNavigator
+              responses={assessment.responses.map((r: {
+                id: string;
+                score: number | null;
+                section: { id: string; sectionNumber: string; title: string } | null;
+              }) => ({
+                id: r.id,
+                score: r.score,
+                section: r.section,
+              }))}
+            />
           )}
         </div>
       </div>
