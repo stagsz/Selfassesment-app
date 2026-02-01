@@ -20,6 +20,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/select';
 import { ProgressBar } from '@/components/ui/progress-bar';
+import { Pagination } from '@/components/ui/pagination';
 import { useAssessments } from '@/hooks/useAssessments';
 import { useDebounce } from '@/hooks/useDebounce';
 
@@ -48,7 +49,7 @@ export default function AssessmentsPage() {
   const statusFilter = searchParams.get('status') || '';
   const searchTermFromUrl = searchParams.get('q') || '';
   const page = parseInt(searchParams.get('page') || '1', 10);
-  const pageSize = 20;
+  const pageSize = parseInt(searchParams.get('pageSize') || '10', 10);
 
   // Local state for search input (for immediate feedback)
   const [searchInput, setSearchInput] = useState(searchTermFromUrl);
@@ -103,6 +104,15 @@ export default function AssessmentsPage() {
     setSearchInput(e.target.value);
   };
 
+  const handlePageChange = (newPage: number) => {
+    updateQueryParams({ page: String(newPage) });
+  };
+
+  const handlePageSizeChange = (newPageSize: number) => {
+    // Reset to page 1 when changing page size
+    updateQueryParams({ pageSize: String(newPageSize), page: '1' });
+  };
+
   const { data, isLoading, isError } = useAssessments({
     page,
     pageSize,
@@ -111,6 +121,7 @@ export default function AssessmentsPage() {
   });
 
   const assessments = data?.data || [];
+  const pagination = data?.pagination;
 
   return (
     <div className="space-y-6">
@@ -291,6 +302,23 @@ export default function AssessmentsPage() {
           ))
         )}
       </div>
+
+      {/* Pagination */}
+      {!isLoading && !isError && assessments.length > 0 && pagination && (
+        <Card>
+          <CardContent className="py-4">
+            <Pagination
+              currentPage={pagination.page}
+              totalPages={pagination.totalPages}
+              totalItems={pagination.totalItems}
+              pageSize={pagination.pageSize}
+              onPageChange={handlePageChange}
+              onPageSizeChange={handlePageSizeChange}
+              pageSizeOptions={[10, 25, 50]}
+            />
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
