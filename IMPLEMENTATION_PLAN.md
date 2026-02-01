@@ -5,10 +5,10 @@
 ## Current Status
 
 **Phase**: 9 - Polish & Error Handling
-**Progress**: 92 / 88 tasks (6 pre-existing setup tasks completed)
+**Progress**: 93 / 88 tasks (6 pre-existing setup tasks completed)
 **Last Updated**: 2026-02-01
-**Last Completed**: POLISH-01 (Add global error boundary)
-**Next Task**: POLISH-02 (Add loading skeleton components for all list pages)
+**Last Completed**: POLISH-02 (Add loading skeleton components for all list pages)
+**Next Task**: POLISH-03 (Add empty state components)
 
 ### Blocking Issue - RESOLVED
 The schema mismatch has been resolved. The backend now compiles without TypeScript errors.
@@ -619,11 +619,11 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - Log errors to console (or external service if desired)
   - Show error details in development mode
 
-- [ ] **POLISH-02**: Add loading skeleton components for all list pages
-  - Assessments list skeleton
-  - NCRs list skeleton
-  - Users list skeleton
-  - Consistent skeleton patterns
+- [x] **POLISH-02**: Add loading skeleton components for all list pages `d0ca697`
+  - Assessments list skeleton (AssessmentsListSkeleton component)
+  - NCRs list skeleton (NCRsListSkeleton component)
+  - Users list skeleton (UsersListSkeleton component)
+  - Consistent skeleton patterns with reusable base components
 
 - [ ] **POLISH-03**: Add empty state components
   - No data illustration/icon
@@ -825,6 +825,7 @@ No current blockers.
 | REPORT-04: Add GET /api/assessments/export endpoint | 640cf58 | 2026-02-01 |
 | UI-47: Add Export to CSV button on assessments list | 828fe88 | 2026-02-01 |
 | POLISH-01: Add global error boundary | 2cde37b | 2026-02-01 |
+| POLISH-02: Add loading skeleton components for all list pages | d0ca697 | 2026-02-01 |
 
 ---
 
