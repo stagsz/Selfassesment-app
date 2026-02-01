@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { assessmentService } from '../services/assessmentService';
+import { reportService } from '../services/reportService';
 
 export class AssessmentController {
   /**
@@ -126,6 +127,35 @@ export class AssessmentController {
       success: true,
       data: cloned,
     });
+  }
+
+  /**
+   * GET /api/assessments/:id/report
+   * Generate and download PDF report for an assessment
+   */
+  async generateReport(req: Request, res: Response): Promise<void> {
+    const assessmentId = req.params.id;
+    const { organizationId, userId, role } = req.user!;
+
+    // Generate the PDF report
+    const pdfBuffer = await reportService.generateAssessmentReport(
+      assessmentId,
+      organizationId,
+      userId,
+      role
+    );
+
+    // Get the assessment to create a proper filename
+    const assessment = await assessmentService.getById(assessmentId, organizationId);
+    const filename = reportService.getReportFilename(assessment.title);
+
+    // Set response headers for PDF download
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.setHeader('Content-Length', pdfBuffer.length);
+
+    // Send the PDF buffer
+    res.send(pdfBuffer);
   }
 }
 

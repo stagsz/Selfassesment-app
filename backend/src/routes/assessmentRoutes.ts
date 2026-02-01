@@ -81,6 +81,15 @@ router.post(
   )
 );
 
+// Generate PDF report
+router.get(
+  '/:id/report',
+  withValidation(
+    { params: commonSchemas.uuidParam },
+    asyncHandler(assessmentController.generateReport.bind(assessmentController))
+  )
+);
+
 // Response routes (nested under /:id/responses)
 router.use('/:id/responses', responseRoutes);
 
