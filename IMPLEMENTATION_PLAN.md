@@ -5,10 +5,10 @@
 ## Current Status
 
 **Phase**: 7 - Frontend - Standards & Settings
-**Progress**: 78 / 88 tasks (6 pre-existing setup tasks completed)
+**Progress**: 79 / 88 tasks (6 pre-existing setup tasks completed)
 **Last Updated**: 2026-02-01
-**Last Completed**: UI-38 (Add CSV import modal)
-**Next Task**: UI-39 (Create /admin/users page)
+**Last Completed**: UI-39 (Create /admin/users page)
+**Next Task**: UI-40 (Create user edit modal)
 
 ### Blocking Issue - RESOLVED
 The schema mismatch has been resolved. The backend now compiles without TypeScript errors.
@@ -527,10 +527,13 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - Success/error toast with result statistics
 
 ### 7.2 User Management (Admin)
-- [ ] **UI-39**: Create /admin/users page
-  - SYSTEM_ADMIN only (route guard)
+- [x] **UI-39**: Create /admin/users page `c87d5ce`
+  - SYSTEM_ADMIN and QUALITY_MANAGER route guard
   - User list table: email, name, role, status, last login
-  - Pagination
+  - Search by name/email with debounce
+  - Filter by role and active status
+  - Sortable columns (email, role, lastLogin, createdAt)
+  - Pagination with configurable page size
 
 - [ ] **UI-40**: Create user edit modal
   - Fields: firstName, lastName, email, role dropdown
@@ -794,6 +797,7 @@ No current blockers.
 | UI-36: Create /standards page with collapsible tree view | 953349e | 2026-02-01 |
 | UI-37: Create section detail panel with questions display | 427f5f3 | 2026-02-01 |
 | UI-38: Add CSV import modal for standards page | 4791460 | 2026-02-01 |
+| UI-39: Create /admin/users page with user management | c87d5ce | 2026-02-01 |
 
 ---
 
