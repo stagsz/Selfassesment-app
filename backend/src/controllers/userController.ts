@@ -52,7 +52,7 @@ export class UserController {
       query: userListQuerySchema,
     },
     async (req: Request, res: Response): Promise<void> => {
-      const { role, isActive, search, page, pageSize } = req.query as {
+      const { role, isActive, search, page, pageSize } = req.query as unknown as {
         role?: UserRole;
         isActive?: boolean;
         search?: string;

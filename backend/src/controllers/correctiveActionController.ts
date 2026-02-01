@@ -65,7 +65,7 @@ export class CorrectiveActionController {
       query: actionListQuerySchema,
     },
     async (req: Request, res: Response): Promise<void> => {
-      const { status, priority, assignedToId, page, pageSize, sortBy, sortOrder } = req.query as {
+      const { status, priority, assignedToId, page, pageSize, sortBy, sortOrder } = req.query as unknown as {
         status?: ActionStatus;
         priority?: Priority;
         assignedToId?: string;

@@ -71,9 +71,10 @@ router.post(
   '/import',
   withAuthAndRoles(
     ['SYSTEM_ADMIN', 'QUALITY_MANAGER'],
-    upload.single('file'),
-    asyncHandler(standardsController.importCSV.bind(standardsController))
-  )
+    (req, res, next) => next()
+  ),
+  upload.single('file'),
+  asyncHandler(standardsController.importCSV.bind(standardsController))
 );
 
 export default router;

@@ -73,6 +73,9 @@ async function shutdown(): Promise<void> {
 process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 
-startServer();
+// Only start server if not in test environment and running as main module
+if (process.env.NODE_ENV !== 'test') {
+  startServer();
+}
 
 export default app;

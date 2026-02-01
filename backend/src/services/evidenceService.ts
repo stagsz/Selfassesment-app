@@ -72,7 +72,7 @@ export class EvidenceService {
     }
 
     // Validate mime type
-    if (!config.upload.allowedMimeTypes.includes(data.mimeType)) {
+    if (!(config.upload.allowedMimeTypes as readonly string[]).includes(data.mimeType)) {
       throw new ValidationError(`File type ${data.mimeType} is not allowed`);
     }
 

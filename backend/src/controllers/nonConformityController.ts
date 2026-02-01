@@ -59,7 +59,7 @@ export class NonConformityController {
       query: ncrListQuerySchema,
     },
     async (req: Request, res: Response): Promise<void> => {
-      const { status, severity, search, page, pageSize, sortBy, sortOrder } = req.query as {
+      const { status, severity, search, page, pageSize, sortBy, sortOrder } = req.query as unknown as {
         status?: NCRStatus;
         severity?: Severity;
         search?: string;
@@ -93,7 +93,7 @@ export class NonConformityController {
       query: ncrListQuerySchema,
     },
     async (req: Request, res: Response): Promise<void> => {
-      const { status, severity, search, page, pageSize, sortBy, sortOrder } = req.query as {
+      const { status, severity, search, page, pageSize, sortBy, sortOrder } = req.query as unknown as {
         status?: NCRStatus;
         severity?: Severity;
         search?: string;
