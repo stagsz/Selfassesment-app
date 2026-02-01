@@ -23,6 +23,7 @@ import { Button } from '@/components/ui/button';
 import { ProgressBar, CircularProgress } from '@/components/ui/progress-bar';
 import { Skeleton } from '@/components/ui/skeleton';
 import { SectionNavigator } from '@/components/assessments/section-navigator';
+import { SectionScoreSummary } from '@/components/assessments/section-score-summary';
 
 const statusColors: Record<string, string> = {
   DRAFT: 'bg-gray-100 text-gray-700',
@@ -334,6 +335,21 @@ export default function AssessmentDetailPage() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Section Score Summary */}
+          {assessment.responses && assessment.responses.length > 0 && (
+            <SectionScoreSummary
+              responses={assessment.responses.map((r: {
+                id: string;
+                score: number | null;
+                section: { id: string; sectionNumber: string; title: string } | null;
+              }) => ({
+                id: r.id,
+                score: r.score,
+                section: r.section,
+              }))}
+            />
+          )}
 
           {/* Team Members */}
           <Card>
