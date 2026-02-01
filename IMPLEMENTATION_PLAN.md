@@ -4,11 +4,11 @@
 
 ## Current Status
 
-**Phase**: 6 - Frontend - Non-Conformities & Corrective Actions
-**Progress**: 73 / 88 tasks (6 pre-existing setup tasks completed)
+**Phase**: 7 - Frontend - Standards & Settings
+**Progress**: 76 / 88 tasks (6 pre-existing setup tasks completed)
 **Last Updated**: 2026-02-01
-**Last Completed**: UI-33 (Create action form modal)
-**Next Task**: UI-34 (Add action status update dropdown)
+**Last Completed**: UI-36 (Create /standards page)
+**Next Task**: UI-37 (Create section detail panel)
 
 ### Blocking Issue - RESOLVED
 The schema mismatch has been resolved. The backend now compiles without TypeScript errors.
@@ -491,22 +491,25 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - Fields: description, assignee search/select, target date picker, priority dropdown
   - Create/Update action
 
-- [ ] **UI-34**: Add action status update dropdown
+- [x] **UI-34**: Add action status update dropdown `2dce442`
   - Show allowed transitions based on current status
   - Pending → In Progress → Completed → Verified
+  - Created ActionStatusDropdown component with workflow validation
+  - Integrated into CorrectiveActionList with onVerifyAction callback
 
-- [ ] **UI-35**: Create verification form modal
-  - For completed actions
-  - Effectiveness notes textarea
-  - Verified checkbox
-  - Submit button updates status to VERIFIED
+- [x] **UI-35**: Create verification form modal `8ab28d7`
+  - For completed actions only (validates status)
+  - Effectiveness notes textarea with description
+  - Verification confirmation checkbox with acknowledgment
+  - Shows action summary and assignee information
+  - Submit button calls POST /api/actions/:id/verify
 
 ---
 
 ## Phase 7: Frontend - Standards & Settings (9 tasks)
 
 ### 7.1 Standards Viewer
-- [ ] **UI-36**: Create /standards page
+- [x] **UI-36**: Create /standards page `953349e`
   - Collapsible tree view of ISO sections
   - Expand/collapse with chevron icons
   - Section number + title display
@@ -784,6 +787,9 @@ No current blockers.
 | UI-31: Create NCR status workflow buttons | 0be4d3f | 2026-02-01 |
 | UI-32: Create corrective action list within NCR detail | 45184c4 | 2026-02-01 |
 | UI-33: Create action form modal | bea8eee | 2026-02-01 |
+| UI-34: Add action status update dropdown | 2dce442 | 2026-02-01 |
+| UI-35: Create verification form modal | 8ab28d7 | 2026-02-01 |
+| UI-36: Create /standards page with collapsible tree view | 953349e | 2026-02-01 |
 
 ---
 
