@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { toast } from 'sonner';
 import { authApi } from '@/lib/api';
 import { useAuthStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
@@ -22,7 +22,6 @@ type LoginFormData = z.infer<typeof loginSchema>;
 export default function LoginPage() {
   const router = useRouter();
   const { setAuth } = useAuthStore();
-  const [error, setError] = useState<string | null>(null);
 
   const {
     register,
@@ -34,14 +33,15 @@ export default function LoginPage() {
 
   const onSubmit = async (data: LoginFormData) => {
     try {
-      setError(null);
       const response = await authApi.login(data.email, data.password);
       const { user, accessToken, refreshToken } = response.data.data;
 
       setAuth(user, accessToken, refreshToken);
+      toast.success('Welcome back!');
       router.push('/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.error?.message || 'Login failed');
+      const errorMessage = err.response?.data?.error?.message || 'Login failed. Please try again.';
+      toast.error(errorMessage);
     }
   };
 
@@ -69,12 +69,6 @@ export default function LoginPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-                {error}
-              </div>
-            )}
-
             <Input
               {...register('email')}
               type="email"
