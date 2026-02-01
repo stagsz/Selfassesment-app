@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { assessmentController } from '../controllers/assessmentController';
 import { withAuth, withAuthAndRoles, withValidation, asyncHandler } from '../proxy';
 import { assessmentSchemas, commonSchemas } from '../proxy/validationProxy';
+import responseRoutes from './responseRoutes';
 
 const router = Router();
 
@@ -79,5 +80,8 @@ router.post(
     )
   )
 );
+
+// Response routes (nested under /:id/responses)
+router.use('/:id/responses', responseRoutes);
 
 export default router;
