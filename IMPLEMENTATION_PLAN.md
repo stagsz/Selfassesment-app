@@ -5,10 +5,10 @@
 ## Current Status
 
 **Phase**: 11 - Deployment Preparation
-**Progress**: 98 / 108 tasks complete (91%)
+**Progress**: 99 / 108 tasks complete (92%)
 **Last Updated**: 2026-02-02
-**Last Completed**: DEPLOY-01 (Switch to PostgreSQL)
-**Next Task**: DEPLOY-02 (Add health check endpoint)
+**Last Completed**: DEPLOY-02 (Add health check endpoint)
+**Next Task**: DEPLOY-03 (Create docker-compose.yml)
 **Alternative**: None - Continue with deployment preparation
 
 ### Quick Links
@@ -20,15 +20,15 @@
 ### Progress Summary
 - Phases 1-9: ✅ Complete (all core functionality implemented)
 - Phase 10 (Testing): ✅ Complete (6/6 tasks - 276 total tests)
-- Phase 11 (Deployment): In Progress (1/6 tasks complete)
+- Phase 11 (Deployment): In Progress (2/6 tasks complete)
 
 ### Decision Point
 The project is in **deployment preparation phase**:
-- Total tests: 276 (93 backend + 183 frontend)
+- Total tests: 279 (96 backend + 183 frontend)
 - All phases 1-10 are complete
-- Phase 11 (Deployment Preparation) in progress: DEPLOY-01 complete
+- Phase 11 (Deployment Preparation) in progress: DEPLOY-02 complete
 
-**Proceed to DEPLOY-02** to add health check endpoint.
+**Proceed to DEPLOY-03** to create docker-compose.yml.
 
 ### MVP Status
 The application is **feature-complete for MVP**. All core functionality for ISO 9001 self-assessments and audits is implemented and working:
@@ -43,7 +43,6 @@ The application is **feature-complete for MVP**. All core functionality for ISO 
 ### Remaining Tasks Summary
 | Phase | Task ID | Description | Priority |
 |-------|---------|-------------|----------|
-| 11 - Deployment | DEPLOY-02 | Add health check endpoint | Required for production |
 | 11 - Deployment | DEPLOY-03 | Create docker-compose.yml | Recommended |
 | 11 - Deployment | DEPLOY-04 | Create backend Dockerfile | Recommended |
 | 11 - Deployment | DEPLOY-05 | Create frontend Dockerfile | Recommended |
@@ -742,8 +741,8 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - Run `npx prisma generate` and `npx prisma db push` with PostgreSQL
   - Verify all seed data imports correctly
 
-- [ ] **DEPLOY-02**: Add health check endpoint
-  - GET /api/health returns: { status: 'ok', timestamp, version, database: 'connected' }
+- [x] **DEPLOY-02**: Add health check endpoint `cc9f3eb`
+  - GET /api/health returns: { status: 'ok', timestamp, version, database: 'connected', uptime }
   - Include Prisma database connectivity check (`prisma.$queryRaw`)
   - Return HTTP 503 if database unreachable
   - Add /api/health/ready for Kubernetes readiness probes
@@ -942,6 +941,7 @@ No current blockers.
 | TEST-05: Write auth store unit tests | 85c6dd2 | 2026-02-02 |
 | TEST-06: Write component tests (ScoreButton, ProgressBar, QuestionCard) | 03d6a13 | 2026-02-02 |
 | DEPLOY-01: Switch to PostgreSQL with native enums | 91e316c | 2026-02-02 |
+| DEPLOY-02: Add health check endpoint with database connectivity | cc9f3eb | 2026-02-02 |
 
 ---
 
@@ -982,7 +982,7 @@ Critical Path:
 - **PostgreSQL**: Schema uses PostgreSQL with native enums. Set `DATABASE_URL` to a PostgreSQL connection string.
 - **Evidence Storage**: MVP uses local `/uploads` folder. Consider S3/Azure Blob for production.
 - **PDF Reports**: Using pdfkit for PDF generation. Works well for the current report requirements.
-- **Testing Coverage**: 276 total tests - Backend has 93 tests (auth + assessments + health), frontend has 183 tests (stores + Button + ScoreButton + ProgressBar + QuestionCard).
+- **Testing Coverage**: 279 total tests - Backend has 96 tests (auth + assessments + health), frontend has 183 tests (stores + Button + ScoreButton + ProgressBar + QuestionCard).
 - **Native Enums**: Enums are defined in `schema.prisma` and re-exported from `@prisma/client` via `backend/src/types/enums.ts`.
 - **MVP Status**: Core functionality (Phases 1-9) is complete. Application is functional for ISO 9001 self-assessments.
 - **Future Enhancements**: Features from PRD.json (F10-F13) are documented in the "Future Enhancements" section for post-MVP development.
@@ -1004,8 +1004,8 @@ Critical Path:
 | 8 | Reports & Export | 7 | ✅ Complete |
 | 9 | Polish & Error Handling | 5 | ✅ Complete |
 | 10 | Testing | 6 | ✅ Complete |
-| 11 | Deployment | 6 | 🔄 In Progress (1/6) |
-| **MVP Total** | | **108** | **98 complete (91%)** |
+| 11 | Deployment | 6 | 🔄 In Progress (2/6) |
+| **MVP Total** | | **108** | **99 complete (92%)** |
 | Future | Future Enhancements | 6 | Not Started (Post-MVP) |
 
 **Note**: MVP scope includes 108 tasks (6 pre-existing setup tasks plus 102 implementation tasks). 98 tasks completed (91%). Future enhancements are optional post-MVP features from PRD.json.
