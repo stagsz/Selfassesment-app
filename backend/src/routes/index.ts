@@ -5,20 +5,15 @@ import standardsRoutes from './standardsRoutes';
 import dashboardRoutes from './dashboardRoutes';
 import userRoutes from './userRoutes';
 import templateRoutes from './templateRoutes';
+import healthRoutes from './healthRoutes';
 import { evidenceRouter, responseEvidenceRouter } from './evidenceRoutes';
 import { nonConformityRouter, assessmentNCRRouter } from './nonConformityRoutes';
 import { actionRouter, ncrActionRouter } from './correctiveActionRoutes';
 
 const router = Router();
 
-// Health check
-router.get('/health', (req, res) => {
-  res.json({
-    success: true,
-    message: 'API is running',
-    timestamp: new Date().toISOString(),
-  });
-});
+// Health check routes
+router.use('/health', healthRoutes);
 
 // API routes
 router.use('/auth', authRoutes);
