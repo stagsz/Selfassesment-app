@@ -16,6 +16,7 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
+  HelpCircle,
 } from 'lucide-react';
 import { useUIStore, useAuthStore } from '@/lib/store';
 
@@ -26,6 +27,7 @@ const navigation = [
   { name: 'Actions', href: '/actions', icon: FileText },
   { name: 'Reports', href: '/reports', icon: BarChart3 },
   { name: 'Standards', href: '/standards', icon: BookOpen },
+  { name: 'Help', href: '/help', icon: HelpCircle },
   { name: 'Settings', href: '/settings', icon: Settings },
 ];
 

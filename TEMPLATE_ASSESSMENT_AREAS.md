@@ -278,6 +278,20 @@ npm run db:seed
 - Check browser console for errors
 - Verify API returns `includedClauses` and `includedSections`
 
+## Help Page
+
+A comprehensive help page has been added to the application at `/help`:
+
+**Features:**
+- **Getting Started Guide**: Quick start instructions for new users
+- **Assessment Templates**: Detailed explanation of all 6 templates
+- **User Roles & Permissions**: Role-based access control documentation
+- **Scoring System**: Understanding the 0-5 maturity scale
+- **Assessment Workflow**: Step-by-step process guide
+- **FAQ**: Frequently asked questions
+
+**Access:** Click the "Help" link in the sidebar navigation (available to all users).
+
 ## Summary
 
 The Template-Based Assessment Areas feature enables:
@@ -287,5 +301,6 @@ The Template-Based Assessment Areas feature enables:
 - ✅ Flexible assessment planning
 - ✅ Quarterly quick checks
 - ✅ Department-specific audits
+- ✅ Built-in help documentation
 
 Users can now conduct efficient, focused assessments while maintaining the option for comprehensive full audits when needed.
