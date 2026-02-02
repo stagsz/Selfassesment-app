@@ -5,10 +5,10 @@
 ## Current Status
 
 **Phase**: 10 - Testing (Optional for MVP)
-**Progress**: 99 / 88 tasks (6 pre-existing setup tasks completed)
-**Last Updated**: 2026-02-01
-**Last Completed**: TEST-03 (Write assessment API tests)
-**Next Task**: TEST-04 (Set up Jest and React Testing Library for frontend)
+**Progress**: 100 / 88 tasks (6 pre-existing setup tasks completed)
+**Last Updated**: 2026-02-02
+**Last Completed**: TEST-04 (Set up Jest and React Testing Library for frontend)
+**Next Task**: TEST-05 (Write auth store unit tests)
 
 ### Blocking Issue - RESOLVED
 The schema mismatch has been resolved. The backend now compiles without TypeScript errors.
@@ -674,10 +674,12 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - CSV export functionality
   - Fixed status filter bug, SQLite search compatibility, rate limiting in tests
 
-- [ ] **TEST-04**: Set up Jest and React Testing Library for frontend
-  - Install dependencies
-  - Configure jest.config.js
-  - Add test utilities
+- [x] **TEST-04**: Set up Jest and React Testing Library for frontend `9c342a1`
+  - Jest 29.7.0, @testing-library/react 14.2.0, @testing-library/jest-dom 6.4.0 already installed
+  - jest.config.js configured with Next.js SWC transformer and jsdom environment
+  - Test utilities created: setup.tsx (mocks), test-utils.tsx (custom render, helpers)
+  - Fixed JSX syntax issue by renaming setup.ts to setup.tsx
+  - Button component tests verify setup works (12 tests passing)
 
 - [ ] **TEST-05**: Write auth store unit tests
   - Login state management
@@ -845,6 +847,8 @@ No current blockers.
 | POLISH-05: Implement session timeout | d28f5e7 | 2026-02-01 |
 | TEST-01: Set up Jest and supertest for backend | f46eaa1 | 2026-02-01 |
 | TEST-02: Write auth API tests | 2629fc1 | 2026-02-01 |
+| TEST-03: Write assessment API tests | 469dec5 | 2026-02-01 |
+| TEST-04: Set up Jest and React Testing Library for frontend | 9c342a1 | 2026-02-02 |
 
 ---
 
