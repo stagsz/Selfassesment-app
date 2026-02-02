@@ -6,6 +6,8 @@ interface TemplateData {
   name: string;
   description: string | null;
   isDefault: boolean;
+  includedClauses: string[] | null;
+  includedSections: string[] | null;
   createdAt: Date;
   updatedAt: Date;
   organizationId: string;
@@ -22,7 +24,7 @@ export class TemplateService {
    * Returns all templates for the given organization
    */
   async list(organizationId: string): Promise<TemplateListResult> {
-    const templates = await prisma.assessmentTemplate.findMany({
+    const templatesRaw = await prisma.assessmentTemplate.findMany({
       where: {
         organizationId,
       },
@@ -35,11 +37,20 @@ export class TemplateService {
         name: true,
         description: true,
         isDefault: true,
+        includedClauses: true,
+        includedSections: true,
         createdAt: true,
         updatedAt: true,
         organizationId: true,
       },
     });
+
+    // Parse JSON fields
+    const templates = templatesRaw.map(t => ({
+      ...t,
+      includedClauses: t.includedClauses ? JSON.parse(t.includedClauses as string) : null,
+      includedSections: t.includedSections ? JSON.parse(t.includedSections as string) : null,
+    }));
 
     return {
       templates,
@@ -51,7 +62,7 @@ export class TemplateService {
    * Get a template by ID
    */
   async getById(id: string, organizationId: string): Promise<TemplateData> {
-    const template = await prisma.assessmentTemplate.findFirst({
+    const templateRaw = await prisma.assessmentTemplate.findFirst({
       where: {
         id,
         organizationId,
@@ -61,15 +72,24 @@ export class TemplateService {
         name: true,
         description: true,
         isDefault: true,
+        includedClauses: true,
+        includedSections: true,
         createdAt: true,
         updatedAt: true,
         organizationId: true,
       },
     });
 
-    if (!template) {
+    if (!templateRaw) {
       throw new NotFoundError('Assessment Template', id);
     }
+
+    // Parse JSON fields
+    const template = {
+      ...templateRaw,
+      includedClauses: templateRaw.includedClauses ? JSON.parse(templateRaw.includedClauses as string) : null,
+      includedSections: templateRaw.includedSections ? JSON.parse(templateRaw.includedSections as string) : null,
+    };
 
     return template;
   }

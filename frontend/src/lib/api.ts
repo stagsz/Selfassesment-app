@@ -169,7 +169,8 @@ export const responsesApi = {
 };
 
 export const standardsApi = {
-  getSections: () => api.get('/standards/sections'),
+  getSections: (params?: { assessmentId?: string; templateId?: string }) =>
+    api.get('/standards/sections', { params }),
   getQuestions: (sectionId?: string) =>
     api.get('/standards/questions', { params: { sectionId } }),
   importCSV: (file: File) => {

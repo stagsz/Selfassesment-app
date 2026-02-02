@@ -162,7 +162,7 @@ export const assessmentSchemas = {
 export const responseSchemas = {
   create: z.object({
     questionId: z.string().uuid(),
-    score: z.number().int().min(1).max(3).optional(),
+    score: z.number().int().min(0).max(5).optional(),
     justification: z.string().max(5000).optional(),
     verifiedSubPoints: z.array(z.string()).optional(),
     actionProposal: z.string().max(5000).optional(),
@@ -171,7 +171,7 @@ export const responseSchemas = {
   }),
 
   update: z.object({
-    score: z.number().int().min(1).max(3).optional(),
+    score: z.number().int().min(0).max(5).optional(),
     justification: z.string().max(5000).optional(),
     verifiedSubPoints: z.array(z.string()).optional(),
     actionProposal: z.string().max(5000).optional(),
@@ -181,7 +181,7 @@ export const responseSchemas = {
 
   bulkUpdate: z.array(z.object({
     questionId: z.string().uuid(),
-    score: z.number().int().min(1).max(3).optional(),
+    score: z.number().int().min(0).max(5).optional(),
     justification: z.string().max(5000).optional(),
     verifiedSubPoints: z.array(z.string()).optional(),
     actionProposal: z.string().max(5000).optional(),

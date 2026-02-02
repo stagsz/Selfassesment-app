@@ -49,8 +49,12 @@ interface SectionWithChildren {
 export class StandardsService {
   /**
    * Get all sections as a hierarchical tree structure
+   * Optionally filter by template selection
    */
-  async getSections(): Promise<SectionWithChildren[]> {
+  async getSections(options?: {
+    includedClauses?: string[] | null;
+    includedSections?: string[] | null;
+  }): Promise<SectionWithChildren[]> {
     const sections = await prisma.iSOStandardSection.findMany({
       orderBy: [{ order: 'asc' }, { sectionNumber: 'asc' }],
       include: {
@@ -62,8 +66,20 @@ export class StandardsService {
       },
     });
 
-    // Build tree structure from flat list
-    return this.buildSectionTree(sections);
+    // Filter sections based on template selection
+    let filteredSections = sections;
+
+    if (options?.includedSections) {
+      // Filter by specific section IDs
+      const sectionIdSet = new Set(options.includedSections);
+      filteredSections = sections.filter(s => sectionIdSet.has(s.id));
+    } else if (options?.includedClauses) {
+      // Filter by clause numbers (e.g., ["4", "5", "8"])
+      filteredSections = this.filterByClauseNumbers(sections, options.includedClauses);
+    }
+
+    // Build tree structure from filtered list
+    return this.buildSectionTree(filteredSections);
   }
 
   /**
@@ -272,6 +288,71 @@ export class StandardsService {
     });
 
     return updated;
+  }
+
+  /**
+   * Filter sections by clause numbers
+   * Includes all sections that start with the given clause numbers and their children
+   */
+  private filterByClauseNumbers(
+    sections: Array<{
+      id: string;
+      sectionNumber: string;
+      title: string;
+      description: string | null;
+      order: number;
+      parentId: string | null;
+      createdAt: Date;
+      _count?: { questions: number };
+    }>,
+    clauseNumbers: string[]
+  ) {
+    // Build a map of section IDs to include
+    const includeIds = new Set<string>();
+    const sectionMap = new Map(sections.map(s => [s.id, s]));
+
+    // First, find all sections matching the clause numbers
+    for (const section of sections) {
+      const matchesClause = clauseNumbers.some(clause => {
+        // Match exact clause or subsections (e.g., "5" matches "5", "5.1", "5.1.1", etc.)
+        return (
+          section.sectionNumber === clause ||
+          section.sectionNumber.startsWith(clause + '.')
+        );
+      });
+
+      if (matchesClause) {
+        includeIds.add(section.id);
+
+        // Also include all parents to maintain tree structure
+        let current = section;
+        while (current.parentId) {
+          includeIds.add(current.parentId);
+          current = sectionMap.get(current.parentId)!;
+          if (!current) break;
+        }
+
+        // Include all children
+        this.addAllChildren(section.id, sections, includeIds);
+      }
+    }
+
+    return sections.filter(s => includeIds.has(s.id));
+  }
+
+  /**
+   * Recursively add all children of a section to the include set
+   */
+  private addAllChildren(
+    sectionId: string,
+    sections: Array<{ id: string; parentId: string | null }>,
+    includeIds: Set<string>
+  ): void {
+    const children = sections.filter(s => s.parentId === sectionId);
+    for (const child of children) {
+      includeIds.add(child.id);
+      this.addAllChildren(child.id, sections, includeIds);
+    }
   }
 
   /**

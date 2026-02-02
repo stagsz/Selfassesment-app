@@ -2,7 +2,8 @@ import { PrismaClient } from "@prisma/client";
 import bcryptjs from "bcryptjs";
 import crypto from "crypto";
 import { seedSections } from "./seed/sections";
-import { seedQuestions } from "./seed/questions";
+import { seedQuestions } from "./seed/questions-v2";
+import { seedTemplates } from "./seed/templates";
 
 const prisma = new PrismaClient();
 
@@ -120,26 +121,8 @@ async function main() {
   });
   console.log(`  + Internal Auditor: ${internalAuditor.email} (role: ${internalAuditor.role})`);
 
-  // 7. Create sample assessment template
-  console.log("\nSeeding sample assessment template...");
-
-  const defaultTemplate = await prisma.assessmentTemplate.upsert({
-    where: { id: DEFAULT_TEMPLATE_ID },
-    update: {
-      name: "Full ISO 9001:2015 Assessment",
-      description: "Comprehensive assessment covering all clauses (4-10) of ISO 9001:2015",
-      isDefault: true,
-      organizationId: defaultOrg.id,
-    },
-    create: {
-      id: DEFAULT_TEMPLATE_ID,
-      name: "Full ISO 9001:2015 Assessment",
-      description: "Comprehensive assessment covering all clauses (4-10) of ISO 9001:2015",
-      isDefault: true,
-      organizationId: defaultOrg.id,
-    },
-  });
-  console.log(`  + Template: ${defaultTemplate.name}`);
+  // 7. Seed predefined assessment templates
+  await seedTemplates(defaultOrg.id);
 
   // 8. Create sample assessment with some responses
   console.log("\nSeeding sample assessment...");
@@ -155,7 +138,7 @@ async function main() {
       objectives: "Verify QMS compliance, identify improvement opportunities, prepare for external certification audit",
       organizationId: defaultOrg.id,
       leadAuditorId: qualityManager.id,
-      templateId: defaultTemplate.id,
+      templateId: DEFAULT_TEMPLATE_ID,
       scheduledDate: new Date("2026-01-15"),
       dueDate: new Date("2026-02-28"),
     },
@@ -169,7 +152,7 @@ async function main() {
       objectives: "Verify QMS compliance, identify improvement opportunities, prepare for external certification audit",
       organizationId: defaultOrg.id,
       leadAuditorId: qualityManager.id,
-      templateId: defaultTemplate.id,
+      templateId: DEFAULT_TEMPLATE_ID,
       scheduledDate: new Date("2026-01-15"),
       dueDate: new Date("2026-02-28"),
     },

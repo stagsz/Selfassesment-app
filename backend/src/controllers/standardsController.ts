@@ -4,12 +4,19 @@ import { standardsService } from '../services/standardsService';
 import { csvImportService } from '../services/csvImportService';
 import { withValidation, commonSchemas } from '../proxy/validationProxy';
 import { ValidationError } from '../utils/errors';
+import { prisma } from '../config/database';
 
 // -----------------------------------------------------------------------------
 // Validation Schemas
 // -----------------------------------------------------------------------------
 
 export const standardsSchemas = {
+  // Query params for sections list
+  sectionsQuery: z.object({
+    assessmentId: z.string().uuid('Invalid assessment ID format').optional(),
+    templateId: z.string().uuid('Invalid template ID format').optional(),
+  }),
+
   // Query params for questions list
   questionsQuery: z.object({
     sectionId: z.string().uuid('Invalid section ID format').optional(),
@@ -53,11 +60,69 @@ export class StandardsController {
   /**
    * GET /api/standards/sections
    * Returns all sections as a hierarchical tree structure
+   * Optional query params:
+   *   - assessmentId: Filter by assessment's template selection
+   *   - templateId: Filter by template's section selection
    */
   getSections = withValidation(
-    {},
-    async (_req: Request, res: Response): Promise<void> => {
-      const sections = await standardsService.getSections();
+    { query: standardsSchemas.sectionsQuery },
+    async (req: Request, res: Response): Promise<void> => {
+      const { assessmentId, templateId } = req.query as {
+        assessmentId?: string;
+        templateId?: string;
+      };
+
+      let filterOptions: {
+        includedClauses?: string[] | null;
+        includedSections?: string[] | null;
+      } | undefined;
+
+      // Fetch template selection if assessmentId or templateId provided
+      if (assessmentId) {
+        const assessment = await prisma.assessment.findUnique({
+          where: { id: assessmentId },
+          include: {
+            template: {
+              select: {
+                includedClauses: true,
+                includedSections: true,
+              },
+            },
+          },
+        });
+
+        if (assessment?.template) {
+          filterOptions = {
+            includedClauses: assessment.template.includedClauses
+              ? JSON.parse(assessment.template.includedClauses as string)
+              : null,
+            includedSections: assessment.template.includedSections
+              ? JSON.parse(assessment.template.includedSections as string)
+              : null,
+          };
+        }
+      } else if (templateId) {
+        const template = await prisma.assessmentTemplate.findUnique({
+          where: { id: templateId },
+          select: {
+            includedClauses: true,
+            includedSections: true,
+          },
+        });
+
+        if (template) {
+          filterOptions = {
+            includedClauses: template.includedClauses
+              ? JSON.parse(template.includedClauses as string)
+              : null,
+            includedSections: template.includedSections
+              ? JSON.parse(template.includedSections as string)
+              : null,
+          };
+        }
+      }
+
+      const sections = await standardsService.getSections(filterOptions);
 
       res.json({
         success: true,

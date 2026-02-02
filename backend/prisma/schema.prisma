@@ -88,6 +88,12 @@ model AssessmentTemplate {
   name          String
   description   String?
   isDefault     Boolean  @default(false)
+
+  // Section selection for shorter assessments
+  // If null, includes all sections (full assessment)
+  includedClauses  Json?  // Array of clause numbers, e.g., ["4", "5", "8"]
+  includedSections Json?  // Array of specific section IDs for granular control
+
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -207,9 +213,12 @@ model AuditQuestion {
   questionNumber    String    @unique
   questionText      String
   guidance          String?
-  score1Criteria    String?
-  score2Criteria    String?
-  score3Criteria    String?
+  score0Criteria    String?   // N/A - Not Applicable
+  score1Criteria    String?   // Non-compliant
+  score2Criteria    String?   // Initial
+  score3Criteria    String?   // Developing
+  score4Criteria    String?   // Established
+  score5Criteria    String?   // Optimizing
   standardReference String?
   isActive          Boolean   @default(true)
   order             Int       @default(0)

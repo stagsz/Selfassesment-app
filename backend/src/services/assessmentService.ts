@@ -425,11 +425,12 @@ export class AssessmentService {
 
     for (const [sectionId, responses] of sectionResponses) {
       const section = responses[0].section;
-      const validResponses = responses.filter((r) => r.score !== null);
+      // Exclude null scores and score 0 (N/A) from calculations
+      const validResponses = responses.filter((r) => r.score !== null && r.score !== 0);
 
       if (validResponses.length > 0) {
         const actualScore = validResponses.reduce((sum, r) => sum + (r.score || 0), 0);
-        const maxPossibleScore = validResponses.length * 3;
+        const maxPossibleScore = validResponses.length * 5; // Updated from 3 to 5 for new scoring scale
         const scorePercentage = (actualScore / maxPossibleScore) * 100;
 
         sectionScores.push({

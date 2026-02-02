@@ -72,8 +72,8 @@ export default function AssessmentAuditPage() {
   const { data: assessmentData, isLoading: assessmentLoading, isError } = useAssessment(assessmentId);
   const assessment = assessmentData?.data;
 
-  // Fetch ISO sections
-  const { data: sectionsData, isLoading: sectionsLoading } = useSections();
+  // Fetch ISO sections (filtered by assessment's template if applicable)
+  const { data: sectionsData, isLoading: sectionsLoading } = useSections({ assessmentId });
   const sections = sectionsData?.data || [];
 
   // Track responses with auto-save

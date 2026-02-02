@@ -39,11 +39,11 @@ export interface QuestionsResponse {
   data: AuditQuestion[];
 }
 
-export function useSections() {
+export function useSections(options?: { assessmentId?: string; templateId?: string }) {
   return useQuery({
-    queryKey: ['sections'],
+    queryKey: ['sections', options?.assessmentId, options?.templateId],
     queryFn: async () => {
-      const response = await standardsApi.getSections();
+      const response = await standardsApi.getSections(options);
       return response.data as SectionsResponse;
     },
   });

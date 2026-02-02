@@ -679,7 +679,7 @@ export class NonConformityService {
   }
 
   /**
-   * Auto-create NCRs from score=1 responses
+   * Auto-create NCRs from score 1-2 responses (Non-Compliant and Initial)
    * This can be called when finalizing an assessment or manually triggered
    */
   async createFromFailingResponses(
@@ -716,11 +716,12 @@ export class NonConformityService {
       throw new ValidationError('Cannot create non-conformities for a completed or archived assessment');
     }
 
-    // Find all score=1 responses that don't already have an NCR
+    // Find all score 1-2 responses that don't already have an NCR
+    // Score 1 = Non-Compliant, Score 2 = Initial
     const failingResponses = await prisma.questionResponse.findMany({
       where: {
         assessmentId,
-        score: 1,
+        score: { in: [1, 2] },
         isDraft: false,
         nonConformities: {
           none: {},
@@ -760,13 +761,17 @@ export class NonConformityService {
           ? `${response.section.sectionNumber} ${response.section.title}`
           : 'Unknown Section';
 
+        // Determine severity based on score
+        // Score 1 (Non-Compliant) = MAJOR, Score 2 (Initial) = MINOR
+        const severity = response.score === 1 ? Severity.MAJOR : Severity.MINOR;
+
         return prisma.nonConformity.create({
           data: {
             assessmentId,
             responseId: response.id,
             title: `Non-Compliance: ${response.question.questionNumber}`,
             description: `Non-compliance identified for question ${response.question.questionNumber} in ${sectionInfo}.\n\nQuestion: ${response.question.questionText}`,
-            severity: Severity.MAJOR, // Default to MAJOR for score=1
+            severity,
             status: NCRStatus.OPEN,
           },
           include: {

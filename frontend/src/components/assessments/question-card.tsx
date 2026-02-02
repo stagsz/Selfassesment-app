@@ -11,13 +11,16 @@ export interface Question {
   questionText: string;
   guidance?: string | null;
   standardReference?: string | null;
-  score1Criteria: string;
-  score2Criteria: string;
-  score3Criteria: string;
+  score0Criteria?: string | null;
+  score1Criteria?: string | null;
+  score2Criteria?: string | null;
+  score3Criteria?: string | null;
+  score4Criteria?: string | null;
+  score5Criteria?: string | null;
 }
 
 export interface QuestionResponse {
-  score: 1 | 2 | 3 | null;
+  score: 0 | 1 | 2 | 3 | 4 | 5 | null;
   justification?: string;
   isDraft?: boolean;
 }
@@ -27,23 +30,29 @@ export const MAX_JUSTIFICATION_LENGTH = 2000;
 interface QuestionCardProps {
   question: Question;
   response?: QuestionResponse;
-  onScoreChange: (score: 1 | 2 | 3) => void;
+  onScoreChange: (score: 0 | 1 | 2 | 3 | 4 | 5) => void;
   onJustificationChange?: (justification: string) => void;
   disabled?: boolean;
   showGuidance?: boolean;
   className?: string;
 }
 
-const scoreColors = {
+const scoreColors: Record<0 | 1 | 2 | 3 | 4 | 5, string> = {
+  0: 'border-l-gray-500 bg-gray-50/30',
   1: 'border-l-red-500 bg-red-50/30',
-  2: 'border-l-yellow-500 bg-yellow-50/30',
-  3: 'border-l-green-500 bg-green-50/30',
+  2: 'border-l-orange-500 bg-orange-50/30',
+  3: 'border-l-yellow-500 bg-yellow-50/30',
+  4: 'border-l-green-500 bg-green-50/30',
+  5: 'border-l-blue-500 bg-blue-50/30',
 };
 
-const scoreLabels = {
+const scoreLabels: Record<0 | 1 | 2 | 3 | 4 | 5, string> = {
+  0: 'Not Applicable',
   1: 'Non-Compliant',
-  2: 'Partially Compliant',
-  3: 'Fully Compliant',
+  2: 'Initial',
+  3: 'Developing',
+  4: 'Established',
+  5: 'Optimizing',
 };
 
 export function QuestionCard({
@@ -60,8 +69,8 @@ export function QuestionCard({
   const justificationText = response?.justification ?? '';
   const justificationLength = justificationText.length;
 
-  // Determine if justification is required (score < 3)
-  const requiresJustification = hasScore && currentScore < 3;
+  // Determine if justification is required (score 1-2 need justification, 0=N/A doesn't)
+  const requiresJustification = hasScore && currentScore > 0 && currentScore < 3;
   const hasJustification = justificationText.trim().length > 0;
   const showJustificationWarning = requiresJustification && !hasJustification;
   const isOverLimit = justificationLength > MAX_JUSTIFICATION_LENGTH;
@@ -96,9 +105,12 @@ export function QuestionCard({
             <div
               className={clsx(
                 'flex-shrink-0 px-3 py-1.5 rounded-lg text-sm font-medium',
+                currentScore === 0 && 'bg-gray-100 text-gray-700',
                 currentScore === 1 && 'bg-red-100 text-red-700',
-                currentScore === 2 && 'bg-yellow-100 text-yellow-700',
-                currentScore === 3 && 'bg-green-100 text-green-700'
+                currentScore === 2 && 'bg-orange-100 text-orange-700',
+                currentScore === 3 && 'bg-yellow-100 text-yellow-700',
+                currentScore === 4 && 'bg-green-100 text-green-700',
+                currentScore === 5 && 'bg-blue-100 text-blue-700'
               )}
             >
               {scoreLabels[currentScore]}
@@ -128,9 +140,12 @@ export function QuestionCard({
             value={currentScore ?? undefined}
             onChange={onScoreChange}
             criteria={{
+              score0: question.score0Criteria,
               score1: question.score1Criteria,
               score2: question.score2Criteria,
               score3: question.score3Criteria,
+              score4: question.score4Criteria,
+              score5: question.score5Criteria,
             }}
             disabled={disabled}
           />
@@ -251,9 +266,12 @@ export function QuestionCardCompact({
               <span
                 className={clsx(
                   'inline-flex items-center px-2 py-0.5 rounded text-xs font-medium',
+                  currentScore === 0 && 'bg-gray-100 text-gray-700',
                   currentScore === 1 && 'bg-red-100 text-red-700',
-                  currentScore === 2 && 'bg-yellow-100 text-yellow-700',
-                  currentScore === 3 && 'bg-green-100 text-green-700'
+                  currentScore === 2 && 'bg-orange-100 text-orange-700',
+                  currentScore === 3 && 'bg-yellow-100 text-yellow-700',
+                  currentScore === 4 && 'bg-green-100 text-green-700',
+                  currentScore === 5 && 'bg-blue-100 text-blue-700'
                 )}
               >
                 Score: {currentScore}
@@ -272,12 +290,15 @@ export function QuestionCardCompact({
             className={clsx(
               'w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold',
               !hasScore && 'bg-gray-100 text-gray-400',
+              currentScore === 0 && 'bg-gray-500 text-white',
               currentScore === 1 && 'bg-red-500 text-white',
-              currentScore === 2 && 'bg-yellow-500 text-white',
-              currentScore === 3 && 'bg-green-500 text-white'
+              currentScore === 2 && 'bg-orange-500 text-white',
+              currentScore === 3 && 'bg-yellow-500 text-white',
+              currentScore === 4 && 'bg-green-500 text-white',
+              currentScore === 5 && 'bg-blue-500 text-white'
             )}
           >
-            {hasScore ? currentScore : '-'}
+            {hasScore ? (currentScore === 0 ? 'N/A' : currentScore) : '-'}
           </div>
         </div>
       </div>

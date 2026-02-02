@@ -95,17 +95,19 @@ export default function ActionsPage() {
   // Aggregate all actions from all non-conformities
   const allActions = useMemo(() => {
     if (!ncrData) return [];
-    return ncrData.flatMap((ncr: NonConformity) =>
-      (ncr.actions || []).map(action => ({
+    return ncrData.flatMap((ncr: any) => {
+      const actions = ncr.correctiveActions || ncr.actions || [];
+      return actions.map((action: CorrectiveAction) => ({
         ...action,
+        nonConformityId: ncr.id,
         nonConformity: {
           id: ncr.id,
           title: ncr.title,
           status: ncr.status,
           severity: ncr.severity,
         },
-      }))
-    );
+      }));
+    });
   }, [ncrData]);
 
   // Filter and search actions

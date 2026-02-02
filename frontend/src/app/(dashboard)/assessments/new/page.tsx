@@ -21,6 +21,8 @@ interface Template {
   name: string;
   description: string | null;
   isDefault: boolean;
+  includedClauses: string[] | null;
+  includedSections: string[] | null;
 }
 
 const auditTypeOptions = [
@@ -55,12 +57,14 @@ export default function NewAssessmentPage() {
   const [templates, setTemplates] = useState<Template[]>([]);
   const [templatesLoading, setTemplatesLoading] = useState(true);
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string>('');
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
+    watch,
   } = useForm<AssessmentFormData>({
     resolver: zodResolver(assessmentSchema),
     defaultValues: {
@@ -69,6 +73,9 @@ export default function NewAssessmentPage() {
       templateId: '',
     },
   });
+
+  // Watch template selection
+  const watchedTemplateId = watch('templateId');
 
   // Fetch templates on mount
   useEffect(() => {
@@ -130,6 +137,29 @@ export default function NewAssessmentPage() {
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setDescriptionLength(e.target.value.length);
+  };
+
+  // Get selected template details
+  const selectedTemplate = templates.find(t => t.id === watchedTemplateId);
+
+  // Helper to get template scope description
+  const getTemplateScopeText = (template: Template | undefined) => {
+    if (!template) return null;
+
+    if (!template.includedClauses && !template.includedSections) {
+      return 'Full assessment - all ISO 9001:2015 clauses (4-10)';
+    }
+
+    if (template.includedClauses) {
+      const clauseList = template.includedClauses.join(', ');
+      return `ISO 9001:2015 Clause${template.includedClauses.length > 1 ? 's' : ''} ${clauseList}`;
+    }
+
+    if (template.includedSections) {
+      return `${template.includedSections.length} specific sections selected`;
+    }
+
+    return null;
   };
 
   return (
@@ -204,7 +234,7 @@ export default function NewAssessmentPage() {
             </div>
 
             {/* Template Selection */}
-            <div className="w-full">
+            <div className="w-full space-y-2">
               <label
                 htmlFor="templateId"
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -227,6 +257,25 @@ export default function NewAssessmentPage() {
                   />
                   {errors.templateId && (
                     <p className="mt-1 text-sm text-red-500">{errors.templateId.message}</p>
+                  )}
+
+                  {/* Selected Template Info */}
+                  {selectedTemplate && watchedTemplateId && (
+                    <div className="p-3 bg-blue-50 border border-blue-200 rounded-md space-y-2">
+                      {selectedTemplate.description && (
+                        <p className="text-sm text-gray-700">
+                          {selectedTemplate.description}
+                        </p>
+                      )}
+                      {getTemplateScopeText(selectedTemplate) && (
+                        <div className="flex items-center gap-2 text-sm">
+                          <span className="font-medium text-blue-900">Scope:</span>
+                          <span className="text-blue-800">
+                            {getTemplateScopeText(selectedTemplate)}
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   )}
                 </>
               ) : (
