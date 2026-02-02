@@ -57,9 +57,9 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <div className="mx-auto w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-4">
+          <div className="mx-auto w-16 h-16 bg-isoPrimary-100 rounded-full flex items-center justify-center mb-4">
             <svg
-              className="w-10 h-10 text-primary-600"
+              className="w-10 h-10 text-isoPrimary-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -103,13 +103,13 @@ export default function LoginPage() {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-isoPrimary-600 focus:ring-isoPrimary-500 border-gray-300 rounded"
                 />
                 <label htmlFor="remember-me" className="ml-2 text-sm text-gray-600">Remember me</label>
               </div>
               <Link
                 href="/forgot-password"
-                className="text-sm text-primary-600 hover:text-primary-500"
+                className="text-sm text-isoPrimary-600 hover:text-isoPrimary-500"
               >
                 Forgot password?
               </Link>
@@ -121,7 +121,7 @@ export default function LoginPage() {
 
             <p className="text-center text-sm text-gray-600">
               Don&apos;t have an account?{' '}
-              <Link href="/register" className="text-primary-600 hover:text-primary-500 font-medium">
+              <Link href="/register" className="text-isoPrimary-600 hover:text-isoPrimary-500 font-medium">
                 Sign up
               </Link>
             </p>

@@ -1,0 +1,843 @@
+XML Content (copy all rows in column A)
+<?xml version="1.0" ?>
+<SelfAssessment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Metadata>
+    <Title>Quality Management System Self-Assessment</Title>
+    <Standard>ISO 9001</Standard>
+    <TotalItems>240</TotalItems>
+  </Metadata>
+  <AssessmentItems>
+    <Section standardNo="4.1">
+      <Title>Energy management, general</Title>
+      <Item number="1.0">
+        <Requirement>The organization shall: a) establish, document, implement, maintain and improve an EnMS in accordance with the requirements of this International Standard; b) define and document the scope and boundaries of its EnMS; c) determine how it will meet the requirements of this International Standard in order to achieve continuous improvement of its energy performance and of its EnMS.</Requirement>
+        <AuditQuestions>1, Are the top management engaged in maintaining and improving EnMS, give an example? 2, Is the scope defined and documented? 3,Is it communicated/visualized?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>1, No example can be provided that the top management are engaged in maintaining/improving the EnMS 2, The scope is not defined and documented</Rating1>
+          <Rating2>1, No example can be provided that the top management are engaged in maintaining/improving the EnMS OR 2, The scope is not defined and documented</Rating2>
+          <Rating3>1, Example can be provided that the top management are engaged in maintaining/improving the EnMS AND 2, The scope is not defined and documented</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>1.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+      </Item>
+    </Section>
+    <Section standardNo="4">
+      <Title>The organization's conditions</Title>
+    </Section>
+    <Section standardNo="4.1">
+      <Title>To understand the organization and its conditions</Title>
+      <Item number="2">
+        <Requirement>The organization must determine which external and internal issues are relevant to its purpose and strategic direction and which affect its ability to achieve the intended results of its quality management system. The organization shall monitor and review information on these external and internal issues. NOTE 1 Issues to consider may include positive and negative factors or conditions. NOTE 2 Understanding of external conditions can be facilitated by the organization considering issues that have their basis in legal, technical, competitive, market-related, cultural, social and economic contexts. Regardless of whether these contexts are international, national, regional or local. NOTE 3 Understanding of internal conditions can be facilitated by taking questions about the organization's values, culture, knowledge and performance into account.</Requirement>
+        <RatingCriteria/>
+        <FulfillmentRequirement>2.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>Stora Enso Strategy. https://www.storaenso.com/en/about-stora-enso/our-strategy Stora Enso Purpose and values https://www.storaenso.com/en/about-stora-enso/our-purpose-and- values Stora Enso Innovation https://www.storaenso.com/en/about-stora-enso/innovation Stora Enso defined areas &quot;9 boxes&quot; with the areas Social, Environmental, Economic and human rights and in each of these areas Opportunities and challenges are defined for each area. https://www.storaenso.com/en/sustainability A unit within SE is part of Stora Enso and works according to the areas mentioned above. The unit's business description must be kept up-to-date with this in mind. The direction of the company's operations is determined by the business idea and strategy and the associated policy. Operational goals are drawn up in connection with the budget work. including i.a. goals strategic directionIs there a defined strategy that is in line with SE?</Justification>
+        <Reference>WeShare Business description for the device?</Reference>
+      </Item>
+    </Section>
+    <Section standardNo="4.2">
+      <Title>Understanding stakeholder needs and expectations</Title>
+      <Item number="2.0">
+        <Requirement>Depending on stakeholders' impact, or potential impact, on the organization's ability to continuously offer products and services that meet customer requirements and applicable regulatory requirements, the organization shall determine: a) which stakeholders are relevant to the quality management system; b) which of these stakeholders' requirements are relevant to the quality management system. The organization shall monitor and review information relating to these stakeholders and their relevant requirements.</Requirement>
+        <AuditQuestions>Has the organization determined: 1. which stakeholders are relevant to the quality management system? 2. which of these stakeholder requirements are relevant to the quality management system? 3. Is the information related to stakeholders and the requirements of the stakeholders up to date?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>All three points are verified, but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 3 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>2.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>Has the organization determined: 1. Yes i ???are stakeholders identified and they are in line with &quot;SE sustainability areas&quot;. 2. Yes, both requirements and how to handle the requirements are described in ??? 3. Yes updated2021-XXXX</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="4.3">
+      <Title>To determine the scope of the quality management system</Title>
+      <Item number="3.0">
+        <Requirement>The organization shall determine the boundaries and applicability of the quality management system to determine its scope. In determining this scope, the organization shall consider: a) the external and internal issues referred to in section 4.1; b) the requirements of relevant stakeholders referred to in section 4.2; c) the organisation's products and services. The organization must meet all the requirements of this standard - if they are applicable within the defined scope of the quality management system. The description of the scope of the quality management system must be available and maintained as documented information. The description must indicate the types of products and services covered. If the organization considers that one or more requirements in this standard are not applicable within the scope of the quality management system, this must be justified in the description. In order to claim compliance with this standard, an organization may decide that a requirement is not applicable only if the decision will result in compliance with requirements for products and services still being met. Improving customer satisfaction must not be negatively affected either.</Requirement>
+        <AuditQuestions>Has the organization determined the boundaries and applicability of the quality management system to determine its scope and considered: When determining this scope, the organization shall consider: 1. the external and internal issues referred to in section 4.1? 2. the requirements of relevant stakeholders referred to in section 4.2? 3. the organization's products and services?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>The 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 3 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>3.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. Yes see 4.1 2. Yes see 4.2 3. Yes the scope of the quality management system is described in ??? as well as the delimitation Check that the scope corresponds to the def on the certificate</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="4.4.1">
+      <Title>The quality management system and its processes</Title>
+      <Item number="4.0">
+        <Requirement>The organization shall establish, implement, maintain and continuously improve a quality management system, including the necessary processes and their interaction, according to the requirements of this standard. The organization shall determine which processes are needed for the quality management system and how they shall be applied throughout the organization, and it shall: a) determine the necessary basis and expected results of these processes; b) determine the order of, and interaction between, these processes; c) determine and apply the criteria and methods (including monitoring, measurement and associated key figures) needed to ensure the effective application and control of these processes; d) determine what resources are needed for these processes and ensure that these resources are available; e) assign responsibility and authority for these processes; f) manage risks and opportunities determined in accordance with the requirements of Section 6.1; g) evaluate these processes and implement any changes necessary to ensure that the processes produce the intended results; h) improve the processes and the quality management system. 4.4.2 The organization shall, to the extent necessary: a) maintain documented information to support the application of its processes; b) maintain documented information that creates confidence that the processes are carried out as planned</Requirement>
+        <AuditQuestions>Has the organization established, implemented, maintained and continuously improved a quality management system, including the necessary processes and their interaction, according to the requirements of this standard. The organization must determine which processes are needed for the quality management system and how they must be applied throughout the organization, and it must: 1. determine the necessary background and expected results for these processes? 2. determine the order of, and interaction between, these processes? 3. determine and apply the criteria and methods (including monitoring, measurement and associated key figures) needed to ensure effective application and control of these processes? 4. determine what resources are needed for these processes and ensure that these resources are available? 5. Assign responsibility and authority for these processes? 6. manage risks and opportunities determined in accordance with the requirements in section 6.1? 7. evaluate these processes and implement any changes needed to ensure that the processes produce the intended results? 8. improve the processes and the quality management system? 4.4.2 The organization shall, to the extent necessary: 9.1 maintain documented information to support the application of its processes; 9.2 preserve documented information that creates confidence that the processes are carried out as planned</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 7 points is verified</Rating1>
+          <Rating2>The 7 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 10 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>10.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. Expected results for the processes, separate follow-up of the processes or in line with goals and broken down goals? 2. The process structure... main process and the supporting processes 3. ? See point 1 4. Defined process owner exists for the processes 5. Responsibilities and powers see, 5.3 6. See, 6.1 7-9.2 are referred to 9.3.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="5">
+      <Title>Leadership</Title>
+    </Section>
+    <Section standardNo="5.1.1">
+      <Title>Leadership and commitment, general</Title>
+      <Item number="5.0">
+        <Requirement>Top management must clearly demonstrate leadership and commitment to the quality management system by: a) taking responsibility for the effectiveness of the quality management system; b) ensure that the quality policy and quality objectives are established for the quality management system and are compatible with the organization's conditions and strategic direction; c) ensure that the requirements of the quality management system are integrated into the organization's business processes; d) promote a process-oriented way of working and risk-based thinking; e) ensure that the quality management system is provided with the necessary resources; f) communicate the importance that the quality work is led and controlled in a well-functioning manner and that the requirements of the quality management system are met; g) ensure that the quality management system achieves the intended result; h) engage, lead and support people so that they contribute to a well-functioning quality management system; i) promote improvement; j) provide support to other relevant senior executives so that they clearly exercise their leadership in a manner appropriate to their areas of responsibility. NOTE The term &quot;activity&quot; in this standard can be interpreted in a broad sense as the activities that are of central importance to the purpose of the organization's existence, regardless of whether the organization is public or private, for-profit or not-for-profit.</Requirement>
+        <AuditQuestions>Has senior management clearly demonstrated leadership and commitment to the quality management system by taking responsibility for the effectiveness of the quality management system; 1. ensure that the quality policy and quality objectives are established for the quality management system and are compatible with the organization's conditions and strategic direction? 2. ensure that the requirements of the quality management system are integrated into the organization's business processes? 3. promote a process-oriented way of working and risk-based thinking? 4. ensure that the quality management system is given the necessary resources? 5. communicate the importance of the quality work being led and controlled in a well-functioning way and that the requirements of the quality management system are met? 6. ensure that the quality management system achieves the intended result? 7. engage, lead and support people so that they contribute to a well-functioning quality management system? 8. promote improvement? 9. provide support to other relevant senior executives so that they clearly exercise their leadership in a manner appropriate to their areas of responsibility? NOTE The term &quot;activity&quot; in this standard can be interpreted in a broad sense as those activities that are of central importance to the purpose of the organization's existence, regardless of whether the organization is public or private, for-profit or not-for-profit</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 6 points is verified</Rating1>
+          <Rating2>The 6 points are verified, but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 8 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>9.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. Yes, Policy see 5.2.1 and objectives Yes, see 6.2.2 and they are in line with strategic Riksting. 2. Yes business processes and associated descriptions and documentation are deleted get the quality standard.?? 3. Yes see 4.4.1 4. Yes see 5.3 and 7.1 5. Yes with a strong customer focus? 6. was evaluated in the management review 9.3 7. Yes, see also point 9 8. Yes it is clearly described in .... 9. Yes according to def ??? process r, job descriptions and e.g. LTP described in ...</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="5.1.2">
+      <Title>Customer focus</Title>
+      <Item number="5.0">
+        <Requirement>Senior management shall clearly demonstrate leadership and commitment to customer focus by ensuring that: a) applicable customer and regulatory requirements are determined, understood and consistently met; b) risks and opportunities that may affect the compliance of products and services with requirements and the ability to improve customer satisfaction are determined and managed; c) focus on improving customer satisfaction is maintained.</Requirement>
+        <AuditQuestions>Has senior management clearly demonstrated leadership and commitment to customer focus by ensuring that: 1. applicable customer and statutory requirements are determined, understood and consistently met? 2. Are risks and opportunities that may affect the compliance of products and services with requirements and the ability to improve customer satisfaction determined and managed? 3. focus on improving customer satisfaction is maintained?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>The 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 3 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>3.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. Yes in XXXX stakeholders identified and that incl. customerer and specific customer requirements acc. customer specification? 2nd? 3rd?</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="5.2.1">
+      <Title>Establishment of quality policy</Title>
+      <Item number="6.0">
+        <Requirement>Top management must establish, implement and maintain a quality policy that: a) is adapted to the organization's purpose and conditions and supports its strategic orientation; b) provides a framework for setting quality goals; c) includes an undertaking to comply with applicable requirements; d) includes a commitment to continuously improve the quality management system.</Requirement>
+        <AuditQuestions>Has the top management established, implemented and maintains a quality policy that: 1. is adapted to the organization's purpose and conditions and supports its strategic direction? 2. provide a framework for setting quality goals? 3. includes a commitment to comply with applicable requirements? 4. includes a commitment to continuously improve the quality management system?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>The 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 4points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>4.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>Quality policy approved XXXX-XX-XX 1. Yes, vision and how to achieve the vision is described according to strategy.....2. Describes goals, .......3. yes includes commitment to law and other requirements 4. yes, includes that you must both measure, develop and work. with constant verbs</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="5.2.2">
+      <Title>Communication of quality policy</Title>
+      <Item number="7.0">
+        <Requirement>Communication of the quality policy The quality policy must: a) be available and maintained as documented information; b) communicated, understood and applied within the organization; c) to an appropriate extent be accessible to relevant stakeholders</Requirement>
+        <AuditQuestions>Communication of the quality policy The quality policy must: 1. be available and maintained as documented information? 2. communicated, understood and applied within the organization? 3. to an appropriate extent be accessible to relevant stakeholders?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>All 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 3 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>3.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. Available via ….. 2. It has been communicated,….3. Available via …..</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="5.3">
+      <Title>Roles, responsibilities and powers within the organization</Title>
+    </Section>
+    <Section standardNo="5.3">
+      <Title>Roles, responsibilities and powers within the organization</Title>
+      <Item number="8.0">
+        <Requirement>Top management must ensure that relevant roles have been assigned responsibilities and authorities and that these are communicated and understood within the organization. Top management shall assign responsibility and authority to: a) ensure that the quality management system meets the requirements of this standard; b) ensure that the processes produce the intended results; c) report, in particular to senior management, on the functioning of the quality management system and on opportunities for improvement (see section 10.1); d) ensure the promotion of customer focus throughout the organization; e) ensure that the function of the quality management system is maintained when changes to the quality management system are planned and implemented.</Requirement>
+        <AuditQuestions>Has senior management ensured that relevant roles have been assigned responsibilities and authorities and that these are communicated and understood within the organization. Top management shall assign responsibility and authority to: 1. ensure that the quality management system meets the requirements of this standard? 2. ensure that the processes produce the intended results? 3. report, especially to senior management, on how the quality management system is functioning and on opportunities for improvement (see section 10.1)? 4. ensure promotion of customer focus throughout the organization? 5. ensure that the function of the quality management system is maintained when changes to the quality management system are planned and implemented?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 4 points is verified</Rating1>
+          <Rating2>The 4 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 5 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>4.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. Roles and positions defControl of org. schedule list of position descriptions and control of def positions in HR system. Are there differences between org. schedule and def titles in HR system? Are powers defined? 2. see further under processes 4.4.1 3. see 10.14. .... 5. the adaptability of the management system?</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="6">
+      <Title>Section 6</Title>
+    </Section>
+    <Section standardNo="6.1">
+      <Title>Section 6.1</Title>
+    </Section>
+    <Section standardNo="6.1.1">
+      <Title>Actions to manage risks and opportunities</Title>
+      <Item number="9.0">
+        <Requirement>When planning the quality management system, the organization shall consider the issues referred to in section 4.1 and the requirements referred to in section 4.2, and determine which risks and opportunities need to be managed in order to: a) ensure that the quality management system is capable of providing intended outcome; b) enhance desirable effects; c) prevent or reduce unwanted effects; d) achieve improvement</Requirement>
+        <AuditQuestions>When planning the quality management system, the organization shall consider the issues referred to in section 4.1 and the requirements referred to in section 4.2, and determine which risks and opportunities need to be managed in order to: 1. ensure that the quality management system is able to provide intended result? 2. enhance desirable effects? 3. prevent or reduce unwanted effects? 4. achieve improvement?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>The 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 4points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>4.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>Strategy and identified stakeholders, see 4.4 and 4.2 1. see management review 2-3. Doc? Description deviation management and improvement work 4. possibly see 10 improvement work?</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="6.1.2">
+      <Title>Actions to manage risks and opportunities</Title>
+      <Item number="10.0">
+        <Requirement>The organization shall plan: a) actions to manage these risks and opportunities; b) how it shall: 1) integrate and introduce the measures into the processes within its quality management system (see section 4.4); 2) evaluate whether the measures have had the intended effect. Actions taken to manage risks and opportunities must be proportionate to their potential impact on the compliance of products and services with requirements. NOTE 1 Alternatives regarding the management of risks can be to avoid risk, take a risk in order to exploit an opportunity, eliminate the source of risk, change the probability of or consequences of a risk, share the risk or accept the risk based on well-founded decision. NOTE 2 Opportunities can lead the organization to introduce new ways of working, launch new products, open new markets, deal with new customers, build partnerships, use new technologies and apply other desirable and possible ways to meet its own or its customers' needs</Requirement>
+        <AuditQuestions>The organization must plan: 1. measures to manage these risks and opportunities; 2. how it should: 2.1 integrate and introduce the measures into the processes within its quality management system (see section 4.4); 2.2 evaluate whether the measures have had the intended effect. Actions taken to manage risks and opportunities must be proportionate to their potential impact on the compliance of products and services with requirements. NOTE 1 Alternatives regarding the management of risks can be to avoid risk, take a risk in order to exploit an opportunity, eliminate the source of risk, change the probability of or consequences of a risk, share the risk or accept the risk based on well-founded decision. NOTE 2 Opportunities can lead the organization to introduce new ways of working, launch new products, open new markets, deal with new customers, build partnerships, use new technologies and apply other desirable and possible ways to meet its own or its customers' needs</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>All three points are verified, but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 3 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>3.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. Yes according to strategy get goals for the unit that is based on risks and opportunities for the organization, see 6.2.1 2.1 see 4.4 2.2 ... possibly the reference to the management review 9.3</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="6.2">
+      <Title>Quality objectives and planning to achieve them</Title>
+    </Section>
+    <Section standardNo="6.2.1">
+      <Title>The organization must establish quality objectives for relevant functions, levels and processes, which are needed for the quality management system.</Title>
+      <Item number="12.0">
+        <Requirement>The quality objectives must: a) be consistent with the quality policy; b) be measurable; c) take into account applicable requirements; d) be relevant to the compliance of the products and services with requirements and to the improvement of customer satisfaction; e) monitored; f) communicated; g) updated as necessary. The organization must maintain documented information about the quality objectives.</Requirement>
+        <AuditQuestions>The quality goals must: 1. be in accordance with the quality policy? 2. be measurable? 3. take into account applicable requirements? 4. be relevant to the compliance of the products and services with requirements and to the improvement of customer satisfaction? 5. monitored? 6. communicated? 7. updated as needed? 8. The organization must maintain documented information about the quality objectives?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 6 points is verified</Rating1>
+          <Rating2>All 6 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 8 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>6.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1.Yes 2. what you measure 3.Yes in line with &quot;customer expectations&quot;? 4. Yes, see point 3 5. How 6. How 7.are there examples? 8. Where?</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="6.2.2">
+      <Title>When the organization plans to achieve its quality objectives, it must determine:</Title>
+      <Item number="13.0">
+        <Requirement>a) what is to be done; b) what resources will be required; c) who shall be liable; d) when it shall be completed; e) how the results are to be evaluated.</Requirement>
+        <AuditQuestions>1. what to do? 2. what resources will be required? 3. who will be responsible? 4. When will it be completed? 5. how should the results be evaluated?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 4 points is verified</Rating1>
+          <Rating2>All 4 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 5 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>4.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. Yes it is def 2. Yes overall defined3. See above, it is clarified who is responsible for resp. activity. 4. Yes it is defined5. Yes there is but see above can be clarified for better visualization</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="6.3">
+      <Title>Planning for change</Title>
+    </Section>
+    <Section standardNo="6.3">
+      <Title>Planning for change</Title>
+      <Item number="14.0">
+        <Requirement>When the organization assesses that the quality management system needs to be changed, the changes must be carried out in a planned manner (see section 4.4). The organization shall consider: a) the purpose of the changes and their possible consequences; b) that the functioning of the quality management system is maintained; c) availability of resources; d) existing or changed distribution of responsibilities and powers.</Requirement>
+        <AuditQuestions>When the organization assesses that the quality management system needs to be changed, the changes must be carried out in a planned manner (see section 4.4). The organization must consider: 1. the purpose of the changes and their possible consequences? 2. that the function of the quality management system is maintained? 3. availability of resources? 4. existing or changed distribution of responsibilities and powers?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>The 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 4points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>4.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3. 4.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="7">
+      <Title>Support</Title>
+    </Section>
+    <Section standardNo="7.1">
+      <Title>Resources</Title>
+    </Section>
+    <Section standardNo="7.1.1">
+      <Title>Resources General</Title>
+      <Item number="15.0">
+        <Requirement>The organization shall determine the resources needed to establish, implement, maintain and continuously improve its quality management system. The organization must also provide these resources. The organization shall consider: a) the capabilities and limitations of existing internal resources; b) what needs to be obtained from external suppliers.</Requirement>
+        <AuditQuestions>The organization shall determine the resources needed to establish, implement, maintain and continuously improve its quality management system. The organization must also provide these resources. Has the organization considered: 1. capabilities and limitations of existing internal resources? 2. what needs to be obtained from external suppliers?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 2 points is verified</Rating1>
+          <Rating2>The 2 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 2 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>2.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. def according to organization process and associated job descriptions?2. Clearly defined external suppliers according to...</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="7.1.2">
+      <Title>Personnel resources</Title>
+      <Item number="16.0">
+        <Requirement>Determine and provide the necessary personnel resources for an effective implementation of the quality management system and to control and implement the processes.</Requirement>
+        <AuditQuestions>Determine and provide the necessary personnel resources for an effective implementation of the quality management system and to control and implement the processes.</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 1 point is verified</Rating1>
+          <Rating2>1 point is verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 1points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>1.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>According to described by organization and to that the defined job descriptions.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="7.1.3">
+      <Title>Infrastructure</Title>
+      <Item number="17.0">
+        <Requirement>The organization shall determine, provide and maintain the infrastructure necessary to carry out the processes in order to achieve compliance with requirements for products and services. NOTE Infrastructure may include: a) buildings and associated supply systems; b) equipment (both hardware and software); c) transportation resources; d) information and communication technology.</Requirement>
+        <AuditQuestions>The organization shall determine, provide and maintain the infrastructure necessary to carry out the processes in order to achieve compliance with requirements for products and services. NOTE Infrastructure may include: 1. buildings and associated supply systems? 2. equipment (both hardware and software)? 3. transport resources? 4. information and communication technology?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>The 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 4points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>4.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1-4</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="7.1.4">
+      <Title>Process environment</Title>
+      <Item number="18.0">
+        <Requirement>The organization shall determine, provide and maintain the environment necessary to carry out the processes, so that compliance with product and service requirements is achieved. NOTE Appropriate environment can be a combination of human and physical factors, such as: a) social (eg free from discrimination and confrontation); b) psychological (eg stress-relieving, burnout prevention, emotional protection); c) physical (eg temperature, heat, humidity, lighting, ventilation, hygiene, noise). These factors can vary significantly, depending on the products and services offered.</Requirement>
+        <AuditQuestions>The organization shall determine, provide and maintain the environment necessary to carry out the processes, so that compliance with product and service requirements is achieved. NOTE Appropriate environment can be a combination of human and physical factors, such as: 1. social (eg free from discrimination and confrontation)? 2. psychological (eg stress-relieving, burnout prevention, emotional protection)? 3. physical (eg temperature, heat, humidity, lighting, ventilation, hygiene, noise)? These factors can vary significantly, depending on the products and services offered.</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>All three points are verified, but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 3 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>3.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="7.1.5">
+      <Title>Section 7.1.5</Title>
+    </Section>
+    <Section standardNo="7.1.5.1">
+      <Title>Monitoring and measurement resources, general</Title>
+      <Item number="19.0">
+        <Requirement>The organization shall determine and provide the resources needed to ensure valid and reliable results, when monitoring or measurement is used to verify that products and services conform to requirements. The organization shall ensure that the resources provided: a) are appropriate for the specific type of monitoring and measurement performed; b) maintained to ensure that they remain fit for purpose. The organization shall retain appropriate documented information as evidence that the monitoring and measurement resources are fit for purpose.</Requirement>
+        <AuditQuestions>The organization shall determine and provide the resources needed to ensure valid and reliable results, when monitoring or measurement is used to verify that products and services conform to requirements. The organization shall ensure that the resources provided: 1. are appropriate for the specific type of monitoring and measurement being carried out? 2. maintained to ensure that they remain fit for purpose.´? 3. The organization shall retain appropriate documented information as evidence that the monitoring and measurement resources are fit for purpose?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>All three points are verified, but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 3 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>3.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3. Check that monitoring and measurement are carried out to prove that there are sufficient resources for this. product control, quality control and process control</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="7.1.5 .2">
+      <Title>Traceability during measurement</Title>
+      <Item number="20.0">
+        <Requirement>When measurement traceability is a requirement, or when the organization considers it an important part of creating confidence in the validity of measurement results, measurement equipment shall: a) at predetermined intervals, or before use, be calibrated and/or verified against measurement standards traceable to international or national standards. In cases where no such standards exist, the basis for the calibration or verification shall be preserved as documented information; b) be identified so that its status can be determined; c) protected against adjustments, damage or deterioration that would invalidate the calibration status and subsequent measurement results. If measuring equipment is found to be unsuitable for its intended purpose, the organization must determine whether the validity of results from previous measurements has been negatively affected, and to the extent necessary take appropriate measures</Requirement>
+        <AuditQuestions>When measurement traceability is a requirement, or when the organization considers it an important part of creating confidence in the validity of measurement results, measurement equipment shall: 1. at predetermined intervals, or before use, be calibrated and/or verified against measurement standards that are traceable to international or national standards. In cases where no such standards exist, should the basis for the calibration or verification be preserved as documented information? 2. be identified so that its status can be determined? 3. protected against adjustments, damage or deterioration that would invalidate the calibration status and subsequent measurement results? 4. If measuring equipment is found to be unsuitable for its intended purpose, must the organization determine whether the validity of results from previous measurements has been negatively affected, and to the extent necessary take appropriate measures?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>The 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 4points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>4.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3. 4. 1-4.The measuring equipment that is considered particularly critical from a quality point of view is subject to planned control, calibration and preventive maintenance, are defined. Own measuring equipment marked and calibrated acc. set routine?</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="7.1.6">
+      <Title>The organization's knowledge</Title>
+      <Item number="21.0">
+        <Requirement>The organization must determine the knowledge necessary to carry out the processes in order to achieve compliance with requirements for products and services. This knowledge must be maintained and made available to the extent necessary. When dealing with changing needs and trends, the organization must consider its existing knowledge and determine how any additional necessary knowledge and updates will be acquired or made available. NOTE 1 The organization's knowledge is specific to the organization and is acquired through experience. It is information that is used and shared to achieve the organization's goals. NOTE 2 The organization's knowledge can be based on: a) internal sources (e.g. intellectual property, knowledge based on experience, lessons learned from failures and from successful projects, acquisition and sharing of undocumented knowledge and experience, results of improvements to processes, products and services); b external sources (e.g. standards, academic sources, conferences, acquisition of knowledge from customers or external suppliers)</Requirement>
+        <AuditQuestions>1. The organization must determine the knowledge that is necessary to implement the processes in order to achieve compliance with requirements for products and services? This knowledge must be maintained and made available to the extent necessary. 2. As the organization deals with changing needs and trends, should it consider its existing knowledge and decide how any additional necessary knowledge and updates should be obtained or made available? NOTE 1 The organization's knowledge is specific to the organization and is acquired through experience. It is information that is used and shared to achieve the organization's goals. NOTE 2 The organization's knowledge can be based on: 3. internal sources (e.g. intellectual property, knowledge based on experience, lessons learned from failures and from successful projects, acquisition and sharing of undocumented knowledge and experience, results of improvements to processes, products and services)? 4. external sources (eg standards, academic sources, conferences, acquisition of knowledge from customers or external suppliers)?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>The 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 4points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>4.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. Yes according to def position descriptions....? 2. Change or control of the recruitment process and compliance 3. 4.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="7.2">
+      <Title>Competence</Title>
+      <Item number="22.0">
+        <Requirement>The organization shall: a) determine what competence is necessary in the person or persons working for it and which affects the performance and effectiveness of the quality management system; b) ensure that those persons are competent based on appropriate education, training or experience; c) take measures, where applicable, to acquire the necessary skills and evaluate the effectiveness of the measures taken; d) maintain appropriate documented information as evidence of competence. NOTE Applicable measures may, for example, be to give employees the opportunity for further training, mentoring support or other tasks, or to hire or hire competent people.</Requirement>
+        <AuditQuestions>The organization must: 1. determine what skills are necessary in the person or people who work for it and which affect the performance and effectiveness of the quality management system? 2. ensure that these people are competent based on appropriate education, training or experience? 3. take measures, where applicable, to acquire the necessary skills and evaluate the impact of the measures taken? 4. retain appropriate documented information as evidence of competence? NOTE Applicable measures may, for example, be to give employees the opportunity for further training, mentoring support or other tasks, or to hire or hire competent people.</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>The 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 4points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>4.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3. 4. yes in HR system? Competence matrix? Education plan?</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="7.3">
+      <Title>Awareness</Title>
+      <Item number="23.0">
+        <Requirement>The organization shall ensure that persons working within or for the organization are aware of: a) the quality policy; b) relevant quality objectives; c) its contribution to a well-functioning quality management system, including the benefits of improving quality performance; d) the consequences of not meeting the requirements of the quality management system.</Requirement>
+        <AuditQuestions>The organization must ensure that people working within or for the organization are aware of: 1. the quality policy; 2. relevant quality objectives; 3. its contribution to a well-functioning quality management system, including the benefits of improving quality performance; 4. the consequences of not meeting the requirements of the quality management system.</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>The 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 4points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>3.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="7.4">
+      <Title>Communication</Title>
+    </Section>
+    <Section standardNo="7.4">
+      <Title>Communication</Title>
+      <Item number="24.0">
+        <Requirement>The organization must determine which internal and external communication is relevant to the quality management system. This includes: a) what the communication should be about; b) when the communication is to take place; c) with whom the communication is to take place; d) how the communication will take place; e) who is in charge of the communication.</Requirement>
+        <AuditQuestions>The organization must determine which internal and external communication is relevant in relation to the quality management system. This includes: 1) what should the communication be about? 2) when will the communication take place? 3) with whom should the communication take place? 4) how the communication should take place? 5) who is in charge of communication?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 4 points are verified</Rating1>
+          <Rating2>The 4 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 5 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>1.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3. 4. 5.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="7.5">
+      <Title>Documentation</Title>
+    </Section>
+    <Section standardNo="7.5.1">
+      <Title>Documentation in general</Title>
+      <Item number="25.0">
+        <Requirement>The organization's quality management system shall include: a) documented information required by this standard; b) documented information that the organization has determined is necessary for a well-functioning quality management system. NOTE The scope of the documented information for a quality management system may vary from one organization to another depending on: — the size of the organization and its type of activities, processes, products and services; — the complexity and interaction of the processes; — people's competence.</Requirement>
+        <AuditQuestions>The organization's quality management system shall include: 1. documented information required by this standard? 2. documented information that the organization has determined is necessary for a well-functioning quality management system? NOTE The scope of the documented information for a quality management system may vary from one organization to another depending on: — the size of the organization and its type of activities, processes, products and services; — the complexity and interaction of the processes; — people's competence.</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 2 points is verified</Rating1>
+          <Rating2>The 2 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 2 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>1.5</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="7.5.2">
+      <Title>Creation and update</Title>
+      <Item number="26.0">
+        <Requirement>When documenting information is created and updated, the organization shall ensure appropriate: a) identification and description (eg title, date, author or reference number); b) form (eg language, software version, graphics) and medium (eg paper, electronic format); c) review and approval as to suitability and sufficiency</Requirement>
+        <AuditQuestions>When documenting information is created and updated, the organization shall ensure appropriate: 1. identification and description (eg title, date, author or reference number)? 2. form (eg language, software version, graphics) and medium (eg paper, electronic format)? 3) review and approval for suitability and sufficiency?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 3 points is verified</Rating1>
+          <Rating2>The 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 3points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>2.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="7.5.3">
+      <Title>Management of documented information</Title>
+      <Item number="27.0">
+        <Requirement>7.5.3.1 Documented information required by the quality management system and by this standard shall be controlled to ensure that: a) it is available and suitable for use where and when it is needed; b) it is adequately protected (eg against loss of confidentiality, inappropriate use or tampering). 7.5.3.2For this governance of documented information, the organization shall, to the extent applicable, address: a) distribution, access, retrieval and use; b) storage and preservation, including preservation of legibility; c) control of changes (eg version management); d) archiving and thinning. Documented information of external origin, which the organization has determined is necessary for the planning and use of the quality management system must be identified and controlled to an appropriate extent. Documented information retained as evidence of compliance shall be protected from inadvertent alteration. NOTE Access may presuppose that a decision has been made regarding authorization to only read the documented information, or to both read and change the documented information</Requirement>
+        <AuditQuestions>7.5.3.1Documented information required by the quality management system and by this standard shall be controlled to ensure that: 1. it is available and suitable for use where and when it is needed? 2. is it adequately protected (eg against loss of confidentiality, inappropriate use or tampering)?7.5.3.2For this governance of documented information, the organization shall, to the extent applicable, process: 3. distribution, access, retrieval and use? 4. storage and preservation, including preservation of readability? 5. control of changes (eg version management)? 6. archiving and thinning? Documented information of external origin, which the organization has determined is necessary for the planning and use of the quality management system, must be identified and controlled to an appropriate extent. Documented information retained as evidence of compliance shall be protected from inadvertent alteration. NOTE Access may presuppose that a decision has been made regarding authorization to only read the documented information, or to both read and change the documented information</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 5 points are verified</Rating1>
+          <Rating2>The 5 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 6 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>6.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3. 4. 5. 6.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8">
+      <Title>Operation</Title>
+    </Section>
+    <Section standardNo="8.1">
+      <Title>Planning and management of the business</Title>
+      <Item number="30.0">
+        <Requirement>The organization shall plan, implement and direct and control the processes (see section 4.4) needed to fulfill requirements for providing products and services, and carry out the actions specified in section 6 by: a) determining the requirements for products and services; b) establish criteria for: 1) these processes; 2) to approve products and services; c) determine what resources are needed to achieve compliance with product and service requirements; d) introduce management and control of the processes according to the criteria; e) determine the need for and, to the extent necessary, maintain and preserve documented information to: 1) provide confidence that the processes were carried out as planned; 2) demonstrate that the products and services comply with the requirements. The result of this planning must be suitable for the organization's operations. The organization must manage and control planned changes and review the consequences of unintended changes, as well as, to the extent necessary, take measures to counter negative effects. The organization must ensure that outsourced processes are managed and controlled (see section 8.4)</Requirement>
+        <AuditQuestions>The organization shall plan, implement and direct and control the processes (see section 4.4) needed to fulfill requirements to provide products and services, and carry out the actions specified in section 6 by: 1. determining the requirements for products and services? establish criteria for: 2.1 these processes? 2.2 to approve products and services? 3. determine what resources are needed to achieve compliance with the requirements for products and services? 4. introduce management and control of the processes according to the criteria; 5. determine the need for and, to the extent necessary, maintain and preserve documented information?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 5 points are verified</Rating1>
+          <Rating2>The 5 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 6 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>4.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2.1 2.2 3. 4. 5.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.2">
+      <Title>Requirements regarding products and services</Title>
+    </Section>
+    <Section standardNo="8.2.1">
+      <Title>Communication with customer</Title>
+      <Item number="31.0">
+        <Requirement>Communication with the customer shall include: a) providing information about products and services; b) handle requests, contracts or orders, including changes; c) obtain customer feedback about products and services, including customer complaints; d) ensure management of customer property; e) establish specific requirements for measures to, where relevant, ensure agreed delivery capability.</Requirement>
+        <AuditQuestions>Included communication with customer: 1. provide information about products and services? 2. handle requests, contracts or orders, including changes? 3. collect customer feedback about products and services, including customer complaints? 4. ensure handling of customer property? 5. establish special requirements for measures to, when relevant, ensure agreed delivery capacity?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 4 points are verified</Rating1>
+          <Rating2>The 4 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 5 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>5.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3. 4. 5.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.2.2">
+      <Title>Determination of requirements for products and services</Title>
+      <Item number="32.0">
+        <Requirement>When the organization determines requirements for the products and services to be offered to customers, it shall ensure that: a) the requirements for the products and services are defined, which includes: 1) applicable statutory requirements; 2) the requirements that the organization deems necessary; b) the organization can fulfill the promises about the products and services it offers.</Requirement>
+        <AuditQuestions>If the organization determines requirements for the products and services to be offered to customers, must it ensure that: 1. the requirements for the products and services are defined, which includes applicable statutory requirements? 2. the requirements that the organization deems necessary, can the organization fulfill the commitments about the products and services it offers?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 2 points is verified</Rating1>
+          <Rating2>The 2 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 2points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>1.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1.Criteria for product specification 2.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.2.3">
+      <Title>Review of requirements for products and services</Title>
+    </Section>
+    <Section standardNo="8.2.3">
+      <Title>Review of requirements for products and services</Title>
+      <Item number="33.0">
+        <Requirement>The organization must ensure that it can meet the requirements for the products and services to be offered to customers. The organization shall perform a review before committing to supply products and services to a customer, and this shall include: a) requirements specified by the customer, including requirements for delivery and post-delivery activities; b) requirements not specified by the customer but necessary with regard to specified or intended use, when known; c) requirements specified by the organization; d) regulatory requirements applicable to the Products and Services; e) requirements in contract or order that differ from previously stated requirements. The organization must ensure that requirements in contracts or orders that differ from previously specified requirements are clarified and addressed. Even if the customer does not make a documented claim, the customer's claim must still be confirmed by the organization before the order is accepted. NOTE In certain situations, e.g. when selling over the Internet, it is impractical to do a formal review for each order. The review may instead refer to relevant product information, e.g. catalogs.Keep documented information The organization must, to the extent applicable, keep documented information about: a) the results of the review; b) any new requirements for the products and services.</Requirement>
+        <AuditQuestions>Has the organization must ensure that it can meet the requirements for the products and services to be offered to customers. The organization shall carry out a review before committing to deliver products and services to a customer, and this shall include: 1.1. requirements specified by the customer, including requirements for delivery and post-delivery activities; 1.2. requirements not specified by the customer but necessary in view of the specified or intended use, when known; 1.3. requirements specified by the organization; 1.4. regulatory requirements applicable to the Products and Services; 1.5. requirements in the contract or order that differ from previously stated requirements. The organization must ensure that requirements in contracts or orders that differ from previously specified requirements are clarified and addressed. Even if the customer does not make a documented claim, the customer's claim must still be confirmed by the organization before the order is accepted. NOTE In certain situations, e.g. when selling over the Internet, it is impractical to do a formal review for each order. The review may instead refer to relevant product information, e.g. catalogs. To the extent applicable, the organization must keep documented information about: 2.1. the results of the review; 2.2. possibly new requirements for the products and services.</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 5 points are verified</Rating1>
+          <Rating2>The 5 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 7 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>7.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1.1 1.2 1.3 1.4 1.5 2.1 2.2</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.2.4">
+      <Title>Changes to requirements for products and services</Title>
+      <Item number="34.0">
+        <Requirement>When requirements for products and services change, the organization must ensure that relevant documented information is changed, and that affected persons are informed of the changed requirements.</Requirement>
+        <AuditQuestions>When requirements for products and services change, the organization must ensure that relevant documented information is changed, and that affected persons are informed of the changed requirements.</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 1 point is verified</Rating1>
+          <Rating2>1 point is verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 1 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>1.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.3">
+      <Title>Design and development of products and services</Title>
+    </Section>
+    <Section standardNo="8.3.1">
+      <Title>The organization shall establish, implement and maintain a design and development process suitable to ensure subsequent delivery of products and services</Title>
+    </Section>
+    <Section standardNo="8.3.2">
+      <Title>Planning of construction and development</Title>
+      <Item number="35.0">
+        <Requirement>When determining the phases of, and the management and control of, construction and development, the organization shall consider: a) the nature, duration and complexity of the construction and development activities; b) the phases of the process required (including applicable review of design and development results); c) the activities required for verification and validation of design and development results; d) responsibilities and authorities in the design and development process; e) need for internal and external resources for the design and development of products and services; f) need to manage interfaces between actors involved in the design and development process; g) need to involve customers and relevant stakeholders in the design and development process; h) requirements for subsequent delivery of products and services; i) the level of governance and control of the design and development process expected by customers and other relevant stakeholders; j) what documented information is necessary to demonstrate that the requirements for design and development have been met.en.</Requirement>
+        <AuditQuestions>When determining the phases of, and the management and control of, construction and development, has the organization considered: 1. the nature, duration, and complexity of the construction and development activities? 2. the phases of the process required (including applicable review of design and development results)? 3. the activities required for verification and validation of design and development results? 4. responsibilities and authorities in the design and development process; 5.need for internal and external resources for design and development of products and services? 6. need to control interfaces between actors involved in the design and development process? 7. need to involve customers and relevant stakeholders in the design and development process? 8. requirements for subsequent delivery of products and services? 9. what level of governance and control of the design and development process do customers and other relevant stakeholders expect? 10. What documented information is necessary to demonstrate that the requirements for design and development have been met?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 8 points are verified</Rating1>
+          <Rating2>The 8 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 10 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>6.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3 4. 5. 6. 7. 8. 9. 10</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.3.3">
+      <Title>Basis for construction and development</Title>
+      <Item number="36.0">
+        <Requirement>The organization must determine the requirements that are essential for the particular types of products and services to be designed and developed. The organization shall consider: a) functional and performance requirements; b) information obtained from previous similar design and development activities; c) constitutional requirements; d) standards or practices to which the organization is committed; e) possible consequences of errors depending on the type of products or services. Design and development documents must be complete, unambiguous and sufficient for the purpose. Conflicting construction and development documents must be clarified and remedied. The organization must preserve documented information regarding construction and development documentation.</Requirement>
+        <AuditQuestions>Has the organization determined requirements that are essential for the particular types of products and services to be designed and developed. The organization must consider: 1. requirements for function and performance? 2. information obtained from previous similar design and development activities? 3. constitutional requirements? 4. standards or practices to which the organization is committed? 5. possible consequences of errors depending on the type of products or services? Design and development documents must be complete, unambiguous and sufficient for the purpose. Conflicting construction and development documents must be clarified and remedied. The organization must preserve documented information regarding construction and development documentation.</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 4 points are verified</Rating1>
+          <Rating2>The 4 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 5 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>5.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3. 4. 5.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.3.4">
+      <Title>Management and control of construction and development</Title>
+      <Item number="37.0">
+        <Requirement>The organization shall direct and control the design and development process to ensure that: a) the results to be achieved are defined; b) reviews are carried out to evaluate how well the results of design and development meet set requirements; c) verification is performed to ensure that the results of design and development meet the requirements of the documentation; d) validation is performed to ensure that products and services meet the requirements of the specified application or intended use; e) necessary actions are taken for problems discovered during review, verification or validation; f) documented information about these activities is preserved. NOTE Review, verification and validation of the results of design and development have different purposes. They can be performed and documented individually or in combination in different ways, depending on what is appropriate for the organization's products and services.</Requirement>
+        <AuditQuestions>Has the organization ensured how to manage and control the design and development process so that: 1. the results to be achieved are defined? 2. reviews are carried out to evaluate how well the results of design and development meet set requirements? 3. verification is performed to ensure that the results of design and development meet the requirements in the documents? 4. validation is performed to ensure that products and services meet the requirements of the specified application or intended use? 5. Are necessary actions taken for problems discovered during review, verification or validation? 6. Is documented information about these activities preserved? NOTE Review, verification and validation of the results of design and development have different purposes. They can be performed and documented individually or in combination in different ways, depending on what is appropriate for the organization's products and services.</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 4 points are verified</Rating1>
+          <Rating2>The 4 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 5 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>5.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3. 4. 5.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.3.5">
+      <Title>Results of construction and development</Title>
+      <Item number="40.0">
+        <Requirement>The organization must ensure that the results of construction and development: a) meet the requirements of the documents; b) are suitable for subsequent processes for the delivery of products and services; c) to the extent appropriate contains or refers to monitoring and measurement requirements, as well as acceptance criteria; d) specifies the characteristics of products and services that are essential for intended use and for safe and correct delivery. The organization shall maintain documented information on the results of design and development</Requirement>
+        <AuditQuestions>Has the organization ensured that the results of design and development: 1. meet the requirements in the documentation? 2. are suitable for subsequent processes for the delivery of products and services? 3. to an appropriate extent, does it contain or refer to requirements for monitoring and measurement, as well as acceptance criteria? 4. do they specify the characteristics of products and services that are essential for intended use and for safe and correct delivery? 5. Has the organization determined how to preserve documented information about the results of design and development?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 5 points are verified</Rating1>
+          <Rating2>The 5 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 6 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>6.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3. 4. 5. 6.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.5.6">
+      <Title>Design and development changes</Title>
+      <Item number="41.0">
+        <Requirement>The organization must identify, review and manage and control changes that are made during or after the design and development of products and services. This must take place to the extent necessary to ensure that compliance with the requirements is not adversely affected. The organization shall maintain documented information on: a) design and development changes; b) review results; c) acceptance of changes; d) measures taken to prevent unwanted effects.</Requirement>
+        <AuditQuestions>The organization must identify, review and manage and control changes that are made during or after the design and development of products and services. This must take place to the extent necessary to ensure that compliance with the requirements is not adversely affected. Has the organization decided how to preserve documented information about: 1. design and development changes? 2. review results? 3. approval of changes? 4. measures taken to prevent unwanted effects?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>The 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 4points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>4.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3. 4.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.4">
+      <Title>Management and control of externally provided processes, products and services</Title>
+    </Section>
+    <Section standardNo="8.4.1">
+      <Title>Generally</Title>
+      <Item number="42.0">
+        <Requirement>The organization must ensure that externally provided processes, products and services meet set requirements. The organization must determine the governance and control that must be applied to externally provided processes, products and services when: a) products and services from external suppliers are intended to be part of the organization's own products and services; b) products and services are delivered directly to the customer from external suppliers on behalf of the organization; c) the organization has decided that a process, or part of a process, must be carried out by an external supplier. The organization shall determine and apply criteria for evaluation and selection of external suppliers, as well as for performance monitoring and re-evaluation. This must be based on the suppliers' ability to provide processes, products and services according to requirements. The organization must keep documented information about these activities and any necessary actions as a result of the evaluations.</Requirement>
+        <AuditQuestions>Has the organization ensured how externally provided processes, products and services meet set requirements. The organization must determine the management and control that must be applied to externally provided processes, products and services when: 1. products and services from external suppliers are intended to be included in the organization's own products and services? 2. products and services delivered directly to the customer from external suppliers on behalf of the organization? 3. has the organization decided that a process, or part of a process, should be carried out by an external supplier? The organization shall determine and apply criteria for evaluation and selection of external suppliers, as well as for performance monitoring and re-evaluation. This must be based on the suppliers' ability to provide processes, products and services according to requirements. 4.Has the organization decided how to keep documented information about these activities and any necessary actions as a result of the evaluations?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>The 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 4points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>4.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3. 4.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.4.2">
+      <Title>Type and extent of governance and control</Title>
+      <Item number="43.0">
+        <Requirement>The organization must ensure that externally provided processes, products and services do not negatively affect the organization's ability to continuously deliver products and services that meet set requirements to its customers. The organization shall: a) ensure that externally provided processes are controlled and controlled by the organization's quality management system; b) define the governance and control it intends to apply to both the external supplier and the outcome; c) consider: 1) the potential impact of the externally provided processes, products and services on the organization's ability to continuously meet customer requirements and applicable regulatory requirements; 2) the effectiveness of the governance and control applied by the external supplier; d) determine what verification or other activities are necessary to ensure that the externally provided processes, products and services meet the requirements.</Requirement>
+        <AuditQuestions>Has the organization ensured that externally provided processes, products and services do not negatively affect the organization's ability to continuously deliver products and services that meet set requirements to its customers. The organization must: 1. ensure that externally provided processes are controlled and controlled by the organization's quality management system? 2. define the governance and control it intends to apply to both the external supplier and to the output; considered: 2.1. the potential impact of the externally provided processes, products and services on the organization's ability to continuously meet customer requirements and applicable statutory requirements? 2.2 how effective is the management and control applied by the external supplier? 3. determine what verification or other activities are necessary to ensure that the externally provided processes, products and services meet the requirements?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>The 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 4points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>4.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2.1 2.2 3</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.4.3">
+      <Title>Information to external suppliers</Title>
+      <Item number="44.0">
+        <Requirement>The organization must ensure that the requirements are sufficient and appropriate before they are shared with the external suppliers. The organization must communicate to external suppliers its requirements for: a) processes, products and services to be provided; b) acceptance of: 1) products and services; 2) methods, processes and equipment; 3) release of products and services; c) competence, including any individual qualification requirements; d) the external supplier's engagement with the organisation; e) the governance, control and monitoring of the external supplier's performance to be applied by the organisation; f) the verification or validation that the organization, or its customer, intends to perform with the external supplier.</Requirement>
+        <AuditQuestions>Has the organization ensured that the requirements are sufficient and appropriate before they are shared with the external suppliers. The organization must communicate to external suppliers its requirements for: 1. processes, products and services to be provided? 2. approval of: 2.1 products and services? 2.2 methods, processes and equipment? 2.3 release of products and services? 3. competence, including any individual qualification requirements? 4. the external supplier's cooperation with the organization? 5. the governance, control and monitoring of the external supplier's performance to be applied by the organization? 6. the verification or validation that the organization, or its customer, intends to perform with the external supplier?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 6 points are verified</Rating1>
+          <Rating2>The 6 points are verified, but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 8points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>8.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2.1 2.2 2.3 3 4. 5. 6.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.5">
+      <Title>Production of products and performance of services</Title>
+    </Section>
+    <Section standardNo="8.5.1">
+      <Title>Management and control in the production of products and performance of services</Title>
+      <Item number="45.0">
+        <Requirement>The organization must produce products and perform services under controlled and controlled forms. This means that, to the extent applicable, the organization must: a) have access to documented information that defines: 1) characteristics of the products and services to be offered or the activities to be performed; 2) the results to be achieved; b) have access to and use appropriate monitoring and measurement resources; c) introduce monitoring and measurement, to verify at appropriate times that criteria for the control and control of processes or their results have been met and that products and services conform to acceptance criteria; d) use the appropriate infrastructure and environment to carry out processes; e) appoint competent staff and specify relevant qualification requirements; f) validate and periodically revalidate the ability of processes to achieve planned results for the production of products and the performance of services, where the result cannot be verified by subsequent monitoring or measurement; g) put in place measures to prevent human error; h) perform release, delivery and post-delivery activities.</Requirement>
+        <AuditQuestions>Has the organization produced products and performed services under controlled and controlled forms. This means that the organization must, to the extent applicable,: 1.1 have access to documented information that defines? 1.2 characteristics of the products and services to be offered or the activities to be carried out? 1.3 the results to be achieved? 2. have access to and use appropriate resources for monitoring and measurement? 3. introduce monitoring and measurement, to verify at appropriate times that criteria for control and control of processes or their results have been met and that products and services comply with acceptance criteria? 4. use the appropriate infrastructure and environment to implement processes? 5. appoint competent staff and specify relevant qualification requirements? 6. validate and regularly revalidate the ability of processes to achieve planned results for the production of products and the performance of services, where the results cannot be verified by subsequent monitoring or measurement? 7. introduce measures to prevent human error? 8. perform release, delivery and post-delivery activities?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 8 points are verified</Rating1>
+          <Rating2>The 8 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 10points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>5.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3. 4. 5. 6. 7. 8.Are routines for what to check documented and known in production?</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.5.2">
+      <Title>Identification and traceability</Title>
+      <Item number="46.0">
+        <Requirement>The organization shall use appropriate means of identifying results from processes when necessary to ensure conformity of products and services. The organization shall identify the status of these results taking into account monitoring and measurement requirements throughout the production of products and the performance of services. The organization shall, when traceability is a requirement, control and control the unique identification of the results and preserve the documented information necessary to enable traceability.</Requirement>
+        <AuditQuestions>1. Has the organization used appropriate means of identifying results from processes when necessary to ensure conformity of products and services? 2. Has the organization identified the status of these outcomes with respect to monitoring and measurement requirements throughout the production of products and the performance of services? 3. Has the organization determined when traceability is a requirement, control and control the unique identification of the results? 4. Has the organization determined how to preserve the documented information necessary to enable traceability?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>The 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 4points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>4.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3. 4.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.5.4">
+      <Title>Conservation</Title>
+      <Item number="47.0">
+        <Requirement>The organization must, to the extent necessary to ensure compliance with requirements, preserve the process results that arise during the production of products and the performance of services. NOTE Preservation may include identification, handling, prevention of contamination, packaging, storage, transfer or transport and protection</Requirement>
+        <AuditQuestions>Has the organization determined how to preserve the process results that occur during the production of products and the performance of services (to the extent necessary to ensure compliance with requirements, on process results that occur during the production of products and the performance of services.)? NOTE Preservation may include identification, handling, prevention of contamination, packaging, storage, transfer or transport and protection</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 1 point is verified</Rating1>
+          <Rating2>1 point is verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 1points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>1.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.5.5">
+      <Title>Activities after delivery</Title>
+      <Item number="48.0">
+        <Requirement>The organization must fulfill product and service-related requirements for activities after delivery. When determining the scope of activities required after delivery, the organization shall consider: a) statutory requirements; b) possible undesired consequences linked to products and services; c) nature, use and intended life of products and services; d) customer requirements; e) customer feedback. NOTE Post-delivery activities may include actions resulting from warranty conditions, contractual obligations, such as maintenance services, or additional services, such as recycling or settlement.</Requirement>
+        <AuditQuestions>The organization must fulfill product and service-related requirements for activities after delivery. When determining the scope of activities required after delivery, has the organization considered: 1. constitutional requirements? 2. possible unwanted consequences linked to products and services? 3. the nature, use and intended lifespan of products and services? 4. customer requirements? 5. feedback from customer? NOTE Post-delivery activities may include actions resulting from warranty conditions, contractual obligations, such as maintenance services, or additional services, such as recycling or settlement.</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 4 points are verified</Rating1>
+          <Rating2>The 4 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 5 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>5.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3. 4. 5.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.5.6">
+      <Title>Management and control of changes</Title>
+      <Item number="49.0">
+        <Requirement>The organization shall, to the extent necessary, review, control and control changes in the production of products and the performance of services. This is to ensure continued compliance with requirements. The organization shall retain documented information showing the results of review of changes, the person or persons who approved the changes, and any necessary actions taken as a result of the review.</Requirement>
+        <AuditQuestions>To ensure continued compliance with requirements. 1. Has the organization ensured how to review, manage and control changes in the production of products and performance of services. This is to ensure continued compliance with requirements (to the extent necessary? 2.Has the organization must keep documented information that shows the results of review of changes, the person or persons who approved the changes and any necessary measures taken as a result of the review .</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 2 points is verified</Rating1>
+          <Rating2>The 2 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 2 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>2.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2.</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.6">
+      <Title>Release of products and services</Title>
+      <Item number="50.0">
+        <Requirement>The organization shall, when appropriate, carry out planned activities to verify that the requirements for products and services have been met. Release of products and services to the customer shall not take place before planned activities have been satisfactorily completed. Exceptions can be made if the release has been approved by a competent body and by the customer if applicable. The organization must keep documented information about the release of products and services. The documented information shall include: a) evidence of compliance with acceptance criteria; b) traceability to the person or persons who approved the release.</Requirement>
+        <AuditQuestions>1. Has the organization determined (when appropriate) when or how to carry out planned activities to verify that requirements for products and services have been met? Release of products and services to the customer shall not take place before planned activities have been satisfactorily completed. 2. Is there a routine for handling possible exceptions to the release where it has been approved by a competent body and by the customer? Has the organization decided how to keep documented information about the release of products and services. Where the documented information shall include: 3.1 evidence of compliance with acceptance criteria? 3.2traceability to the person or persons who approved the release?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less is 3 points is verified</Rating1>
+          <Rating2>The 3 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 4points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>1.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1. 2. 3.1 3.2Quality control</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="8.7">
+      <Title>Management and control of deviant process results</Title>
+      <Item number="51.0">
+        <Requirement>8.7.1The organization must ensure that deviant process results, i.e. those that do not meet set requirements are identified, controlled and controlled, so that unintended use or delivery is prevented. The organization must take appropriate measures based on the nature of the deviation and its impact on the compliance of the products and services with requirements. This shall also include deviating products and services that are discovered after products have been delivered and during or after the performance of services. The organization must handle deviant process results in one or more of the following ways: a) correct; b) sort, separate, return or cancel a delivery of products and services; c) inform the customer; d) obtain approval for supply under exemption. Compliance with the requirements must be verified when deviant process results are corrected. 8.7.2The organization shall maintain documented information that: a) describes the deviation; b) describes actions taken; c) describes delivery dispensations obtained; d) shows which responsible body decided on action for the deviation.</Requirement>
+        <AuditQuestions>8.7.1Has the organization ensured that deviant process results, i.e. those that do not meet set requirements are identified, controlled and controlled, so that unintended use or delivery is prevented. The organization must take appropriate measures based on the nature of the deviation and its impact on the compliance of the products and services with requirements. This shall also include deviating products and services that are discovered after products have been delivered and during or after the performance of services. The organization must handle deviant process results in one or more of the following ways: 1.1 correct? 1.2 sort out, separate, return or cancel a delivery of products and services? 1.3 inform the customer? 1.4 obtain approval for delivery under exemption? Compliance with the requirements must be verified when deviant process results are corrected. 8.7.2The organization must keep documented information that: 2.1 describes the deviation? 2.2 describes measures taken? 2.3 describes delivery dispensations obtained? 2.4 shows which responsible body decided on action for the deviation?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 6 points are verified</Rating1>
+          <Rating2>The 6 points are verified, but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 8points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>6.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1.1 1.2 1.3 1.4 2.1 2.2 2.3 2.4 All interviewees knew how to act when a deviation is detected. Everything is documented.. Recall?</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="9.1">
+      <Title>Monitoring, measurement, analysis and evaluation</Title>
+      <Item number="52.0">
+        <Requirement>9.1.1 General The organization shall determine: a) what needs to be monitored and measured; b) what methods, to the extent applicable, are needed for monitoring, measurement, analysis and evaluation to ensure reliable results; c) when monitoring and measurement are to be carried out; d) when the results of monitoring and measurement are to be analyzed and evaluated. The organization must evaluate quality performance and the effectiveness of the quality management system. The organization shall maintain appropriate documented information showing the results.9.1.2 Customer satisfactionThe organization must monitor customers' perceptions of the extent to which their needs and expectations have been met. The organization shall establish methods for obtaining, monitoring and reviewing such information. NOTE Examples of customer perception monitoring may include customer surveys, feedback from customers regarding delivered products or services, meetings with customers, market share analysis, praise, warranty claims and dealer reports.9.1.3 Analysis and evaluationThe organization shall analyze and evaluate appropriate data and information derived from monitoring and measurement. The results of the analysis shall be used to evaluate: a) the compliance of the products and services with requirements; b) the level of customer satisfaction; c) the performance and effectiveness of the quality management system; d) whether planned measures have been taken effectively; e) the effectiveness of risk and opportunity management measures; f) the performance of external suppliers; g) the need for improvement of the quality management system. NOTE Methods for analyzing data may include statistical methods.</Requirement>
+        <AuditQuestions>9.1.1 GeneralHas the organization decided: 1.1 what needs to be monitored and measured? 1.2 which methods are, to the extent applicable, needed for monitoring, measurement, analysis and evaluation to ensure reliable results? 1.3 when should monitoring and measurement be carried out? 1.4 when are the results from monitoring and measurement to be analyzed and evaluated? The organization must evaluate quality performance and the effectiveness of the quality management system. 1.5 Does the organization maintain appropriate documented information showing the results?9.1.2 Customer SatisfactionThe organization must monitor customers' perception of the extent to which their needs and expectations have been met. 2.1 Has the organization established methods to collect, monitor and review such information? NOTE Examples of customer perception monitoring may include customer surveys, feedback from customers regarding delivered products or services, meetings with customers, market share analysis, praise, warranty claims and dealer reports.9.1.3 Analysis and evaluationThe organization shall analyze and evaluate appropriate data and information derived from monitoring and measurement. The results of the analysis must be used to evaluate: 3.1 the compliance of the products and services with requirements? 3.2 the degree of customer satisfaction? 3.3 performance and effectiveness of the quality management system? 3.4 whether planned measures have been taken effectively? 3.5 impact of measures for managing risks and opportunities? 3.6 performance of external suppliers? 3.7 the need for improvement of the quality management system? NOTE Methods for analyzing data may include statistical methods.</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 11 points are verified</Rating1>
+          <Rating2>The 11 points are verified, but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 13 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>8.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1.1 1.2 1.3 1.4 1.5 2.1 3.1 3.2 3.3 3.4 3.5 3.6 3.7</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="9.2">
+      <Title>Internal audit</Title>
+      <Item number="53.0">
+        <Requirement>9.2.1 The organization shall, at planned intervals, carry out internal audits to obtain information on whether the quality management system: a) complies with: 1) the organization's own requirements for its quality management system; 2) the requirements of this standard; b) has been implemented and maintained in an appropriate manner.9.2.2The organization shall: a) plan, establish, implement and maintain audit programs, which include frequency, methods, responsibilities, planning requirements and reporting, which shall take into account the significance of the processes concerned, changes affecting the organization and the results of previous audits; b) define audit criteria and scope for each audit; c) select auditors and conduct audits in a manner that ensures the objectivity and independence of the audit process; d) ensure that audit results are reported to relevant management functions; e) without undue delay take appropriate corrections and corrective measures; f) maintain documented information showing the implementation of the audit program and the audit results. NOTE See SS-EN ISO 19011 for guidance.</Requirement>
+        <AuditQuestions>9.2.1Has the organization decided, at planned intervals, to carry out internal audits to obtain information on whether the quality management system: complies with: 1.1 the organization's own requirements for its quality management system? 1.2 the requirements of this standard? 1.3 has been introduced and maintained in an appropriate manner? 9.2.22.1 Does the organization plan, establish, implement and maintain audit programs, which include frequency, methods, responsibilities, planning requirements and reporting, which should take into account the importance of the processes involved, changes affecting the organization and the results of previous audits? 2.2 define audit criteria and scope for each audit? 2.3 select auditors and conduct audits in a way that ensures the objectivity and independence of the audit process? 2.4 ensure that the audit results are reported to relevant management functions? 2.5 without undue delay take appropriate corrections and corrective measures; 2.6 retain documented information showing the implementation of the audit program and the audit results? NOTE See SS-EN ISO 19011 for guidance.</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 7 points are verified</Rating1>
+          <Rating2>The 7 points are verified but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 9 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>9.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1.1 1.2 1.3 2.1 2.2 2.3 2.4 2.5 2.6</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="9.3">
+      <Title>Management review</Title>
+      <Item number="54.0">
+        <Requirement>9.3.1 General Top management must have a review of the organization's quality management system at planned intervals to ensure the system's continued suitability, adequacy, effectiveness and compliance with the organization's strategic direction.9.3.2Basis for the management's review The management's review must be planned and carried out taking into account: a) the status of measures decided at the management's previous reviews; b) changes to external and internal matters relevant to the quality management system; c) information on quality performance and impact, which includes trends in: 1) customer satisfaction and feedback from relevant stakeholders; 2) the extent to which the quality objectives have been achieved; 3) process performance and compliance of products and services with requirements; 4) deviations and corrective actions; 5) results from monitoring and measurement; 6) audit results; 7) performance of external suppliers; d) adequacy of resources; e) the effectiveness of risk and opportunity management measures (see section 6.1); f) opportunities for improvement.9.3.3Results of the management's review The management's review must result in i.a. decisions or actions relating to: a) opportunities for improvement; b) need for changes in the quality management system; c) resource requirements. The organization shall maintain documented information showing the results of management reviews</Requirement>
+        <AuditQuestions>9.3.1 General 1.1 Has senior management scheduled intervals to review the organization's quality management system to ensure the system's continued suitability, adequacy, effectiveness and alignment with the organization's strategic direction?9.3.2Basis for management's review must be planned and carried out taking into account: 2.1 status of measures decided at management's previous reviews? 2.2 changes to external and internal issues relevant to the quality management system? 3.1 customer satisfaction and feedback from relevant stakeholders? 3.2 to what extent have the quality goals been achieved? 3.3 process performance and compliance of products and services with requirements? 4. deviations and corrective actions? 5. results from monitoring and measurement? 6. audit results? 7. performance of external suppliers? 8. adequacy of resources? 9. the effect of measures for managing risks and opportunities (see section 6.1)? 10. opportunities for improvement?9.3.3Results of the management's review The management's review must result in i.a. decisions or measures relating to: 11. opportunities for improvement? 12. need for changes in the quality management system? 13. resource requirements? 14. Does the organization maintain documented information showing the results of management reviews?</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 12 points are verified</Rating1>
+          <Rating2>The 12 points are verified, but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 14 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>14.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1.1 2.1 2.2 3.1 3.2 3.3 4. 5. 6. 7. 8. 9. 10. 11. 12. 13. 14. agenda and plan for this?</Justification>
+      </Item>
+    </Section>
+    <Section standardNo="10">
+      <Title>Improvements</Title>
+      <Item number="55.0">
+        <Requirement>10.1 General The organization must determine and select improvement opportunities and take any necessary measures to meet customer requirements and increase customer satisfaction. The actions shall include: a) improvement of products and services so that requirements are met and future needs and expectations are managed; b) correction, prevention or reduction of undesirable effects; c) improvement of the performance and effectiveness of the quality management system. NOTE Examples of improvements can be corrections, corrective actions, continuous improvements, sweeping changes, innovations and reorganizations. 10.2Deviation and corrective action 10.2.1 When a non-conformity occurs (including those arising as a result of complaints), the organization shall: a) respond to the non-conformity and, to the extent applicable: 1) take measures to manage and correct it; 2) deal with the consequences; b) evaluate the need for action to eliminate the causes of the deviation, so that it does not occur again or elsewhere, by: 1) reviewing and analyzing the deviation; 2) determine the causes of the deviation; 3) investigate whether similar deviations exist or could occur; c) take necessary action; d) review the effect of implemented corrective actions; e) update risks and opportunities identified during planning, if necessary; f) make changes to the quality management system, if necessary. Corrective measures must be proportionate to the consequences of the deviations found.10.2.2The organization shall maintain documented information showing: a) the nature of non-conformities and actions taken afterwards; b) the results of corrective actions.10.3 Continuous improvement The organization shall continuously improve the suitability, adequacy and effectiveness of its quality management system. The organization shall consider the results of the analysis and evaluation as well as the results of the management review to determine whether there are needs or opportunities to be addressed within the framework of continuous improvement.</Requirement>
+        <AuditQuestions>10.1General The organization must determine and select improvement opportunities and take any necessary measures to meet customer requirements and increase customer satisfaction. The measures shall include: 1.1 improvement of products and services so that requirements are met and future needs and expectations are managed; 1.2 correction, prevention or reduction of unwanted effects; 1.3 improvement of the performance and effectiveness of the quality management system. NOTE Examples of improvements can be corrections, corrective actions, continuous improvements, sweeping changes, innovations and reorganizations. 10.2 Deviation and corrective action 10.2.1When a deviation occurs (including those that arise as a result of complaints), the organization must: 2 react to the deviation and to the extent applicable: 2.1. take steps to manage and correct it; 2.2 deal with the consequences; 3 evaluate the need for measures to eliminate the causes of the deviation, so that it does not occur again or elsewhere, by: 3.1 reviewing and analyzing the deviation; 3.2 determine the reasons for the deviation; 3.3 investigate whether similar deviations exist or could occur; 4 take necessary action; 5 review the effect of implemented corrective actions; 6 update risks and opportunities identified during planning, if necessary; 7. make changes to the quality management system, if necessary. Corrective measures must be proportionate to the consequences of the deviations found.10.2.2The organization must keep documented information showing: 8. the nature of deviations and actions taken afterwards; 9. the results of corrective actions.10.3 Continuous improvement The organization shall continuously improve the suitability, adequacy and effectiveness of its quality management system. The organization shall consider the results of the analysis and evaluation as well as the results of the management review to determine whether there are needs or opportunities to be addressed within the framework of continuous improvement.</AuditQuestions>
+        <RatingCriteria>
+          <Rating1>Less than 17 points are verified</Rating1>
+          <Rating2>The 17 points have been verified, but there are suggestions for improvement for any of the points.</Rating2>
+          <Rating3>All 19 points are verified</Rating3>
+        </RatingCriteria>
+        <FulfillmentRequirement>13.0</FulfillmentRequirement>
+        <Score>3.0</Score>
+        <Justification>1.1 1.2 1.3. 2.1 2.2 3.1. 3.2 4. 5. 6. 7. 8. 9. If you know answers to all the different areas in the standard above for how to handle deviations and how to deal with improvements, etc. Then you can basically refer to previous answers for each point here</Justification>
+      </Item>
+    </Section>
+  </AssessmentItems>
+</SelfAssessment>

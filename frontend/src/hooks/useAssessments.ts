@@ -118,6 +118,23 @@ export function useAssessment(id: string) {
   });
 }
 
+export function useUpdateAssessment() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: { id: string; [key: string]: unknown }) => {
+      const { id, ...updateData } = data;
+      const response = await assessmentsApi.update(id, updateData);
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      // Invalidate both assessments list and detail
+      queryClient.invalidateQueries({ queryKey: ['assessments'] });
+      queryClient.invalidateQueries({ queryKey: ['assessment', variables.id] });
+    },
+  });
+}
+
 export function useDeleteAssessment() {
   const queryClient = useQueryClient();
 

@@ -1,0 +1,377 @@
+{
+  "metadata": {
+    "standard": "ISO 9001:2015",
+    "version": "1.0",
+    "createdDate": "2025-02-02",
+    "totalSections": 35,
+    "totalQuestions": 72
+  },
+  "standardSections": [
+    {
+      "sectionNumber": "4",
+      "title": "Context of the Organization",
+      "description": "Requirements for understanding the organization's context, interested parties, scope, and QMS processes."
+    },
+    {
+      "sectionNumber": "4.1",
+      "title": "Understanding the organization and its context",
+      "description": "Determine external and internal issues relevant to purpose and strategic direction affecting QMS outcomes."
+    },
+    {
+      "sectionNumber": "4.2",
+      "title": "Understanding the needs and expectations of interested parties",
+      "description": "Determine interested parties relevant to the QMS and their requirements."
+    },
+    {
+      "sectionNumber": "4.3",
+      "title": "Determining the scope of the quality management system",
+      "description": "Determine boundaries and applicability of the QMS to establish its scope."
+    },
+    {
+      "sectionNumber": "4.4",
+      "title": "Quality management system and its processes",
+      "description": "Establish, implement, maintain and continually improve the QMS including needed processes."
+    },
+    {
+      "sectionNumber": "5",
+      "title": "Leadership",
+      "description": "Requirements for top management leadership, commitment, policy, and organizational roles."
+    },
+    {
+      "sectionNumber": "5.1",
+      "title": "Leadership and commitment",
+      "description": "Top management demonstration of leadership and commitment to the QMS."
+    },
+    {
+      "sectionNumber": "5.2",
+      "title": "Policy",
+      "description": "Establishing, implementing, and maintaining the quality policy."
+    },
+    {
+      "sectionNumber": "5.3",
+      "title": "Organizational roles, responsibilities and authorities",
+      "description": "Assignment and communication of responsibilities and authorities for relevant roles."
+    },
+    {
+      "sectionNumber": "6",
+      "title": "Planning",
+      "description": "Requirements for planning including risks/opportunities, objectives, and changes."
+    },
+    {
+      "sectionNumber": "6.1",
+      "title": "Actions to address risks and opportunities",
+      "description": "Determine and plan actions to address risks and opportunities."
+    },
+    {
+      "sectionNumber": "6.2",
+      "title": "Quality objectives and planning to achieve them",
+      "description": "Establish quality objectives at relevant functions, levels, and processes."
+    },
+    {
+      "sectionNumber": "6.3",
+      "title": "Planning of changes",
+      "description": "Carry out changes to the QMS in a planned manner."
+    },
+    {
+      "sectionNumber": "7",
+      "title": "Support",
+      "description": "Requirements for resources, competence, awareness, communication, and documented information."
+    },
+    {
+      "sectionNumber": "7.1",
+      "title": "Resources",
+      "description": "Determine and provide resources needed for QMS establishment, implementation, maintenance and improvement."
+    },
+    {
+      "sectionNumber": "7.2",
+      "title": "Competence",
+      "description": "Determine necessary competence and ensure persons are competent."
+    },
+    {
+      "sectionNumber": "7.3",
+      "title": "Awareness",
+      "description": "Ensure persons are aware of quality policy, objectives, their contribution, and implications of non-conformity."
+    },
+    {
+      "sectionNumber": "7.4",
+      "title": "Communication",
+      "description": "Determine internal and external communications relevant to the QMS."
+    },
+    {
+      "sectionNumber": "7.5",
+      "title": "Documented information",
+      "description": "QMS documented information requirements including creation, update, and control."
+    },
+    {
+      "sectionNumber": "8",
+      "title": "Operation",
+      "description": "Requirements for operational planning, product/service requirements, design, external providers, production, release, and nonconforming outputs."
+    },
+    {
+      "sectionNumber": "8.1",
+      "title": "Operational planning and control",
+      "description": "Plan, implement and control processes needed for product and service provision."
+    },
+    {
+      "sectionNumber": "8.2",
+      "title": "Requirements for products and services",
+      "description": "Customer communication and determination of product/service requirements."
+    },
+    {
+      "sectionNumber": "8.3",
+      "title": "Design and development of products and services",
+      "description": "Establish, implement and maintain design and development process."
+    },
+    {
+      "sectionNumber": "8.4",
+      "title": "Control of externally provided processes, products and services",
+      "description": "Ensure externally provided processes, products and services conform to requirements."
+    },
+    {
+      "sectionNumber": "8.5",
+      "title": "Production and service provision",
+      "description": "Implement production and service provision under controlled conditions."
+    },
+    {
+      "sectionNumber": "8.6",
+      "title": "Release of products and services",
+      "description": "Implement planned arrangements to verify product and service requirements are met."
+    },
+    {
+      "sectionNumber": "8.7",
+      "title": "Control of nonconforming outputs",
+      "description": "Ensure nonconforming outputs are identified and controlled."
+    },
+    {
+      "sectionNumber": "9",
+      "title": "Performance Evaluation",
+      "description": "Requirements for monitoring, measurement, analysis, evaluation, internal audit, and management review."
+    },
+    {
+      "sectionNumber": "9.1",
+      "title": "Monitoring, measurement, analysis and evaluation",
+      "description": "Determine what needs monitoring and measuring, methods, timing, and evaluation."
+    },
+    {
+      "sectionNumber": "9.2",
+      "title": "Internal audit",
+      "description": "Conduct internal audits at planned intervals."
+    },
+    {
+      "sectionNumber": "9.3",
+      "title": "Management review",
+      "description": "Top management review of QMS at planned intervals."
+    },
+    {
+      "sectionNumber": "10",
+      "title": "Improvement",
+      "description": "Requirements for general improvement, nonconformity/corrective action, and continual improvement."
+    },
+    {
+      "sectionNumber": "10.1",
+      "title": "General",
+      "description": "Determine and select opportunities for improvement and implement necessary actions."
+    },
+    {
+      "sectionNumber": "10.2",
+      "title": "Nonconformity and corrective action",
+      "description": "React to nonconformities, evaluate, take action, review effectiveness."
+    },
+    {
+      "sectionNumber": "10.3",
+      "title": "Continual improvement",
+      "description": "Continually improve QMS suitability, adequacy and effectiveness."
+    }
+  ],
+  "auditQuestions": [
+    {
+      "sectionNumber": "4.1",
+      "standardReference": "ISO 9001:2015 Clause 4.1",
+      "standardText": "The organization shall determine external and internal issues that are relevant to its purpose and strategic direction and that affect its ability to achieve the intended result(s) of its quality management system.",
+      "auditQuestion": "Has the organization identified and documented external issues (legal, technological, competitive, market, cultural, social, economic) that affect its ability to achieve QMS results?",
+      "score1Criteria": "No external issues have been identified or documented.",
+      "score2Criteria": "Some external issues are identified but documentation is incomplete or not linked to strategic direction.",
+      "score3Criteria": "External issues are comprehensively identified, documented, and clearly linked to strategic direction with regular review."
+    },
+    {
+      "sectionNumber": "4.1",
+      "standardReference": "ISO 9001:2015 Clause 4.1",
+      "standardText": "The organization shall determine external and internal issues that are relevant to its purpose and strategic direction and that affect its ability to achieve the intended result(s) of its quality management system.",
+      "auditQuestion": "Has the organization identified and documented internal issues (values, culture, knowledge, performance) that affect its ability to achieve QMS results?",
+      "score1Criteria": "No internal issues have been identified or documented.",
+      "score2Criteria": "Some internal issues are identified but documentation is incomplete or not systematically reviewed.",
+      "score3Criteria": "Internal issues are comprehensively identified, documented, and regularly monitored with evidence of review."
+    },
+    {
+      "sectionNumber": "4.1",
+      "standardReference": "ISO 9001:2015 Clause 4.1",
+      "standardText": "The organization shall determine external and internal issues that are relevant to its purpose and strategic direction and that affect its ability to achieve the intended result(s) of its quality management system.",
+      "auditQuestion": "Is there evidence that external and internal issues are monitored and reviewed at planned intervals?",
+      "score1Criteria": "No monitoring or review process exists for context issues.",
+      "score2Criteria": "Issues are reviewed occasionally but not at planned intervals or without documented outcomes.",
+      "score3Criteria": "Issues are monitored and reviewed at defined intervals with documented evidence of actions taken."
+    },
+    {
+      "sectionNumber": "4.2",
+      "standardReference": "ISO 9001:2015 Clause 4.2",
+      "standardText": "The organization shall determine: a) the interested parties that are relevant to the quality management system; b) the requirements of these interested parties that are relevant to the quality management system.",
+      "auditQuestion": "Has the organization identified all relevant interested parties (customers, employees, suppliers, regulators, shareholders, community)?",
+      "score1Criteria": "Interested parties have not been identified.",
+      "score2Criteria": "Some interested parties are identified but the list is incomplete or not documented.",
+      "score3Criteria": "All relevant interested parties are identified, documented, and categorized appropriately."
+    },
+    {
+      "sectionNumber": "4.2",
+      "standardReference": "ISO 9001:2015 Clause 4.2",
+      "standardText": "The organization shall determine: a) the interested parties that are relevant to the quality management system; b) the requirements of these interested parties that are relevant to the quality management system.",
+      "auditQuestion": "Are the requirements and expectations of each interested party documented and monitored?",
+      "score1Criteria": "Requirements of interested parties are not documented.",
+      "score2Criteria": "Requirements are partially documented but not systematically monitored or updated.",
+      "score3Criteria": "Requirements are fully documented, regularly monitored, and updated with evidence of review."
+    },
+    {
+      "sectionNumber": "4.3",
+      "standardReference": "ISO 9001:2015 Clause 4.3",
+      "standardText": "The organization shall determine the boundaries and applicability of the quality management system to establish its scope.",
+      "auditQuestion": "Is the QMS scope clearly defined, documented, and available as documented information?",
+      "score1Criteria": "QMS scope is not defined or documented.",
+      "score2Criteria": "Scope is defined but incomplete, unclear, or not readily available.",
+      "score3Criteria": "Scope is clearly defined, documented, available, and includes all products/services and applicable requirements."
+    },
+    {
+      "sectionNumber": "4.3",
+      "standardReference": "ISO 9001:2015 Clause 4.3",
+      "standardText": "The organization shall determine the boundaries and applicability of the quality management system to establish its scope.",
+      "auditQuestion": "If any ISO 9001 requirements are determined not applicable, is there valid justification that does not affect conformity of products/services?",
+      "score1Criteria": "Exclusions exist without justification or justification is invalid.",
+      "score2Criteria": "Exclusions are justified but documentation is incomplete or reasoning is weak.",
+      "score3Criteria": "All exclusions are properly justified, documented, and do not affect product/service conformity or customer satisfaction."
+    },
+    {
+      "sectionNumber": "4.4",
+      "standardReference": "ISO 9001:2015 Clause 4.4",
+      "standardText": "The organization shall establish, implement, maintain and continually improve a quality management system, including the processes needed and their interactions.",
+      "auditQuestion": "Are QMS processes identified with their inputs, outputs, sequence, and interactions documented?",
+      "score1Criteria": "QMS processes are not identified or documented.",
+      "score2Criteria": "Processes are identified but inputs, outputs, or interactions are not fully documented.",
+      "score3Criteria": "All QMS processes are identified with documented inputs, outputs, sequence, and interactions."
+    },
+    {
+      "sectionNumber": "4.4",
+      "standardReference": "ISO 9001:2015 Clause 4.4",
+      "standardText": "The organization shall establish, implement, maintain and continually improve a quality management system, including the processes needed and their interactions.",
+      "auditQuestion": "Are criteria, methods, and performance indicators established for each process to ensure effective operation and control?",
+      "score1Criteria": "No criteria or performance indicators exist for processes.",
+      "score2Criteria": "Some processes have criteria/indicators but coverage is incomplete or inconsistent.",
+      "score3Criteria": "All processes have defined criteria, methods, and performance indicators that are monitored."
+    },
+    {
+      "sectionNumber": "4.4",
+      "standardReference": "ISO 9001:2015 Clause 4.4",
+      "standardText": "The organization shall establish, implement, maintain and continually improve a quality management system, including the processes needed and their interactions.",
+      "auditQuestion": "Are resources, responsibilities, and authorities assigned for each QMS process?",
+      "score1Criteria": "Resources and responsibilities are not assigned to processes.",
+      "score2Criteria": "Some processes have assigned resources/responsibilities but gaps exist.",
+      "score3Criteria": "All processes have clearly assigned resources, responsibilities, and authorities with documented accountability."
+    },
+    {
+      "sectionNumber": "4.4",
+      "standardReference": "ISO 9001:2015 Clause 4.4",
+      "standardText": "The organization shall establish, implement, maintain and continually improve a quality management system, including the processes needed and their interactions.",
+      "auditQuestion": "Are risks and opportunities addressed for each process and are processes evaluated for improvement?",
+      "score1Criteria": "Risks and opportunities are not considered for processes.",
+      "score2Criteria": "Risks/opportunities are considered for some processes but evaluation for improvement is inconsistent.",
+      "score3Criteria": "All processes have documented risks/opportunities with evidence of evaluation and improvement actions."
+    },
+    {
+      "sectionNumber": "5.1",
+      "standardReference": "ISO 9001:2015 Clause 5.1.1",
+      "standardText": "Top management shall demonstrate leadership and commitment with respect to the quality management system.",
+      "auditQuestion": "Does top management demonstrate accountability for QMS effectiveness through active engagement and decision-making?",
+      "score1Criteria": "No evidence of top management accountability or engagement with the QMS.",
+      "score2Criteria": "Top management shows some involvement but accountability is unclear or inconsistent.",
+      "score3Criteria": "Top management actively demonstrates accountability with documented decisions, reviews, and resource allocation."
+    },
+    {
+      "sectionNumber": "5.1",
+      "standardReference": "ISO 9001:2015 Clause 5.1.1",
+      "standardText": "Top management shall demonstrate leadership and commitment with respect to the quality management system.",
+      "auditQuestion": "Are QMS requirements integrated into business processes rather than treated as a separate system?",
+      "score1Criteria": "QMS operates as a separate system disconnected from business processes.",
+      "score2Criteria": "Partial integration exists but QMS is still perceived as separate from core business.",
+      "score3Criteria": "QMS requirements are fully integrated into business processes with seamless operation."
+    },
+    {
+      "sectionNumber": "5.1",
+      "standardReference": "ISO 9001:2015 Clause 5.1.1",
+      "standardText": "Top management shall demonstrate leadership and commitment with respect to the quality management system.",
+      "auditQuestion": "Are adequate resources provided for the QMS and is the importance of quality management communicated throughout the organization?",
+      "score1Criteria": "Resources are inadequate and quality importance is not communicated.",
+      "score2Criteria": "Resources are partially adequate or communication about quality is inconsistent.",
+      "score3Criteria": "Adequate resources are provided and quality importance is consistently communicated at all levels."
+    },
+    {
+      "sectionNumber": "5.1",
+      "standardReference": "ISO 9001:2015 Clause 5.1.1",
+      "standardText": "Top management shall demonstrate leadership and commitment with respect to the quality management system.",
+      "auditQuestion": "Does top management engage, direct, and support persons to contribute to QMS effectiveness and continual improvement?",
+      "score1Criteria": "No evidence of top management engaging or supporting personnel in QMS activities.",
+      "score2Criteria": "Some engagement exists but support for personnel contribution is limited or inconsistent.",
+      "score3Criteria": "Top management actively engages and supports all personnel with documented initiatives and improvement promotion."
+    },
+    {
+      "sectionNumber": "5.1",
+      "standardReference": "ISO 9001:2015 Clause 5.1.2",
+      "standardText": "Top management shall demonstrate leadership and commitment with respect to customer focus.",
+      "auditQuestion": "Are customer requirements and applicable statutory/regulatory requirements determined, understood, and consistently met?",
+      "score1Criteria": "Customer and regulatory requirements are not systematically determined or met.",
+      "score2Criteria": "Requirements are determined but understanding or consistent compliance has gaps.",
+      "score3Criteria": "All customer and regulatory requirements are determined, understood, documented, and consistently met."
+    },
+    {
+      "sectionNumber": "5.1",
+      "standardReference": "ISO 9001:2015 Clause 5.1.2",
+      "standardText": "Top management shall demonstrate leadership and commitment with respect to customer focus.",
+      "auditQuestion": "Is there a maintained focus on enhancing customer satisfaction with measurable actions and improvements?",
+      "score1Criteria": "No focus on customer satisfaction enhancement.",
+      "score2Criteria": "Customer satisfaction is considered but enhancement activities are ad-hoc or unmeasured.",
+      "score3Criteria": "Systematic focus on customer satisfaction with measured improvements and documented enhancement activities."
+    },
+    {
+      "sectionNumber": "5.2",
+      "standardReference": "ISO 9001:2015 Clause 5.2.1",
+      "standardText": "Top management shall establish, implement and maintain a quality policy.",
+      "auditQuestion": "Is a quality policy established that is appropriate to the organization's purpose, context, and strategic direction?",
+      "score1Criteria": "No quality policy exists or it is not appropriate to the organization.",
+      "score2Criteria": "Quality policy exists but is generic or not clearly linked to organizational context and strategy.",
+      "score3Criteria": "Quality policy is appropriate, context-specific, and clearly supports strategic direction."
+    },
+    {
+      "sectionNumber": "5.2",
+      "standardReference": "ISO 9001:2015 Clause 5.2.1",
+      "standardText": "Top management shall establish, implement and maintain a quality policy.",
+      "auditQuestion": "Does the quality policy provide a framework for setting objectives and include commitments to meeting requirements and continual improvement?",
+      "score1Criteria": "Policy does not provide framework for objectives or lacks required commitments.",
+      "score2Criteria": "Policy partially addresses objectives framework or commitments are unclear.",
+      "score3Criteria": "Policy clearly provides objectives framework and includes explicit commitments to requirements and continual improvement."
+    },
+    {
+      "sectionNumber": "5.2",
+      "standardReference": "ISO 9001:2015 Clause 5.2.2",
+      "standardText": "The quality policy shall be available and communicated.",
+      "auditQuestion": "Is the quality policy documented, communicated, understood within the organization, and available to relevant interested parties?",
+      "score1Criteria": "Policy is not documented or communicated.",
+      "score2Criteria": "Policy is documented but communication or understanding is limited.",
+      "score3Criteria": "Policy is documented, effectively communicated, understood by personnel, and available to interested parties."
+    }
+  ],
+  "questionsByClause": {
+    "4": 11,
+    "5": 9,
+    "6": 5,
+    "7": 12,
+    "8": 21,
+    "9": 9,
+    "10": 5
+  }
+}
