@@ -5,10 +5,10 @@
 ## Current Status
 
 **Phase**: 10 - Testing (Optional for MVP)
-**Progress**: 100 / 88 tasks (6 pre-existing setup tasks completed)
+**Progress**: 101 / 88 tasks (6 pre-existing setup tasks completed)
 **Last Updated**: 2026-02-02
-**Last Completed**: TEST-04 (Set up Jest and React Testing Library for frontend)
-**Next Task**: TEST-05 (Write auth store unit tests)
+**Last Completed**: TEST-05 (Write auth store unit tests)
+**Next Task**: TEST-06 (Write component tests)
 
 ### Blocking Issue - RESOLVED
 The schema mismatch has been resolved. The backend now compiles without TypeScript errors.
@@ -681,10 +681,11 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - Fixed JSX syntax issue by renaming setup.ts to setup.tsx
   - Button component tests verify setup works (12 tests passing)
 
-- [ ] **TEST-05**: Write auth store unit tests
-  - Login state management
-  - Logout clears state
-  - Token refresh flow
+- [x] **TEST-05**: Write auth store unit tests `85c6dd2`
+  - Login state management (setAuth sets user, tokens, isAuthenticated)
+  - Logout clears state (clearAuth clears all data and localStorage)
+  - Token refresh flow (setAuth updates tokens while preserving user)
+  - 48 tests for useAuthStore, useAssessmentDraftStore, and useUIStore
 
 - [ ] **TEST-06**: Write component tests
   - ScoreButton click handling
@@ -849,6 +850,7 @@ No current blockers.
 | TEST-02: Write auth API tests | 2629fc1 | 2026-02-01 |
 | TEST-03: Write assessment API tests | 469dec5 | 2026-02-01 |
 | TEST-04: Set up Jest and React Testing Library for frontend | 9c342a1 | 2026-02-02 |
+| TEST-05: Write auth store unit tests | 85c6dd2 | 2026-02-02 |
 
 ---
 
