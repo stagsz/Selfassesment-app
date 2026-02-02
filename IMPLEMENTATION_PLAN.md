@@ -4,12 +4,12 @@
 
 ## Current Status
 
-**Phase**: 10 - Testing (Complete!)
-**Progress**: 97 / 108 tasks complete (90%)
+**Phase**: 11 - Deployment Preparation
+**Progress**: 98 / 108 tasks complete (91%)
 **Last Updated**: 2026-02-02
-**Last Completed**: TEST-06 (Write component tests)
-**Next Task**: DEPLOY-01 (Switch to PostgreSQL)
-**Alternative**: None - Testing phase complete, deployment preparation is next
+**Last Completed**: DEPLOY-01 (Switch to PostgreSQL)
+**Next Task**: DEPLOY-02 (Add health check endpoint)
+**Alternative**: None - Continue with deployment preparation
 
 ### Quick Links
 - [Remaining Tasks](#remaining-tasks-summary)
@@ -20,15 +20,15 @@
 ### Progress Summary
 - Phases 1-9: ✅ Complete (all core functionality implemented)
 - Phase 10 (Testing): ✅ Complete (6/6 tasks - 276 total tests)
-- Phase 11 (Deployment): Not started (6 tasks)
+- Phase 11 (Deployment): In Progress (1/6 tasks complete)
 
 ### Decision Point
-The project is **ready for production deployment**. Testing phase is complete with comprehensive coverage:
+The project is in **deployment preparation phase**:
 - Total tests: 276 (93 backend + 183 frontend)
 - All phases 1-10 are complete
-- Phase 11 (Deployment Preparation) is next
+- Phase 11 (Deployment Preparation) in progress: DEPLOY-01 complete
 
-**Proceed to DEPLOY-01** to switch to PostgreSQL for production.
+**Proceed to DEPLOY-02** to add health check endpoint.
 
 ### MVP Status
 The application is **feature-complete for MVP**. All core functionality for ISO 9001 self-assessments and audits is implemented and working:
@@ -43,7 +43,6 @@ The application is **feature-complete for MVP**. All core functionality for ISO 
 ### Remaining Tasks Summary
 | Phase | Task ID | Description | Priority |
 |-------|---------|-------------|----------|
-| 11 - Deployment | DEPLOY-01 | Switch to PostgreSQL | Required for production |
 | 11 - Deployment | DEPLOY-02 | Add health check endpoint | Required for production |
 | 11 - Deployment | DEPLOY-03 | Create docker-compose.yml | Recommended |
 | 11 - Deployment | DEPLOY-04 | Create backend Dockerfile | Recommended |
@@ -53,8 +52,8 @@ The application is **feature-complete for MVP**. All core functionality for ISO 
 ### Blocking Issues
 None - the application is fully functional.
 
-**Note on SQLite Compatibility:**
-SQLite does not support native enums or JSON types. The schema uses String fields with application-level enum types defined in `backend/src/types/enums.ts`. When migrating to PostgreSQL (DEPLOY-01), update the schema to use native enums.
+**Database:**
+PostgreSQL is now required. The schema uses native PostgreSQL enums for type safety. Enums are re-exported from `@prisma/client` via `backend/src/types/enums.ts` for backward compatibility.
 
 ---
 
@@ -736,7 +735,7 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
 
 ## Phase 11: Deployment Preparation (6 tasks)
 
-- [ ] **DEPLOY-01**: Switch to PostgreSQL
+- [x] **DEPLOY-01**: Switch to PostgreSQL `91e316c`
   - Update datasource provider in schema.prisma from "sqlite" to "postgresql"
   - Convert String enum fields to native PostgreSQL enums
   - Update DATABASE_URL format in .env.example (postgres://user:pass@host:5432/db)
@@ -942,6 +941,7 @@ No current blockers.
 | TEST-04: Set up Jest and React Testing Library for frontend | 9c342a1 | 2026-02-02 |
 | TEST-05: Write auth store unit tests | 85c6dd2 | 2026-02-02 |
 | TEST-06: Write component tests (ScoreButton, ProgressBar, QuestionCard) | 03d6a13 | 2026-02-02 |
+| DEPLOY-01: Switch to PostgreSQL with native enums | 91e316c | 2026-02-02 |
 
 ---
 
@@ -979,11 +979,11 @@ Critical Path:
 
 ## Notes
 
-- **SQLite vs PostgreSQL**: Using SQLite for development. Switch to PostgreSQL before production (DEPLOY-01).
+- **PostgreSQL**: Schema uses PostgreSQL with native enums. Set `DATABASE_URL` to a PostgreSQL connection string.
 - **Evidence Storage**: MVP uses local `/uploads` folder. Consider S3/Azure Blob for production.
 - **PDF Reports**: Using pdfkit for PDF generation. Works well for the current report requirements.
 - **Testing Coverage**: 276 total tests - Backend has 93 tests (auth + assessments + health), frontend has 183 tests (stores + Button + ScoreButton + ProgressBar + QuestionCard).
-- **Application-Level Enums**: Due to SQLite limitations, enums are implemented as TypeScript types in `backend/src/types/enums.ts` with String fields in Prisma. When migrating to PostgreSQL, convert to native database enums.
+- **Native Enums**: Enums are defined in `schema.prisma` and re-exported from `@prisma/client` via `backend/src/types/enums.ts`.
 - **MVP Status**: Core functionality (Phases 1-9) is complete. Application is functional for ISO 9001 self-assessments.
 - **Future Enhancements**: Features from PRD.json (F10-F13) are documented in the "Future Enhancements" section for post-MVP development.
 - **Windows Development**: Project runs on Windows. Use Windows-compatible paths and commands when developing locally.
@@ -1004,8 +1004,8 @@ Critical Path:
 | 8 | Reports & Export | 7 | ✅ Complete |
 | 9 | Polish & Error Handling | 5 | ✅ Complete |
 | 10 | Testing | 6 | ✅ Complete |
-| 11 | Deployment | 6 | Not Started |
-| **MVP Total** | | **108** | **97 complete (90%)** |
+| 11 | Deployment | 6 | 🔄 In Progress (1/6) |
+| **MVP Total** | | **108** | **98 complete (91%)** |
 | Future | Future Enhancements | 6 | Not Started (Post-MVP) |
 
-**Note**: MVP scope includes 108 tasks (6 pre-existing setup tasks plus 102 implementation tasks). 97 tasks completed (90%). Future enhancements are optional post-MVP features from PRD.json.
+**Note**: MVP scope includes 108 tasks (6 pre-existing setup tasks plus 102 implementation tasks). 98 tasks completed (91%). Future enhancements are optional post-MVP features from PRD.json.
