@@ -80,8 +80,15 @@ export default function ActionsPage() {
   const { data: ncrData, isLoading } = useQuery({
     queryKey: ['all-non-conformities'],
     queryFn: async () => {
-      const response = await nonConformitiesApi.list();
-      return response.data.data || [];
+      const response = await nonConformitiesApi.list({ pageSize: 1000 });
+      const ncrs = response.data.data || [];
+
+      // Fetch full details for each NCR to get actions
+      const ncrDetails = await Promise.all(
+        ncrs.map(ncr => nonConformitiesApi.getById(ncr.id).then(res => res.data.data))
+      );
+
+      return ncrDetails;
     },
   });
 
