@@ -25,7 +25,7 @@ const customJestConfig = {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@shared/(.*)$': '<rootDir>/../shared/types/$1',
   },
-  setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/src/__tests__/setup.tsx'],
   testTimeout: 10000,
   verbose: true,
   clearMocks: true,
