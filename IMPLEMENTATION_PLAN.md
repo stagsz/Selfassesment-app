@@ -5,10 +5,10 @@
 ## Current Status
 
 **Phase**: 11 - Deployment Preparation
-**Progress**: 99 / 108 tasks complete (92%)
+**Progress**: 100 / 108 tasks complete (93%)
 **Last Updated**: 2026-02-02
-**Last Completed**: DEPLOY-02 (Add health check endpoint)
-**Next Task**: DEPLOY-03 (Create docker-compose.yml)
+**Last Completed**: DEPLOY-03 (Create docker-compose.yml)
+**Next Task**: DEPLOY-04 (Create backend Dockerfile)
 **Alternative**: None - Continue with deployment preparation
 
 ### Quick Links
@@ -20,15 +20,15 @@
 ### Progress Summary
 - Phases 1-9: ✅ Complete (all core functionality implemented)
 - Phase 10 (Testing): ✅ Complete (6/6 tasks - 276 total tests)
-- Phase 11 (Deployment): In Progress (2/6 tasks complete)
+- Phase 11 (Deployment): In Progress (3/6 tasks complete)
 
 ### Decision Point
 The project is in **deployment preparation phase**:
 - Total tests: 279 (96 backend + 183 frontend)
 - All phases 1-10 are complete
-- Phase 11 (Deployment Preparation) in progress: DEPLOY-02 complete
+- Phase 11 (Deployment Preparation) in progress: DEPLOY-03 complete
 
-**Proceed to DEPLOY-03** to create docker-compose.yml.
+**Proceed to DEPLOY-04** to create the backend Dockerfile.
 
 ### MVP Status
 The application is **feature-complete for MVP**. All core functionality for ISO 9001 self-assessments and audits is implemented and working:
@@ -43,7 +43,6 @@ The application is **feature-complete for MVP**. All core functionality for ISO 
 ### Remaining Tasks Summary
 | Phase | Task ID | Description | Priority |
 |-------|---------|-------------|----------|
-| 11 - Deployment | DEPLOY-03 | Create docker-compose.yml | Recommended |
 | 11 - Deployment | DEPLOY-04 | Create backend Dockerfile | Recommended |
 | 11 - Deployment | DEPLOY-05 | Create frontend Dockerfile | Recommended |
 | 11 - Deployment | DEPLOY-06 | Document deployment process | Required for production |
@@ -747,12 +746,13 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - Return HTTP 503 if database unreachable
   - Add /api/health/ready for Kubernetes readiness probes
 
-- [ ] **DEPLOY-03**: Create docker-compose.yml
+- [x] **DEPLOY-03**: Create docker-compose.yml `a43f4de`
   - Services: backend (port 3001), frontend (port 3000), postgres (port 5432)
   - PostgreSQL 15 with persistent volume
   - Environment variables via .env file reference
   - Health checks for all services
   - Network configuration for inter-service communication
+  - Added .env.docker.example with all required environment variables
 
 - [ ] **DEPLOY-04**: Create backend Dockerfile
   - Base: Node.js 20-alpine (LTS)
@@ -942,6 +942,7 @@ No current blockers.
 | TEST-06: Write component tests (ScoreButton, ProgressBar, QuestionCard) | 03d6a13 | 2026-02-02 |
 | DEPLOY-01: Switch to PostgreSQL with native enums | 91e316c | 2026-02-02 |
 | DEPLOY-02: Add health check endpoint with database connectivity | cc9f3eb | 2026-02-02 |
+| DEPLOY-03: Create docker-compose.yml for containerized deployment | a43f4de | 2026-02-02 |
 
 ---
 
@@ -1004,8 +1005,8 @@ Critical Path:
 | 8 | Reports & Export | 7 | ✅ Complete |
 | 9 | Polish & Error Handling | 5 | ✅ Complete |
 | 10 | Testing | 6 | ✅ Complete |
-| 11 | Deployment | 6 | 🔄 In Progress (2/6) |
-| **MVP Total** | | **108** | **99 complete (92%)** |
+| 11 | Deployment | 6 | 🔄 In Progress (3/6) |
+| **MVP Total** | | **108** | **100 complete (93%)** |
 | Future | Future Enhancements | 6 | Not Started (Post-MVP) |
 
-**Note**: MVP scope includes 108 tasks (6 pre-existing setup tasks plus 102 implementation tasks). 98 tasks completed (91%). Future enhancements are optional post-MVP features from PRD.json.
+**Note**: MVP scope includes 108 tasks (6 pre-existing setup tasks plus 102 implementation tasks). 100 tasks completed (93%). Future enhancements are optional post-MVP features from PRD.json.
