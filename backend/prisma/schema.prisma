@@ -3,23 +3,72 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-// NOTE: SQLite does not support native enums. The following enum values are enforced
-// at the application layer. When migrating to PostgreSQL, uncomment the enum definitions
-// and update the field types.
-//
-// UserRole: SYSTEM_ADMIN, QUALITY_MANAGER, INTERNAL_AUDITOR, DEPARTMENT_HEAD, VIEWER
-// AssessmentStatus: DRAFT, IN_PROGRESS, UNDER_REVIEW, COMPLETED, ARCHIVED
-// AuditType: INTERNAL, EXTERNAL, SURVEILLANCE, CERTIFICATION
-// TeamMemberRole: LEAD_AUDITOR, AUDITOR, OBSERVER
-// Severity: MINOR, MAJOR, CRITICAL
-// NCRStatus: OPEN, IN_PROGRESS, RESOLVED, CLOSED
-// ActionStatus: PENDING, IN_PROGRESS, COMPLETED, VERIFIED
-// Priority: LOW, MEDIUM, HIGH, CRITICAL
-// EvidenceType: DOCUMENT, IMAGE, LINK
+// PostgreSQL native enums for type safety at the database level
+enum UserRole {
+  SYSTEM_ADMIN
+  QUALITY_MANAGER
+  INTERNAL_AUDITOR
+  DEPARTMENT_HEAD
+  VIEWER
+}
+
+enum AssessmentStatus {
+  DRAFT
+  IN_PROGRESS
+  UNDER_REVIEW
+  COMPLETED
+  ARCHIVED
+}
+
+enum AuditType {
+  INTERNAL
+  EXTERNAL
+  SURVEILLANCE
+  CERTIFICATION
+}
+
+enum TeamMemberRole {
+  LEAD_AUDITOR
+  AUDITOR
+  OBSERVER
+}
+
+enum Severity {
+  MINOR
+  MAJOR
+  CRITICAL
+}
+
+enum NCRStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum ActionStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  VERIFIED
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum EvidenceType {
+  DOCUMENT
+  IMAGE
+  LINK
+}
 
 model Organization {
   id          String   @id @default(uuid())
@@ -76,7 +125,7 @@ model User {
   passwordHash    String
   firstName       String
   lastName        String
-  role            String    @default("VIEWER")
+  role            UserRole  @default(VIEWER)
   isActive        Boolean   @default(true)
   lastLoginAt     DateTime?
   createdAt       DateTime  @default(now())
@@ -91,26 +140,27 @@ model User {
   uploadedEvidence  Evidence[]
   assignedActions   CorrectiveAction[] @relation("AssignedActions")
   verifiedActions   CorrectiveAction[] @relation("VerifiedActions")
+  refreshToken      String?
 
   @@index([organizationId])
   @@map("users")
 }
 
 model Assessment {
-  id              String    @id @default(uuid())
+  id              String           @id @default(uuid())
   title           String
   description     String?
-  status          String    @default("DRAFT")
-  auditType       String    @default("INTERNAL")
+  status          AssessmentStatus @default(DRAFT)
+  auditType       AuditType        @default(INTERNAL)
   scope           String?
-  objectives      String?
+  objectives      Json?
   overallScore    Float?
-  sectionScores   String?
+  sectionScores   Json?
   scheduledDate   DateTime?
   dueDate         DateTime?
   completedDate   DateTime?
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
 
   organizationId  String
   organization    Organization @relation(fields: [organizationId], references: [id])
@@ -137,7 +187,7 @@ model Assessment {
 
 model AssessmentTeamMember {
   id           String         @id @default(uuid())
-  role         String         @default("AUDITOR")
+  role         TeamMemberRole @default(AUDITOR)
   createdAt    DateTime       @default(now())
 
   assessmentId String
@@ -207,7 +257,7 @@ model QuestionResponse {
 
 model Evidence {
   id            String       @id @default(uuid())
-  type          String
+  type          EvidenceType
   fileName      String
   filePath      String
   fileSize      Int
@@ -230,8 +280,8 @@ model NonConformity {
   id              String    @id @default(uuid())
   title           String
   description     String
-  severity        String
-  status          String    @default("OPEN")
+  severity        Severity
+  status          NCRStatus @default(OPEN)
   identifiedDate  DateTime  @default(now())
   rootCause       String?
   rootCauseMethod String?
@@ -254,8 +304,8 @@ model NonConformity {
 model CorrectiveAction {
   id                 String       @id @default(uuid())
   description        String
-  priority           String       @default("MEDIUM")
-  status             String       @default("PENDING")
+  priority           Priority     @default(MEDIUM)
+  status             ActionStatus @default(PENDING)
   targetDate         DateTime?
   completedDate      DateTime?
   verifiedDate       DateTime?
