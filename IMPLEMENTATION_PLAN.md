@@ -5,10 +5,10 @@
 ## Current Status
 
 **Phase**: 11 - Deployment Preparation
-**Progress**: 100 / 108 tasks complete (93%)
+**Progress**: 101 / 108 tasks complete (94%)
 **Last Updated**: 2026-02-02
-**Last Completed**: DEPLOY-03 (Create docker-compose.yml)
-**Next Task**: DEPLOY-04 (Create backend Dockerfile)
+**Last Completed**: DEPLOY-04 (Create backend Dockerfile)
+**Next Task**: DEPLOY-05 (Create frontend Dockerfile)
 **Alternative**: None - Continue with deployment preparation
 
 ### Quick Links
@@ -20,15 +20,15 @@
 ### Progress Summary
 - Phases 1-9: ✅ Complete (all core functionality implemented)
 - Phase 10 (Testing): ✅ Complete (6/6 tasks - 276 total tests)
-- Phase 11 (Deployment): In Progress (3/6 tasks complete)
+- Phase 11 (Deployment): In Progress (4/6 tasks complete)
 
 ### Decision Point
 The project is in **deployment preparation phase**:
 - Total tests: 279 (96 backend + 183 frontend)
 - All phases 1-10 are complete
-- Phase 11 (Deployment Preparation) in progress: DEPLOY-03 complete
+- Phase 11 (Deployment Preparation) in progress: DEPLOY-04 complete
 
-**Proceed to DEPLOY-04** to create the backend Dockerfile.
+**Proceed to DEPLOY-05** to create the frontend Dockerfile.
 
 ### MVP Status
 The application is **feature-complete for MVP**. All core functionality for ISO 9001 self-assessments and audits is implemented and working:
@@ -43,7 +43,6 @@ The application is **feature-complete for MVP**. All core functionality for ISO 
 ### Remaining Tasks Summary
 | Phase | Task ID | Description | Priority |
 |-------|---------|-------------|----------|
-| 11 - Deployment | DEPLOY-04 | Create backend Dockerfile | Recommended |
 | 11 - Deployment | DEPLOY-05 | Create frontend Dockerfile | Recommended |
 | 11 - Deployment | DEPLOY-06 | Document deployment process | Required for production |
 
@@ -754,12 +753,13 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - Network configuration for inter-service communication
   - Added .env.docker.example with all required environment variables
 
-- [ ] **DEPLOY-04**: Create backend Dockerfile
+- [x] **DEPLOY-04**: Create backend Dockerfile `f3b9eee`
   - Base: Node.js 20-alpine (LTS)
   - Multi-stage build: builder (npm ci, prisma generate, tsc) → runtime (copy dist only)
   - Non-root user for security
   - Expose port 3001
   - CMD: node dist/index.js
+  - Added .dockerignore for optimized builds
 
 - [ ] **DEPLOY-05**: Create frontend Dockerfile
   - Next.js standalone output mode (next.config.js: output: 'standalone')
@@ -943,6 +943,7 @@ No current blockers.
 | DEPLOY-01: Switch to PostgreSQL with native enums | 91e316c | 2026-02-02 |
 | DEPLOY-02: Add health check endpoint with database connectivity | cc9f3eb | 2026-02-02 |
 | DEPLOY-03: Create docker-compose.yml for containerized deployment | a43f4de | 2026-02-02 |
+| DEPLOY-04: Create backend Dockerfile with multi-stage build | f3b9eee | 2026-02-02 |
 
 ---
 
@@ -1005,8 +1006,8 @@ Critical Path:
 | 8 | Reports & Export | 7 | ✅ Complete |
 | 9 | Polish & Error Handling | 5 | ✅ Complete |
 | 10 | Testing | 6 | ✅ Complete |
-| 11 | Deployment | 6 | 🔄 In Progress (3/6) |
-| **MVP Total** | | **108** | **100 complete (93%)** |
+| 11 | Deployment | 6 | 🔄 In Progress (4/6) |
+| **MVP Total** | | **108** | **101 complete (94%)** |
 | Future | Future Enhancements | 6 | Not Started (Post-MVP) |
 
 **Note**: MVP scope includes 108 tasks (6 pre-existing setup tasks plus 102 implementation tasks). 100 tasks completed (93%). Future enhancements are optional post-MVP features from PRD.json.
