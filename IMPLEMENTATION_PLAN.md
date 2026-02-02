@@ -5,10 +5,10 @@
 ## Current Status
 
 **Phase**: 11 - Deployment Preparation
-**Progress**: 101 / 108 tasks complete (94%)
+**Progress**: 102 / 108 tasks complete (94%)
 **Last Updated**: 2026-02-02
-**Last Completed**: DEPLOY-04 (Create backend Dockerfile)
-**Next Task**: DEPLOY-05 (Create frontend Dockerfile)
+**Last Completed**: DEPLOY-05 (Create frontend Dockerfile)
+**Next Task**: DEPLOY-06 (Document deployment process)
 **Alternative**: None - Continue with deployment preparation
 
 ### Quick Links
@@ -20,15 +20,15 @@
 ### Progress Summary
 - Phases 1-9: ✅ Complete (all core functionality implemented)
 - Phase 10 (Testing): ✅ Complete (6/6 tasks - 276 total tests)
-- Phase 11 (Deployment): In Progress (4/6 tasks complete)
+- Phase 11 (Deployment): In Progress (5/6 tasks complete)
 
 ### Decision Point
 The project is in **deployment preparation phase**:
 - Total tests: 279 (96 backend + 183 frontend)
 - All phases 1-10 are complete
-- Phase 11 (Deployment Preparation) in progress: DEPLOY-04 complete
+- Phase 11 (Deployment Preparation) in progress: DEPLOY-05 complete
 
-**Proceed to DEPLOY-05** to create the frontend Dockerfile.
+**Proceed to DEPLOY-06** to document the deployment process.
 
 ### MVP Status
 The application is **feature-complete for MVP**. All core functionality for ISO 9001 self-assessments and audits is implemented and working:
@@ -43,7 +43,6 @@ The application is **feature-complete for MVP**. All core functionality for ISO 
 ### Remaining Tasks Summary
 | Phase | Task ID | Description | Priority |
 |-------|---------|-------------|----------|
-| 11 - Deployment | DEPLOY-05 | Create frontend Dockerfile | Recommended |
 | 11 - Deployment | DEPLOY-06 | Document deployment process | Required for production |
 
 ### Blocking Issues
@@ -761,12 +760,13 @@ The `assessmentService.ts` imports and references models/fields/enums that don't
   - CMD: node dist/index.js
   - Added .dockerignore for optimized builds
 
-- [ ] **DEPLOY-05**: Create frontend Dockerfile
+- [x] **DEPLOY-05**: Create frontend Dockerfile `1139723`
   - Next.js standalone output mode (next.config.js: output: 'standalone')
-  - Multi-stage build: builder (npm ci, next build) → runtime (copy .next/standalone)
-  - Non-root user for security
+  - Multi-stage build: deps (npm ci) → builder (next build) → runtime (copy .next/standalone)
+  - Non-root user (nextjs) for security
   - Expose port 3000
   - ENV: NEXT_TELEMETRY_DISABLED=1
+  - Added .dockerignore for optimized builds
 
 - [ ] **DEPLOY-06**: Document deployment process
   - Create DEPLOYMENT.md with:
@@ -944,6 +944,7 @@ No current blockers.
 | DEPLOY-02: Add health check endpoint with database connectivity | cc9f3eb | 2026-02-02 |
 | DEPLOY-03: Create docker-compose.yml for containerized deployment | a43f4de | 2026-02-02 |
 | DEPLOY-04: Create backend Dockerfile with multi-stage build | f3b9eee | 2026-02-02 |
+| DEPLOY-05: Create frontend Dockerfile with multi-stage build | 1139723 | 2026-02-02 |
 
 ---
 
