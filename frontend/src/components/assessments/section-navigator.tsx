@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { clsx } from 'clsx';
 import {
   ChevronRight,
@@ -346,11 +346,31 @@ export function SectionNavigator({
   }, [sectionsData?.data, responseBySectionId, questionCountBySectionId]);
 
   // Initialize expanded sections to those with progress on first load
-  useMemo(() => {
+  useEffect(() => {
     if (sectionsWithProgress.size > 0 && expandedSections.size === 0) {
       setExpandedSections(sectionsWithProgress);
     }
   }, [sectionsWithProgress, expandedSections.size]);
+
+  const sections = sectionsData?.data || [];
+
+  // Calculate overall progress - must be before early returns to maintain hook order
+  const overallProgress = useMemo(() => {
+    let totalAnswered = 0;
+    let totalQuestions = 0;
+
+    for (const section of sections) {
+      const progress = calculateSectionProgress(
+        section,
+        responseBySectionId,
+        questionCountBySectionId
+      );
+      totalAnswered += progress.answered;
+      totalQuestions += progress.total;
+    }
+
+    return { answered: totalAnswered, total: totalQuestions };
+  }, [sections, responseBySectionId, questionCountBySectionId]);
 
   if (isLoading) {
     return <SectionNavigatorSkeleton />;
@@ -371,26 +391,6 @@ export function SectionNavigator({
       </Card>
     );
   }
-
-  const sections = sectionsData.data;
-
-  // Calculate overall progress
-  const overallProgress = useMemo(() => {
-    let totalAnswered = 0;
-    let totalQuestions = 0;
-
-    for (const section of sections) {
-      const progress = calculateSectionProgress(
-        section,
-        responseBySectionId,
-        questionCountBySectionId
-      );
-      totalAnswered += progress.answered;
-      totalQuestions += progress.total;
-    }
-
-    return { answered: totalAnswered, total: totalQuestions };
-  }, [sections, responseBySectionId, questionCountBySectionId]);
 
   return (
     <Card>

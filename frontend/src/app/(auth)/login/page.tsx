@@ -79,6 +79,7 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <Input
               {...register('email')}
+              id="email"
               type="email"
               label="Email address"
               placeholder="you@company.com"
@@ -88,6 +89,7 @@ export default function LoginPage() {
 
             <Input
               {...register('password')}
+              id="password"
               type="password"
               label="Password"
               placeholder="Enter your password"
@@ -96,13 +98,15 @@ export default function LoginPage() {
             />
 
             <div className="flex items-center justify-between">
-              <label className="flex items-center">
+              <div className="flex items-center">
                 <input
+                  id="remember-me"
+                  name="remember-me"
                   type="checkbox"
                   className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                 />
-                <span className="ml-2 text-sm text-gray-600">Remember me</span>
-              </label>
+                <label htmlFor="remember-me" className="ml-2 text-sm text-gray-600">Remember me</label>
+              </div>
               <Link
                 href="/forgot-password"
                 className="text-sm text-primary-600 hover:text-primary-500"

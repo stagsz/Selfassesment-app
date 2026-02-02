@@ -1,9 +1,17 @@
 import { PrismaClient } from "@prisma/client";
 import bcryptjs from "bcryptjs";
+import crypto from "crypto";
 import { seedSections } from "./seed/sections";
 import { seedQuestions } from "./seed/questions";
 
 const prisma = new PrismaClient();
+
+// Generate consistent UUIDs for seeding (same seed = same UUIDs)
+const DEFAULT_ORG_ID = "00000000-0000-4000-8000-000000000001";
+const DEFAULT_TEMPLATE_ID = "00000000-0000-4000-8000-000000000002";
+const SAMPLE_ASSESSMENT_ID = "00000000-0000-4000-8000-000000000003";
+const SAMPLE_NCR_ID = "00000000-0000-4000-8000-000000000004";
+const SAMPLE_ACTION_ID = "00000000-0000-4000-8000-000000000005";
 
 /**
  * Main seed entry point for ISO 9001 Self-Assessment application.
@@ -26,12 +34,12 @@ async function main() {
   console.log("\nSeeding default organization and users...");
 
   const defaultOrg = await prisma.organization.upsert({
-    where: { id: "default-org-001" },
+    where: { id: DEFAULT_ORG_ID },
     update: {
       name: "Default Organization",
     },
     create: {
-      id: "default-org-001",
+      id: DEFAULT_ORG_ID,
       name: "Default Organization",
     },
   });
@@ -116,7 +124,7 @@ async function main() {
   console.log("\nSeeding sample assessment template...");
 
   const defaultTemplate = await prisma.assessmentTemplate.upsert({
-    where: { id: "default-template-001" },
+    where: { id: DEFAULT_TEMPLATE_ID },
     update: {
       name: "Full ISO 9001:2015 Assessment",
       description: "Comprehensive assessment covering all clauses (4-10) of ISO 9001:2015",
@@ -124,7 +132,7 @@ async function main() {
       organizationId: defaultOrg.id,
     },
     create: {
-      id: "default-template-001",
+      id: DEFAULT_TEMPLATE_ID,
       name: "Full ISO 9001:2015 Assessment",
       description: "Comprehensive assessment covering all clauses (4-10) of ISO 9001:2015",
       isDefault: true,
@@ -137,7 +145,7 @@ async function main() {
   console.log("\nSeeding sample assessment...");
 
   const sampleAssessment = await prisma.assessment.upsert({
-    where: { id: "sample-assessment-001" },
+    where: { id: SAMPLE_ASSESSMENT_ID },
     update: {
       title: "Q1 2026 Internal Audit",
       description: "Quarterly internal audit for ISO 9001:2015 compliance assessment",
@@ -152,7 +160,7 @@ async function main() {
       dueDate: new Date("2026-02-28"),
     },
     create: {
-      id: "sample-assessment-001",
+      id: SAMPLE_ASSESSMENT_ID,
       title: "Q1 2026 Internal Audit",
       description: "Quarterly internal audit for ISO 9001:2015 compliance assessment",
       status: "IN_PROGRESS",
@@ -293,7 +301,7 @@ async function main() {
 
   if (lowScoreResponse) {
     const nonConformity = await prisma.nonConformity.upsert({
-      where: { id: "sample-ncr-001" },
+      where: { id: SAMPLE_NCR_ID },
       update: {
         title: "Unclear organizational roles and responsibilities",
         description: "During the audit, it was identified that role definitions need improvement. Some job descriptions are outdated and responsibilities are unclear in cross-functional processes.",
@@ -303,7 +311,7 @@ async function main() {
         responseId: lowScoreResponse.id,
       },
       create: {
-        id: "sample-ncr-001",
+        id: SAMPLE_NCR_ID,
         title: "Unclear organizational roles and responsibilities",
         description: "During the audit, it was identified that role definitions need improvement. Some job descriptions are outdated and responsibilities are unclear in cross-functional processes.",
         severity: "MAJOR",
@@ -316,7 +324,7 @@ async function main() {
 
     // 13. Create a sample corrective action
     const correctiveAction = await prisma.correctiveAction.upsert({
-      where: { id: "sample-action-001" },
+      where: { id: SAMPLE_ACTION_ID },
       update: {
         description: "Review and update all job descriptions to clearly define QMS-related responsibilities. Create RACI matrix for cross-functional processes.",
         priority: "HIGH",
@@ -326,7 +334,7 @@ async function main() {
         assignedToId: qualityManager.id,
       },
       create: {
-        id: "sample-action-001",
+        id: SAMPLE_ACTION_ID,
         description: "Review and update all job descriptions to clearly define QMS-related responsibilities. Create RACI matrix for cross-functional processes.",
         priority: "HIGH",
         status: "PENDING",
