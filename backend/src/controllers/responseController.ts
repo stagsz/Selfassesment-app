@@ -15,8 +15,9 @@ const responseQuerySchema = z.object({
 
 const upsertResponseSchema = z.object({
   questionId: z.string().uuid('Invalid question ID format'),
-  score: z.number().int().min(1).max(3).nullable().optional(),
+  score: z.number().int().min(0).max(5).nullable().optional(),
   justification: z.string().max(5000).nullable().optional(),
+  sectionId: z.string().uuid('Invalid section ID format').optional(),
   isDraft: z.boolean().optional(),
   actionProposal: z.string().max(5000).nullable().optional(),
   conclusion: z.string().max(5000).nullable().optional(),

@@ -165,7 +165,7 @@ export class AssessmentController {
 
     // Get the assessment to create a proper filename
     const assessment = await assessmentService.getById(assessmentId, organizationId);
-    const filename = reportService.getReportFilename(assessment.title);
+    const filename = reportService.getReportFilename(assessment.title, 'pdf');
 
     // Set response headers for PDF download
     res.setHeader('Content-Type', 'application/pdf');
@@ -174,6 +174,35 @@ export class AssessmentController {
 
     // Send the PDF buffer
     res.send(pdfBuffer);
+  }
+
+  /**
+   * GET /api/assessments/:id/report/powerpoint
+   * Generate and download PowerPoint report for an assessment
+   */
+  async generatePowerPointReport(req: Request, res: Response): Promise<void> {
+    const assessmentId = req.params.id;
+    const { organizationId, userId, role } = req.user!;
+
+    // Generate the PowerPoint report
+    const pptxBuffer = await reportService.generateAssessmentPowerPoint(
+      assessmentId,
+      organizationId,
+      userId,
+      role
+    );
+
+    // Get the assessment to create a proper filename
+    const assessment = await assessmentService.getById(assessmentId, organizationId);
+    const filename = reportService.getReportFilename(assessment.title, 'pptx');
+
+    // Set response headers for PowerPoint download
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.presentationml.presentation');
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.setHeader('Content-Length', pptxBuffer.length);
+
+    // Send the PowerPoint buffer
+    res.send(pptxBuffer);
   }
 }
 

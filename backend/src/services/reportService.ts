@@ -3,6 +3,14 @@ import { prisma } from '../config/database';
 import { NotFoundError, ValidationError, AuthorizationError } from '../utils/errors';
 import { AssessmentStatus, NCRStatus, Severity, UserRole } from '../types/enums';
 
+// Optional PowerPoint support - only import if available
+let PptxGenJs: any;
+try {
+  PptxGenJs = require('pptxgenjs');
+} catch (e) {
+  console.warn('PowerPoint support disabled: pptxgenjs not installed. Run: npm install pptxgenjs');
+}
+
 // Color constants for the report
 const COLORS = {
   PRIMARY: '#1e40af',
@@ -996,6 +1004,331 @@ export class ReportService {
   }
 
   /**
+   * Generate a PowerPoint report for an assessment
+   * Returns a buffer containing the PPTX data
+   */
+  async generateAssessmentPowerPoint(
+    assessmentId: string,
+    organizationId: string,
+    userId: string,
+    userRole: UserRole
+  ): Promise<Buffer> {
+    if (!PptxGenJs) {
+      throw new Error('PowerPoint generation is not available. Please install pptxgenjs: npm install pptxgenjs');
+    }
+
+    // Fetch all data needed for the report
+    const reportData = await this.getReportData(assessmentId, organizationId, userId, userRole);
+
+    // Generate the PowerPoint
+    return this.createPowerPoint(reportData);
+  }
+
+  /**
+   * Create the PowerPoint presentation
+   */
+  private async createPowerPoint(data: ReportData): Promise<Buffer> {
+    const pptx = new PptxGenJs();
+
+    // Set presentation properties
+    pptx.author = 'ISO 9001 Audit Management System';
+    pptx.company = data.assessment.organization.name;
+    pptx.subject = 'Assessment Report';
+    pptx.title = `Assessment Report - ${data.assessment.title}`;
+
+    // Define colors
+    const colors = {
+      primary: '1E40AF',
+      secondary: '475569',
+      success: '16A34A',
+      warning: 'CA8A04',
+      danger: 'DC2626',
+      lightGray: 'F1F5F9',
+      darkGray: '334155',
+      white: 'FFFFFF',
+    };
+
+    // 1. Cover Slide
+    const coverSlide = pptx.addSlide();
+    coverSlide.background = { color: colors.primary };
+
+    coverSlide.addText('ISO 9001:2015', {
+      x: 0.5,
+      y: 1.5,
+      w: 9,
+      h: 0.8,
+      fontSize: 44,
+      bold: true,
+      color: colors.white,
+      align: 'center',
+    });
+
+    coverSlide.addText('Assessment Report', {
+      x: 0.5,
+      y: 2.5,
+      w: 9,
+      h: 0.6,
+      fontSize: 32,
+      color: colors.white,
+      align: 'center',
+    });
+
+    coverSlide.addText(data.assessment.title, {
+      x: 1,
+      y: 3.5,
+      w: 8,
+      h: 0.5,
+      fontSize: 24,
+      bold: true,
+      color: colors.white,
+      align: 'center',
+    });
+
+    coverSlide.addText(data.assessment.organization.name, {
+      x: 1,
+      y: 4.2,
+      w: 8,
+      h: 0.4,
+      fontSize: 18,
+      color: colors.white,
+      align: 'center',
+    });
+
+    const formattedDate = data.assessment.completedDate
+      ? new Date(data.assessment.completedDate).toLocaleDateString()
+      : new Date().toLocaleDateString();
+
+    coverSlide.addText(`Report Date: ${formattedDate}`, {
+      x: 1,
+      y: 5,
+      w: 8,
+      h: 0.3,
+      fontSize: 14,
+      color: colors.white,
+      align: 'center',
+    });
+
+    // 2. Executive Summary Slide
+    const summarySlide = pptx.addSlide();
+    summarySlide.addText('Executive Summary', {
+      x: 0.5,
+      y: 0.3,
+      w: 9,
+      h: 0.5,
+      fontSize: 32,
+      bold: true,
+      color: colors.primary,
+    });
+
+    const overallScore = data.assessment.overallScore || 0;
+    const scorePercentage = Math.round((overallScore / 3) * 100);
+    const scoreColor = overallScore >= 2.5 ? colors.success : overallScore >= 1.5 ? colors.warning : colors.danger;
+
+    summarySlide.addText(`Overall Compliance Score: ${scorePercentage}%`, {
+      x: 1,
+      y: 1.2,
+      w: 8,
+      h: 0.5,
+      fontSize: 24,
+      bold: true,
+      color: scoreColor,
+      align: 'center',
+    });
+
+    summarySlide.addText(`Status: ${data.assessment.status.replace('_', ' ')}`, {
+      x: 1,
+      y: 2,
+      w: 8,
+      h: 0.4,
+      fontSize: 16,
+      align: 'center',
+    });
+
+    // Summary stats
+    const statsY = 2.8;
+    const findings = data.findings;
+    const score1Count = findings.filter(f => f.score === 1).length;
+    const score2Count = findings.filter(f => f.score === 2).length;
+
+    summarySlide.addText([
+      { text: 'Assessment Details:\n\n', options: { fontSize: 16, bold: true } },
+      { text: `• Audit Type: ${data.assessment.auditType}\n`, options: { fontSize: 14 } },
+      { text: `• Total Findings: ${findings.length}\n`, options: { fontSize: 14 } },
+      { text: `• Non-Compliant (Score 1): ${score1Count}\n`, options: { fontSize: 14, color: colors.danger } },
+      { text: `• Partial Compliance (Score 2): ${score2Count}\n`, options: { fontSize: 14, color: colors.warning } },
+      { text: `• Non-Conformities: ${data.nonConformities.length}\n`, options: { fontSize: 14 } },
+      { text: `• Lead Auditor: ${data.assessment.leadAuditor.firstName} ${data.assessment.leadAuditor.lastName}`, options: { fontSize: 14 } },
+    ], {
+      x: 1.5,
+      y: statsY,
+      w: 7,
+      h: 2.5,
+    });
+
+    // 3. Section Breakdown Slide
+    if (data.sectionBreakdown && data.sectionBreakdown.length > 0) {
+      const breakdownSlide = pptx.addSlide();
+      breakdownSlide.addText('Section Compliance Breakdown', {
+        x: 0.5,
+        y: 0.3,
+        w: 9,
+        h: 0.5,
+        fontSize: 28,
+        bold: true,
+        color: colors.primary,
+      });
+
+      // Create chart data
+      const chartData = data.sectionBreakdown.slice(0, 10).map(section => ({
+        name: section.sectionNumber,
+        labels: [section.sectionNumber],
+        values: [Math.round((section.score / 3) * 100)],
+      }));
+
+      breakdownSlide.addChart(pptx.ChartType.bar, chartData, {
+        x: 1,
+        y: 1.2,
+        w: 8,
+        h: 4,
+        chartColors: [colors.primary],
+        showValue: true,
+        valAxisMaxVal: 100,
+        catAxisLabelFontSize: 10,
+        valAxisLabelFontSize: 10,
+        showTitle: false,
+      });
+    }
+
+    // 4. Non-Conformities Slide
+    if (data.nonConformities.length > 0) {
+      const ncrSlide = pptx.addSlide();
+      ncrSlide.addText('Non-Conformities Summary', {
+        x: 0.5,
+        y: 0.3,
+        w: 9,
+        h: 0.5,
+        fontSize: 28,
+        bold: true,
+        color: colors.primary,
+      });
+
+      const ncrRows = [
+        [
+          { text: 'Severity', options: { bold: true, color: colors.white, fill: colors.primary } },
+          { text: 'Title', options: { bold: true, color: colors.white, fill: colors.primary } },
+          { text: 'Status', options: { bold: true, color: colors.white, fill: colors.primary } },
+          { text: 'Actions', options: { bold: true, color: colors.white, fill: colors.primary } },
+        ],
+      ];
+
+      data.nonConformities.slice(0, 8).forEach(ncr => {
+        const severityColor = ncr.severity === 'CRITICAL' ? colors.danger : ncr.severity === 'MAJOR' ? colors.warning : colors.secondary;
+        ncrRows.push([
+          { text: ncr.severity, options: { color: severityColor, bold: true } },
+          { text: ncr.title.substring(0, 40) + (ncr.title.length > 40 ? '...' : '') },
+          { text: ncr.status.replace('_', ' ') },
+          { text: ncr.correctiveActions.length.toString() },
+        ]);
+      });
+
+      ncrSlide.addTable(ncrRows, {
+        x: 0.5,
+        y: 1.2,
+        w: 9,
+        h: 4,
+        fontSize: 11,
+        colW: [1.5, 4.5, 1.8, 1.2],
+      });
+    }
+
+    // 5. Findings Details Slide
+    if (findings.length > 0) {
+      const findingsSlide = pptx.addSlide();
+      findingsSlide.addText('Key Findings', {
+        x: 0.5,
+        y: 0.3,
+        w: 9,
+        h: 0.5,
+        fontSize: 28,
+        bold: true,
+        color: colors.primary,
+      });
+
+      const findingsRows = [
+        [
+          { text: 'Score', options: { bold: true, color: colors.white, fill: colors.primary } },
+          { text: 'Section', options: { bold: true, color: colors.white, fill: colors.primary } },
+          { text: 'Question', options: { bold: true, color: colors.white, fill: colors.primary } },
+        ],
+      ];
+
+      findings.slice(0, 10).forEach(finding => {
+        const scoreColor = finding.score === 1 ? colors.danger : colors.warning;
+        const sectionInfo = finding.section
+          ? `${finding.section.sectionNumber}`
+          : 'N/A';
+
+        findingsRows.push([
+          { text: finding.score?.toString() || 'N/A', options: { color: scoreColor, bold: true } },
+          { text: sectionInfo },
+          { text: finding.question.questionText.substring(0, 60) + (finding.question.questionText.length > 60 ? '...' : '') },
+        ]);
+      });
+
+      findingsSlide.addTable(findingsRows, {
+        x: 0.5,
+        y: 1.2,
+        w: 9,
+        h: 4,
+        fontSize: 10,
+        colW: [0.8, 1.5, 6.7],
+      });
+    }
+
+    // 6. Recommendations Slide
+    const recommendationsSlide = pptx.addSlide();
+    recommendationsSlide.addText('Recommendations', {
+      x: 0.5,
+      y: 0.3,
+      w: 9,
+      h: 0.5,
+      fontSize: 28,
+      bold: true,
+      color: colors.primary,
+    });
+
+    const recommendations = [];
+    if (score1Count > 0) {
+      recommendations.push(`• Address ${score1Count} non-compliant finding(s) immediately`);
+    }
+    if (score2Count > 0) {
+      recommendations.push(`• Improve ${score2Count} partially compliant area(s)`);
+    }
+    if (data.nonConformities.length > 0) {
+      const openNCRs = data.nonConformities.filter(ncr => ncr.status === 'OPEN' || ncr.status === 'IN_PROGRESS');
+      if (openNCRs.length > 0) {
+        recommendations.push(`• Complete ${openNCRs.length} open non-conformity correction(s)`);
+      }
+    }
+    recommendations.push('• Schedule follow-up assessment in 6 months');
+    recommendations.push('• Provide training to address identified gaps');
+    recommendations.push('• Document all corrective actions and improvements');
+
+    recommendationsSlide.addText(recommendations.join('\n\n'), {
+      x: 1,
+      y: 1.2,
+      w: 8,
+      h: 4,
+      fontSize: 16,
+      bullet: false,
+    });
+
+    // Generate buffer
+    const buffer = await pptx.write({ outputType: 'nodebuffer' });
+    return buffer as Buffer;
+  }
+
+  /**
    * Check if user can access reports for an assessment
    */
   private canAccessReport(
@@ -1033,14 +1366,14 @@ export class ReportService {
   /**
    * Get report filename
    */
-  getReportFilename(assessmentTitle: string): string {
+  getReportFilename(assessmentTitle: string, format: 'pdf' | 'pptx' = 'pdf'): string {
     const sanitizedTitle = assessmentTitle
       .replace(/[^a-z0-9]/gi, '-')
       .replace(/-+/g, '-')
       .toLowerCase()
       .substring(0, 50);
     const timestamp = new Date().toISOString().split('T')[0];
-    return `assessment-report-${sanitizedTitle}-${timestamp}.pdf`;
+    return `assessment-report-${sanitizedTitle}-${timestamp}.${format}`;
   }
 }
 

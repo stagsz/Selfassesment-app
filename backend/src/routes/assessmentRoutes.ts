@@ -87,6 +87,15 @@ router.post(
   )
 );
 
+// Generate PowerPoint report (must be before /:id/report to avoid route conflict)
+router.get(
+  '/:id/report/powerpoint',
+  withValidation(
+    { params: commonSchemas.uuidParam },
+    asyncHandler(assessmentController.generatePowerPointReport.bind(assessmentController))
+  )
+);
+
 // Generate PDF report
 router.get(
   '/:id/report',
