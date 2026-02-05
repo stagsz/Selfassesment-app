@@ -5,7 +5,13 @@ import { seedSections } from "./seed/sections";
 import { seedQuestions } from "./seed/questions-v2";
 import { seedTemplates } from "./seed/templates";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: process.env.DATABASE_URL,
+    },
+  },
+});
 
 // Generate consistent UUIDs for seeding (same seed = same UUIDs)
 const DEFAULT_ORG_ID = "00000000-0000-4000-8000-000000000001";

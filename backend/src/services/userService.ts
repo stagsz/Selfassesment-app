@@ -270,7 +270,7 @@ export class UserService {
     const updatedUser = await prisma.user.update({
       where: { id: userId },
       data: {
-        role: newRole,
+        role: newRole as UserRole,
       },
       select: {
         id: true,
