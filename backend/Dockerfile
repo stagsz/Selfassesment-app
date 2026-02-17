@@ -13,11 +13,14 @@ COPY package*.json ./
 
 # Install all dependencies (including devDependencies for build)
 WORKDIR /app/backend
-RUN npm ci
+RUN npm install
 
 # Copy Prisma schema and generate client
 COPY backend/prisma ./prisma/
 RUN npx prisma generate
+
+# Copy shared types (required by backend)
+COPY shared ../shared/
 
 # Copy TypeScript configuration and source code
 COPY backend/tsconfig.json ./
@@ -39,11 +42,11 @@ RUN addgroup --system --gid 1001 nodejs && \
 
 WORKDIR /app
 
-# Copy package files
+# Copy backend package files
 COPY backend/package*.json ./
 
 # Install only production dependencies
-RUN npm ci --only=production
+RUN npm install --production
 
 # Copy Prisma schema (needed for migrations in production)
 COPY backend/prisma ./prisma/

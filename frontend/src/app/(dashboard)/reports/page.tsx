@@ -97,7 +97,18 @@ export default function ReportsPage() {
       toast.success(`${format.toUpperCase()} report downloaded successfully`);
     } catch (error: any) {
       console.error('Error downloading report:', error);
-      toast.error(error.response?.data?.error?.message || `Failed to download ${format.toUpperCase()} report`);
+
+      // Check if it's a PowerPoint-specific error
+      const errorMessage = error.response?.data?.error?.message || error.response?.data?.message || error.message;
+
+      if (format === 'pptx' && errorMessage?.includes('pptxgenjs')) {
+        toast.error(
+          'PowerPoint generation is not available. The required package is not installed on the server. Please contact your administrator.',
+          { duration: 5000 }
+        );
+      } else {
+        toast.error(errorMessage || `Failed to download ${format.toUpperCase()} report`);
+      }
     } finally {
       setDownloadingId(null);
       setDownloadingFormat(null);
@@ -315,6 +326,22 @@ export default function ReportsPage() {
           <li>• <strong>PowerPoint</strong> - Professional presentation with slides for executive summary, findings, and recommendations</li>
           <li>• <strong>CSV</strong> - Export all assessment data for analysis in spreadsheet applications</li>
         </ul>
+      </div>
+
+      {/* PowerPoint Setup Notice */}
+      <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+        <h4 className="font-semibold text-amber-900 mb-2">📋 PowerPoint Setup Required</h4>
+        <p className="text-sm text-amber-800 mb-2">
+          To enable PowerPoint report generation, the server administrator needs to install the required package.
+        </p>
+        <div className="bg-amber-100 border border-amber-300 rounded p-2 mt-2">
+          <p className="text-xs font-mono text-amber-900">
+            Server command: <span className="font-bold">npm install pptxgenjs</span>
+          </p>
+          <p className="text-xs text-amber-700 mt-1">
+            Run this in the <code className="bg-amber-200 px-1 rounded">backend/</code> directory and restart the server.
+          </p>
+        </div>
       </div>
     </div>
   );
