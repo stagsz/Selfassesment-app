@@ -106,8 +106,8 @@ export class AssessmentService {
         teamMembers: data.teamMembers?.length
           ? {
               create: data.teamMembers.map((tm) => ({
-                userId: tm.userId,
-                role: tm.role,
+                user: { connect: { id: tm.userId } },
+                role: tm.role as TeamMemberRole,
               })),
             }
           : undefined,
@@ -489,15 +489,15 @@ export class AssessmentService {
         description: original.description,
         auditType: original.auditType,
         scope: original.scope,
-        objectives: original.objectives,
+        objectives: original.objectives ?? undefined,
         organizationId,
         leadAuditorId: userId,
         templateId: original.templateId,
         previousAssessmentId: id,
         teamMembers: {
           create: original.teamMembers.map((tm) => ({
-            userId: tm.userId,
-            role: tm.role,
+            user: { connect: { id: tm.userId } },
+            role: tm.role as TeamMemberRole,
           })),
         },
       },

@@ -41,7 +41,7 @@ interface SectionWithChildren {
   parentId: string | null;
   createdAt: Date;
   children: SectionWithChildren[];
-  _count?: {
+  _count: {
     questions: number;
   };
 }
@@ -303,7 +303,7 @@ export class StandardsService {
       order: number;
       parentId: string | null;
       createdAt: Date;
-      _count?: { questions: number };
+      _count: { questions: number };
     }>,
     clauseNumbers: string[]
   ) {
@@ -367,7 +367,7 @@ export class StandardsService {
       order: number;
       parentId: string | null;
       createdAt: Date;
-      _count?: { questions: number };
+      _count: { questions: number };
     }>
   ): SectionWithChildren[] {
     const sectionMap = new Map<string, SectionWithChildren>();

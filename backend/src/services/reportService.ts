@@ -251,7 +251,7 @@ export class ReportService {
 
     // Parse section scores from the assessment
     let sectionBreakdown: SectionScore[] = [];
-    if (assessment.sectionScores) {
+    if (assessment.sectionScores && typeof assessment.sectionScores === 'string') {
       try {
         sectionBreakdown = JSON.parse(assessment.sectionScores) as SectionScore[];
       } catch {
@@ -260,7 +260,11 @@ export class ReportService {
     }
 
     return {
-      assessment,
+      assessment: {
+        ...assessment,
+        objectives: typeof assessment.objectives === 'string' ? assessment.objectives : null,
+        sectionScores: typeof assessment.sectionScores === 'string' ? assessment.sectionScores : null,
+      },
       findings,
       nonConformities,
       sectionBreakdown,
@@ -1046,6 +1050,7 @@ export class ReportService {
       lightGray: 'F1F5F9',
       darkGray: '334155',
       white: 'FFFFFF',
+      text: '1E293B',
     };
 
     // 1. Cover Slide
@@ -1224,10 +1229,10 @@ export class ReportService {
       data.nonConformities.slice(0, 8).forEach(ncr => {
         const severityColor = ncr.severity === 'CRITICAL' ? colors.danger : ncr.severity === 'MAJOR' ? colors.warning : colors.secondary;
         ncrRows.push([
-          { text: ncr.severity, options: { color: severityColor, bold: true } },
-          { text: ncr.title.substring(0, 40) + (ncr.title.length > 40 ? '...' : '') },
-          { text: ncr.status.replace('_', ' ') },
-          { text: ncr.correctiveActions.length.toString() },
+          { text: ncr.severity, options: { color: severityColor, bold: true, fill: colors.white } },
+          { text: ncr.title.substring(0, 40) + (ncr.title.length > 40 ? '...' : ''), options: { color: colors.text, bold: false, fill: colors.white } },
+          { text: ncr.status.replace('_', ' '), options: { color: colors.text, bold: false, fill: colors.white } },
+          { text: ncr.correctiveActions.length.toString(), options: { color: colors.text, bold: false, fill: colors.white } },
         ]);
       });
 
@@ -1269,9 +1274,9 @@ export class ReportService {
           : 'N/A';
 
         findingsRows.push([
-          { text: finding.score?.toString() || 'N/A', options: { color: scoreColor, bold: true } },
-          { text: sectionInfo },
-          { text: finding.question.questionText.substring(0, 60) + (finding.question.questionText.length > 60 ? '...' : '') },
+          { text: finding.score?.toString() || 'N/A', options: { color: scoreColor, bold: true, fill: colors.white } },
+          { text: sectionInfo, options: { color: colors.text, bold: false, fill: colors.white } },
+          { text: finding.question.questionText.substring(0, 60) + (finding.question.questionText.length > 60 ? '...' : ''), options: { color: colors.text, bold: false, fill: colors.white } },
         ]);
       });
 
