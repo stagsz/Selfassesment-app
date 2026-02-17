@@ -1,6 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: process.env.DATABASE_URL,
+    },
+  },
+});
 
 // ISO 9001:2015 Standard Sections (Clauses 4-10)
 // Clauses 0-3 are introductory and not auditable

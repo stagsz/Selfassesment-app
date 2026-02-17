@@ -1,6 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: process.env.DATABASE_URL,
+    },
+  },
+});
 
 // Sample audit questions for ISO 9001:2015 (3-5 per major section)
 // Each question links to a section, has clear score criteria, and guidance

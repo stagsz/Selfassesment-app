@@ -23,6 +23,7 @@
     "@types/pdfkit": "^0.13.8",
     "@types/supertest": "^6.0.2",
     "concurrently": "^8.2.2",
+    "prisma": "^7.3.0",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.6",
     "typescript": "^5.3.3"
@@ -31,6 +32,7 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "dotenv": "^17.2.3",
     "tailwindcss": "^4.1.18"
   }
 }

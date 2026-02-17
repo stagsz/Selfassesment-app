@@ -1,7 +1,13 @@
 import { PrismaClient } from "@prisma/client";
 import { auditQuestions } from "./iso9001-seed-data-v2";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: process.env.DATABASE_URL,
+    },
+  },
+});
 
 /**
  * Seed Audit Questions with 0-5 scoring scale
