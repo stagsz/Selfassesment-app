@@ -57,7 +57,6 @@ PROMPT_Build.md
 AGENTS.md
 IMPLEMENTATION_PLAN.md
 PRD.json
-CLAUDE.md
 evaluate_loop.ps1
 check_prompt_injection.ps1
 ralph_log_*.txt
