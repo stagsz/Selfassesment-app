@@ -8,9 +8,9 @@ export interface QuestionCardProps {
   questionNumber: string;
   questionText: string;
   guidance?: string;
-  score: 1 | 2 | 3 | null;
+  score: 0 | 1 | 2 | 3 | 4 | 5 | null;
   justification: string;
-  onScoreChange: (score: 1 | 2 | 3) => void;
+  onScoreChange: (score: 0 | 1 | 2 | 3 | 4 | 5) => void;
   onJustificationChange: (justification: string) => void;
   disabled?: boolean;
   className?: string;
@@ -42,17 +42,17 @@ export function QuestionCard({
       bg: 'bg-red-50',
       border: 'border-red-300',
       text: 'text-red-700',
-      activeBg: 'bg-red-100',
-      activeBorder: 'border-red-500',
+      activeBg: 'bg-red-50',
+      activeBorder: 'border-red-400',
       activeText: 'text-red-800',
     },
     2: {
-      bg: 'bg-yellow-50',
-      border: 'border-yellow-300',
-      text: 'text-yellow-700',
-      activeBg: 'bg-yellow-100',
-      activeBorder: 'border-yellow-500',
-      activeText: 'text-yellow-800',
+      bg: 'bg-amber-50',
+      border: 'border-amber-300',
+      text: 'text-amber-700',
+      activeBg: 'bg-amber-50',
+      activeBorder: 'border-amber-500',
+      activeText: 'text-amber-800',
     },
     3: {
       bg: 'bg-harmony-lime/20',
@@ -90,7 +90,7 @@ export function QuestionCard({
         </div>
 
         {guidance && (
-          <div className="ml-14 p-4 bg-harmony-warm-white rounded-lg border border-harmony-light-beige">
+          <div className="ml-14 p-4 bg-harmony-warm-white rounded-xl border border-harmony-light-beige">
             <p className="text-sm text-gray-600 leading-generous italic">
               {guidance}
             </p>

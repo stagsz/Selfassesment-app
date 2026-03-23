@@ -92,7 +92,7 @@ function ConfirmDialog({
       />
 
       {/* Dialog */}
-      <div className="relative bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6">
+      <div className="relative bg-white rounded-xl shadow-xl max-w-md w-full mx-4 p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-2">
           Confirm Status Change
         </h3>
@@ -259,7 +259,7 @@ export function NCRStatusWorkflow({
               <div
                 className={`flex items-center gap-1 px-2 py-1 rounded ${
                   status === currentStatus
-                    ? 'bg-primary-100 text-primary-700 font-medium'
+                    ? 'bg-emerald-100 text-emerald-700 font-medium'
                     : 'text-gray-400'
                 }`}
               >

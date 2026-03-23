@@ -53,9 +53,9 @@ function SectionTreeItem({
       <button
         onClick={handleClick}
         className={clsx(
-          'w-full flex items-center gap-2 px-3 py-2 text-left rounded-lg transition-colors',
+          'w-full flex items-center gap-2 px-3 py-2 text-left rounded-xl transition-colors',
           'hover:bg-gray-50',
-          isSelected && 'bg-primary-50 border-l-2 border-primary-600'
+          isSelected && 'bg-emerald-50 border-l-2 border-emerald-600'
         )}
         style={{ paddingLeft: `${12 + depth * 16}px` }}
       >
@@ -79,7 +79,7 @@ function SectionTreeItem({
         {/* Section icon */}
         <div className="flex-shrink-0">
           {hasChildren ? (
-            <BookOpen className="w-4 h-4 text-primary-500" />
+            <BookOpen className="w-4 h-4 text-emerald-500" />
           ) : (
             <FileText className="w-4 h-4 text-gray-400" />
           )}
@@ -94,7 +94,7 @@ function SectionTreeItem({
             <span
               className={clsx(
                 'text-sm truncate',
-                isSelected ? 'text-primary-700' : 'text-gray-600'
+                isSelected ? 'text-emerald-700' : 'text-gray-600'
               )}
             >
               {section.title}
@@ -285,13 +285,13 @@ export default function StandardsPage() {
           </p>
         </div>
         <div className="flex items-center gap-4 text-sm">
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-lg">
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-xl">
             <BookOpen className="w-4 h-4 text-gray-500" />
             <span className="text-gray-700 font-medium">
               {stats.totalSections} sections
             </span>
           </div>
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-lg">
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-xl">
             <FileText className="w-4 h-4 text-gray-500" />
             <span className="text-gray-700 font-medium">
               {stats.totalQuestions} questions
@@ -318,14 +318,14 @@ export default function StandardsPage() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleExpandAll}
-                    className="text-xs text-primary-600 hover:text-primary-700 font-medium"
+                    className="text-xs text-emerald-600 hover:text-emerald-700 font-medium"
                   >
                     Expand All
                   </button>
                   <span className="text-gray-300">|</span>
                   <button
                     onClick={handleCollapseAll}
-                    className="text-xs text-primary-600 hover:text-primary-700 font-medium"
+                    className="text-xs text-emerald-600 hover:text-emerald-700 font-medium"
                   >
                     Collapse All
                   </button>

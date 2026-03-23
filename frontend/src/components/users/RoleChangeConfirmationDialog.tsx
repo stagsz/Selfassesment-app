@@ -18,8 +18,8 @@ const roleLabels: Record<string, string> = {
 
 const roleColors: Record<string, string> = {
   SYSTEM_ADMIN: 'bg-purple-100 text-purple-700 border-purple-200',
-  QUALITY_MANAGER: 'bg-blue-100 text-blue-700 border-blue-200',
-  INTERNAL_AUDITOR: 'bg-green-100 text-green-700 border-green-200',
+  QUALITY_MANAGER: 'bg-blue-50 text-blue-700 border-blue-200',
+  INTERNAL_AUDITOR: 'bg-green-50 text-green-700 border-green-200',
   DEPARTMENT_HEAD: 'bg-orange-100 text-orange-700 border-orange-200',
   VIEWER: 'bg-gray-100 text-gray-700 border-gray-200',
 };
@@ -136,8 +136,8 @@ export function RoleChangeConfirmationDialog({
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* User Info */}
             <div className="flex items-center gap-3 pb-4 border-b">
-              <div className="h-12 w-12 rounded-full bg-primary-100 flex items-center justify-center">
-                <span className="text-lg font-medium text-primary-600">
+              <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center">
+                <span className="text-lg font-medium text-emerald-600">
                   {user.firstName?.[0]?.toUpperCase() || ''}
                   {user.lastName?.[0]?.toUpperCase() || ''}
                 </span>
@@ -160,7 +160,7 @@ export function RoleChangeConfirmationDialog({
                 <div className="flex-1">
                   <p className="text-xs text-gray-500 mb-1">Current Role</p>
                   <div
-                    className={`px-3 py-2 rounded-lg border text-sm font-medium ${roleColors[currentRole]}`}
+                    className={`px-3 py-2 rounded-xl border text-sm font-medium ${roleColors[currentRole]}`}
                   >
                     {currentRoleLabel}
                   </div>
@@ -188,7 +188,7 @@ export function RoleChangeConfirmationDialog({
 
             {/* Permission Changes Warning */}
             {isRoleSelected && (
-              <div className="bg-amber-50 rounded-lg p-4 border border-amber-200">
+              <div className="bg-amber-50 rounded-xl p-4 border border-amber-200">
                 <div className="flex items-start gap-2">
                   <AlertTriangle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
                   <div>
@@ -212,13 +212,13 @@ export function RoleChangeConfirmationDialog({
 
             {/* Confirmation Checkbox */}
             {isRoleSelected && (
-              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+              <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                 <label className="flex items-start gap-3 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={confirmed}
                     onChange={(e) => setConfirmed(e.target.checked)}
-                    className="mt-0.5 h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                    className="mt-0.5 h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-400"
                     disabled={isSubmitting}
                   />
                   <div>

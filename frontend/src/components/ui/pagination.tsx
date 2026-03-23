@@ -58,7 +58,6 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
           className
         )}
       >
-        {/* Items per page selector */}
         <div className="flex items-center gap-2 text-sm text-gray-600">
           <span>Show</span>
           <div className="w-20">
@@ -76,16 +75,13 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
           <span>per page</span>
         </div>
 
-        {/* Page info and navigation */}
         <div className="flex items-center gap-4">
-          {/* Items range display */}
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-gray-500">
             {totalItems === 0
               ? 'No items'
               : `${startItem}-${endItem} of ${totalItems}`}
           </span>
 
-          {/* Navigation buttons */}
           <div className="flex items-center gap-1">
             <Button
               variant="outline"
@@ -98,8 +94,7 @@ const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
               <span className="sr-only sm:not-sr-only sm:ml-1">Previous</span>
             </Button>
 
-            {/* Page number display */}
-            <span className="px-3 text-sm text-gray-700">
+            <span className="px-3 text-sm font-medium text-gray-700">
               Page {currentPage} of {totalPages || 1}
             </span>
 

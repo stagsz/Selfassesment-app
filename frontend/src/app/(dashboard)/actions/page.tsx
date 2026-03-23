@@ -51,15 +51,15 @@ interface NonConformity {
 }
 
 const priorityColors: Record<string, string> = {
-  HIGH: 'bg-red-100 text-red-800',
-  MEDIUM: 'bg-yellow-100 text-yellow-800',
-  LOW: 'bg-green-100 text-green-800',
+  HIGH: 'bg-red-50 text-red-800',
+  MEDIUM: 'bg-amber-50 text-amber-800',
+  LOW: 'bg-green-50 text-green-800',
 };
 
 const statusColors: Record<string, string> = {
-  OPEN: 'bg-red-100 text-red-800',
-  IN_PROGRESS: 'bg-blue-100 text-blue-800',
-  COMPLETED: 'bg-green-100 text-green-800',
+  OPEN: 'bg-red-50 text-red-800',
+  IN_PROGRESS: 'bg-blue-50 text-blue-800',
+  COMPLETED: 'bg-green-50 text-green-800',
   VERIFIED: 'bg-green-200 text-green-900',
 };
 
@@ -85,7 +85,7 @@ export default function ActionsPage() {
 
       // Fetch full details for each NCR to get actions
       const ncrDetails = await Promise.all(
-        ncrs.map(ncr => nonConformitiesApi.getById(ncr.id).then(res => res.data.data))
+        ncrs.map((ncr: { id: string }) => nonConformitiesApi.getById(ncr.id).then(res => res.data.data))
       );
 
       return ncrDetails;
@@ -167,14 +167,14 @@ export default function ActionsPage() {
             placeholder="Search actions..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-isoPrimary-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-400 focus:border-transparent"
           />
         </div>
 
         <select
           value={statusFilter || ''}
           onChange={(e) => setStatusFilter(e.target.value || null)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-isoPrimary-500 focus:border-transparent"
+          className="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-400 focus:border-transparent"
         >
           <option value="">All Statuses</option>
           <option value="OPEN">Open</option>
@@ -186,7 +186,7 @@ export default function ActionsPage() {
         <select
           value={priorityFilter || ''}
           onChange={(e) => setPriorityFilter(e.target.value || null)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-isoPrimary-500 focus:border-transparent"
+          className="px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-400 focus:border-transparent"
         >
           <option value="">All Priorities</option>
           <option value="HIGH">High</option>
@@ -213,14 +213,14 @@ export default function ActionsPage() {
               {filteredActions.map((action) => (
                 <div
                   key={action.id}
-                  className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                  className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 space-y-2">
                       {/* Non-Conformity Link */}
                       <Link
                         href={`/non-conformities/${action.nonConformityId}`}
-                        className="text-sm text-isoPrimary-600 hover:text-isoPrimary-700 font-medium"
+                        className="text-sm text-emerald-600 hover:text-emerald-700 font-medium"
                       >
                         NCR: {action.nonConformity?.title}
                       </Link>

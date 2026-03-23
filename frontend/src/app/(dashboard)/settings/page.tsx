@@ -16,8 +16,8 @@ const roleLabels: Record<string, string> = {
 
 const roleColors: Record<string, string> = {
   SYSTEM_ADMIN: 'bg-purple-100 text-purple-700',
-  QUALITY_MANAGER: 'bg-blue-100 text-blue-700',
-  INTERNAL_AUDITOR: 'bg-green-100 text-green-700',
+  QUALITY_MANAGER: 'bg-blue-50 text-blue-700',
+  INTERNAL_AUDITOR: 'bg-green-50 text-green-700',
   DEPARTMENT_HEAD: 'bg-orange-100 text-orange-700',
   VIEWER: 'bg-gray-100 text-gray-700',
 };
@@ -146,7 +146,7 @@ interface ProfileFieldProps {
 function ProfileField({ icon, label, value }: ProfileFieldProps) {
   return (
     <div className="flex items-start gap-4 py-4">
-      <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500">
+      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center text-gray-500">
         {icon}
       </div>
       <div className="flex-1 min-w-0">
@@ -164,7 +164,7 @@ export default function SettingsPage() {
   if (!user) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600" />
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600" />
       </div>
     );
   }
@@ -183,7 +183,7 @@ export default function SettingsPage() {
       <Card>
         <CardHeader>
           <div className="flex items-center gap-4">
-            <div className="h-16 w-16 rounded-full bg-primary-600 flex items-center justify-center text-white text-xl font-semibold">
+            <div className="h-16 w-16 rounded-full bg-emerald-600 flex items-center justify-center text-white text-xl font-semibold">
               {user.firstName?.[0]?.toUpperCase() || ''}
               {user.lastName?.[0]?.toUpperCase() || ''}
             </div>
@@ -262,7 +262,7 @@ export default function SettingsPage() {
       <Card>
         <CardHeader>
           <div className="flex items-center gap-2">
-            <Lock className="h-5 w-5 text-primary-600" />
+            <Lock className="h-5 w-5 text-emerald-600" />
             <CardTitle>Role-Based Access Control</CardTitle>
           </div>
           <CardDescription>Your current role and permissions in the system</CardDescription>
@@ -290,7 +290,7 @@ export default function SettingsPage() {
                 {/* Permissions Breakdown */}
                 <div className="space-y-4">
                   {currentRolePermissions.permissions.map((perm, idx) => (
-                    <div key={idx} className="border-l-2 border-primary-200 pl-4">
+                    <div key={idx} className="border-l-2 border-emerald-200 pl-4">
                       <h4 className="text-sm font-medium text-gray-900 mb-2">{perm.category}</h4>
                       <ul className="space-y-1">
                         {perm.access.map((item, itemIdx) => (
@@ -326,8 +326,8 @@ export default function SettingsPage() {
                 {Object.entries(rolePermissions).map(([role, data]) => (
                   <div
                     key={role}
-                    className={`rounded-lg border-2 p-4 ${
-                      role === user.role ? 'border-primary-300 bg-primary-50' : 'border-gray-200'
+                    className={`rounded-xl border-2 p-4 ${
+                      role === user.role ? 'border-emerald-300 bg-emerald-50' : 'border-gray-200'
                     }`}
                   >
                     <div className="flex items-center gap-2 mb-2">
@@ -339,7 +339,7 @@ export default function SettingsPage() {
                         {roleLabels[role] || role}
                       </span>
                       {role === user.role && (
-                        <span className="text-xs font-medium text-primary-700">(Your Role)</span>
+                        <span className="text-xs font-medium text-emerald-700">(Your Role)</span>
                       )}
                     </div>
                     <p className="text-sm text-gray-600 mb-3">{data.description}</p>
@@ -367,7 +367,7 @@ export default function SettingsPage() {
 
           {/* Help Text */}
           <div className="pt-6 border-t border-gray-200">
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
               <h4 className="text-sm font-semibold text-blue-900 mb-2">Need Different Access?</h4>
               <p className="text-sm text-blue-800">
                 Contact your System Administrator or Quality Manager to request a role change. Role changes require approval and will be reviewed based on your responsibilities.

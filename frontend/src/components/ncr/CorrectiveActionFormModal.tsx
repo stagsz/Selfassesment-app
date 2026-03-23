@@ -14,9 +14,9 @@ import { toast } from 'sonner';
 
 const priorityOptions = [
   { value: 'LOW', label: 'Low', color: 'bg-gray-100 text-gray-600' },
-  { value: 'MEDIUM', label: 'Medium', color: 'bg-yellow-100 text-yellow-700' },
+  { value: 'MEDIUM', label: 'Medium', color: 'bg-amber-50 text-amber-700' },
   { value: 'HIGH', label: 'High', color: 'bg-orange-100 text-orange-700' },
-  { value: 'CRITICAL', label: 'Critical', color: 'bg-red-100 text-red-700' },
+  { value: 'CRITICAL', label: 'Critical', color: 'bg-red-50 text-red-700' },
 ] as const;
 
 interface UserOption {
@@ -185,7 +185,7 @@ export function CorrectiveActionFormModal({
       <Card className="w-full max-w-lg">
         <CardHeader className="flex flex-row items-center justify-between space-y-0">
           <CardTitle className="flex items-center gap-2">
-            <AlertTriangle className="h-5 w-5 text-primary-600" />
+            <AlertTriangle className="h-5 w-5 text-emerald-600" />
             {isEditing ? 'Edit Corrective Action' : 'Add Corrective Action'}
           </CardTitle>
           <button
@@ -210,7 +210,7 @@ export function CorrectiveActionFormModal({
                 onChange={(e) => setDescription(e.target.value)}
                 rows={4}
                 placeholder="Describe the corrective action to be taken..."
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent"
                 disabled={isSubmitting}
               />
             </div>
@@ -229,7 +229,7 @@ export function CorrectiveActionFormModal({
                     disabled={isSubmitting}
                     className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
                       priority === option.value
-                        ? `${option.color} ring-2 ring-offset-1 ring-primary-500`
+                        ? `${option.color} ring-2 ring-offset-1 ring-emerald-500`
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                   >
@@ -252,7 +252,7 @@ export function CorrectiveActionFormModal({
               {assignedUser ? (
                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-md border border-gray-200">
                   <div className="flex items-center gap-3">
-                    <div className="h-8 w-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 text-sm font-medium">
+                    <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 text-sm font-medium">
                       {assignedUser.firstName[0]}{assignedUser.lastName[0]}
                     </div>
                     <div>
@@ -273,7 +273,7 @@ export function CorrectiveActionFormModal({
                 </div>
               ) : (
                 <div className="relative">
-                  <div className="flex items-center border border-gray-300 rounded-md bg-white px-3 py-2 gap-2 focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-transparent">
+                  <div className="flex items-center border border-gray-300 rounded-md bg-white px-3 py-2 gap-2 focus-within:ring-2 focus-within:ring-emerald-500 focus-within:border-transparent">
                     <Search className="h-4 w-4 text-gray-400 flex-shrink-0" />
                     <input
                       type="text"
@@ -319,7 +319,7 @@ export function CorrectiveActionFormModal({
                             onClick={() => handleSelectUser(user)}
                             className="w-full px-3 py-2 text-left hover:bg-gray-50 flex items-center gap-2"
                           >
-                            <div className="h-8 w-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 text-sm font-medium">
+                            <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 text-sm font-medium">
                               {user.firstName[0]}{user.lastName[0]}
                             </div>
                             <div className="flex-1 min-w-0">
@@ -356,7 +356,7 @@ export function CorrectiveActionFormModal({
                 value={targetDate}
                 onChange={(e) => setTargetDate(e.target.value)}
                 min={new Date().toISOString().split('T')[0]}
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent"
                 disabled={isSubmitting}
               />
             </div>

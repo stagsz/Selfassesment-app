@@ -225,7 +225,7 @@ export function SectionScoreSummary({ responses }: SectionScoreSummaryProps) {
             <span className="text-gray-600">≥70% Compliant</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded bg-yellow-500" />
+            <div className="w-3 h-3 rounded bg-amber-500" />
             <span className="text-gray-600">50-69% Partial</span>
           </div>
           <div className="flex items-center gap-1.5">

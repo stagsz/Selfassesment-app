@@ -29,20 +29,20 @@ const statusConfig: Record<ActionStatus, {
   },
   IN_PROGRESS: {
     label: 'In Progress',
-    color: 'text-yellow-700',
-    bgColor: 'bg-yellow-100',
-    hoverBgColor: 'hover:bg-yellow-200',
+    color: 'text-amber-700',
+    bgColor: 'bg-amber-50',
+    hoverBgColor: 'hover:bg-amber-200',
   },
   COMPLETED: {
     label: 'Completed',
     color: 'text-blue-700',
-    bgColor: 'bg-blue-100',
+    bgColor: 'bg-blue-50',
     hoverBgColor: 'hover:bg-blue-200',
   },
   VERIFIED: {
     label: 'Verified',
     color: 'text-green-700',
-    bgColor: 'bg-green-100',
+    bgColor: 'bg-green-50',
     hoverBgColor: 'hover:bg-green-200',
   },
 };
@@ -106,7 +106,7 @@ export function ActionStatusDropdown({
           setIsOpen(!isOpen);
         }}
         disabled={updateStatus.isPending}
-        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium transition-colors ${config.bgColor} ${config.color} ${config.hoverBgColor} focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-primary-500`}
+        className={`inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-medium transition-colors ${config.bgColor} ${config.color} ${config.hoverBgColor} focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-emerald-400`}
       >
         {updateStatus.isPending ? (
           <Loader2 className="h-3 w-3 animate-spin" />

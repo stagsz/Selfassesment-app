@@ -27,7 +27,7 @@ function ScoreCriteria({ score1, score2, score3 }: ScoreCriteriaProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
       {/* Score 1 - Non-compliant */}
-      <div className="rounded-lg border border-red-200 bg-red-50 p-3">
+      <div className="rounded-xl border border-red-200 bg-red-50 p-3">
         <div className="flex items-center gap-2 mb-2">
           <div className="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-xs font-bold">
             1
@@ -38,18 +38,18 @@ function ScoreCriteria({ score1, score2, score3 }: ScoreCriteriaProps) {
       </div>
 
       {/* Score 2 - Partially compliant */}
-      <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-3">
+      <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
         <div className="flex items-center gap-2 mb-2">
-          <div className="w-6 h-6 rounded-full bg-yellow-500 text-white flex items-center justify-center text-xs font-bold">
+          <div className="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs font-bold">
             2
           </div>
-          <span className="text-sm font-medium text-yellow-700">Partially Compliant</span>
+          <span className="text-sm font-medium text-amber-700">Partially Compliant</span>
         </div>
-        <p className="text-xs text-yellow-600">{score2}</p>
+        <p className="text-xs text-amber-600">{score2}</p>
       </div>
 
       {/* Score 3 - Fully compliant */}
-      <div className="rounded-lg border border-green-200 bg-green-50 p-3">
+      <div className="rounded-xl border border-green-200 bg-green-50 p-3">
         <div className="flex items-center gap-2 mb-2">
           <div className="w-6 h-6 rounded-full bg-green-500 text-white flex items-center justify-center text-xs font-bold">
             3
@@ -70,7 +70,7 @@ interface QuestionItemProps {
 
 function QuestionItem({ question, isExpanded, onToggle }: QuestionItemProps) {
   return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden">
+    <div className="border border-gray-200 rounded-xl overflow-hidden">
       {/* Question header */}
       <button
         type="button"
@@ -86,7 +86,7 @@ function QuestionItem({ question, isExpanded, onToggle }: QuestionItemProps) {
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary-100 text-primary-700">
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-100 text-emerald-700">
               {question.questionNumber}
             </span>
             {question.standardReference && (
@@ -110,7 +110,7 @@ function QuestionItem({ question, isExpanded, onToggle }: QuestionItemProps) {
           <div className="ml-8 space-y-4">
             {/* Guidance section */}
             {question.guidance && (
-              <div className="p-3 bg-blue-50 rounded-lg border border-blue-100">
+              <div className="p-3 bg-blue-50 rounded-xl border border-blue-100">
                 <div className="flex items-start gap-2">
                   <HelpCircle className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
                   <div>
@@ -145,7 +145,7 @@ function QuestionsLoadingSkeleton() {
   return (
     <div className="space-y-3">
       {[1, 2, 3].map((i) => (
-        <div key={i} className="border border-gray-200 rounded-lg p-4">
+        <div key={i} className="border border-gray-200 rounded-xl p-4">
           <div className="flex items-start gap-3">
             <Skeleton width={20} height={20} />
             <div className="flex-1">
@@ -219,8 +219,8 @@ export function SectionDetailPanel({ section }: SectionDetailPanelProps) {
     <Card className="h-full">
       <CardHeader className="pb-4">
         <div className="flex items-start gap-3">
-          <div className="p-2 bg-primary-50 rounded-lg flex-shrink-0">
-            <BookOpen className="w-5 h-5 text-primary-600" />
+          <div className="p-2 bg-emerald-50 rounded-xl flex-shrink-0">
+            <BookOpen className="w-5 h-5 text-emerald-600" />
           </div>
           <div className="min-w-0">
             <CardTitle className="text-lg">
@@ -287,14 +287,14 @@ export function SectionDetailPanel({ section }: SectionDetailPanelProps) {
                 <div className="flex items-center gap-2 text-xs">
                   <button
                     onClick={expandAllQuestions}
-                    className="text-primary-600 hover:text-primary-700 font-medium"
+                    className="text-emerald-600 hover:text-emerald-700 font-medium"
                   >
                     Expand All
                   </button>
                   <span className="text-gray-300">|</span>
                   <button
                     onClick={collapseAllQuestions}
-                    className="text-primary-600 hover:text-primary-700 font-medium"
+                    className="text-emerald-600 hover:text-emerald-700 font-medium"
                   >
                     Collapse All
                   </button>
@@ -316,7 +316,7 @@ export function SectionDetailPanel({ section }: SectionDetailPanelProps) {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-6 text-gray-500 border border-dashed border-gray-200 rounded-lg">
+              <div className="text-center py-6 text-gray-500 border border-dashed border-gray-200 rounded-xl">
                 <AlertCircle className="w-8 h-8 mx-auto mb-2 text-gray-300" />
                 <p className="text-sm">No questions found for this section</p>
               </div>

@@ -117,8 +117,8 @@ export function TeamMemberSelect({ value, onChange, error }: TeamMemberSelectPro
         <div
           className={clsx(
             'flex items-center border rounded-md bg-white px-3 py-2 gap-2',
-            error ? 'border-red-500' : 'border-gray-300',
-            'focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-transparent'
+            error ? 'border-red-400' : 'border-gray-300',
+            'focus-within:ring-2 focus-within:ring-emerald-500 focus-within:border-transparent'
           )}
         >
           <Search className="h-4 w-4 text-gray-400 flex-shrink-0" />
@@ -166,7 +166,7 @@ export function TeamMemberSelect({ value, onChange, error }: TeamMemberSelectPro
                   onClick={() => addMember(user)}
                   className="w-full px-3 py-2 text-left hover:bg-gray-50 flex items-center gap-2"
                 >
-                  <div className="h-8 w-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 text-sm font-medium">
+                  <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 text-sm font-medium">
                     {user.firstName[0]}{user.lastName[0]}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -249,7 +249,7 @@ function SelectedMember({ member, onRemove, onRoleChange }: SelectedMemberProps)
 
   return (
     <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-md">
-      <div className="h-8 w-8 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 text-sm font-medium flex-shrink-0">
+      <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 text-sm font-medium flex-shrink-0">
         {user.firstName[0]}{user.lastName[0]}
       </div>
       <div className="flex-1 min-w-0">
@@ -262,7 +262,7 @@ function SelectedMember({ member, onRemove, onRoleChange }: SelectedMemberProps)
         <select
           value={member.role}
           onChange={(e) => onRoleChange(e.target.value)}
-          className="appearance-none bg-white border border-gray-300 rounded-md px-3 py-1.5 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          className="appearance-none bg-white border border-gray-300 rounded-md px-3 py-1.5 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent"
         >
           {teamMemberRoleOptions.map((option) => (
             <option key={option.value} value={option.value}>

@@ -13,9 +13,9 @@ interface SectionContentProps {
   /** The section to display */
   section: ISOSection | null;
   /** Response data for the assessment */
-  responses: Map<string, { score: 1 | 2 | 3 | null; justification: string }>;
+  responses: Map<string, { score: 0 | 1 | 2 | 3 | 4 | 5 | null; justification: string }>;
   /** Callback when a score is changed */
-  onScoreChange: (questionId: string, score: 1 | 2 | 3) => void;
+  onScoreChange: (questionId: string, score: 0 | 1 | 2 | 3 | 4 | 5) => void;
   /** Callback when justification is changed */
   onJustificationChange?: (questionId: string, justification: string) => void;
   /** Whether editing is disabled */
@@ -166,7 +166,7 @@ export function SectionContent({
       {/* Section Header */}
       <div>
         <div className="flex items-baseline gap-3 mb-2">
-          <span className="text-lg font-bold text-primary-600">
+          <span className="text-lg font-bold text-emerald-600">
             {section.sectionNumber}
           </span>
           <h2 className="text-xl font-semibold text-gray-900">{section.title}</h2>
@@ -211,7 +211,7 @@ export function SectionContent({
  */
 interface SectionQuestionListProps {
   section: ISOSection | null;
-  responses: Map<string, { score: 1 | 2 | 3 | null; justification: string }>;
+  responses: Map<string, { score: 0 | 1 | 2 | 3 | 4 | 5 | null; justification: string }>;
   onQuestionClick?: (questionId: string) => void;
   className?: string;
 }
@@ -256,13 +256,13 @@ export function SectionQuestionList({
             type="button"
             onClick={() => onQuestionClick?.(q.id)}
             className={clsx(
-              'w-full text-left p-3 rounded-lg border transition-colors',
+              'w-full text-left p-3 rounded-xl border transition-colors',
               'hover:bg-gray-50',
               hasScore
                 ? response.score === 3
                   ? 'border-l-4 border-l-green-500 bg-green-50/30'
                   : response.score === 2
-                  ? 'border-l-4 border-l-yellow-500 bg-yellow-50/30'
+                  ? 'border-l-4 border-l-yellow-500 bg-amber-50/30'
                   : 'border-l-4 border-l-red-500 bg-red-50/30'
                 : 'border-gray-200'
             )}
@@ -278,10 +278,10 @@ export function SectionQuestionList({
                       className={clsx(
                         'text-xs font-medium px-2 py-0.5 rounded',
                         response.score === 3
-                          ? 'bg-green-100 text-green-700'
+                          ? 'bg-green-50 text-green-700'
                           : response.score === 2
-                          ? 'bg-yellow-100 text-yellow-700'
-                          : 'bg-red-100 text-red-700'
+                          ? 'bg-amber-50 text-amber-700'
+                          : 'bg-red-50 text-red-700'
                       )}
                     >
                       Score: {response.score}
@@ -298,7 +298,7 @@ export function SectionQuestionList({
                     (response.score === 3
                       ? 'bg-green-500 text-white'
                       : response.score === 2
-                      ? 'bg-yellow-500 text-white'
+                      ? 'bg-amber-500 text-white'
                       : 'bg-red-500 text-white')
                 )}
               >

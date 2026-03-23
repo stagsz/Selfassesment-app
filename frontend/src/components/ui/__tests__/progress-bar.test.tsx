@@ -116,7 +116,7 @@ describe('ProgressBar Component', () => {
       it('uses primary color regardless of percentage', () => {
         const { container } = render(<ProgressBar value={50} colorScheme="default" />);
         const progressBar = container.querySelector('.progress-bar');
-        expect(progressBar).toHaveClass('bg-primary-600');
+        expect(progressBar).toHaveClass('bg-sage-600');
       });
     });
 
@@ -136,13 +136,13 @@ describe('ProgressBar Component', () => {
       it('shows yellow for percentage at 50', () => {
         const { container } = render(<ProgressBar value={50} colorScheme="compliance" />);
         const progressBar = container.querySelector('.progress-bar');
-        expect(progressBar).toHaveClass('bg-yellow-500');
+        expect(progressBar).toHaveClass('bg-amber-500');
       });
 
       it('shows yellow for percentage between 50 and 69', () => {
         const { container } = render(<ProgressBar value={60} colorScheme="compliance" />);
         const progressBar = container.querySelector('.progress-bar');
-        expect(progressBar).toHaveClass('bg-yellow-500');
+        expect(progressBar).toHaveClass('bg-amber-500');
       });
 
       it('shows green for percentage at 70', () => {

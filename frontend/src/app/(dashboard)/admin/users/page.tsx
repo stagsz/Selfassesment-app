@@ -33,8 +33,8 @@ import { UsersEmptyState } from '@/components/users/UsersEmptyState';
 
 const roleColors: Record<string, string> = {
   SYSTEM_ADMIN: 'bg-purple-100 text-purple-700',
-  QUALITY_MANAGER: 'bg-blue-100 text-blue-700',
-  INTERNAL_AUDITOR: 'bg-green-100 text-green-700',
+  QUALITY_MANAGER: 'bg-blue-50 text-blue-700',
+  INTERNAL_AUDITOR: 'bg-green-50 text-green-700',
   DEPARTMENT_HEAD: 'bg-orange-100 text-orange-700',
   VIEWER: 'bg-gray-100 text-gray-700',
 };
@@ -89,9 +89,9 @@ function SortableColumnHeader({
       {label}
       {isActive ? (
         currentSortOrder === 'asc' ? (
-          <ArrowUp className="h-4 w-4 text-primary-600" />
+          <ArrowUp className="h-4 w-4 text-emerald-600" />
         ) : (
-          <ArrowDown className="h-4 w-4 text-primary-600" />
+          <ArrowDown className="h-4 w-4 text-emerald-600" />
         )
       ) : (
         <ArrowUpDown className="h-4 w-4 text-gray-400" />
@@ -484,7 +484,7 @@ export default function AdminUsersPage() {
                         <div className="flex items-center justify-end gap-2">
                           <button
                             onClick={() => handleEditUser(user)}
-                            className="inline-flex items-center gap-1 px-2.5 py-1.5 text-sm font-medium text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-md transition-colors"
+                            className="inline-flex items-center gap-1 px-2.5 py-1.5 text-sm font-medium text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 rounded-md transition-colors"
                             aria-label={`Edit ${user.firstName} ${user.lastName}`}
                           >
                             <Pencil className="h-4 w-4" />

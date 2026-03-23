@@ -93,8 +93,8 @@ export function StatusToggleConfirmationDialog({
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* User Info */}
             <div className="flex items-center gap-3 pb-4 border-b">
-              <div className="h-12 w-12 rounded-full bg-primary-100 flex items-center justify-center">
-                <span className="text-lg font-medium text-primary-600">
+              <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center">
+                <span className="text-lg font-medium text-emerald-600">
                   {user.firstName?.[0]?.toUpperCase() || ''}
                   {user.lastName?.[0]?.toUpperCase() || ''}
                 </span>
@@ -125,7 +125,7 @@ export function StatusToggleConfirmationDialog({
 
             {/* Warning */}
             <div
-              className={`rounded-lg p-4 border ${
+              className={`rounded-xl p-4 border ${
                 isDeactivating
                   ? 'bg-red-50 border-red-200'
                   : 'bg-green-50 border-green-200'
@@ -159,13 +159,13 @@ export function StatusToggleConfirmationDialog({
             </div>
 
             {/* Confirmation Checkbox */}
-            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
               <label className="flex items-start gap-3 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={confirmed}
                   onChange={(e) => setConfirmed(e.target.checked)}
-                  className="mt-0.5 h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                  className="mt-0.5 h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-400"
                   disabled={isSubmitting}
                 />
                 <div>

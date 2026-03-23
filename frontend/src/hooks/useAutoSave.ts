@@ -6,7 +6,7 @@ export type AutoSaveStatus = 'idle' | 'unsaved' | 'saving' | 'saved' | 'error';
 
 interface ResponseData {
   questionId: string;
-  score: 1 | 2 | 3 | null;
+  score: 0 | 1 | 2 | 3 | 4 | 5 | null;
   justification?: string;
   sectionId?: string;
   isDraft?: boolean;

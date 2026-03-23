@@ -41,7 +41,7 @@ const scoreColors: Record<0 | 1 | 2 | 3 | 4 | 5, string> = {
   0: 'border-l-gray-500 bg-gray-50/30',
   1: 'border-l-red-500 bg-red-50/30',
   2: 'border-l-orange-500 bg-orange-50/30',
-  3: 'border-l-yellow-500 bg-yellow-50/30',
+  3: 'border-l-yellow-500 bg-amber-50/30',
   4: 'border-l-green-500 bg-green-50/30',
   5: 'border-l-blue-500 bg-blue-50/30',
 };
@@ -88,7 +88,7 @@ export function QuestionCard({
         <div className="flex items-start justify-between gap-4 mb-4">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-700">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
                 {question.questionNumber}
               </span>
               {question.standardReference && (
@@ -104,13 +104,13 @@ export function QuestionCard({
           {hasScore && (
             <div
               className={clsx(
-                'flex-shrink-0 px-3 py-1.5 rounded-lg text-sm font-medium',
+                'flex-shrink-0 px-3 py-1.5 rounded-xl text-sm font-medium',
                 currentScore === 0 && 'bg-gray-100 text-gray-700',
-                currentScore === 1 && 'bg-red-100 text-red-700',
+                currentScore === 1 && 'bg-red-50 text-red-700',
                 currentScore === 2 && 'bg-orange-100 text-orange-700',
-                currentScore === 3 && 'bg-yellow-100 text-yellow-700',
-                currentScore === 4 && 'bg-green-100 text-green-700',
-                currentScore === 5 && 'bg-blue-100 text-blue-700'
+                currentScore === 3 && 'bg-amber-50 text-amber-700',
+                currentScore === 4 && 'bg-green-50 text-green-700',
+                currentScore === 5 && 'bg-blue-50 text-blue-700'
               )}
             >
               {scoreLabels[currentScore]}
@@ -120,7 +120,7 @@ export function QuestionCard({
 
         {/* Guidance Section */}
         {showGuidance && question.guidance && (
-          <div className="mb-6 p-3 bg-blue-50 rounded-lg border border-blue-100">
+          <div className="mb-6 p-3 bg-blue-50 rounded-xl border border-blue-100">
             <div className="flex items-start gap-2">
               <HelpCircle className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
               <div>
@@ -194,8 +194,8 @@ export function QuestionCard({
                 requiresJustification && !hasJustification
                   ? 'border-amber-400 focus:ring-amber-500 bg-amber-50/50'
                   : isOverLimit
-                  ? 'border-red-500 focus:ring-red-500'
-                  : 'border-gray-300 focus:ring-primary-500 bg-white'
+                  ? 'border-red-400 focus:ring-red-500'
+                  : 'border-gray-300 focus:ring-emerald-400 bg-white'
               )}
             />
             {showJustificationWarning && (
@@ -250,7 +250,7 @@ export function QuestionCardCompact({
       type="button"
       onClick={onClick}
       className={clsx(
-        'w-full text-left p-4 rounded-lg border-l-4 bg-white border border-gray-200 transition-all',
+        'w-full text-left p-4 rounded-xl border-l-4 bg-white border border-gray-200 transition-all',
         'hover:shadow-md hover:border-gray-300',
         hasScore ? scoreColors[currentScore] : 'border-l-gray-300',
         className
@@ -267,11 +267,11 @@ export function QuestionCardCompact({
                 className={clsx(
                   'inline-flex items-center px-2 py-0.5 rounded text-xs font-medium',
                   currentScore === 0 && 'bg-gray-100 text-gray-700',
-                  currentScore === 1 && 'bg-red-100 text-red-700',
+                  currentScore === 1 && 'bg-red-50 text-red-700',
                   currentScore === 2 && 'bg-orange-100 text-orange-700',
-                  currentScore === 3 && 'bg-yellow-100 text-yellow-700',
-                  currentScore === 4 && 'bg-green-100 text-green-700',
-                  currentScore === 5 && 'bg-blue-100 text-blue-700'
+                  currentScore === 3 && 'bg-amber-50 text-amber-700',
+                  currentScore === 4 && 'bg-green-50 text-green-700',
+                  currentScore === 5 && 'bg-blue-50 text-blue-700'
                 )}
               >
                 Score: {currentScore}
@@ -293,7 +293,7 @@ export function QuestionCardCompact({
               currentScore === 0 && 'bg-gray-500 text-white',
               currentScore === 1 && 'bg-red-500 text-white',
               currentScore === 2 && 'bg-orange-500 text-white',
-              currentScore === 3 && 'bg-yellow-500 text-white',
+              currentScore === 3 && 'bg-amber-500 text-white',
               currentScore === 4 && 'bg-green-500 text-white',
               currentScore === 5 && 'bg-blue-500 text-white'
             )}

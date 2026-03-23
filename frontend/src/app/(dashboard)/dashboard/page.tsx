@@ -27,26 +27,22 @@ export default function DashboardPage() {
     return <DashboardSkeleton />;
   }
 
-  // Show empty state when no assessments exist
   const hasNoAssessments = !overview.data?.assessmentCounts?.total;
   if (hasNoAssessments) {
     return <DashboardEmptyState />;
   }
 
-  // Transform section data for charts
   const sectionScores = (sections.data || []).map((s) => ({
     section: s.sectionTitle,
     sectionNumber: s.sectionNumber,
     score: s.score,
   }));
 
-  // Transform trend data for chart
   const trendData = (trends.data || []).map((t) => ({
     date: t.month,
     score: t.complianceScore,
   }));
 
-  // Calculate trend direction from trend data
   const calculateTrend = () => {
     const data = trends.data || [];
     if (data.length < 2) return { direction: 'UP' as const, change: 0 };
@@ -72,8 +68,8 @@ export default function DashboardPage() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-gray-500">ISO 9001:2015 Quality Management System Overview</p>
+          <h1 className="text-2xl font-display font-bold text-gray-900">Dashboard</h1>
+          <p className="text-gray-500 mt-0.5">ISO 9001:2015 Quality Management System Overview</p>
         </div>
         <Link href="/assessments/new">
           <Button>
@@ -84,9 +80,9 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {/* Overall Compliance */}
-        <Card>
+        <Card className="hover:shadow-md transition-shadow">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
@@ -97,14 +93,14 @@ export default function DashboardPage() {
                   </span>
                   {trendInfo.change > 0 && (
                     <span
-                      className={`ml-2 flex items-center text-sm ${
+                      className={`ml-2 flex items-center text-sm font-medium ${
                         trendInfo.direction === 'UP' ? 'text-green-600' : 'text-red-600'
                       }`}
                     >
                       {trendInfo.direction === 'UP' ? (
-                        <TrendingUp className="h-4 w-4" />
+                        <TrendingUp className="h-4 w-4 mr-0.5" />
                       ) : (
-                        <TrendingDown className="h-4 w-4" />
+                        <TrendingDown className="h-4 w-4 mr-0.5" />
                       )}
                       {trendInfo.change}%
                     </span>
@@ -117,7 +113,7 @@ export default function DashboardPage() {
         </Card>
 
         {/* Assessments */}
-        <Card>
+        <Card className="hover:shadow-md transition-shadow">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
@@ -126,36 +122,36 @@ export default function DashboardPage() {
                   {overviewData?.assessmentCounts?.total || 0}
                 </p>
               </div>
-              <div className="p-3 bg-blue-100 rounded-full">
+              <div className="p-3 bg-blue-50 rounded-xl">
                 <ClipboardCheck className="h-6 w-6 text-blue-600" />
               </div>
             </div>
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-gray-500 mt-3">
               {overviewData?.recentActivity?.assessmentsThisMonth || 0} this month
             </p>
           </CardContent>
         </Card>
 
         {/* Non-Conformities */}
-        <Card>
+        <Card className="hover:shadow-md transition-shadow">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-500">Active Non-Conformities</p>
                 <p className="text-3xl font-bold text-gray-900 mt-1">{openNCRs}</p>
               </div>
-              <div className="p-3 bg-red-100 rounded-full">
+              <div className="p-3 bg-red-50 rounded-xl">
                 <AlertTriangle className="h-6 w-6 text-red-600" />
               </div>
             </div>
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-gray-500 mt-3">
               {majorCount} major, {minorCount} minor
             </p>
           </CardContent>
         </Card>
 
         {/* Closed NCRs */}
-        <Card>
+        <Card className="hover:shadow-md transition-shadow">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
@@ -164,11 +160,11 @@ export default function DashboardPage() {
                   {ncrCounts?.closed || 0}
                 </p>
               </div>
-              <div className="p-3 bg-green-100 rounded-full">
+              <div className="p-3 bg-green-50 rounded-xl">
                 <CheckCircle className="h-6 w-6 text-green-600" />
               </div>
             </div>
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-gray-500 mt-3">
               {overviewData?.recentActivity?.ncrsClosedThisMonth || 0} this month
             </p>
           </CardContent>
@@ -177,8 +173,7 @@ export default function DashboardPage() {
 
       {/* Charts Row */}
       {sectionScores.length > 0 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Section Compliance Bar Chart */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <Card>
             <CardHeader>
               <CardTitle>Compliance by Section</CardTitle>
@@ -188,7 +183,6 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
 
-          {/* Radar Chart */}
           <Card>
             <CardHeader>
               <CardTitle>Compliance Overview</CardTitle>
@@ -221,9 +215,9 @@ export default function DashboardPage() {
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               {Object.entries(overviewData.assessmentCounts.byStatus).map(([status, count]) => (
-                <div key={status} className="p-4 bg-gray-50 rounded-lg text-center">
+                <div key={status} className="p-4 bg-gray-50 rounded-xl text-center border border-gray-100">
                   <p className="text-2xl font-bold text-gray-900">{count}</p>
-                  <p className="text-sm text-gray-500 capitalize">
+                  <p className="text-sm text-gray-500 capitalize mt-1">
                     {status.toLowerCase().replace('_', ' ')}
                   </p>
                 </div>
@@ -242,9 +236,9 @@ export default function DashboardPage() {
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {Object.entries(overviewData.ncrCounts.byStatus).map(([status, count]) => (
-                <div key={status} className="p-4 bg-gray-50 rounded-lg text-center">
+                <div key={status} className="p-4 bg-gray-50 rounded-xl text-center border border-gray-100">
                   <p className="text-2xl font-bold text-gray-900">{count}</p>
-                  <p className="text-sm text-gray-500 capitalize">
+                  <p className="text-sm text-gray-500 capitalize mt-1">
                     {status.toLowerCase().replace('_', ' ')}
                   </p>
                 </div>

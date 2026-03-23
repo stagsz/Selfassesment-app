@@ -26,22 +26,22 @@ export function ProgressBar({
   const getColor = () => {
     if (colorScheme === 'compliance') {
       if (percentage >= 70) return 'bg-green-500';
-      if (percentage >= 50) return 'bg-yellow-500';
+      if (percentage >= 50) return 'bg-amber-500';
       return 'bg-red-500';
     }
-    return 'bg-primary-600';
+    return 'bg-emerald-500';
   };
 
   const heights = {
-    sm: 'h-2',
-    md: 'h-3',
+    sm: 'h-1.5',
+    md: 'h-2.5',
     lg: 'h-4',
   };
 
   return (
     <div className={clsx('w-full', className)}>
       {(label || showPercentage) && (
-        <div className="flex justify-between mb-1">
+        <div className="flex justify-between mb-1.5">
           {label && <span className="text-sm font-medium text-gray-700">{label}</span>}
           {showPercentage && (
             <span className="text-sm font-medium text-gray-500">
@@ -95,11 +95,11 @@ export function CircularProgress({
 
   const getColor = () => {
     if (colorScheme === 'compliance') {
-      if (percentage >= 70) return '#22c55e'; // green-500
-      if (percentage >= 50) return '#eab308'; // yellow-500
-      return '#ef4444'; // red-500
+      if (percentage >= 70) return '#23a663'; // green-500
+      if (percentage >= 50) return '#f99d07'; // amber-500
+      return '#f83b3b'; // red-500
     }
-    return '#2563eb'; // primary-600
+    return '#6b8f5e'; // emerald-500
   };
 
   return (
@@ -128,7 +128,7 @@ export function CircularProgress({
         />
       </svg>
       {showPercentage && (
-        <span className="absolute text-2xl font-bold text-gray-700">
+        <span className="absolute text-2xl font-bold text-gray-800">
           {Math.round(percentage)}%
         </span>
       )}

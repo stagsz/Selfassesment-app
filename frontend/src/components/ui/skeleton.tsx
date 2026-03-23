@@ -45,7 +45,7 @@ function SkeletonCard({ className }: { className?: string }) {
   return (
     <div
       className={clsx(
-        'rounded-lg border border-gray-200 bg-white shadow-sm p-6',
+        'rounded-2xl border border-gray-200 bg-white shadow-sm p-6',
         className
       )}
     >
@@ -66,7 +66,7 @@ function SkeletonChart({ className, height = 280 }: { className?: string; height
   return (
     <div
       className={clsx(
-        'rounded-lg border border-gray-200 bg-white shadow-sm',
+        'rounded-2xl border border-gray-200 bg-white shadow-sm',
         className
       )}
     >
@@ -84,7 +84,7 @@ function SkeletonChart({ className, height = 280 }: { className?: string; height
 function SkeletonStatusGrid({ count = 5 }: { count?: number }) {
   return (
     <div
-      className="rounded-lg border border-gray-200 bg-white shadow-sm"
+      className="rounded-2xl border border-gray-200 bg-white shadow-sm"
     >
       <div className="p-6 pb-0">
         <Skeleton variant="text" width={160} height={24} />
@@ -121,7 +121,7 @@ function SkeletonListItem({ className }: { className?: string }) {
   return (
     <div
       className={clsx(
-        'rounded-lg border border-gray-200 bg-white shadow-sm p-4',
+        'rounded-2xl border border-gray-200 bg-white shadow-sm p-4',
         className
       )}
     >
@@ -158,7 +158,7 @@ function SkeletonListItem({ className }: { className?: string }) {
 function SkeletonFilters({ showExtraFilters = true }: { showExtraFilters?: boolean }) {
   return (
     <div
-      className="rounded-lg border border-gray-200 bg-white shadow-sm"
+      className="rounded-2xl border border-gray-200 bg-white shadow-sm"
     >
       <div className="p-6">
         <div className="flex flex-col md:flex-row gap-4">
@@ -181,7 +181,7 @@ function SkeletonFilters({ showExtraFilters = true }: { showExtraFilters?: boole
 function SkeletonPagination() {
   return (
     <div
-      className="rounded-lg border border-gray-200 bg-white shadow-sm"
+      className="rounded-2xl border border-gray-200 bg-white shadow-sm"
     >
       <div className="p-4">
         <div className="flex items-center justify-between">

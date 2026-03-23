@@ -172,14 +172,14 @@ function StatusIcon({ status, size = 'sm' }: { status: CompletionStatus; size?: 
   switch (status) {
     case 'complete':
       return (
-        <div className={clsx(containerSize, 'rounded-full bg-green-100 flex items-center justify-center')}>
+        <div className={clsx(containerSize, 'rounded-full bg-green-50 flex items-center justify-center')}>
           <Check className={clsx(iconSize, 'text-green-600')} />
         </div>
       );
     case 'partial':
       return (
-        <div className={clsx(containerSize, 'rounded-full bg-yellow-100 flex items-center justify-center')}>
-          <Minus className={clsx(iconSize, 'text-yellow-600')} />
+        <div className={clsx(containerSize, 'rounded-full bg-amber-50 flex items-center justify-center')}>
+          <Minus className={clsx(iconSize, 'text-amber-600')} />
         </div>
       );
     case 'empty':
@@ -323,7 +323,7 @@ export function SectionTabsNavigation({
                 className={clsx(
                   'flex items-center gap-2 px-3 py-2 text-sm font-medium whitespace-nowrap border-b-2 transition-colors',
                   isActive
-                    ? 'border-primary-500 text-primary-600'
+                    ? 'border-emerald-500 text-emerald-600'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 )}
               >

@@ -125,7 +125,7 @@ export function VerificationFormModal({
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Action Summary */}
-            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
               <p className="text-sm font-medium text-gray-500 mb-1">Action to Verify</p>
               <p className="text-gray-800">{action.description}</p>
               {action.assignedTo && (
@@ -150,7 +150,7 @@ export function VerificationFormModal({
                 onChange={(e) => setEffectivenessNotes(e.target.value)}
                 rows={4}
                 placeholder="Document how you verified the effectiveness of this corrective action. Include any follow-up observations, testing results, or evidence of improvement..."
-                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+                className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent resize-none"
                 disabled={isSubmitting}
               />
               <p className="text-xs text-gray-500 mt-1">
@@ -159,7 +159,7 @@ export function VerificationFormModal({
             </div>
 
             {/* Verification Confirmation Checkbox */}
-            <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+            <div className="bg-green-50 rounded-xl p-4 border border-green-200">
               <label className="flex items-start gap-3 cursor-pointer">
                 <input
                   type="checkbox"

@@ -5,7 +5,7 @@ import { Check, Loader2, AlertCircle, Cloud } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export interface SaveStatusBadgeProps {
-  status: 'idle' | 'saving' | 'saved' | 'error';
+  status: 'idle' | 'unsaved' | 'saving' | 'saved' | 'error';
   lastSaved?: Date | null;
   pendingCount?: number;
   error?: string | null;
@@ -39,9 +39,9 @@ export function SaveStatusBadge({
           text: lastSaved
             ? `Saved ${formatTimeSince(lastSaved)}`
             : 'All changes saved',
-          bgColor: 'bg-harmony-lime/20',
-          borderColor: 'border-harmony-sage',
-          textColor: 'text-harmony-forest',
+          bgColor: 'bg-green-50',
+          borderColor: 'border-green-200',
+          textColor: 'text-green-700',
           iconClass: '',
         };
       case 'error':

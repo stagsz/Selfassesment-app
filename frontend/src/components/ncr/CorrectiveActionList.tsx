@@ -23,9 +23,9 @@ import { ActionStatusDropdown } from './ActionStatusDropdown';
 
 const statusColors: Record<string, string> = {
   PENDING: 'bg-gray-100 text-gray-700',
-  IN_PROGRESS: 'bg-yellow-100 text-yellow-700',
-  COMPLETED: 'bg-blue-100 text-blue-700',
-  VERIFIED: 'bg-green-100 text-green-700',
+  IN_PROGRESS: 'bg-amber-50 text-amber-700',
+  COMPLETED: 'bg-blue-50 text-blue-700',
+  VERIFIED: 'bg-green-50 text-green-700',
 };
 
 const statusLabels: Record<string, string> = {
@@ -37,9 +37,9 @@ const statusLabels: Record<string, string> = {
 
 const priorityColors: Record<string, string> = {
   LOW: 'bg-gray-100 text-gray-600',
-  MEDIUM: 'bg-yellow-100 text-yellow-700',
+  MEDIUM: 'bg-amber-50 text-amber-700',
   HIGH: 'bg-orange-100 text-orange-700',
-  CRITICAL: 'bg-red-100 text-red-700',
+  CRITICAL: 'bg-red-50 text-red-700',
 };
 
 interface CorrectiveActionListProps {
@@ -63,7 +63,7 @@ function ActionRow({ action, isExpanded, onToggle, canEdit, onVerifyClick }: {
     action.status !== 'VERIFIED';
 
   return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden">
+    <div className="border border-gray-200 rounded-xl overflow-hidden">
       {/* Main Row */}
       <div
         className={`flex items-center justify-between p-4 cursor-pointer hover:bg-gray-50 ${
@@ -221,7 +221,7 @@ function ActionListSkeleton() {
   return (
     <div className="space-y-3">
       {[1, 2, 3].map((i) => (
-        <div key={i} className="border border-gray-200 rounded-lg p-4">
+        <div key={i} className="border border-gray-200 rounded-xl p-4">
           <Skeleton width="60%" height={20} className="mb-2" />
           <div className="flex gap-2">
             <Skeleton width={80} height={20} />
@@ -304,7 +304,7 @@ export function CorrectiveActionList({
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
         <CardTitle className="flex items-center gap-2">
-          <CheckCircle2 className="h-5 w-5 text-primary-600" />
+          <CheckCircle2 className="h-5 w-5 text-emerald-600" />
           Corrective Actions ({stats.total})
         </CardTitle>
         {canEdit && !isClosed && actions.length > 0 && (

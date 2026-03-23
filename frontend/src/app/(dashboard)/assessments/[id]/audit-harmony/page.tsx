@@ -113,7 +113,7 @@ export default function AssessmentAuditHarmonyPage() {
   // Get active section questions
   const activeQuestions = useMemo(() => {
     if (!activeSection) return [];
-    return activeSection.questions || [];
+    return ((activeSection as any).questions || []) as { id: string; questionNumber: string; questionText: string; guidance?: string }[];
   }, [activeSection]);
 
   // Initialize active section to first leaf section
@@ -151,7 +151,7 @@ export default function AssessmentAuditHarmonyPage() {
   // Convert to SectionStage format for navigation
   const sectionStages: SectionStage[] = useMemo(() => {
     return flattenedSections.map((section) => {
-      const questions = section.questions || [];
+      const questions: { id: string }[] = (section as any).questions || [];
       const answeredQuestions = questions.filter((q) => {
         const response = responses.get(q.id);
         return response && response.score !== null;
@@ -194,7 +194,7 @@ export default function AssessmentAuditHarmonyPage() {
 
   // Response handlers
   const handleScoreChange = useCallback(
-    (questionId: string, score: 1 | 2 | 3) => {
+    (questionId: string, score: 0 | 1 | 2 | 3 | 4 | 5) => {
       updateResponse(questionId, { score, sectionId: activeSectionId || undefined });
     },
     [updateResponse, activeSectionId]
@@ -304,10 +304,10 @@ export default function AssessmentAuditHarmonyPage() {
         {!canAudit && (
           <CrownedCard crownColor="lime" crownHeight={15}>
             <div className="flex items-center gap-3 -mt-4">
-              <AlertTriangle className="h-5 w-5 text-yellow-600 flex-shrink-0" />
+              <AlertTriangle className="h-5 w-5 text-amber-600 flex-shrink-0" />
               <div>
-                <p className="font-display font-bold text-yellow-800">Read-only Mode</p>
-                <p className="text-sm text-yellow-700 leading-generous">
+                <p className="font-display font-bold text-amber-800">Read-only Mode</p>
+                <p className="text-sm text-amber-700 leading-generous">
                   This assessment is {statusLabels[assessment.status].toLowerCase()} and cannot be edited.
                 </p>
               </div>

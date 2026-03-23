@@ -181,8 +181,8 @@ export default function NewAssessmentPage() {
       <Card className="max-w-2xl">
         <CardHeader>
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary-100 rounded-lg">
-              <ClipboardList className="h-6 w-6 text-primary-600" />
+            <div className="p-2 bg-emerald-100 rounded-xl">
+              <ClipboardList className="h-6 w-6 text-emerald-600" />
             </div>
             <div>
               <CardTitle>Assessment Details</CardTitle>
@@ -219,8 +219,8 @@ export default function NewAssessmentPage() {
                 id="description"
                 rows={4}
                 placeholder="Describe the scope and objectives of this assessment..."
-                className={`flex w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 resize-none ${
-                  errors.description ? 'border-red-500 focus:ring-red-500' : ''
+                className={`flex w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 resize-none ${
+                  errors.description ? 'border-red-400 focus:ring-red-500' : ''
                 }`}
               />
               <div className="mt-1 flex justify-between text-sm">
@@ -324,8 +324,8 @@ export default function NewAssessmentPage() {
                     {...register('scheduledDate')}
                     type="date"
                     id="scheduledDate"
-                    className={`flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 ${
-                      errors.scheduledDate ? 'border-red-500 focus:ring-red-500' : ''
+                    className={`flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 ${
+                      errors.scheduledDate ? 'border-red-400 focus:ring-red-500' : ''
                     }`}
                   />
                 </div>
@@ -346,8 +346,8 @@ export default function NewAssessmentPage() {
                     {...register('dueDate')}
                     type="date"
                     id="dueDate"
-                    className={`flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 ${
-                      errors.dueDate ? 'border-red-500 focus:ring-red-500' : ''
+                    className={`flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 ${
+                      errors.dueDate ? 'border-red-400 focus:ring-red-500' : ''
                     }`}
                   />
                 </div>

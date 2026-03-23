@@ -16,66 +16,66 @@ const scoreConfig = {
     shortLabel: 'N/A',
     bgColor: 'bg-gray-100 hover:bg-gray-200',
     selectedBg: 'bg-gray-500',
-    textColor: 'text-gray-700',
+    textColor: 'text-gray-600',
     selectedText: 'text-white',
     borderColor: 'border-gray-300',
     selectedBorder: 'border-gray-600',
-    ringColor: 'ring-gray-500',
+    ringColor: 'ring-gray-400',
   },
   1: {
     label: 'Non-Compliant',
     shortLabel: '1',
-    bgColor: 'bg-red-100 hover:bg-red-200',
+    bgColor: 'bg-red-50 hover:bg-red-100',
     selectedBg: 'bg-red-500',
     textColor: 'text-red-700',
     selectedText: 'text-white',
-    borderColor: 'border-red-300',
+    borderColor: 'border-red-200',
     selectedBorder: 'border-red-600',
-    ringColor: 'ring-red-500',
+    ringColor: 'ring-red-400',
   },
   2: {
     label: 'Initial',
     shortLabel: '2',
-    bgColor: 'bg-orange-100 hover:bg-orange-200',
-    selectedBg: 'bg-orange-500',
-    textColor: 'text-orange-700',
+    bgColor: 'bg-amber-50 hover:bg-amber-100',
+    selectedBg: 'bg-amber-500',
+    textColor: 'text-amber-700',
     selectedText: 'text-white',
-    borderColor: 'border-orange-300',
-    selectedBorder: 'border-orange-600',
-    ringColor: 'ring-orange-500',
+    borderColor: 'border-amber-200',
+    selectedBorder: 'border-amber-600',
+    ringColor: 'ring-amber-400',
   },
   3: {
     label: 'Developing',
     shortLabel: '3',
-    bgColor: 'bg-yellow-100 hover:bg-yellow-200',
+    bgColor: 'bg-yellow-50 hover:bg-yellow-100',
     selectedBg: 'bg-yellow-500',
     textColor: 'text-yellow-700',
     selectedText: 'text-white',
-    borderColor: 'border-yellow-300',
+    borderColor: 'border-yellow-200',
     selectedBorder: 'border-yellow-600',
-    ringColor: 'ring-yellow-500',
+    ringColor: 'ring-yellow-400',
   },
   4: {
     label: 'Established',
     shortLabel: '4',
-    bgColor: 'bg-green-100 hover:bg-green-200',
+    bgColor: 'bg-green-50 hover:bg-green-100',
     selectedBg: 'bg-green-500',
     textColor: 'text-green-700',
     selectedText: 'text-white',
-    borderColor: 'border-green-300',
+    borderColor: 'border-green-200',
     selectedBorder: 'border-green-600',
-    ringColor: 'ring-green-500',
+    ringColor: 'ring-green-400',
   },
   5: {
     label: 'Optimizing',
     shortLabel: '5',
-    bgColor: 'bg-blue-100 hover:bg-blue-200',
-    selectedBg: 'bg-blue-500',
+    bgColor: 'bg-blue-50 hover:bg-blue-100',
+    selectedBg: 'bg-blue-600',
     textColor: 'text-blue-700',
     selectedText: 'text-white',
-    borderColor: 'border-blue-300',
-    selectedBorder: 'border-blue-600',
-    ringColor: 'ring-blue-500',
+    borderColor: 'border-blue-200',
+    selectedBorder: 'border-blue-700',
+    ringColor: 'ring-blue-400',
   },
 };
 
@@ -89,9 +89,9 @@ export function ScoreButton({ score, selected, onClick, criteria, disabled }: Sc
         onClick={onClick}
         disabled={disabled}
         className={clsx(
-          'score-button flex flex-col items-center justify-center p-3 rounded-lg border-2 min-w-[90px] transition-all',
+          'score-button flex flex-col items-center justify-center p-3 rounded-xl border-2 min-w-[90px] transition-all duration-200',
           selected
-            ? `${config.selectedBg} ${config.selectedBorder} ${config.selectedText} ring-2 ring-offset-2 ${config.ringColor}`
+            ? `${config.selectedBg} ${config.selectedBorder} ${config.selectedText} ring-2 ring-offset-2 ${config.ringColor} shadow-md`
             : `${config.bgColor} ${config.borderColor} ${config.textColor}`,
           disabled && 'opacity-50 cursor-not-allowed'
         )}
@@ -102,7 +102,7 @@ export function ScoreButton({ score, selected, onClick, criteria, disabled }: Sc
 
       {/* Tooltip with criteria */}
       {criteria && criteria.trim() && (
-        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 w-64 z-10 pointer-events-none">
+        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-sm rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 w-64 z-10 pointer-events-none shadow-xl">
           <div className="font-medium mb-1">{config.label}</div>
           <div className="text-gray-300 text-xs">{criteria}</div>
           <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-8 border-transparent border-t-gray-900" />
@@ -129,7 +129,6 @@ interface ScoreGroupProps {
 export function ScoreGroup({ value, onChange, criteria, disabled }: ScoreGroupProps) {
   return (
     <div className="flex gap-3 justify-center flex-wrap">
-      {/* All buttons in one row */}
       <ScoreButton
         score={0}
         selected={value === 0}

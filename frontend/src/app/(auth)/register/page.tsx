@@ -64,9 +64,9 @@ export default function RegisterPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <div className="mx-auto w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-4">
+          <div className="mx-auto w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mb-4 shadow-sm">
             <svg
-              className="w-10 h-10 text-primary-600"
+              className="w-10 h-10 text-emerald-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ export default function RegisterPage() {
 
             <p className="text-center text-sm text-gray-600">
               Already have an account?{' '}
-              <Link href="/login" className="text-primary-600 hover:text-primary-500 font-medium">
+              <Link href="/login" className="text-emerald-600 hover:text-emerald-600 font-medium">
                 Sign in
               </Link>
             </p>

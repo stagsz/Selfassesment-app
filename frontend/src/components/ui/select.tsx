@@ -6,16 +6,16 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { ChevronDown } from 'lucide-react';
 
 const selectVariants = cva(
-  'appearance-none w-full rounded-md border text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 pr-10',
+  'appearance-none w-full rounded-xl border bg-white text-sm text-gray-900 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-gray-50 pr-10',
   {
     variants: {
       variant: {
-        default: 'border-gray-300 bg-white focus:border-primary-500 focus:ring-primary-500',
-        error: 'border-red-500 focus:border-red-500 focus:ring-red-500',
+        default: 'border-gray-300 hover:border-gray-400 focus:border-transparent',
+        error: 'border-red-400 focus:ring-red-400 bg-red-50/30',
       },
       size: {
-        default: 'h-10 px-3 py-2',
-        sm: 'h-9 px-2 py-1 text-sm',
+        default: 'h-10 px-3.5 py-2',
+        sm: 'h-9 px-2.5 py-1 text-sm',
         lg: 'h-11 px-4 py-3',
       },
     },

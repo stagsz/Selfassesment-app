@@ -184,7 +184,7 @@ export function CSVImportModal({ isOpen, onClose, onSuccess }: CSVImportModalPro
       <Card className="w-full max-w-lg max-h-[90vh] overflow-hidden flex flex-col">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 flex-shrink-0">
           <CardTitle className="flex items-center gap-2">
-            <Upload className="h-5 w-5 text-primary-600" />
+            <Upload className="h-5 w-5 text-emerald-600" />
             Import Questions from CSV
           </CardTitle>
           <button
@@ -199,18 +199,18 @@ export function CSVImportModal({ isOpen, onClose, onSuccess }: CSVImportModalPro
 
         <CardContent className="space-y-4 overflow-y-auto flex-1">
           {/* CSV Format Info */}
-          <div className="bg-blue-50 rounded-lg p-3 border border-blue-200">
+          <div className="bg-blue-50 rounded-xl p-3 border border-blue-200">
             <p className="text-sm text-blue-800 font-medium mb-1">CSV Format Requirements</p>
             <p className="text-xs text-blue-700">
-              Required columns: <code className="bg-blue-100 px-1 rounded">standardReference</code>,{' '}
-              <code className="bg-blue-100 px-1 rounded">standardText</code>,{' '}
-              <code className="bg-blue-100 px-1 rounded">auditQuestion</code>,{' '}
-              <code className="bg-blue-100 px-1 rounded">score1Criteria</code>,{' '}
-              <code className="bg-blue-100 px-1 rounded">score2Criteria</code>,{' '}
-              <code className="bg-blue-100 px-1 rounded">score3Criteria</code>
+              Required columns: <code className="bg-blue-50 px-1 rounded">standardReference</code>,{' '}
+              <code className="bg-blue-50 px-1 rounded">standardText</code>,{' '}
+              <code className="bg-blue-50 px-1 rounded">auditQuestion</code>,{' '}
+              <code className="bg-blue-50 px-1 rounded">score1Criteria</code>,{' '}
+              <code className="bg-blue-50 px-1 rounded">score2Criteria</code>,{' '}
+              <code className="bg-blue-50 px-1 rounded">score3Criteria</code>
             </p>
             <p className="text-xs text-blue-700 mt-1">
-              Optional: <code className="bg-blue-100 px-1 rounded">guidance</code>
+              Optional: <code className="bg-blue-50 px-1 rounded">guidance</code>
             </p>
           </div>
 
@@ -221,9 +221,9 @@ export function CSVImportModal({ isOpen, onClose, onSuccess }: CSVImportModalPro
               onDragLeave={handleDragLeave}
               onDragOver={handleDragOver}
               onDrop={handleDrop}
-              className={`relative border-2 border-dashed rounded-lg p-8 transition-colors text-center ${
+              className={`relative border-2 border-dashed rounded-xl p-8 transition-colors text-center ${
                 isDragActive
-                  ? 'border-primary-500 bg-primary-50'
+                  ? 'border-emerald-500 bg-emerald-50'
                   : 'border-gray-300 bg-white hover:border-gray-400'
               }`}
             >
@@ -240,12 +240,12 @@ export function CSVImportModal({ isOpen, onClose, onSuccess }: CSVImportModalPro
               <div className="flex flex-col items-center gap-3">
                 <div
                   className={`p-3 rounded-full ${
-                    isDragActive ? 'bg-primary-100' : 'bg-gray-100'
+                    isDragActive ? 'bg-emerald-100' : 'bg-gray-100'
                   }`}
                 >
                   <Upload
                     className={`h-8 w-8 ${
-                      isDragActive ? 'text-primary-600' : 'text-gray-400'
+                      isDragActive ? 'text-emerald-600' : 'text-gray-400'
                     }`}
                   />
                 </div>
@@ -253,7 +253,7 @@ export function CSVImportModal({ isOpen, onClose, onSuccess }: CSVImportModalPro
                 <div className="text-sm">
                   <label
                     htmlFor="csv-import-input"
-                    className="font-medium text-primary-600 hover:text-primary-700 cursor-pointer"
+                    className="font-medium text-emerald-600 hover:text-emerald-700 cursor-pointer"
                   >
                     Click to upload
                   </label>
@@ -269,7 +269,7 @@ export function CSVImportModal({ isOpen, onClose, onSuccess }: CSVImportModalPro
 
           {/* Validation Error */}
           {validationError && (
-            <div className="flex items-start gap-2 p-3 bg-red-50 rounded-lg border border-red-200">
+            <div className="flex items-start gap-2 p-3 bg-red-50 rounded-xl border border-red-200">
               <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0 mt-0.5" />
               <p className="text-sm text-red-700">{validationError}</p>
             </div>
@@ -277,7 +277,7 @@ export function CSVImportModal({ isOpen, onClose, onSuccess }: CSVImportModalPro
 
           {/* Selected File */}
           {selectedFile && !importResult && (
-            <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200">
               <div className="flex-shrink-0 p-2 bg-white rounded">
                 <FileText className="h-5 w-5 text-gray-400" />
               </div>
@@ -305,7 +305,7 @@ export function CSVImportModal({ isOpen, onClose, onSuccess }: CSVImportModalPro
             <div className="space-y-3">
               {/* Success/Failure Banner */}
               <div
-                className={`flex items-center gap-2 p-3 rounded-lg border ${
+                className={`flex items-center gap-2 p-3 rounded-xl border ${
                   importResult.success
                     ? 'bg-green-50 border-green-200'
                     : 'bg-red-50 border-red-200'
@@ -328,25 +328,25 @@ export function CSVImportModal({ isOpen, onClose, onSuccess }: CSVImportModalPro
               {/* Statistics */}
               {importResult.success && (
                 <div className="grid grid-cols-2 gap-2">
-                  <div className="bg-gray-50 rounded-lg p-2 text-center">
+                  <div className="bg-gray-50 rounded-xl p-2 text-center">
                     <p className="text-lg font-semibold text-gray-900">
                       {importResult.sectionsCreated}
                     </p>
                     <p className="text-xs text-gray-500">Sections Created</p>
                   </div>
-                  <div className="bg-gray-50 rounded-lg p-2 text-center">
+                  <div className="bg-gray-50 rounded-xl p-2 text-center">
                     <p className="text-lg font-semibold text-gray-900">
                       {importResult.sectionsUpdated}
                     </p>
                     <p className="text-xs text-gray-500">Sections Updated</p>
                   </div>
-                  <div className="bg-gray-50 rounded-lg p-2 text-center">
+                  <div className="bg-gray-50 rounded-xl p-2 text-center">
                     <p className="text-lg font-semibold text-gray-900">
                       {importResult.questionsCreated}
                     </p>
                     <p className="text-xs text-gray-500">Questions Created</p>
                   </div>
-                  <div className="bg-gray-50 rounded-lg p-2 text-center">
+                  <div className="bg-gray-50 rounded-xl p-2 text-center">
                     <p className="text-lg font-semibold text-gray-900">
                       {importResult.questionsUpdated}
                     </p>

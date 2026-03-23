@@ -60,7 +60,7 @@ export function SectionProgressIndicator({
         {isComplete ? (
           <CheckCircle2 className={clsx(iconSizes[size], 'text-green-500')} />
         ) : hasProgress ? (
-          <ClipboardList className={clsx(iconSizes[size], 'text-primary-500')} />
+          <ClipboardList className={clsx(iconSizes[size], 'text-emerald-500')} />
         ) : (
           <Circle className={clsx(iconSizes[size], 'text-gray-400')} />
         )}
@@ -82,7 +82,7 @@ export function SectionProgressIndicator({
               isComplete
                 ? 'text-green-600 font-medium'
                 : hasProgress
-                ? 'text-primary-600'
+                ? 'text-emerald-600'
                 : 'text-gray-500'
             )}
           >
@@ -97,9 +97,9 @@ export function SectionProgressIndicator({
             'flex-shrink-0 px-2 py-0.5 rounded-full font-medium',
             textSizes[size],
             isComplete
-              ? 'bg-green-100 text-green-700'
+              ? 'bg-green-50 text-green-700'
               : hasProgress
-              ? 'bg-primary-100 text-primary-700'
+              ? 'bg-emerald-100 text-emerald-700'
               : 'bg-gray-100 text-gray-500'
           )}
         >
@@ -144,9 +144,9 @@ export function SectionProgressBadge({
       className={clsx(
         'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium',
         isComplete
-          ? 'bg-green-100 text-green-700'
+          ? 'bg-green-50 text-green-700'
           : hasProgress
-          ? 'bg-blue-100 text-blue-700'
+          ? 'bg-blue-50 text-blue-700'
           : 'bg-gray-100 text-gray-600',
         className
       )}

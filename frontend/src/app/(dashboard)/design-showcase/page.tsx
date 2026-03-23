@@ -27,7 +27,7 @@ import {
  * Navigate to /design-showcase to view
  */
 export default function DesignShowcasePage() {
-  const [selectedScore, setSelectedScore] = useState<1 | 2 | 3 | null>(2);
+  const [selectedScore, setSelectedScore] = useState<0 | 1 | 2 | 3 | 4 | 5 | null>(2);
   const [justification, setJustification] = useState(
     'The organization has partially implemented external and internal issue determination processes. PESTLE analysis is conducted annually, but stakeholder engagement could be more systematic.'
   );
@@ -347,25 +347,25 @@ export default function DesignShowcasePage() {
             <div className="flex gap-2">
               <button
                 onClick={() => setSaveStatus('idle')}
-                className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium"
+                className="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-sm font-medium"
               >
                 Idle
               </button>
               <button
                 onClick={() => setSaveStatus('saving')}
-                className="px-4 py-2 rounded-lg bg-blue-100 hover:bg-blue-200 text-sm font-medium"
+                className="px-4 py-2 rounded-xl bg-blue-50 hover:bg-blue-200 text-sm font-medium"
               >
                 Saving
               </button>
               <button
                 onClick={() => setSaveStatus('saved')}
-                className="px-4 py-2 rounded-lg bg-green-100 hover:bg-green-200 text-sm font-medium"
+                className="px-4 py-2 rounded-xl bg-green-50 hover:bg-green-200 text-sm font-medium"
               >
                 Saved
               </button>
               <button
                 onClick={() => setSaveStatus('error')}
-                className="px-4 py-2 rounded-lg bg-red-100 hover:bg-red-200 text-sm font-medium"
+                className="px-4 py-2 rounded-xl bg-red-50 hover:bg-red-200 text-sm font-medium"
               >
                 Error
               </button>

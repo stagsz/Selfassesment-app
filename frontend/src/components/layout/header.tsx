@@ -7,7 +7,6 @@ import { useAuthStore, useUIStore } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-// Placeholder notifications for MVP - these will be replaced with real data later
 const placeholderNotifications = [
   {
     id: '1',
@@ -46,7 +45,7 @@ const placeholderNotifications = [
 function NotificationIcon({ type }: { type: 'warning' | 'info' | 'success' }) {
   switch (type) {
     case 'warning':
-      return <AlertTriangle size={16} className="text-yellow-500" />;
+      return <AlertTriangle size={16} className="text-amber-500" />;
     case 'success':
       return <CheckCircle size={16} className="text-green-500" />;
     default:
@@ -68,7 +67,6 @@ export function Header() {
     router.push('/login');
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (notificationsRef.current && !notificationsRef.current.contains(event.target as Node)) {
@@ -84,7 +82,7 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 right-0 z-30 h-16 bg-white border-b border-gray-200 transition-all duration-300 left-0 md:left-16 ${
+      className={`fixed top-0 right-0 z-30 h-16 bg-white/80 backdrop-blur-md border-b border-gray-200 transition-all duration-300 left-0 md:left-16 ${
         sidebarOpen ? 'md:left-64' : 'md:left-16'
       }`}
     >
@@ -92,7 +90,7 @@ export function Header() {
         {/* Mobile menu button */}
         <button
           onClick={openMobileMenu}
-          className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg md:hidden"
+          className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-xl md:hidden transition-colors"
           aria-label="Open menu"
         >
           <Menu size={24} />
@@ -101,19 +99,19 @@ export function Header() {
         {/* Search */}
         <div className="flex-1 max-w-md mx-4 hidden sm:block">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+            <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
             <Input
               type="search"
               placeholder="Search assessments, actions..."
-              className="pl-10"
+              className="pl-10 bg-gray-50 border-gray-200 hover:bg-white focus:bg-white"
             />
           </div>
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-2 md:gap-4">
+        <div className="flex items-center gap-2 md:gap-3">
           {/* Mobile search button */}
-          <button className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg sm:hidden">
+          <button className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-xl sm:hidden transition-colors">
             <Search size={20} />
           </button>
 
@@ -121,7 +119,7 @@ export function Header() {
           <div className="relative" ref={notificationsRef}>
             <button
               onClick={() => setNotificationsOpen(!notificationsOpen)}
-              className="relative p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg"
+              className="relative p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition-colors"
               aria-label="Notifications"
               aria-expanded={notificationsOpen}
             >
@@ -135,16 +133,16 @@ export function Header() {
 
             {/* Dropdown panel */}
             {notificationsOpen && (
-              <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden z-50">
-                {/* Header */}
+              <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden z-50 animate-enter">
                 <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
                   <h3 className="font-semibold text-gray-900">Notifications</h3>
                   {unreadCount > 0 && (
-                    <span className="text-xs text-gray-500">{unreadCount} unread</span>
+                    <span className="text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
+                      {unreadCount} unread
+                    </span>
                   )}
                 </div>
 
-                {/* Notification list */}
                 <div className="max-h-96 overflow-y-auto">
                   {placeholderNotifications.length === 0 ? (
                     <div className="px-4 py-8 text-center text-gray-500">
@@ -156,8 +154,8 @@ export function Header() {
                       {placeholderNotifications.map((notification) => (
                         <li
                           key={notification.id}
-                          className={`px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-50 last:border-b-0 ${
-                            !notification.read ? 'bg-blue-50/50' : ''
+                          className={`px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-50 last:border-b-0 transition-colors ${
+                            !notification.read ? 'bg-emerald-50/40' : ''
                           }`}
                         >
                           <div className="flex gap-3">
@@ -177,7 +175,7 @@ export function Header() {
                             </div>
                             {!notification.read && (
                               <div className="flex-shrink-0">
-                                <span className="w-2 h-2 bg-blue-500 rounded-full block" />
+                                <span className="w-2 h-2 bg-emerald-500 rounded-full block" />
                               </div>
                             )}
                           </div>
@@ -187,9 +185,8 @@ export function Header() {
                   )}
                 </div>
 
-                {/* Footer */}
                 <div className="px-4 py-3 border-t border-gray-100 bg-gray-50">
-                  <button className="w-full text-sm text-primary-600 hover:text-primary-700 font-medium">
+                  <button className="w-full text-sm text-emerald-600 hover:text-emerald-700 font-medium transition-colors">
                     View all notifications
                   </button>
                 </div>
@@ -197,15 +194,15 @@ export function Header() {
             )}
           </div>
 
-          {/* User menu - hide details on mobile */}
+          {/* User menu */}
           <div className="flex items-center gap-3">
             <div className="text-right hidden md:block">
-              <p className="text-sm font-medium text-gray-700">
+              <p className="text-sm font-medium text-gray-800">
                 {user?.firstName} {user?.lastName}
               </p>
               <p className="text-xs text-gray-500">{user?.organization?.name}</p>
             </div>
-            <div className="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 font-medium">
+            <div className="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-700 font-semibold text-sm">
               {user?.firstName?.[0]}
               {user?.lastName?.[0]}
             </div>

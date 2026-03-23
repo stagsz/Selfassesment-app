@@ -90,7 +90,7 @@ export default function HelpPage() {
           </div>
 
           <div className="space-y-3">
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
               <div className="flex items-start gap-3">
                 <CheckCircle className="h-5 w-5 text-blue-600 mt-0.5" />
                 <div>
@@ -104,7 +104,7 @@ export default function HelpPage() {
               </div>
             </div>
 
-            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+            <div className="bg-green-50 border border-green-200 rounded-xl p-4">
               <div className="flex items-start gap-3">
                 <Zap className="h-5 w-5 text-green-600 mt-0.5" />
                 <div>
@@ -118,7 +118,7 @@ export default function HelpPage() {
               </div>
             </div>
 
-            <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+            <div className="bg-purple-50 border border-purple-200 rounded-xl p-4">
               <div className="flex items-start gap-3">
                 <Users className="h-5 w-5 text-purple-600 mt-0.5" />
                 <div>
@@ -132,7 +132,7 @@ export default function HelpPage() {
               </div>
             </div>
 
-            <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
+            <div className="bg-orange-50 border border-orange-200 rounded-xl p-4">
               <div className="flex items-start gap-3">
                 <Target className="h-5 w-5 text-orange-600 mt-0.5" />
                 <div>
@@ -146,7 +146,7 @@ export default function HelpPage() {
               </div>
             </div>
 
-            <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+            <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-4">
               <div className="flex items-start gap-3">
                 <BookOpen className="h-5 w-5 text-indigo-600 mt-0.5" />
                 <div>
@@ -160,7 +160,7 @@ export default function HelpPage() {
               </div>
             </div>
 
-            <div className="bg-teal-50 border border-teal-200 rounded-lg p-4">
+            <div className="bg-teal-50 border border-teal-200 rounded-xl p-4">
               <div className="flex items-start gap-3">
                 <Star className="h-5 w-5 text-teal-600 mt-0.5" />
                 <div>
@@ -175,7 +175,7 @@ export default function HelpPage() {
             </div>
           </div>
 
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-4">
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mt-4">
             <h4 className="font-medium text-gray-900 mb-2">How Templates Work</h4>
             <ul className="space-y-2 text-sm text-gray-600">
               <li className="flex items-start gap-2">
@@ -217,7 +217,7 @@ export default function HelpPage() {
           </div>
 
           <div className="space-y-3">
-            <div className="border rounded-lg p-4">
+            <div className="border rounded-xl p-4">
               <h4 className="font-medium text-gray-900 mb-2">System Admin</h4>
               <p className="text-sm text-gray-600 mb-2">Full system access and control</p>
               <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
@@ -228,7 +228,7 @@ export default function HelpPage() {
               </ul>
             </div>
 
-            <div className="border rounded-lg p-4">
+            <div className="border rounded-xl p-4">
               <h4 className="font-medium text-gray-900 mb-2">Quality Manager</h4>
               <p className="text-sm text-gray-600 mb-2">QMS oversight and management</p>
               <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
@@ -240,7 +240,7 @@ export default function HelpPage() {
               </ul>
             </div>
 
-            <div className="border rounded-lg p-4">
+            <div className="border rounded-xl p-4">
               <h4 className="font-medium text-gray-900 mb-2">Internal Auditor</h4>
               <p className="text-sm text-gray-600 mb-2">Conduct audits and document findings</p>
               <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
@@ -251,7 +251,7 @@ export default function HelpPage() {
               </ul>
             </div>
 
-            <div className="border rounded-lg p-4">
+            <div className="border rounded-xl p-4">
               <h4 className="font-medium text-gray-900 mb-2">Department Head</h4>
               <p className="text-sm text-gray-600 mb-2">View and respond to findings</p>
               <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
@@ -261,7 +261,7 @@ export default function HelpPage() {
               </ul>
             </div>
 
-            <div className="border rounded-lg p-4">
+            <div className="border rounded-xl p-4">
               <h4 className="font-medium text-gray-900 mb-2">Viewer</h4>
               <p className="text-sm text-gray-600 mb-2">Read-only access</p>
               <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
@@ -288,7 +288,7 @@ export default function HelpPage() {
           </div>
 
           <div className="space-y-3">
-            <div className="bg-gray-50 border border-gray-300 rounded-lg p-4">
+            <div className="bg-gray-50 border border-gray-300 rounded-xl p-4">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-8 h-8 rounded-full bg-gray-400 text-white font-semibold flex items-center justify-center text-sm">
                   0
@@ -300,7 +300,7 @@ export default function HelpPage() {
               </p>
             </div>
 
-            <div className="bg-red-50 border border-red-300 rounded-lg p-4">
+            <div className="bg-red-50 border border-red-300 rounded-xl p-4">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-8 h-8 rounded-full bg-red-500 text-white font-semibold flex items-center justify-center text-sm">
                   1
@@ -312,7 +312,7 @@ export default function HelpPage() {
               </p>
             </div>
 
-            <div className="bg-orange-50 border border-orange-300 rounded-lg p-4">
+            <div className="bg-orange-50 border border-orange-300 rounded-xl p-4">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-8 h-8 rounded-full bg-orange-500 text-white font-semibold flex items-center justify-center text-sm">
                   2
@@ -325,12 +325,12 @@ export default function HelpPage() {
               </p>
             </div>
 
-            <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-4">
+            <div className="bg-amber-50 border border-amber-300 rounded-xl p-4">
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-8 h-8 rounded-full bg-yellow-500 text-white font-semibold flex items-center justify-center text-sm">
+                <div className="w-8 h-8 rounded-full bg-amber-500 text-white font-semibold flex items-center justify-center text-sm">
                   3
                 </div>
-                <h4 className="font-medium text-yellow-900">Developing</h4>
+                <h4 className="font-medium text-amber-900">Developing</h4>
               </div>
               <p className="text-sm text-gray-600">
                 Processes are documented and generally followed. Some monitoring in place. Room for
@@ -338,7 +338,7 @@ export default function HelpPage() {
               </p>
             </div>
 
-            <div className="bg-green-50 border border-green-300 rounded-lg p-4">
+            <div className="bg-green-50 border border-green-300 rounded-xl p-4">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-8 h-8 rounded-full bg-green-500 text-white font-semibold flex items-center justify-center text-sm">
                   4
@@ -351,7 +351,7 @@ export default function HelpPage() {
               </p>
             </div>
 
-            <div className="bg-blue-50 border border-blue-300 rounded-lg p-4">
+            <div className="bg-blue-50 border border-blue-300 rounded-xl p-4">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-8 h-8 rounded-full bg-blue-500 text-white font-semibold flex items-center justify-center text-sm">
                   5
@@ -383,7 +383,7 @@ export default function HelpPage() {
           <div className="space-y-4">
             <div className="flex gap-4">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 font-semibold flex items-center justify-center text-sm">
+                <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 font-semibold flex items-center justify-center text-sm">
                   1
                 </div>
               </div>
@@ -398,7 +398,7 @@ export default function HelpPage() {
 
             <div className="flex gap-4">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 font-semibold flex items-center justify-center text-sm">
+                <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 font-semibold flex items-center justify-center text-sm">
                   2
                 </div>
               </div>
@@ -413,7 +413,7 @@ export default function HelpPage() {
 
             <div className="flex gap-4">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 font-semibold flex items-center justify-center text-sm">
+                <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 font-semibold flex items-center justify-center text-sm">
                   3
                 </div>
               </div>
@@ -428,7 +428,7 @@ export default function HelpPage() {
 
             <div className="flex gap-4">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 font-semibold flex items-center justify-center text-sm">
+                <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 font-semibold flex items-center justify-center text-sm">
                   4
                 </div>
               </div>
@@ -443,7 +443,7 @@ export default function HelpPage() {
 
             <div className="flex gap-4">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 font-semibold flex items-center justify-center text-sm">
+                <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 font-semibold flex items-center justify-center text-sm">
                   5
                 </div>
               </div>
@@ -458,7 +458,7 @@ export default function HelpPage() {
 
             <div className="flex gap-4">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 font-semibold flex items-center justify-center text-sm">
+                <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 font-semibold flex items-center justify-center text-sm">
                   6
                 </div>
               </div>
@@ -473,7 +473,7 @@ export default function HelpPage() {
 
             <div className="flex gap-4">
               <div className="flex-shrink-0">
-                <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 font-semibold flex items-center justify-center text-sm">
+                <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 font-semibold flex items-center justify-center text-sm">
                   7
                 </div>
               </div>
@@ -578,7 +578,7 @@ export default function HelpPage() {
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-          <BookOpen className="h-7 w-7 text-primary-600" />
+          <BookOpen className="h-7 w-7 text-emerald-600" />
           Help & Documentation
         </h1>
         <p className="text-gray-500 mt-1">
@@ -595,9 +595,9 @@ export default function HelpPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <button
               onClick={() => setExpandedSection('getting-started')}
-              className="flex items-center gap-3 p-3 rounded-lg border hover:border-primary-500 hover:bg-primary-50 transition-colors text-left"
+              className="flex items-center gap-3 p-3 rounded-xl border hover:border-emerald-500 hover:bg-emerald-50 transition-colors text-left"
             >
-              <Zap className="h-5 w-5 text-primary-600" />
+              <Zap className="h-5 w-5 text-emerald-600" />
               <div>
                 <div className="font-medium text-sm">Getting Started</div>
                 <div className="text-xs text-gray-500">Quick start guide</div>
@@ -606,9 +606,9 @@ export default function HelpPage() {
 
             <button
               onClick={() => setExpandedSection('templates')}
-              className="flex items-center gap-3 p-3 rounded-lg border hover:border-primary-500 hover:bg-primary-50 transition-colors text-left"
+              className="flex items-center gap-3 p-3 rounded-xl border hover:border-emerald-500 hover:bg-emerald-50 transition-colors text-left"
             >
-              <FileText className="h-5 w-5 text-primary-600" />
+              <FileText className="h-5 w-5 text-emerald-600" />
               <div>
                 <div className="font-medium text-sm">Templates</div>
                 <div className="text-xs text-gray-500">Learn about assessment templates</div>
@@ -617,9 +617,9 @@ export default function HelpPage() {
 
             <button
               onClick={() => setExpandedSection('scoring')}
-              className="flex items-center gap-3 p-3 rounded-lg border hover:border-primary-500 hover:bg-primary-50 transition-colors text-left"
+              className="flex items-center gap-3 p-3 rounded-xl border hover:border-emerald-500 hover:bg-emerald-50 transition-colors text-left"
             >
-              <Star className="h-5 w-5 text-primary-600" />
+              <Star className="h-5 w-5 text-emerald-600" />
               <div>
                 <div className="font-medium text-sm">Scoring System</div>
                 <div className="text-xs text-gray-500">Understand assessment scores</div>
@@ -640,7 +640,7 @@ export default function HelpPage() {
               <CardHeader className="cursor-pointer hover:bg-gray-50 transition-colors">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-primary-100 rounded-lg">{section.icon}</div>
+                    <div className="p-2 bg-emerald-100 rounded-xl">{section.icon}</div>
                     <CardTitle className="text-lg">{section.title}</CardTitle>
                   </div>
                   {expandedSection === section.id ? (
@@ -660,10 +660,10 @@ export default function HelpPage() {
       </div>
 
       {/* Support */}
-      <Card className="bg-gradient-to-br from-primary-50 to-blue-50 border-primary-200">
+      <Card className="bg-gradient-to-br from-emerald-50 to-blue-50 border-emerald-200">
         <CardHeader>
           <div className="flex items-center gap-3">
-            <AlertCircle className="h-6 w-6 text-primary-600" />
+            <AlertCircle className="h-6 w-6 text-emerald-600" />
             <div>
               <CardTitle>Need More Help?</CardTitle>
               <CardDescription>Contact your system administrator for support</CardDescription>

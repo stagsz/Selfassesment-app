@@ -45,7 +45,7 @@ describe('ScoreButton Component', () => {
     it('applies red styles for score 1 when not selected', () => {
       render(<ScoreButton {...defaultProps} score={1} selected={false} />);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-red-100');
+      expect(button).toHaveClass('bg-red-50');
       expect(button).toHaveClass('border-red-300');
     });
 
@@ -60,22 +60,22 @@ describe('ScoreButton Component', () => {
     it('applies yellow styles for score 2 when not selected', () => {
       render(<ScoreButton {...defaultProps} score={2} selected={false} />);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-yellow-100');
-      expect(button).toHaveClass('border-yellow-300');
+      expect(button).toHaveClass('bg-amber-50');
+      expect(button).toHaveClass('border-amber-300');
     });
 
     it('applies yellow selected styles for score 2 when selected', () => {
       render(<ScoreButton {...defaultProps} score={2} selected={true} />);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-yellow-500');
-      expect(button).toHaveClass('border-yellow-600');
+      expect(button).toHaveClass('bg-amber-500');
+      expect(button).toHaveClass('border-amber-600');
       expect(button).toHaveClass('ring-2');
     });
 
     it('applies green styles for score 3 when not selected', () => {
       render(<ScoreButton {...defaultProps} score={3} selected={false} />);
       const button = screen.getByRole('button');
-      expect(button).toHaveClass('bg-green-100');
+      expect(button).toHaveClass('bg-green-50');
       expect(button).toHaveClass('border-green-300');
     });
 
@@ -202,8 +202,8 @@ describe('ScoreGroup Component', () => {
       // First button (score 1) should have selected styles
       expect(buttons[0]).toHaveClass('bg-red-500');
       // Other buttons should not have selected styles
-      expect(buttons[1]).toHaveClass('bg-yellow-100');
-      expect(buttons[2]).toHaveClass('bg-green-100');
+      expect(buttons[1]).toHaveClass('bg-amber-50');
+      expect(buttons[2]).toHaveClass('bg-green-50');
     });
 
     it('shows score 2 as selected when value is 2', () => {
@@ -216,9 +216,9 @@ describe('ScoreGroup Component', () => {
       );
 
       const buttons = screen.getAllByRole('button');
-      expect(buttons[0]).toHaveClass('bg-red-100');
-      expect(buttons[1]).toHaveClass('bg-yellow-500');
-      expect(buttons[2]).toHaveClass('bg-green-100');
+      expect(buttons[0]).toHaveClass('bg-red-50');
+      expect(buttons[1]).toHaveClass('bg-amber-500');
+      expect(buttons[2]).toHaveClass('bg-green-50');
     });
 
     it('shows score 3 as selected when value is 3', () => {
@@ -231,8 +231,8 @@ describe('ScoreGroup Component', () => {
       );
 
       const buttons = screen.getAllByRole('button');
-      expect(buttons[0]).toHaveClass('bg-red-100');
-      expect(buttons[1]).toHaveClass('bg-yellow-100');
+      expect(buttons[0]).toHaveClass('bg-red-50');
+      expect(buttons[1]).toHaveClass('bg-amber-50');
       expect(buttons[2]).toHaveClass('bg-green-500');
     });
 
@@ -247,9 +247,9 @@ describe('ScoreGroup Component', () => {
 
       const buttons = screen.getAllByRole('button');
       // All buttons should have unselected styles
-      expect(buttons[0]).toHaveClass('bg-red-100');
-      expect(buttons[1]).toHaveClass('bg-yellow-100');
-      expect(buttons[2]).toHaveClass('bg-green-100');
+      expect(buttons[0]).toHaveClass('bg-red-50');
+      expect(buttons[1]).toHaveClass('bg-amber-50');
+      expect(buttons[2]).toHaveClass('bg-green-50');
     });
   });
 

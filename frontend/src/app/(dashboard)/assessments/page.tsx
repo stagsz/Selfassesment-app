@@ -33,9 +33,9 @@ import { AssessmentsEmptyState } from '@/components/assessments/AssessmentsEmpty
 
 const statusColors: Record<string, string> = {
   DRAFT: 'bg-gray-100 text-gray-700',
-  IN_PROGRESS: 'bg-blue-100 text-blue-700',
-  UNDER_REVIEW: 'bg-yellow-100 text-yellow-700',
-  COMPLETED: 'bg-green-100 text-green-700',
+  IN_PROGRESS: 'bg-blue-50 text-blue-700',
+  UNDER_REVIEW: 'bg-amber-50 text-amber-700',
+  COMPLETED: 'bg-green-50 text-green-700',
   ARCHIVED: 'bg-gray-100 text-gray-500',
 };
 
@@ -76,9 +76,9 @@ function SortableColumnHeader({
       {label}
       {isActive ? (
         currentSortOrder === 'asc' ? (
-          <ArrowUp className="h-4 w-4 text-primary-600" />
+          <ArrowUp className="h-4 w-4 text-emerald-600" />
         ) : (
-          <ArrowDown className="h-4 w-4 text-primary-600" />
+          <ArrowDown className="h-4 w-4 text-emerald-600" />
         )
       ) : (
         <ArrowUpDown className="h-4 w-4 text-gray-400" />
@@ -368,7 +368,7 @@ export default function AssessmentsPage() {
                     <div className="flex items-center gap-3">
                       <Link
                         href={`/assessments/${assessment.id}`}
-                        className="text-lg font-semibold text-gray-900 hover:text-primary-600"
+                        className="text-lg font-semibold text-gray-900 hover:text-emerald-600"
                       >
                         {assessment.title}
                       </Link>
@@ -411,7 +411,7 @@ export default function AssessmentsPage() {
                               (assessment.overallScore || 0) >= 70
                                 ? 'text-green-600'
                                 : (assessment.overallScore || 0) >= 50
-                                ? 'text-yellow-600'
+                                ? 'text-amber-600'
                                 : 'text-red-600'
                             }`}
                           >

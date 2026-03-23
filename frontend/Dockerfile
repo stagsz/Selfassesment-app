@@ -24,7 +24,6 @@ WORKDIR /app
 
 # Copy dependencies from deps stage
 COPY --from=deps /app/frontend/node_modules ./frontend/node_modules
-COPY --from=deps /app/node_modules ./node_modules 2>/dev/null || true
 
 # Copy shared package
 COPY shared ./shared/

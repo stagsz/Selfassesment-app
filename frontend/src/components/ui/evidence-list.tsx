@@ -168,7 +168,7 @@ export function EvidenceList({
         {[1, 2].map((i) => (
           <div
             key={i}
-            className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 bg-gray-50 animate-pulse"
+            className="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 animate-pulse"
           >
             <div className="h-10 w-10 bg-gray-200 rounded" />
             <div className="flex-1 space-y-2">
@@ -196,7 +196,7 @@ export function EvidenceList({
         <div
           key={item.id}
           className={clsx(
-            'flex items-center gap-3 p-3 rounded-lg border bg-white transition-colors',
+            'flex items-center gap-3 p-3 rounded-xl border bg-white transition-colors',
             disabled
               ? 'border-gray-100 opacity-60'
               : 'border-gray-200 hover:border-gray-300'
@@ -286,7 +286,7 @@ export function EvidenceList({
       <DeleteConfirmationDialog
         isOpen={showDeleteConfirm !== null}
         onClose={() => setShowDeleteConfirm(null)}
-        onConfirm={() => showDeleteConfirm && handleDelete(showDeleteConfirm)}
+        onConfirm={() => { if (showDeleteConfirm) handleDelete(showDeleteConfirm); }}
         itemName={
           showDeleteConfirm
             ? evidence.find((e) => e.id === showDeleteConfirm)?.fileName || 'this file'

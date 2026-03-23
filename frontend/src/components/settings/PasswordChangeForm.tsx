@@ -117,7 +117,7 @@ export function PasswordChangeForm() {
     if (strength <= 2) {
       return { label: 'Weak', color: 'bg-red-500', width: '33%' };
     } else if (strength <= 4) {
-      return { label: 'Medium', color: 'bg-yellow-500', width: '66%' };
+      return { label: 'Medium', color: 'bg-amber-500', width: '66%' };
     } else {
       return { label: 'Strong', color: 'bg-green-500', width: '100%' };
     }
@@ -129,7 +129,7 @@ export function PasswordChangeForm() {
     <Card>
       <CardHeader>
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-lg bg-gray-100 flex items-center justify-center">
+          <div className="h-10 w-10 rounded-xl bg-gray-100 flex items-center justify-center">
             <Lock className="h-5 w-5 text-gray-500" />
           </div>
           <div>

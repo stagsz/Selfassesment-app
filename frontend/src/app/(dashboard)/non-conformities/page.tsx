@@ -25,16 +25,16 @@ import { NCRsListSkeleton } from '@/components/non-conformities/NCRsListSkeleton
 import { NCRsEmptyState } from '@/components/non-conformities/NCRsEmptyState';
 
 const statusColors: Record<string, string> = {
-  OPEN: 'bg-red-100 text-red-700',
-  IN_PROGRESS: 'bg-yellow-100 text-yellow-700',
-  RESOLVED: 'bg-blue-100 text-blue-700',
-  CLOSED: 'bg-green-100 text-green-700',
+  OPEN: 'bg-red-50 text-red-700',
+  IN_PROGRESS: 'bg-amber-50 text-amber-700',
+  RESOLVED: 'bg-blue-50 text-blue-700',
+  CLOSED: 'bg-green-50 text-green-700',
 };
 
 const severityColors: Record<string, string> = {
-  MINOR: 'bg-yellow-100 text-yellow-700',
+  MINOR: 'bg-amber-50 text-amber-700',
   MAJOR: 'bg-orange-100 text-orange-700',
-  CRITICAL: 'bg-red-100 text-red-700',
+  CRITICAL: 'bg-red-50 text-red-700',
 };
 
 const statusOptions = [
@@ -79,9 +79,9 @@ function SortableColumnHeader({
       {label}
       {isActive ? (
         currentSortOrder === 'asc' ? (
-          <ArrowUp className="h-4 w-4 text-primary-600" />
+          <ArrowUp className="h-4 w-4 text-emerald-600" />
         ) : (
-          <ArrowDown className="h-4 w-4 text-primary-600" />
+          <ArrowDown className="h-4 w-4 text-emerald-600" />
         )
       ) : (
         <ArrowUpDown className="h-4 w-4 text-gray-400" />
@@ -336,7 +336,7 @@ export default function NonConformitiesPage() {
                     <div className="flex items-center gap-3 mb-2">
                       <Link
                         href={`/non-conformities/${ncr.id}`}
-                        className="text-lg font-semibold text-gray-900 hover:text-primary-600 truncate"
+                        className="text-lg font-semibold text-gray-900 hover:text-emerald-600 truncate"
                       >
                         {ncr.title}
                       </Link>
@@ -362,7 +362,7 @@ export default function NonConformitiesPage() {
                       {/* Assessment link */}
                       <Link
                         href={`/assessments/${ncr.assessment.id}`}
-                        className="flex items-center gap-1 text-primary-600 hover:text-primary-700"
+                        className="flex items-center gap-1 text-emerald-600 hover:text-emerald-700"
                       >
                         <ExternalLink className="h-3.5 w-3.5" />
                         {ncr.assessment.title}

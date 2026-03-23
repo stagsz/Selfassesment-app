@@ -147,11 +147,11 @@ export default function ReportsPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'COMPLETED':
-        return 'bg-green-100 text-green-800';
+        return 'bg-green-50 text-green-800';
       case 'UNDER_REVIEW':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-blue-50 text-blue-800';
       case 'IN_PROGRESS':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-amber-50 text-amber-800';
       case 'DRAFT':
         return 'bg-gray-100 text-gray-800';
       default:
@@ -162,7 +162,7 @@ export default function ReportsPage() {
   const getScoreColor = (score: number | null) => {
     if (score === null) return 'text-gray-400';
     if (score >= 2.5) return 'text-green-600';
-    if (score >= 1.5) return 'text-yellow-600';
+    if (score >= 1.5) return 'text-amber-600';
     return 'text-red-600';
   };
 
@@ -188,7 +188,7 @@ export default function ReportsPage() {
   if (error) {
     return (
       <div className="p-6">
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+        <div className="bg-red-50 border border-red-200 rounded-xl p-4">
           <p className="text-red-800">Error loading assessments. Please try again.</p>
         </div>
       </div>
@@ -208,7 +208,7 @@ export default function ReportsPage() {
         <button
           onClick={handleExportAll}
           disabled={downloadingId === 'all'}
-          className="flex items-center gap-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <FileSpreadsheet size={18} />
           {downloadingId === 'all' ? 'Exporting...' : 'Export All to CSV'}
@@ -216,7 +216,7 @@ export default function ReportsPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
         <div className="flex flex-col md:flex-row gap-4">
           {/* Search */}
           <div className="flex-1 relative">
@@ -226,7 +226,7 @@ export default function ReportsPage() {
               placeholder="Search assessments..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400"
             />
           </div>
 
@@ -236,7 +236,7 @@ export default function ReportsPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-400"
             >
               <option value="">Completed & Under Review</option>
               <option value="COMPLETED">Completed Only</option>
@@ -249,7 +249,7 @@ export default function ReportsPage() {
 
       {/* Assessments List */}
       {filteredAssessments.length === 0 ? (
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center">
           <FileText className="mx-auto text-gray-400 mb-4" size={48} />
           <h3 className="text-lg font-medium text-gray-900 mb-2">No Reports Available</h3>
           <p className="text-gray-600">
@@ -263,13 +263,13 @@ export default function ReportsPage() {
           {filteredAssessments.map((assessment) => (
             <div
               key={assessment.id}
-              className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
+              className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow"
             >
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 {/* Assessment Info */}
                 <div className="flex-1">
                   <div className="flex items-start gap-3">
-                    <FileText className="text-primary-600 mt-1 flex-shrink-0" size={24} />
+                    <FileText className="text-emerald-600 mt-1 flex-shrink-0" size={24} />
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">{assessment.title}</h3>
                       <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-gray-600">
@@ -298,7 +298,7 @@ export default function ReportsPage() {
                   <button
                     onClick={() => handleDownloadReport(assessment, 'pdf')}
                     disabled={downloadingId === assessment.id && downloadingFormat === 'pdf'}
-                    className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                    className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-xl hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm"
                   >
                     <Download size={16} />
                     {downloadingId === assessment.id && downloadingFormat === 'pdf' ? 'Downloading...' : 'PDF'}
@@ -306,7 +306,7 @@ export default function ReportsPage() {
                   <button
                     onClick={() => handleDownloadReport(assessment, 'pptx')}
                     disabled={downloadingId === assessment.id && downloadingFormat === 'pptx'}
-                    className="flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                    className="flex items-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-xl hover:bg-orange-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm"
                   >
                     <Presentation size={16} />
                     {downloadingId === assessment.id && downloadingFormat === 'pptx' ? 'Downloading...' : 'PowerPoint'}
@@ -319,7 +319,7 @@ export default function ReportsPage() {
       )}
 
       {/* Info Card */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+      <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
         <h4 className="font-semibold text-blue-900 mb-2">Available Report Formats:</h4>
         <ul className="space-y-1 text-blue-800 text-sm">
           <li>• <strong>PDF</strong> - Comprehensive report with charts and detailed findings</li>
@@ -329,7 +329,7 @@ export default function ReportsPage() {
       </div>
 
       {/* PowerPoint Setup Notice */}
-      <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+      <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
         <h4 className="font-semibold text-amber-900 mb-2">📋 PowerPoint Setup Required</h4>
         <p className="text-sm text-amber-800 mb-2">
           To enable PowerPoint report generation, the server administrator needs to install the required package.

@@ -18,10 +18,7 @@ const editAssessmentSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   description: z.string().optional(),
   scope: z.string().optional(),
-  objectives: z.union([
-    z.array(z.string()).optional(),
-    z.string().transform(val => val ? [val] : undefined).optional()
-  ]).optional(),
+  objectives: z.string().optional(),
   scheduledDate: z.string().optional(),
   dueDate: z.string().optional(),
 });
@@ -167,7 +164,7 @@ export default function EditAssessmentPage() {
                 id="title"
                 type="text"
                 placeholder="Assessment title"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-isoPrimary-500 focus:border-isoPrimary-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-400 focus:border-emerald-500"
               />
               {errors.title && <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>}
             </div>
@@ -182,7 +179,7 @@ export default function EditAssessmentPage() {
                 id="description"
                 placeholder="Assessment description"
                 rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-isoPrimary-500 focus:border-isoPrimary-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-400 focus:border-emerald-500"
               />
               {errors.description && <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>}
             </div>
@@ -197,7 +194,7 @@ export default function EditAssessmentPage() {
                 id="scope"
                 placeholder="Assessment scope"
                 rows={3}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-isoPrimary-500 focus:border-isoPrimary-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-400 focus:border-emerald-500"
               />
               {errors.scope && <p className="mt-1 text-sm text-red-600">{errors.scope.message}</p>}
             </div>
@@ -212,7 +209,7 @@ export default function EditAssessmentPage() {
                 id="objectives"
                 placeholder="Assessment objectives"
                 rows={3}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-isoPrimary-500 focus:border-isoPrimary-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-400 focus:border-emerald-500"
               />
               {errors.objectives && <p className="mt-1 text-sm text-red-600">{errors.objectives.message}</p>}
             </div>
@@ -227,7 +224,7 @@ export default function EditAssessmentPage() {
                   {...register('scheduledDate')}
                   id="scheduledDate"
                   type="date"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-isoPrimary-500 focus:border-isoPrimary-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-400 focus:border-emerald-500"
                 />
                 {errors.scheduledDate && <p className="mt-1 text-sm text-red-600">{errors.scheduledDate.message}</p>}
               </div>
@@ -240,7 +237,7 @@ export default function EditAssessmentPage() {
                   {...register('dueDate')}
                   id="dueDate"
                   type="date"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-isoPrimary-500 focus:border-isoPrimary-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-400 focus:border-emerald-500"
                 />
                 {errors.dueDate && <p className="mt-1 text-sm text-red-600">{errors.dueDate.message}</p>}
               </div>

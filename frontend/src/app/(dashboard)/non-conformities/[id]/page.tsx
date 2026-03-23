@@ -31,10 +31,10 @@ import { VerificationFormModal } from '@/components/ncr/VerificationFormModal';
 import { CorrectiveAction } from '@/hooks/useCorrectiveActions';
 
 const statusColors: Record<string, string> = {
-  OPEN: 'bg-red-100 text-red-700',
-  IN_PROGRESS: 'bg-yellow-100 text-yellow-700',
-  RESOLVED: 'bg-blue-100 text-blue-700',
-  CLOSED: 'bg-green-100 text-green-700',
+  OPEN: 'bg-red-50 text-red-700',
+  IN_PROGRESS: 'bg-amber-50 text-amber-700',
+  RESOLVED: 'bg-blue-50 text-blue-700',
+  CLOSED: 'bg-green-50 text-green-700',
 };
 
 const statusLabels: Record<string, string> = {
@@ -45,9 +45,9 @@ const statusLabels: Record<string, string> = {
 };
 
 const severityColors: Record<string, string> = {
-  MINOR: 'bg-yellow-100 text-yellow-700 border-yellow-300',
+  MINOR: 'bg-amber-50 text-amber-700 border-amber-300',
   MAJOR: 'bg-orange-100 text-orange-700 border-orange-300',
-  CRITICAL: 'bg-red-100 text-red-700 border-red-300',
+  CRITICAL: 'bg-red-50 text-red-700 border-red-300',
 };
 
 const severityIcons: Record<string, React.ReactNode> = {
@@ -136,7 +136,7 @@ function RootCauseForm({ rootCause, rootCauseMethod, onSave, onCancel, isSaving 
           id="rootCauseMethod"
           value={localMethod}
           onChange={(e) => setLocalMethod(e.target.value)}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
         >
           <option value="">Select a method...</option>
           {rootCauseMethodOptions.map((option) => (
@@ -156,7 +156,7 @@ function RootCauseForm({ rootCause, rootCauseMethod, onSave, onCancel, isSaving 
           onChange={(e) => setLocalRootCause(e.target.value)}
           rows={4}
           placeholder="Describe the root cause of this non-conformity..."
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-400"
         />
       </div>
       <div className="flex justify-end gap-2">
@@ -305,7 +305,7 @@ export default function NonConformityDetailPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5 text-primary-600" />
+                <FileText className="h-5 w-5 text-emerald-600" />
                 Description
               </CardTitle>
             </CardHeader>
@@ -320,7 +320,7 @@ export default function NonConformityDetailPage() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0">
               <CardTitle className="flex items-center gap-2">
-                <HelpCircle className="h-5 w-5 text-primary-600" />
+                <HelpCircle className="h-5 w-5 text-emerald-600" />
                 Root Cause Analysis
               </CardTitle>
               {canEdit && !isEditingRootCause && (
@@ -375,14 +375,14 @@ export default function NonConformityDetailPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Hash className="h-5 w-5 text-primary-600" />
+                  <Hash className="h-5 w-5 text-emerald-600" />
                   Linked Assessment Response
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {/* Section Info */}
                 {ncr.response.section && (
-                  <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="bg-gray-50 rounded-xl p-4">
                     <p className="text-sm font-medium text-gray-500 mb-1">ISO Section</p>
                     <p className="text-gray-900 font-medium">
                       {ncr.response.section.sectionNumber} - {ncr.response.section.title}
@@ -396,9 +396,9 @@ export default function NonConformityDetailPage() {
                     Question {ncr.response.question.questionNumber}
                   </p>
                   <p className="text-gray-700">{ncr.response.question.questionText}</p>
-                  {ncr.response.question.standardReference && (
+                  {(ncr.response.question as any).standardReference && (
                     <p className="text-sm text-gray-500 mt-1">
-                      Reference: {ncr.response.question.standardReference}
+                      Reference: {(ncr.response.question as any).standardReference}
                     </p>
                   )}
                 </div>
@@ -407,14 +407,14 @@ export default function NonConformityDetailPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
                   <div>
                     <p className="text-sm font-medium text-gray-500 mb-1">Score</p>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-700">
-                      {ncr.response.score} - Non-Compliant
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-50 text-red-700">
+                      {(ncr.response as any).score} - Non-Compliant
                     </span>
                   </div>
-                  {ncr.response.justification && (
+                  {(ncr.response as any).justification && (
                     <div>
                       <p className="text-sm font-medium text-gray-500 mb-1">Justification</p>
-                      <p className="text-gray-600 text-sm">{ncr.response.justification}</p>
+                      <p className="text-gray-600 text-sm">{(ncr.response as any).justification}</p>
                     </div>
                   )}
                 </div>
@@ -444,7 +444,7 @@ export default function NonConformityDetailPage() {
                 <p className="text-sm font-medium text-gray-500 mb-1">Assessment</p>
                 <Link
                   href={`/assessments/${ncr.assessment.id}`}
-                  className="flex items-center gap-1 text-primary-600 hover:text-primary-700 font-medium"
+                  className="flex items-center gap-1 text-emerald-600 hover:text-emerald-700 font-medium"
                 >
                   <ExternalLink className="h-4 w-4" />
                   {ncr.assessment.title}
@@ -455,9 +455,9 @@ export default function NonConformityDetailPage() {
                 <span
                   className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
                     ncr.assessment.status === 'COMPLETED'
-                      ? 'bg-green-100 text-green-700'
+                      ? 'bg-green-50 text-green-700'
                       : ncr.assessment.status === 'IN_PROGRESS'
-                      ? 'bg-blue-100 text-blue-700'
+                      ? 'bg-blue-50 text-blue-700'
                       : 'bg-gray-100 text-gray-700'
                   }`}
                 >
@@ -471,7 +471,7 @@ export default function NonConformityDetailPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-primary-600" />
+                <Calendar className="h-5 w-5 text-emerald-600" />
                 Timeline
               </CardTitle>
             </CardHeader>

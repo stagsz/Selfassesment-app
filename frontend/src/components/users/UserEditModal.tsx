@@ -103,7 +103,7 @@ export function UserEditModal({ isOpen, onClose, user }: UserEditModalProps) {
       <Card className="w-full max-w-md">
         <CardHeader className="flex flex-row items-center justify-between space-y-0">
           <CardTitle className="flex items-center gap-2">
-            <Edit3 className="h-5 w-5 text-primary-600" />
+            <Edit3 className="h-5 w-5 text-emerald-600" />
             Edit User
           </CardTitle>
           <button
@@ -119,8 +119,8 @@ export function UserEditModal({ isOpen, onClose, user }: UserEditModalProps) {
         <CardContent>
           {/* User avatar and role indicator */}
           <div className="flex items-center gap-3 mb-6 pb-4 border-b">
-            <div className="h-12 w-12 rounded-full bg-primary-100 flex items-center justify-center">
-              <span className="text-lg font-medium text-primary-600">
+            <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center">
+              <span className="text-lg font-medium text-emerald-600">
                 {user.firstName?.[0]?.toUpperCase() || ''}
                 {user.lastName?.[0]?.toUpperCase() || ''}
               </span>

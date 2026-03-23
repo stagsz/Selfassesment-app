@@ -19,7 +19,7 @@ export function DashboardEmptyState() {
       </div>
 
       {/* Empty State Card */}
-      <div className="rounded-lg border border-gray-200 bg-white shadow-sm">
+      <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
         <EmptyState
           icon={ClipboardCheck}
           title="Welcome to ISO 9001 Self-Assessment"

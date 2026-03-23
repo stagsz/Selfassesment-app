@@ -6,7 +6,7 @@ import { useAutoSave, AutoSaveStatus } from './useAutoSave';
 export interface QuestionResponse {
   id?: string;
   questionId: string;
-  score: 1 | 2 | 3 | null;
+  score: 0 | 1 | 2 | 3 | 4 | 5 | null;
   justification: string;
   sectionId?: string;
   isDraft: boolean;
@@ -111,7 +111,7 @@ export function useAssessmentResponses({
         map.set(r.questionId, {
           id: r.id,
           questionId: r.questionId,
-          score: r.score as 1 | 2 | 3 | null,
+          score: r.score as 0 | 1 | 2 | 3 | 4 | 5 | null,
           justification: r.justification || '',
           sectionId: r.sectionId || undefined,
           isDraft: r.isDraft,

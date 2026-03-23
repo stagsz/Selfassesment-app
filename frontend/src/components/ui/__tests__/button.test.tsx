@@ -10,7 +10,7 @@ describe('Button Component', () => {
   it('applies default variant styles', () => {
     render(<Button>Default Button</Button>);
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('bg-primary-600');
+    expect(button).toHaveClass('bg-sage-600');
   });
 
   it('applies destructive variant styles', () => {

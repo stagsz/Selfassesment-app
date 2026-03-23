@@ -44,29 +44,17 @@ const variantConfig: Record<
 };
 
 export interface ConfirmationDialogProps {
-  /** Whether the dialog is open */
   isOpen: boolean;
-  /** Callback when dialog is closed */
   onClose: () => void;
-  /** Callback when confirmed */
   onConfirm: () => void | Promise<void>;
-  /** Dialog title */
   title: string;
-  /** Dialog description/message */
   description: string | ReactNode;
-  /** Text for the confirm button */
   confirmText?: string;
-  /** Text for the cancel button */
   cancelText?: string;
-  /** Visual variant of the dialog */
   variant?: ConfirmationDialogVariant;
-  /** Whether the confirm action is in progress */
   isLoading?: boolean;
-  /** Additional content to render before the buttons */
   children?: ReactNode;
-  /** Maximum width class for the dialog */
   maxWidth?: string;
-  /** Disable close button and cancel button during loading */
   preventCloseOnLoading?: boolean;
 }
 
@@ -106,16 +94,16 @@ export function ConfirmationDialog({
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-black/40 backdrop-blur-[2px] flex items-center justify-center z-50 p-4 animate-fade-in"
       onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"
       aria-labelledby="confirmation-dialog-title"
     >
-      <Card className={clsx('w-full', maxWidth)}>
+      <Card className={clsx('w-full shadow-xl animate-enter', maxWidth)}>
         <CardHeader
           className={clsx(
-            'flex flex-row items-center justify-between space-y-0 rounded-t-lg',
+            'flex flex-row items-center justify-between space-y-0 rounded-t-2xl',
             config.headerBgColor
           )}
         >
@@ -129,7 +117,7 @@ export function ConfirmationDialog({
           <button
             type="button"
             onClick={handleClose}
-            className="text-gray-400 hover:text-gray-500 transition-colors"
+            className="text-gray-400 hover:text-gray-600 transition-colors rounded-lg p-1 hover:bg-gray-100"
             disabled={preventCloseOnLoading && isLoading}
             aria-label="Close dialog"
           >
@@ -137,7 +125,7 @@ export function ConfirmationDialog({
           </button>
         </CardHeader>
         <CardContent className="space-y-4 pt-4">
-          <div className="text-gray-600">
+          <div className="text-gray-600 leading-relaxed">
             {typeof description === 'string' ? <p>{description}</p> : description}
           </div>
 
@@ -167,10 +155,6 @@ export function ConfirmationDialog({
   );
 }
 
-/**
- * Confirmation dialog specifically for delete actions
- * Pre-configured with destructive styling
- */
 export interface DeleteConfirmationDialogProps {
   isOpen: boolean;
   onClose: () => void;
@@ -178,9 +162,7 @@ export interface DeleteConfirmationDialogProps {
   itemName: string;
   itemType?: string;
   isLoading?: boolean;
-  /** Additional warning message */
   warningMessage?: string;
-  /** Whether the action can be undone */
   canBeUndone?: boolean;
 }
 

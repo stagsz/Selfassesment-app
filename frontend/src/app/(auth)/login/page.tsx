@@ -12,6 +12,7 @@ import { getAuthErrorInfo, isNetworkError } from '@/lib/auth-errors';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Shield } from 'lucide-react';
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -41,7 +42,6 @@ export default function LoginPage() {
       toast.success('Welcome back!');
       router.push('/dashboard');
     } catch (err: unknown) {
-      // Network errors are already handled by the API interceptor with a toast
       if (isNetworkError(err)) {
         return;
       }
@@ -55,28 +55,22 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <div className="mx-auto w-16 h-16 bg-isoPrimary-100 rounded-full flex items-center justify-center mb-4">
-            <svg
-              className="w-10 h-10 text-isoPrimary-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-              />
-            </svg>
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-emerald-100/50 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-sky-100/40 rounded-full blur-3xl" />
+      </div>
+
+      <Card className="w-full max-w-md shadow-lg relative">
+        <CardHeader className="text-center pb-2">
+          <div className="mx-auto w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mb-4 shadow-sm">
+            <Shield className="w-9 h-9 text-emerald-600" />
           </div>
-          <CardTitle className="text-2xl">ISO 9001 Audit Management</CardTitle>
-          <CardDescription>Sign in to your account</CardDescription>
+          <CardTitle className="text-2xl font-display">ISO 9001 Audit Management</CardTitle>
+          <CardDescription className="text-gray-500">Sign in to your account</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             <Input
               {...register('email')}
               id="email"
@@ -103,25 +97,25 @@ export default function LoginPage() {
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  className="h-4 w-4 text-isoPrimary-600 focus:ring-isoPrimary-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded"
                 />
                 <label htmlFor="remember-me" className="ml-2 text-sm text-gray-600">Remember me</label>
               </div>
               <Link
                 href="/forgot-password"
-                className="text-sm text-isoPrimary-600 hover:text-isoPrimary-500"
+                className="text-sm text-emerald-600 hover:text-emerald-700 font-medium transition-colors"
               >
                 Forgot password?
               </Link>
             </div>
 
-            <Button type="submit" className="w-full" loading={isSubmitting}>
+            <Button type="submit" className="w-full" size="lg" loading={isSubmitting}>
               Sign in
             </Button>
 
-            <p className="text-center text-sm text-gray-600">
+            <p className="text-center text-sm text-gray-500">
               Don&apos;t have an account?{' '}
-              <Link href="/register" className="text-isoPrimary-600 hover:text-isoPrimary-500 font-medium">
+              <Link href="/register" className="text-emerald-600 hover:text-emerald-700 font-medium transition-colors">
                 Sign up
               </Link>
             </p>

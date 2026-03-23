@@ -173,11 +173,11 @@ export function EvidenceUpload({
         onDragOver={handleDragOver}
         onDrop={handleDrop}
         className={clsx(
-          'relative border-2 border-dashed rounded-lg p-6 transition-colors text-center',
+          'relative border-2 border-dashed rounded-xl p-6 transition-colors text-center',
           disabled
             ? 'border-gray-200 bg-gray-50 cursor-not-allowed'
             : isDragActive
-            ? 'border-primary-500 bg-primary-50'
+            ? 'border-emerald-500 bg-emerald-50'
             : 'border-gray-300 bg-white hover:border-gray-400'
         )}
       >
@@ -195,13 +195,13 @@ export function EvidenceUpload({
           <div
             className={clsx(
               'p-3 rounded-full',
-              isDragActive ? 'bg-primary-100' : 'bg-gray-100'
+              isDragActive ? 'bg-emerald-100' : 'bg-gray-100'
             )}
           >
             <Upload
               className={clsx(
                 'h-6 w-6',
-                isDragActive ? 'text-primary-600' : 'text-gray-400'
+                isDragActive ? 'text-emerald-600' : 'text-gray-400'
               )}
             />
           </div>
@@ -213,7 +213,7 @@ export function EvidenceUpload({
                 'font-medium cursor-pointer',
                 disabled
                   ? 'text-gray-400 cursor-not-allowed'
-                  : 'text-primary-600 hover:text-primary-700'
+                  : 'text-emerald-600 hover:text-emerald-700'
               )}
             >
               Click to upload
@@ -234,7 +234,7 @@ export function EvidenceUpload({
             <div
               key={`${uploadingFile.file.name}-${index}`}
               className={clsx(
-                'flex items-center gap-3 p-3 rounded-lg border',
+                'flex items-center gap-3 p-3 rounded-xl border',
                 uploadingFile.error
                   ? 'bg-red-50 border-red-200'
                   : 'bg-gray-50 border-gray-200'
@@ -243,7 +243,7 @@ export function EvidenceUpload({
               <div
                 className={clsx(
                   'flex-shrink-0 p-2 rounded',
-                  uploadingFile.error ? 'bg-red-100' : 'bg-white'
+                  uploadingFile.error ? 'bg-red-50' : 'bg-white'
                 )}
               >
                 {uploadingFile.error ? (

@@ -31,9 +31,9 @@ import { SectionProgressIndicator } from '@/components/assessments/section-progr
 
 const statusColors: Record<string, string> = {
   DRAFT: 'bg-gray-100 text-gray-700',
-  IN_PROGRESS: 'bg-blue-100 text-blue-700',
-  UNDER_REVIEW: 'bg-yellow-100 text-yellow-700',
-  COMPLETED: 'bg-green-100 text-green-700',
+  IN_PROGRESS: 'bg-blue-50 text-blue-700',
+  UNDER_REVIEW: 'bg-amber-50 text-amber-700',
+  COMPLETED: 'bg-green-50 text-green-700',
   ARCHIVED: 'bg-gray-100 text-gray-500',
 };
 
@@ -305,7 +305,7 @@ export default function AssessmentDetailPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <ClipboardList className="h-5 w-5 text-primary-600" />
+                <ClipboardList className="h-5 w-5 text-emerald-600" />
                 Description
               </CardTitle>
             </CardHeader>
@@ -390,17 +390,17 @@ export default function AssessmentDetailPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-primary-600" />
+                <Users className="h-5 w-5 text-emerald-600" />
                 Team Members
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
                 {/* Lead Auditor */}
-                <div className="flex items-center justify-between p-3 bg-primary-50 rounded-lg">
+                <div className="flex items-center justify-between p-3 bg-emerald-50 rounded-xl">
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-primary-200 flex items-center justify-center">
-                      <span className="text-primary-700 font-medium">
+                    <div className="h-10 w-10 rounded-full bg-emerald-200 flex items-center justify-center">
+                      <span className="text-emerald-700 font-medium">
                         {assessment.leadAuditor.firstName[0]}
                         {assessment.leadAuditor.lastName[0]}
                       </span>
@@ -409,10 +409,10 @@ export default function AssessmentDetailPage() {
                       <p className="font-medium text-gray-900">
                         {assessment.leadAuditor.firstName} {assessment.leadAuditor.lastName}
                       </p>
-                      <p className="text-sm text-gray-500">{assessment.leadAuditor.email}</p>
+                      <p className="text-sm text-gray-500">{(assessment.leadAuditor as any).email}</p>
                     </div>
                   </div>
-                  <span className="px-2 py-1 text-xs font-medium bg-primary-100 text-primary-700 rounded">
+                  <span className="px-2 py-1 text-xs font-medium bg-emerald-100 text-emerald-700 rounded">
                     Lead Auditor
                   </span>
                 </div>
@@ -426,7 +426,7 @@ export default function AssessmentDetailPage() {
                   }) => (
                     <div
                       key={member.id}
-                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                      className="flex items-center justify-between p-3 bg-gray-50 rounded-xl"
                     >
                       <div className="flex items-center gap-3">
                         <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">

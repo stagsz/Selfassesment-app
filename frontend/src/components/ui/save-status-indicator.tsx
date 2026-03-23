@@ -111,9 +111,9 @@ export function SaveStatusBadge({ status, className }: SaveStatusBadgeProps) {
         'inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-medium',
         status === 'idle' && 'bg-gray-100 text-gray-600',
         status === 'unsaved' && 'bg-amber-100 text-amber-700',
-        status === 'saving' && 'bg-blue-100 text-blue-700',
-        status === 'saved' && 'bg-green-100 text-green-700',
-        status === 'error' && 'bg-red-100 text-red-700',
+        status === 'saving' && 'bg-blue-50 text-blue-700',
+        status === 'saved' && 'bg-green-50 text-green-700',
+        status === 'error' && 'bg-red-50 text-red-700',
         className
       )}
     >

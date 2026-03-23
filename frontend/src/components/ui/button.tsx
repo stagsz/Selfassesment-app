@@ -5,24 +5,32 @@ import { clsx } from 'clsx';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]',
   {
     variants: {
       variant: {
-        default: 'bg-isoPrimary-600 text-white hover:bg-isoPrimary-700',
-        destructive: 'bg-red-600 text-white hover:bg-red-700',
-        outline: 'border border-gray-300 bg-white hover:bg-gray-50',
-        secondary: 'bg-gray-100 text-gray-900 hover:bg-gray-200',
-        ghost: 'hover:bg-gray-100',
-        link: 'text-isoPrimary-600 underline-offset-4 hover:underline',
-        success: 'bg-green-600 text-white hover:bg-green-700',
-        warning: 'bg-yellow-500 text-white hover:bg-yellow-600',
+        default:
+          'bg-emerald-600 text-white shadow-sm hover:bg-emerald-700 hover:shadow-md',
+        destructive:
+          'bg-red-600 text-white shadow-sm hover:bg-red-700 hover:shadow-md',
+        outline:
+          'border-2 border-emerald-300 bg-white text-emerald-700 hover:bg-emerald-50 hover:border-emerald-400',
+        secondary:
+          'bg-gray-100 text-gray-800 shadow-sm hover:bg-gray-200',
+        ghost:
+          'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
+        link:
+          'text-emerald-600 underline-offset-4 hover:underline hover:text-emerald-700',
+        success:
+          'bg-green-600 text-white shadow-sm hover:bg-green-700 hover:shadow-md',
+        warning:
+          'bg-yellow-500 text-white shadow-sm hover:bg-yellow-600 hover:shadow-md',
       },
       size: {
-        default: 'h-10 px-4 py-2',
-        sm: 'h-9 rounded-md px-3',
-        lg: 'h-11 rounded-md px-8',
-        icon: 'h-10 w-10',
+        default: 'h-10 px-5 py-2 text-sm rounded-xl',
+        sm: 'h-9 px-3.5 text-sm rounded-lg',
+        lg: 'h-12 px-8 text-base rounded-xl',
+        icon: 'h-10 w-10 rounded-xl',
       },
     },
     defaultVariants: {

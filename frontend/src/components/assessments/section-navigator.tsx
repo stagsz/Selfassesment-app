@@ -98,14 +98,14 @@ function StatusIcon({ status }: { status: CompletionStatus }) {
   switch (status) {
     case 'complete':
       return (
-        <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
+        <div className="w-5 h-5 rounded-full bg-green-50 flex items-center justify-center">
           <Check className="w-3 h-3 text-green-600" />
         </div>
       );
     case 'partial':
       return (
-        <div className="w-5 h-5 rounded-full bg-yellow-100 flex items-center justify-center">
-          <Minus className="w-3 h-3 text-yellow-600" />
+        <div className="w-5 h-5 rounded-full bg-amber-50 flex items-center justify-center">
+          <Minus className="w-3 h-3 text-amber-600" />
         </div>
       );
     case 'empty':
@@ -170,9 +170,9 @@ function SectionItem({
       <button
         onClick={handleClick}
         className={clsx(
-          'w-full flex items-center gap-2 px-2 py-2 text-left rounded-lg transition-colors',
+          'w-full flex items-center gap-2 px-2 py-2 text-left rounded-xl transition-colors',
           'hover:bg-gray-50',
-          isActive && 'bg-primary-50 border-l-2 border-primary-600',
+          isActive && 'bg-emerald-50 border-l-2 border-emerald-600',
           depth > 0 && 'ml-4'
         )}
       >
@@ -402,7 +402,7 @@ export function SectionNavigator({
       </CardHeader>
       <CardContent className="p-2">
         {/* Legend */}
-        <div className="flex items-center gap-4 px-2 py-2 mb-2 bg-gray-50 rounded-lg text-xs">
+        <div className="flex items-center gap-4 px-2 py-2 mb-2 bg-gray-50 rounded-xl text-xs">
           <div className="flex items-center gap-1">
             <StatusIcon status="complete" />
             <span className="text-gray-600">Complete</span>
