@@ -18,7 +18,7 @@
     "runtime": "Node.js 18.0.0"
   },
   "build": {
-    "buildCommand": "npm run build",
+    "buildCommand": "cd frontend && npx tsc --noEmit 2>&1 | tail -20",
     "testCommand": "npm test",
     "lintCommand": "npm run lint",
     "devCommand": "npm run dev",
@@ -172,6 +172,12 @@
   },
   "hotPaths": [
     {
+      "path": "frontend\\src\\components\\layout\\sidebar.tsx",
+      "accessCount": 5,
+      "lastAccessed": 1778442196844,
+      "type": "file"
+    },
+    {
       "path": "backend\\.env",
       "accessCount": 2,
       "lastAccessed": 1778431668171,
@@ -188,6 +194,72 @@
       "accessCount": 1,
       "lastAccessed": 1778431916186,
       "type": "directory"
+    },
+    {
+      "path": "frontend\\src\\app\\(dashboard)\\assessments\\[id]\\page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1778435116615,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\services\\assessmentService.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778435117356,
+      "type": "file"
+    },
+    {
+      "path": "backend/src/services/assessmentService.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778435126423,
+      "type": "directory"
+    },
+    {
+      "path": "frontend\\src\\app\\(dashboard)\\assessments\\[id]\\audit\\page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1778435126983,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\src\\app\\(editorial)\\overview\\page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1778442020481,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\src\\app\\(dashboard)\\layout.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1778442134580,
+      "type": "file"
+    },
+    {
+      "path": "Cyclic Harmony Design System\\README.md",
+      "accessCount": 1,
+      "lastAccessed": 1778442363156,
+      "type": "file"
+    },
+    {
+      "path": "Cyclic Harmony Design System\\COMMIT_TO_REPO.md",
+      "accessCount": 1,
+      "lastAccessed": 1778442514438,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\proxy\\authProxy.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778443148358,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\utils\\errors.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778443149301,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\src\\lib\\api.ts",
+      "accessCount": 1,
+      "lastAccessed": 1778443149525,
+      "type": "file"
     }
   ],
   "userDirectives": []

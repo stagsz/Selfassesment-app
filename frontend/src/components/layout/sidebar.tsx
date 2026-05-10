@@ -73,7 +73,8 @@ export function Sidebar() {
       <Link
         href={item.href}
         className={clsx(
-          'flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-200 group relative',
+          'flex items-center py-3 rounded-2xl transition-all duration-200 group relative',
+          showLabel ? 'gap-3 px-4' : 'justify-center px-2',
           isActive
             ? 'bg-white shadow-soft-1 text-mint-600'
             : 'text-slate-500 hover:bg-white hover:shadow-soft-1 hover:text-navy-800'
@@ -109,9 +110,9 @@ export function Sidebar() {
   };
 
   const NavContent = ({ isMobile = false }: { isMobile?: boolean }) => (
-    <div className="flex h-full flex-col bg-surface border-r border-slate-200/60 pt-8 pb-6 px-5">
+    <div className={`flex h-full flex-col bg-surface border-r border-slate-200/60 pt-8 pb-6 ${sidebarOpen || isMobile ? 'px-5' : 'px-2'}`}>
       {/* Logo */}
-      <div className="flex items-center justify-between px-3 mb-12">
+      <div className={`flex px-3 mb-12 ${sidebarOpen || isMobile ? 'items-center justify-between' : 'flex-col items-center gap-3 px-0'}`}>
         <div className="flex items-center gap-3 cursor-pointer">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-mint-400 to-mint-600 shadow-soft-2 flex items-center justify-center text-white flex-shrink-0">
             <ShieldCheck size={22} />

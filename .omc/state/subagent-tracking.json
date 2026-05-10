@@ -1,0 +1,44 @@
+{
+  "agents": [
+    {
+      "agent_id": "a25347419f667c4c3",
+      "agent_type": "oh-my-claudecode:security-reviewer",
+      "started_at": "2026-05-10T20:11:43.035Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-05-10T20:12:28.011Z",
+      "duration_ms": 44976
+    },
+    {
+      "agent_id": "a56fa387e2d120b7c",
+      "agent_type": "general-purpose",
+      "started_at": "2026-05-10T20:13:02.759Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-05-10T20:13:08.980Z",
+      "duration_ms": 6221
+    },
+    {
+      "agent_id": "a04c48e93475d9f82",
+      "agent_type": "general-purpose",
+      "started_at": "2026-05-10T20:13:14.543Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-05-10T20:13:21.054Z",
+      "duration_ms": 6511
+    },
+    {
+      "agent_id": "a5b1d6b676e46b82b",
+      "agent_type": "general-purpose",
+      "started_at": "2026-05-10T20:13:26.250Z",
+      "parent_mode": "none",
+      "status": "completed",
+      "completed_at": "2026-05-10T20:13:31.491Z",
+      "duration_ms": 5241
+    }
+  ],
+  "total_spawned": 4,
+  "total_completed": 4,
+  "total_failed": 0,
+  "last_updated": "2026-05-10T20:13:31.608Z"
+}

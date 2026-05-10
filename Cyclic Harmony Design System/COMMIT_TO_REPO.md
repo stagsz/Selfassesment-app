@@ -1,4 +1,4 @@
-# Committing this design system into stagsz/Selfassesment-app
+/# Committing this design system into stagsz/Selfassesment-app
 
 This zip contains the full Cyclic Harmony design system — tokens, preview cards, brand docs, and a click-thru UI kit recreating the live app.
 
@@ -38,7 +38,7 @@ Open the PR with the body pointing at `design-system/README.md` and `design-syst
 
 - **Tokens mirror Tailwind theme.** `colors_and_type.css` exposes the same scale that `tailwind.config.js` already references — adopt as either CSS variables or a Tailwind plugin.
 - **`SKILL.md` is dual-purpose.** It works as a regular markdown index and as a Claude Code skill manifest if you ever wire one up.
-- **UI kit is prototype-grade.** `ui_kits/helix-qms/` is plain JSX over CDN React/Babel — no build step. Useful for design review and as a reference, not for production.
+- **UI kit is prototype-grade.** `ui_kits/helix-qm/s/` is plain JSX over CDN React/Babel — no build step. Useful for design review and as a reference, not for production.
 - **Logo and font files are placeholders.** The repo does not yet ship a brand mark; the kit reuses Lucide's `Shield`. Inter + Poppins are loaded from Google Fonts.
 
 ## Files of interest
