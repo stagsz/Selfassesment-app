@@ -1,0 +1,7 @@
+{
+  "tool_name": "PowerShell",
+  "tool_input_preview": "{\"command\":\"node -e \\\"console.log(require('C:/Users/staff/Selfassesment-app/node_modules/next/package.json').version)\\\"; node -e \\\"console.log(require('C:/Users/staff/Selfassesment-app/frontend/node_m...",
+  "error": "Exit code 1\n9.3.3\nnode : node:internal/modules/cjs/loader:1368\r\nAt line:1 char:108\r\n+ ... .version)\"; node -e \"console.log(require('C:/Users/staff/Selfassesmen ...\r\n+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\r\n    + CategoryInfo          : NotSpecified: (node:internal/modules/cjs/loader:1368:String) [], RemoteException\r\n    + FullyQualifiedErrorId : NativeCommandError\r\n \r\n  throw err;\r\n  ^\r\nError: Cannot find module 'C:/Users/staff/Selfassesment-app/frontend/node_...",
+  "timestamp": "2026-05-10T17:22:39.661Z",
+  "retry_count": 1
+}

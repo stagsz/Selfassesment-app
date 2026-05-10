@@ -15,25 +15,26 @@ import {
   BookOpen,
   ChevronLeft,
   ChevronRight,
+  ChevronUp,
   X,
   HelpCircle,
-  Shield,
+  ShieldCheck,
 } from 'lucide-react';
 import { useUIStore, useAuthStore } from '@/lib/store';
 
-const navigation = [
+const mainNavigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Assessments', href: '/assessments', icon: ClipboardCheck },
-  { name: 'Non-Conformities', href: '/non-conformities', icon: AlertTriangle },
-  { name: 'Actions', href: '/actions', icon: FileText },
-  { name: 'Reports', href: '/reports', icon: BarChart3 },
+  { name: 'Self-Assessment', href: '/assessments', icon: ClipboardCheck },
+  { name: 'Non-Conformities', href: '/non-conformities', icon: AlertTriangle, badge: 'count' },
+  { name: 'Corrective Actions', href: '/actions', icon: FileText },
+  { name: 'Reports & Analytics', href: '/reports', icon: BarChart3 },
   { name: 'Standards', href: '/standards', icon: BookOpen },
-  { name: 'Help', href: '/help', icon: HelpCircle },
-  { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
-const adminNavigation = [
-  { name: 'Users', href: '/admin/users', icon: Users },
+const settingsNavigation = [
+  { name: 'Team Access', href: '/admin/users', icon: Users, admin: true },
+  { name: 'Organization Profile', href: '/settings', icon: Settings },
+  { name: 'Help', href: '/help', icon: HelpCircle },
 ];
 
 export function Sidebar() {
@@ -49,9 +50,7 @@ export function Sidebar() {
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        closeMobileMenu();
-      }
+      if (e.key === 'Escape') closeMobileMenu();
     };
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
@@ -63,27 +62,71 @@ export function Sidebar() {
     } else {
       document.body.style.overflow = '';
     }
-    return () => {
-      document.body.style.overflow = '';
-    };
+    return () => { document.body.style.overflow = ''; };
   }, [mobileMenuOpen]);
 
-  const NavContent = ({ isMobile = false }: { isMobile?: boolean }) => (
-    <div className="flex h-full flex-col bg-slate-900">
-      {/* Logo area */}
-      <div className="flex h-16 items-center justify-between px-4 border-b border-slate-700/50">
-        {(sidebarOpen || isMobile) && (
-          <div className="flex items-center gap-2">
-            <Shield size={22} className="text-emerald-400" />
-            <span className="text-lg font-display font-semibold text-white tracking-tight">
-              ISO 9001
-            </span>
-          </div>
+  const NavLink = ({ item, isMobile = false }: { item: typeof mainNavigation[0] & { badge?: string; admin?: boolean }; isMobile?: boolean }) => {
+    const isActive = pathname.startsWith(item.href);
+    const showLabel = sidebarOpen || isMobile;
+
+    return (
+      <Link
+        href={item.href}
+        className={clsx(
+          'flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-200 group relative',
+          isActive
+            ? 'bg-white shadow-soft-1 text-mint-600'
+            : 'text-slate-500 hover:bg-white hover:shadow-soft-1 hover:text-navy-800'
         )}
+      >
+        {isActive && (
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-mint-500 rounded-r-full" />
+        )}
+        <item.icon
+          size={20}
+          className={clsx(
+            'flex-shrink-0 transition-colors',
+            isActive ? 'text-mint-500' : 'group-hover:text-mint-500'
+          )}
+        />
+        {showLabel && (
+          <>
+            <span className={clsx(
+              'text-sm font-semibold',
+              isActive ? 'text-navy-900' : ''
+            )}>
+              {item.name}
+            </span>
+            {isActive && item.badge === 'count' && (
+              <span className="ml-auto bg-mint-100 text-mint-700 py-0.5 px-2 rounded-full text-[10px] font-bold">
+                ACTIVE
+              </span>
+            )}
+          </>
+        )}
+      </Link>
+    );
+  };
+
+  const NavContent = ({ isMobile = false }: { isMobile?: boolean }) => (
+    <div className="flex h-full flex-col bg-surface border-r border-slate-200/60 pt-8 pb-6 px-5">
+      {/* Logo */}
+      <div className="flex items-center justify-between px-3 mb-12">
+        <div className="flex items-center gap-3 cursor-pointer">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-mint-400 to-mint-600 shadow-soft-2 flex items-center justify-center text-white flex-shrink-0">
+            <ShieldCheck size={22} />
+          </div>
+          {(sidebarOpen || isMobile) && (
+            <div>
+              <h1 className="font-bold text-lg tracking-tight text-navy-900 leading-tight">IsoForma</h1>
+              <p className="text-xs text-slate-500 font-medium">Compliance Platform</p>
+            </div>
+          )}
+        </div>
         {isMobile ? (
           <button
             onClick={closeMobileMenu}
-            className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition-colors"
+            className="p-2 text-slate-400 hover:text-navy-800 hover:bg-white rounded-xl transition-colors"
             aria-label="Close menu"
           >
             <X size={20} />
@@ -91,91 +134,61 @@ export function Sidebar() {
         ) : (
           <button
             onClick={toggleSidebar}
-            className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-xl transition-colors"
+            className="p-2 text-slate-400 hover:text-navy-800 hover:bg-white rounded-xl transition-colors hidden md:flex"
           >
-            {sidebarOpen ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
+            {sidebarOpen ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
           </button>
         )}
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-        {navigation.map((item) => {
-          const isActive = pathname.startsWith(item.href);
-          return (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={clsx(
-                'flex items-center px-3 py-2.5 rounded-xl transition-all duration-200 group',
-                isActive
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-slate-300 hover:bg-slate-800 hover:text-white'
-              )}
-            >
-              <item.icon size={20} className={clsx(
-                'flex-shrink-0',
-                isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-200'
-              )} />
-              {(sidebarOpen || isMobile) && (
-                <span className="ml-3 text-sm font-medium">{item.name}</span>
-              )}
-            </Link>
-          );
-        })}
-
-        {isAdmin && (
-          <>
-            <div className="pt-4 mt-4 border-t border-slate-700/50">
-              {(sidebarOpen || isMobile) && (
-                <p className="px-3 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                  Administration
-                </p>
-              )}
-            </div>
-            {adminNavigation.map((item) => {
-              const isActive = pathname.startsWith(item.href);
-              return (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={clsx(
-                    'flex items-center px-3 py-2.5 rounded-xl transition-all duration-200 group',
-                    isActive
-                      ? 'bg-emerald-600 text-white shadow-sm'
-                      : 'text-slate-300 hover:bg-slate-800 hover:text-white'
-                  )}
-                >
-                  <item.icon size={20} className={clsx(
-                    'flex-shrink-0',
-                    isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-200'
-                  )} />
-                  {(sidebarOpen || isMobile) && (
-                    <span className="ml-3 text-sm font-medium">{item.name}</span>
-                  )}
-                </Link>
-              );
-            })}
-          </>
+      {/* Main Menu */}
+      <nav className="flex-1 space-y-2 overflow-y-auto">
+        {(sidebarOpen || isMobile) && (
+          <div className="px-3 mb-2">
+            <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400">Main Menu</p>
+          </div>
         )}
+        {mainNavigation.map((item) => (
+          <NavLink key={item.name} item={item} isMobile={isMobile} />
+        ))}
+
+        {/* Settings section */}
+        {(sidebarOpen || isMobile) && (
+          <div className="px-3 mb-2 mt-8">
+            <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400">Settings</p>
+          </div>
+        )}
+        {!sidebarOpen && !isMobile && <div className="mt-6" />}
+        {settingsNavigation
+          .filter((item) => !item.admin || isAdmin)
+          .map((item) => (
+            <NavLink key={item.name} item={item} isMobile={isMobile} />
+          ))}
       </nav>
 
-      {/* User info */}
+      {/* User card */}
       {user && (sidebarOpen || isMobile) && (
-        <div className="p-4 border-t border-slate-700/50">
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <div className="w-9 h-9 rounded-xl bg-emerald-600 flex items-center justify-center text-white text-sm font-semibold">
-                {user.firstName[0]}
-                {user.lastName[0]}
-              </div>
-            </div>
-            <div className="ml-3">
-              <p className="text-sm font-medium text-white">
-                {user.firstName} {user.lastName}
-              </p>
-              <p className="text-xs text-slate-400">{user.role.replace(/_/g, ' ')}</p>
-            </div>
+        <div className="mt-auto bg-white rounded-3xl p-4 shadow-soft-1 border border-slate-100 flex items-center gap-3 cursor-pointer hover:shadow-soft-2 transition-shadow">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-mint-300 to-mint-500 flex items-center justify-center text-white text-sm font-bold flex-shrink-0 border-2 border-white shadow-sm">
+            {user.firstName[0]}{user.lastName[0]}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-bold text-navy-900 truncate">
+              {user.firstName} {user.lastName}
+            </p>
+            <p className="text-xs text-slate-500 truncate">
+              {user.role.replace(/_/g, ' ')}
+            </p>
+          </div>
+          <ChevronUp size={16} className="text-slate-400 flex-shrink-0" />
+        </div>
+      )}
+
+      {/* Collapsed user avatar */}
+      {user && !sidebarOpen && !isMobile && (
+        <div className="mt-auto flex justify-center">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-mint-300 to-mint-500 flex items-center justify-center text-white text-sm font-bold border-2 border-white shadow-sm">
+            {user.firstName[0]}{user.lastName[0]}
           </div>
         </div>
       )}
@@ -184,7 +197,7 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Mobile backdrop overlay */}
+      {/* Mobile backdrop */}
       {mobileMenuOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] md:hidden"
@@ -198,16 +211,16 @@ export function Sidebar() {
         className={clsx(
           'fixed left-0 top-0 z-50 h-screen transition-all duration-300',
           'hidden md:block',
-          sidebarOpen ? 'md:w-64' : 'md:w-16'
+          sidebarOpen ? 'md:w-72' : 'md:w-16'
         )}
       >
         <NavContent />
       </aside>
 
-      {/* Mobile slide-out drawer */}
+      {/* Mobile drawer */}
       <aside
         className={clsx(
-          'fixed left-0 top-0 z-50 h-screen w-64 transition-transform duration-300 ease-in-out md:hidden',
+          'fixed left-0 top-0 z-50 h-screen w-72 transition-transform duration-300 ease-in-out md:hidden',
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >

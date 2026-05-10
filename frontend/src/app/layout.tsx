@@ -1,13 +1,17 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { Providers } from './providers';
 
-const inter = Inter({ subsets: ['latin'] });
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-plus-jakarta',
+});
 
 export const metadata: Metadata = {
-  title: 'ISO 9001 Audit Management',
-  description: 'Self-Assessment & Audit Management Application for ISO 9001:2015',
+  title: 'IsoForma — Compliance Platform',
+  description: 'ISO 9001:2015 Self-Assessment & Audit Management',
 };
 
 export default function RootLayout({
@@ -17,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${plusJakarta.className} antialiased`}>
         <Providers>{children}</Providers>
       </body>
     </html>

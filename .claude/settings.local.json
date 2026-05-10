@@ -5,7 +5,18 @@
       "WebFetch(domain:81.225.77.80)",
       "mcp__MCP_DOCKER__browser_snapshot",
       "mcp__MCP_DOCKER__browser_type",
-      "mcp__MCP_DOCKER__browser_click"
+      "mcp__MCP_DOCKER__browser_click",
+      "Bash(docker run *)",
+      "PowerShell(docker version *)",
+      "PowerShell(docker exec iso9001-postgres *)",
+      "PowerShell(Test-NetConnection *)",
+      "PowerShell(netstat *)",
+      "PowerShell(docker stop iso9001-postgres; docker rm iso9001-postgres)",
+      "PowerShell(docker run *)",
+      "PowerShell(Get-Process *)",
+      "PowerShell(taskkill *)",
+      "PowerShell(Get-NetTCPConnection *)",
+      "PowerShell(node -e \"console.log\\(require\\('C:/Users/staff/Selfassesment-app/node_modules/next/package.json'\\).version\\)\"; node -e \"console.log\\(require\\('C:/Users/staff/Selfassesment-app/frontend/node_modules/next/package.json'\\).version\\)\" 2>&1)"
     ]
   }
 }

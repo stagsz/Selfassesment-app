@@ -1,0 +1,194 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1778365009968,
+  "projectRoot": "C:\\Users\\staff\\Selfassesment-app",
+  "techStack": {
+    "languages": [
+      {
+        "name": "JavaScript/TypeScript",
+        "version": ">=18.0.0",
+        "confidence": "high",
+        "markers": [
+          "package.json"
+        ]
+      }
+    ],
+    "frameworks": [],
+    "packageManager": "npm",
+    "runtime": "Node.js 18.0.0"
+  },
+  "build": {
+    "buildCommand": "npm run build",
+    "testCommand": "npm test",
+    "lintCommand": "npm run lint",
+    "devCommand": "npm run dev",
+    "scripts": {
+      "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+      "dev:backend": "npm run dev --workspace=backend",
+      "dev:frontend": "npm run dev --workspace=frontend",
+      "build": "npm run build --workspaces",
+      "test": "npm run test --workspaces",
+      "lint": "npm run lint --workspaces",
+      "db:migrate": "npm run db:migrate --workspace=backend",
+      "db:seed": "npm run db:seed --workspace=backend"
+    }
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": true,
+    "workspaces": [
+      "backend",
+      "frontend",
+      "shared"
+    ],
+    "mainDirectories": [],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "backend": {
+      "path": "backend",
+      "purpose": null,
+      "fileCount": 9,
+      "lastAccessed": 1778365009846,
+      "keyFiles": [
+        "check-templates.ts",
+        "Dockerfile",
+        "jest.config.js",
+        "package.json",
+        "test_output.txt"
+      ]
+    },
+    "Cyclic Harmony Design System": {
+      "path": "Cyclic Harmony Design System",
+      "purpose": null,
+      "fileCount": 5,
+      "lastAccessed": 1778365009847,
+      "keyFiles": [
+        "colors_and_type.css",
+        "COMMIT_TO_REPO.md",
+        "design-philosophy.png",
+        "README.md",
+        "SKILL.md"
+      ]
+    },
+    "files": {
+      "path": "files",
+      "purpose": null,
+      "fileCount": 4,
+      "lastAccessed": 1778365009860,
+      "keyFiles": [
+        "iso9001-audit-questions.csv",
+        "iso9001-seed-data.json",
+        "iso9001-seed-data.ts",
+        "seed.ts"
+      ]
+    },
+    "frontend": {
+      "path": "frontend",
+      "purpose": null,
+      "fileCount": 16,
+      "lastAccessed": 1778365009862,
+      "keyFiles": [
+        "design-reference.html",
+        "Dockerfile",
+        "jest.config.js",
+        "next-env.d.ts",
+        "next.config.js"
+      ]
+    },
+    "shared": {
+      "path": "shared",
+      "purpose": null,
+      "fileCount": 2,
+      "lastAccessed": 1778365009863,
+      "keyFiles": [
+        "package.json",
+        "tsconfig.json"
+      ]
+    },
+    "_cleanup_backup": {
+      "path": "_cleanup_backup",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1778365009863,
+      "keyFiles": []
+    },
+    "backend\\dist": {
+      "path": "backend\\dist",
+      "purpose": "Distribution/build output",
+      "fileCount": 4,
+      "lastAccessed": 1778365009864,
+      "keyFiles": [
+        "index.d.ts",
+        "index.d.ts.map",
+        "index.js"
+      ]
+    },
+    "backend\\node_modules": {
+      "path": "backend\\node_modules",
+      "purpose": "Dependencies",
+      "fileCount": 0,
+      "lastAccessed": 1778365009864,
+      "keyFiles": []
+    },
+    "Cyclic Harmony Design System\\assets": {
+      "path": "Cyclic Harmony Design System\\assets",
+      "purpose": "Static assets",
+      "fileCount": 1,
+      "lastAccessed": 1778365009864,
+      "keyFiles": [
+        "progress-connector.svg"
+      ]
+    },
+    "shared\\dist": {
+      "path": "shared\\dist",
+      "purpose": "Distribution/build output",
+      "fileCount": 4,
+      "lastAccessed": 1778365009866,
+      "keyFiles": [
+        "index.d.ts",
+        "index.d.ts.map",
+        "index.js"
+      ]
+    },
+    "shared\\types": {
+      "path": "shared\\types",
+      "purpose": "Type definitions",
+      "fileCount": 1,
+      "lastAccessed": 1778365009866,
+      "keyFiles": [
+        "index.ts"
+      ]
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "backend\\.env",
+      "accessCount": 2,
+      "lastAccessed": 1778431668171,
+      "type": "file"
+    },
+    {
+      "path": "CYCLIC_HARMONY_INTEGRATION.md",
+      "accessCount": 1,
+      "lastAccessed": 1778365037027,
+      "type": "file"
+    },
+    {
+      "path": "",
+      "accessCount": 1,
+      "lastAccessed": 1778431916186,
+      "type": "directory"
+    }
+  ],
+  "userDirectives": []
+}

@@ -16,7 +16,6 @@ export default function DashboardLayout({
   const { isAuthenticated } = useAuthStore();
   const { sidebarOpen } = useUIStore();
 
-  // Initialize session timeout - warns at 25 min, logs out at 30 min
   useSessionTimeout({ enabled: isAuthenticated });
 
   useEffect(() => {
@@ -27,22 +26,22 @@ export default function DashboardLayout({
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600" />
+      <div className="min-h-screen bg-surface flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-mint-500" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-surface text-navy-800">
       <Sidebar />
       <Header />
       <main
-        className={`pt-16 transition-all duration-300 ml-0 ${
-          sidebarOpen ? 'md:ml-64' : 'md:ml-16'
+        className={`pt-24 transition-all duration-300 ml-0 ${
+          sidebarOpen ? 'md:ml-72' : 'md:ml-16'
         }`}
       >
-        <div className="p-4 md:p-6">{children}</div>
+        <div className="p-4 md:p-8">{children}</div>
       </main>
     </div>
   );

@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css"><style>
+body{margin:0;padding:0;background:#fff;font-family:var(--font-sans);display:flex;height:300px}
+.sb{width:240px;background:#0f172a;color:#cbd5e1;display:flex;flex-direction:column;flex-shrink:0}
+.logo{height:54px;display:flex;align-items:center;gap:8px;padding:0 16px;border-bottom:1px solid rgba(255,255,255,.06)}
+.logo svg{color:#34d399}
+.logo span{color:#fff;font:600 15px Poppins;letter-spacing:-.01em}
+.nav{flex:1;padding:12px 10px;display:flex;flex-direction:column;gap:2px}
+.item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:12px;font:500 13px Inter;color:#cbd5e1;cursor:pointer}
+.item.active{background:#557349;color:#fff;box-shadow:var(--shadow-1)}
+.item:not(.active):hover{background:#1e293b;color:#fff}
+.user{padding:14px 16px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:10px}
+.av{width:32px;height:32px;border-radius:10px;background:#557349;color:#fff;display:flex;align-items:center;justify-content:center;font:600 12px Inter}
+.un{font:500 12px Inter;color:#fff}
+.ur{font:400 11px Inter;color:#94a3b8}
+.icon{width:18px;height:18px}
+</style></head><body>
+<div class="sb">
+  <div class="logo"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>Helix QMS</span></div>
+  <div class="nav">
+    <div class="item"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Dashboard</div>
+    <div class="item active"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Assessments</div>
+    <div class="item"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Non-Conformities</div>
+    <div class="item"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Reports</div>
+    <div class="item"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Standards</div>
+  </div>
+  <div class="user"><div class="av">AB</div><div><div class="un">Alex Bennett</div><div class="ur">Quality Manager</div></div></div>
+</div>
+</body></html>

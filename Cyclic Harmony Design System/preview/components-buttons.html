@@ -1,0 +1,31 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css"><style>
+body{margin:0;padding:24px;background:var(--surface-50)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:40px;padding:0 20px;border-radius:12px;font:500 14px var(--font-sans);border:0;cursor:pointer;transition:all .2s}
+.primary{background:#557349;color:#fff;box-shadow:var(--shadow-1)}
+.primary:hover{background:#445c3b;box-shadow:var(--shadow-2)}
+.outline{background:#fff;color:#445c3b;border:2px solid #a8c499}
+.outline:hover{background:#f4f7f3;border-color:#557349}
+.secondary{background:#ececea;color:#474743}
+.ghost{background:transparent;color:#7a7a70}
+.ghost:hover{background:#ececea}
+.destructive{background:#e51d1d;color:#fff}
+.success{background:#16874f;color:#fff}
+.lg{height:48px;padding:0 28px;font-size:15px}
+.sm{height:36px;padding:0 14px;border-radius:10px;font-size:13px}
+</style></head><body>
+<div class="row">
+  <button class="btn primary">New Assessment</button>
+  <button class="btn outline">Save</button>
+  <button class="btn secondary">Cancel</button>
+  <button class="btn ghost">Skip</button>
+  <button class="btn destructive">Archive</button>
+  <button class="btn success">Verify</button>
+</div>
+<div class="row" style="margin-top:14px">
+  <button class="btn primary lg">Sign in</button>
+  <button class="btn primary">Default</button>
+  <button class="btn primary sm">Add</button>
+  <button class="btn primary" style="width:40px;padding:0;border-radius:12px">+</button>
+</div>
+</body></html>

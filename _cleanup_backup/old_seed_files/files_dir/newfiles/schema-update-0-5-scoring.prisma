@@ -1,0 +1,96 @@
+// ============================================
+// PRISMA SCHEMA UPDATE FOR 0-5 SCORING
+// ============================================
+// 
+// Add these changes to your schema.prisma file
+// Then run: npx prisma migrate dev --name add-scoring-scale
+//
+
+// Updated AuditQuestion model with 0-5 scoring criteria
+model AuditQuestion {
+  id                String   @id @default(cuid())
+  sectionId         Int
+  standardReference String
+  standardText      String   @db.Text
+  auditQuestion     String   @db.Text
+  
+  // 0-5 Scoring Criteria (updated from 1-3)
+  score0Criteria    String   @db.Text  // N/A - Not Applicable
+  score1Criteria    String   @db.Text  // Non-compliant
+  score2Criteria    String   @db.Text  // Initial
+  score3Criteria    String   @db.Text  // Developing
+  score4Criteria    String   @db.Text  // Established
+  score5Criteria    String   @db.Text  // Optimizing
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  section           StandardSection @relation(fields: [sectionId], references: [id])
+  responses         Response[]
+}
+
+// Updated Response model to allow 0-5 scores
+model Response {
+  id            String   @id @default(cuid())
+  assessmentId  String
+  questionId    String
+  score         Int?     @db.SmallInt  // Now accepts 0-5 (or null if not yet scored)
+  evidence      String?  @db.Text
+  notes         String?  @db.Text
+  auditorId     String?
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  assessment    Assessment    @relation(fields: [assessmentId], references: [id])
+  question      AuditQuestion @relation(fields: [questionId], references: [id])
+  auditor       User?         @relation(fields: [auditorId], references: [id])
+  nonConformity NonConformity?
+  
+  @@unique([assessmentId, questionId])
+}
+
+// ============================================
+// SCORING SCALE REFERENCE
+// ============================================
+// 
+// 0 = Not Applicable (N/A) - Requirement does not apply
+// 1 = Non-compliant - No evidence, not addressed
+// 2 = Initial - Awareness exists, but no formal implementation
+// 3 = Developing - Partially implemented, inconsistent application
+// 4 = Established - Fully implemented, consistent application
+// 5 = Optimizing - Exceeds requirements, continual improvement evident
+//
+// MATURITY LEVELS:
+// Score 0    = N/A (excluded from calculations)
+// Score 1-2  = Non-conformity (action required)
+// Score 3    = Opportunity for improvement
+// Score 4    = Conforming
+// Score 5    = Best practice
+//
+
+// ============================================
+// MIGRATION SCRIPT (if upgrading from 1-3 scale)
+// ============================================
+// 
+// Run this SQL after migration to convert existing scores:
+//
+// -- Convert existing 1-3 scores to 0-5 scale
+// UPDATE "Response" SET score = CASE 
+//   WHEN score = 1 THEN 2  -- Old "Non-compliant" → New "Initial"
+//   WHEN score = 2 THEN 3  -- Old "Partial" → New "Developing"
+//   WHEN score = 3 THEN 4  -- Old "Compliant" → New "Established"
+//   ELSE score
+// END
+// WHERE score IS NOT NULL;
+//
+// -- Add new criteria columns (if not using Prisma migrate)
+// ALTER TABLE "AuditQuestion" 
+//   ADD COLUMN "score0Criteria" TEXT,
+//   ADD COLUMN "score4Criteria" TEXT,
+//   ADD COLUMN "score5Criteria" TEXT;
+//
+// -- Rename existing columns (if needed)
+// ALTER TABLE "AuditQuestion" 
+//   RENAME COLUMN "score1Criteria" TO "score1Criteria_old";
+// -- Then update with new criteria text

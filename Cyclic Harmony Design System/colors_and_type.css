@@ -1,0 +1,208 @@
+/* ============================================================================
+   Cyclic Harmony — Colors & Type
+   Sourced from frontend/tailwind.config.ts + frontend/src/app/globals.css
+   ============================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap');
+
+:root {
+  /* ── Sage (primary) ramp ── */
+  --sage-50:  #f4f7f3;
+  --sage-100: #e6ede4;
+  --sage-200: #cddbc9;
+  --sage-300: #a8c499;
+  --sage-400: #8baa7e;
+  --sage-500: #6b8f5e;
+  --sage-600: #557349;
+  --sage-700: #445c3b;
+  --sage-800: #384b32;
+  --sage-900: #2e3e2a;
+  --sage-950: #172015;
+
+  /* ── Surface (neutral) ramp ── */
+  --surface-50:  #fafaf9;
+  --surface-100: #f5f5f3;
+  --surface-200: #ececea;
+  --surface-300: #ddddd9;
+  --surface-400: #b8b8b3;
+  --surface-500: #98988f;
+  --surface-600: #7a7a70;
+  --surface-700: #64645c;
+  --surface-800: #53534d;
+  --surface-900: #474743;
+  --surface-950: #252523;
+
+  /* ── Sky (accent) ramp ── */
+  --sky-50:  #f0f7ff;
+  --sky-100: #e0effe;
+  --sky-300: #7cc5fd;
+  --sky-500: #0c8deb;
+  --sky-600: #0070c9;
+  --sky-700: #0159a3;
+
+  /* ── Semantic ── */
+  --success-50:  #eefbf3;
+  --success-500: #23a663;
+  --success-600: #16874f;
+  --success-700: #126c41;
+
+  --warning-50:  #fffbeb;
+  --warning-400: #ffbe20;
+  --warning-500: #f99d07;
+  --warning-600: #dd7602;
+
+  --danger-50:  #fff1f1;
+  --danger-500: #f83b3b;
+  --danger-600: #e51d1d;
+  --danger-700: #c11414;
+
+  --info-50:  #eff8ff;
+  --info-500: #3b9af6;
+  --info-600: #257ceb;
+
+  /* ── Harmony state ramp (canonical names from QUICK_REFERENCE.md) ── */
+  --harmony-sage:        #8BAA7E;   /* pending / initial */
+  --harmony-lime:        #A8C499;   /* in progress */
+  --harmony-olive:       #5C7C52;   /* active */
+  --harmony-forest:      #3D5A3A;   /* completed / success */
+  --harmony-warm-white:  #F5F5F0;   /* card backgrounds */
+  --harmony-light-beige: #E8E8E0;   /* borders, dividers */
+  --harmony-warm-gray:   #D8D8D0;   /* page background */
+  --harmony-dark-text:   #333333;   /* primary text */
+
+  /* ── Score system ── */
+  --score-0: var(--surface-500);    /* N/A */
+  --score-1: #ef4444;               /* Non-compliant */
+  --score-2: #f97316;               /* Initial */
+  --score-3: #eab308;               /* Developing */
+  --score-4: #22c55e;               /* Established */
+  --score-5: #2563eb;               /* Optimizing */
+
+  /* ── Semantic UI tokens (shadcn-style runtime vars) ── */
+  --background: var(--surface-50);
+  --foreground: #1a1a18;
+  --card: #ffffff;
+  --card-foreground: #1a1a18;
+  --popover: #ffffff;
+  --popover-foreground: #1a1a18;
+  --primary: var(--sage-600);
+  --primary-foreground: #ffffff;
+  --secondary: var(--surface-100);
+  --secondary-foreground: var(--surface-900);
+  --muted: var(--surface-200);
+  --muted-foreground: var(--surface-600);
+  --accent: var(--sky-100);
+  --accent-foreground: var(--sky-700);
+  --destructive: var(--danger-600);
+  --destructive-foreground: #ffffff;
+  --border: var(--surface-300);
+  --input: var(--surface-300);
+  --ring: var(--sage-400);
+
+  --sidebar-bg: #0f172a;            /* slate-900 — actual sidebar in code */
+  --sidebar-bg-alt: var(--sage-900);/* alternative dark-green sidebar */
+  --sidebar-text: var(--sage-100);
+  --sidebar-active: var(--sage-600);
+  --sidebar-hover: rgba(139, 170, 126, 0.15);
+
+  /* ── Type ── */
+  --font-display: 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans:    'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Heading scale (rem, 16px base) */
+  --fs-display: 2.625rem;   /* 42px */
+  --fs-h1:      2rem;       /* 32px */
+  --fs-h2:      1.5rem;     /* 24px */
+  --fs-h3:      1.25rem;    /* 20px */
+  --fs-h4:      1.125rem;   /* 18px */
+  --fs-body:    1rem;       /* 16px */
+  --fs-sm:      0.875rem;   /* 14px */
+  --fs-xs:      0.75rem;    /* 12px */
+  --fs-eyebrow: 0.6875rem;  /* 11px — uppercase tiny labels */
+
+  /* Line-heights */
+  --lh-tight:    1.2;
+  --lh-normal:   1.45;
+  --lh-generous: 1.6;       /* body */
+  --lh-relaxed:  1.75;      /* long-form */
+
+  /* ── Radius ── */
+  --radius-sm:    0.5rem;   /* 8px */
+  --radius:       0.75rem;  /* 12px — base */
+  --radius-lg:    1rem;     /* 16px — cards, score buttons */
+  --radius-card:  1rem;     /* card alias */
+  --radius-crown: 1.5rem;   /* 24px — crowned cards */
+  --radius-crown-lg: 2rem;  /* 32px */
+  --radius-pill:  9999px;
+
+  /* ── Shadow ── */
+  --shadow-1: 0 1px 3px 0 rgba(0,0,0,.08), 0 1px 2px -1px rgba(0,0,0,.06);
+  --shadow-2: 0 4px 6px -1px rgba(0,0,0,.08), 0 2px 4px -2px rgba(0,0,0,.06);
+  --shadow-3: 0 10px 15px -3px rgba(0,0,0,.08), 0 4px 6px -4px rgba(0,0,0,.06);
+  --shadow-4: 0 20px 25px -5px rgba(0,0,0,.08), 0 8px 10px -6px rgba(0,0,0,.06);
+  --shadow-crown:        0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-crown-hover:  0 8px 20px rgba(0, 0, 0, 0.12);
+  --shadow-crown-active: 0 2px 8px  rgba(0, 0, 0, 0.10);
+  --shadow-sage-glow:    0 4px 14px 0 rgba(85, 115, 73, 0.25);
+  --shadow-sage-glow-lg: 0 8px 24px 0 rgba(85, 115, 73, 0.30);
+
+  /* ── Motion ── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 200ms;
+  --dur-base: 300ms;
+  --dur-slow: 500ms;
+}
+
+/* ============================================================================
+   Semantic element styles
+   ============================================================================ */
+
+html, body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-generous);
+  color: var(--foreground);
+  background: var(--background);
+  font-feature-settings: "rlig" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: var(--lh-tight);
+  color: var(--foreground);
+}
+
+h1 { font-size: var(--fs-h1); }
+h2 { font-size: var(--fs-h2); font-weight: 600; }
+h3 { font-size: var(--fs-h3); font-weight: 600; }
+h4 { font-size: var(--fs-h4); font-weight: 600; }
+
+.display { font-family: var(--font-display); font-size: var(--fs-display); font-weight: 700; line-height: var(--lh-tight); }
+.eyebrow { font-size: var(--fs-eyebrow); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted-foreground); }
+.body    { font-size: var(--fs-body); line-height: var(--lh-generous); }
+.body-sm { font-size: var(--fs-sm);   line-height: var(--lh-generous); }
+.caption { font-size: var(--fs-xs);   color: var(--muted-foreground); }
+.mono    { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+p { line-height: var(--lh-generous); }
+
+a { color: var(--sage-600); text-decoration: none; }
+a:hover { color: var(--sage-700); text-decoration: underline; text-underline-offset: 3px; }
+
+::selection { background: var(--sage-200); color: var(--sage-900); }
+
+/* Custom scrollbar (matches globals.css) */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface-300); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--surface-400); }
+
+/* Focus ring */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--sage-400);
+}

@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css"><style>
+body{margin:0;padding:24px;background:var(--surface-50);font-family:var(--font-sans)}
+.card{position:relative;background:#fff;border-radius:24px;box-shadow:var(--shadow-crown);overflow:visible;width:240px}
+.crown{position:relative;width:100%;padding-top:45%;overflow:hidden;border-radius:24px 24px 0 0}
+.crown::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#A8C499,#8BAA7E,#5C7C52);clip-path:ellipse(50% 100% at 50% 0%)}
+.body{padding:24px;text-align:center}
+.icon{display:flex;justify-content:center;margin:-8px 0 14px;color:#5C7C52}
+.title{font:700 16px Poppins;color:#333;margin:0 0 6px}
+.desc{font:400 13px Inter;color:#6b7280;line-height:1.5;margin:0 0 14px}
+.bar{height:6px;background:#E8E8E0;border-radius:9999px;overflow:hidden;margin-bottom:12px}
+.bar-fill{height:100%;background:linear-gradient(90deg,#A8C499,#5C7C52);width:65%}
+.num{font:600 13px Poppins;color:#5C7C52;letter-spacing:.08em}
+</style></head><body>
+<div class="card">
+  <div class="crown"></div>
+  <div class="body">
+    <div class="icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+    <h3 class="title">Context of organization</h3>
+    <p class="desc">Internal &amp; external issues, interested parties</p>
+    <div class="bar"><div class="bar-fill"></div></div>
+    <div class="num">04</div>
+  </div>
+</div>
+</body></html>

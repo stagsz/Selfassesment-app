@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css"><style>
+body{margin:0;padding:24px;background:var(--surface-50)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.t{background:#fff;border-radius:var(--radius-card);box-shadow:var(--shadow-1);padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-height:108px}
+.swatch{width:36px;height:36px;border-radius:10px}
+.row{display:flex;align-items:center;gap:10px}
+.name{font:600 13px var(--font-sans);color:var(--foreground)}
+.use{font:400 11px var(--font-sans);color:var(--muted-foreground);line-height:1.4}
+.hex{font:500 10px ui-monospace,monospace;color:var(--muted-foreground)}
+</style></head><body>
+<div class="grid">
+  <div class="t"><div class="row"><div class="swatch" style="background:#8BAA7E"></div><div><div class="name">Sage</div><div class="hex">#8BAA7E</div></div></div><div class="use">Pending state. Initial card crowns. Default focus ring at 400.</div></div>
+  <div class="t"><div class="row"><div class="swatch" style="background:#A8C499"></div><div><div class="name">Lime</div><div class="hex">#A8C499</div></div></div><div class="use">In-progress state. Partial completion. Lighter accent on stage cards.</div></div>
+  <div class="t"><div class="row"><div class="swatch" style="background:#5C7C52"></div><div><div class="name">Olive</div><div class="hex">#5C7C52</div></div></div><div class="use">Active state. Currently-focused stage. Hover deepening.</div></div>
+  <div class="t"><div class="row"><div class="swatch" style="background:#3D5A3A"></div><div><div class="name">Forest</div><div class="hex">#3D5A3A</div></div></div><div class="use">Completed / verified. Success checkmarks. Strongest text on light.</div></div>
+</div>
+</body></html>

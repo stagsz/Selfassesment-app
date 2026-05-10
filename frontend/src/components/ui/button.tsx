@@ -10,21 +10,21 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-emerald-600 text-white shadow-sm hover:bg-emerald-700 hover:shadow-md',
+          'bg-emerald-600 text-white shadow-md hover:bg-emerald-700 hover:shadow-lg',
         destructive:
-          'bg-red-600 text-white shadow-sm hover:bg-red-700 hover:shadow-md',
+          'bg-red-600 text-white shadow-md hover:bg-red-700 hover:shadow-lg',
         outline:
-          'border-2 border-emerald-300 bg-white text-emerald-700 hover:bg-emerald-50 hover:border-emerald-400',
+          'border-2 border-emerald-300 bg-white text-emerald-700 shadow-md hover:bg-emerald-50 hover:border-emerald-400 hover:shadow-lg',
         secondary:
-          'bg-gray-100 text-gray-800 shadow-sm hover:bg-gray-200',
+          'bg-gray-100 text-gray-800 shadow-md hover:bg-gray-200 hover:shadow-lg',
         ghost:
           'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
         link:
           'text-emerald-600 underline-offset-4 hover:underline hover:text-emerald-700',
         success:
-          'bg-green-600 text-white shadow-sm hover:bg-green-700 hover:shadow-md',
+          'bg-green-600 text-white shadow-md hover:bg-green-700 hover:shadow-lg',
         warning:
-          'bg-yellow-500 text-white shadow-sm hover:bg-yellow-600 hover:shadow-md',
+          'bg-yellow-500 text-white shadow-md hover:bg-yellow-600 hover:shadow-lg',
       },
       size: {
         default: 'h-10 px-5 py-2 text-sm rounded-xl',

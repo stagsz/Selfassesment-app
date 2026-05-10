@@ -1,0 +1,7 @@
+{
+  "tool_name": "PowerShell",
+  "tool_input_preview": "{\"command\":\"cd C:\\\\Users\\\\staff\\\\Selfassesment-app; npm run db:migrate --workspace=backend 2>&1\",\"description\":\"Run Prisma database migration with 127.0.0.1\"}",
+  "error": "Exit code 1\n> @iso9001/backend@1.0.0 db:migrate\n> prisma migrate dev\n\nEnvironment variables loaded from .env\nPrisma schema loaded from prisma\\schema.prisma\nDatasource \"db\": PostgreSQL database \"iso9001_audit\", schema \"public\" at \"127.0.0.1:5432\"\n\nError: P3019\n\nThe datasource provider `postgresql` specified in your schema does not match the one specified in the migration_lock.toml, `sqlite`. Please remove your current migration directory and start a new migration history with prisma migrate dev. ...",
+  "timestamp": "2026-05-10T16:51:28.471Z",
+  "retry_count": 1
+}

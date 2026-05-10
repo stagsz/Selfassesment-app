@@ -191,7 +191,7 @@ export class ResponseService {
 
     // Validate score if provided
     if (data.score !== null && data.score !== undefined) {
-      if (![1, 2, 3].includes(data.score)) {
+      if (![0, 1, 2, 3, 4, 5].includes(data.score)) {
         throw new ValidationError('Score must be 1, 2, or 3');
       }
     }
@@ -326,8 +326,8 @@ export class ResponseService {
     // Validate scores and justifications
     for (const response of responses) {
       if (response.score !== null && response.score !== undefined) {
-        if (![1, 2, 3].includes(response.score)) {
-          throw new ValidationError(`Invalid score ${response.score} for question ${response.questionId}. Score must be 1, 2, or 3`);
+        if (![0, 1, 2, 3, 4, 5].includes(response.score)) {
+          throw new ValidationError(`Invalid score ${response.score} for question ${response.questionId}. Score must be 0-5`);
         }
       }
 
