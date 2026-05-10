@@ -1,7 +1,7 @@
 {
   "tool_name": "PowerShell",
-  "tool_input_preview": "{\"command\":\"cd C:\\\\Users\\\\staff\\\\Selfassesment-app; npm run db:migrate --workspace=backend 2>&1\",\"description\":\"Run Prisma database migration with 127.0.0.1\"}",
-  "error": "Exit code 1\n> @iso9001/backend@1.0.0 db:migrate\n> prisma migrate dev\n\nEnvironment variables loaded from .env\nPrisma schema loaded from prisma\\schema.prisma\nDatasource \"db\": PostgreSQL database \"iso9001_audit\", schema \"public\" at \"127.0.0.1:5432\"\n\nError: P3019\n\nThe datasource provider `postgresql` specified in your schema does not match the one specified in the migration_lock.toml, `sqlite`. Please remove your current migration directory and start a new migration history with prisma migrate dev. ...",
-  "timestamp": "2026-05-10T16:51:28.471Z",
+  "tool_input_preview": "{\"command\":\"cd C:\\\\Users\\\\staff\\\\Selfassesment-app; npm install --workspace=frontend 2>&1 | Tail -5\",\"timeout\":120000,\"description\":\"Install updated Next.js version in frontend workspace\"}",
+  "error": "Exit code 1\nTail : The term 'Tail' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify t\r\nhat the path is correct and try again.\r\nAt line:1 char:78\r\n+ ... ff\\Selfassesment-app; npm install --workspace=frontend 2>&1 | Tail -5\r\n+                                                                   ~~~~\r\n    + CategoryInfo          : ObjectNotFound: (Tail:String) [], CommandNotFoundException\r\n    + Ful...",
+  "timestamp": "2026-05-10T17:23:57.376Z",
   "retry_count": 1
 }

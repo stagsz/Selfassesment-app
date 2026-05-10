@@ -16,7 +16,9 @@
       "PowerShell(Get-Process *)",
       "PowerShell(taskkill *)",
       "PowerShell(Get-NetTCPConnection *)",
-      "PowerShell(node -e \"console.log\\(require\\('C:/Users/staff/Selfassesment-app/node_modules/next/package.json'\\).version\\)\"; node -e \"console.log\\(require\\('C:/Users/staff/Selfassesment-app/frontend/node_modules/next/package.json'\\).version\\)\" 2>&1)"
+      "PowerShell(node -e \"console.log\\(require\\('C:/Users/staff/Selfassesment-app/node_modules/next/package.json'\\).version\\)\"; node -e \"console.log\\(require\\('C:/Users/staff/Selfassesment-app/frontend/node_modules/next/package.json'\\).version\\)\" 2>&1)",
+      "PowerShell(node -e \"console.log\\(require\\('C:/Users/staff/Selfassesment-app/node_modules/next/package.json'\\).version\\)\")",
+      "PowerShell(node -e \"console.log\\(require\\('C:/Users/staff/Selfassesment-app/frontend/node_modules/next/package.json'\\).version\\)\" 2>&1)"
     ]
   }
 }
