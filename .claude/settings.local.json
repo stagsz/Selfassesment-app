@@ -24,7 +24,12 @@
       "Bash(npm run *)",
       "Bash(npx tsc *)",
       "Bash(Get-Content \"C:\\\\Users\\\\staff\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-staff-Selfassesment-app\\\\15ea1d64-2ed9-4963-bc6b-16d3e63ce06b\\\\tasks\\\\bhj9brtex.output\")",
-      "Bash(Select-Object -Last 20)"
+      "Bash(Select-Object -Last 20)",
+      "Bash(Get-Content \"C:\\\\Users\\\\staff\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-staff-Selfassesment-app\\\\ca0e9ae3-acb8-4e08-b1b9-1d2371c9ebba\\\\tasks\\\\ac167ebe62ee1d809.output\" -ErrorAction SilentlyContinue)",
+      "Bash(Select-Object -Last 50)",
+      "WebFetch(domain:metazoapi.support.ipw.dk)",
+      "mcp__claude_ai_Firecral__firecrawl_scrape",
+      "PowerShell(Get-Content *)"
     ]
   }
 }

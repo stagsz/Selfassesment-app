@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"$content = Get-Content \\\"C:\\\\Users\\\\staff\\\\.claude\\\\projects\\\\C--Users-staff-Selfassesment-app\\\\ca0e9ae3-acb8-4e08-b1b9-1d2371c9ebba\\\\tool-results\\\\mcp-claude_ai_Firecral-firecrawl_scrape-...",
+  "error": "Exit code 127\nnvm is not compatible with the \"npm_config_prefix\" environment variable: currently set to \"/c/Users/staff/AppData/Roaming/npm\"\nRun `unset npm_config_prefix` to unset it.\n/usr/bin/bash: line 1: =: command not found\n/usr/bin/bash: line 1: .Length: command not found",
+  "timestamp": "2026-05-19T13:46:49.830Z",
+  "retry_count": 1
+}

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1778365009968,
+  "lastScanned": 1779134160663,
   "projectRoot": "C:\\Users\\staff\\Selfassesment-app",
   "techStack": {
     "languages": [
@@ -13,12 +13,18 @@
         ]
       }
     ],
-    "frameworks": [],
+    "frameworks": [
+      {
+        "name": "next",
+        "version": "9.3.3",
+        "category": "fullstack"
+      }
+    ],
     "packageManager": "npm",
     "runtime": "Node.js 18.0.0"
   },
   "build": {
-    "buildCommand": "cd frontend && npx tsc --noEmit 2>&1 | tail -20",
+    "buildCommand": "npm run build",
     "testCommand": "npm test",
     "lintCommand": "npm run lint",
     "devCommand": "npm run dev",
@@ -58,7 +64,7 @@
       "path": "backend",
       "purpose": null,
       "fileCount": 9,
-      "lastAccessed": 1778365009846,
+      "lastAccessed": 1779134160543,
       "keyFiles": [
         "check-templates.ts",
         "Dockerfile",
@@ -71,7 +77,7 @@
       "path": "Cyclic Harmony Design System",
       "purpose": null,
       "fileCount": 5,
-      "lastAccessed": 1778365009847,
+      "lastAccessed": 1779134160543,
       "keyFiles": [
         "colors_and_type.css",
         "COMMIT_TO_REPO.md",
@@ -84,7 +90,7 @@
       "path": "files",
       "purpose": null,
       "fileCount": 4,
-      "lastAccessed": 1778365009860,
+      "lastAccessed": 1779134160544,
       "keyFiles": [
         "iso9001-audit-questions.csv",
         "iso9001-seed-data.json",
@@ -96,7 +102,7 @@
       "path": "frontend",
       "purpose": null,
       "fileCount": 16,
-      "lastAccessed": 1778365009862,
+      "lastAccessed": 1779134160565,
       "keyFiles": [
         "design-reference.html",
         "Dockerfile",
@@ -109,7 +115,7 @@
       "path": "shared",
       "purpose": null,
       "fileCount": 2,
-      "lastAccessed": 1778365009863,
+      "lastAccessed": 1779134160566,
       "keyFiles": [
         "package.json",
         "tsconfig.json"
@@ -119,14 +125,14 @@
       "path": "_cleanup_backup",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1778365009863,
+      "lastAccessed": 1779134160566,
       "keyFiles": []
     },
     "backend\\dist": {
       "path": "backend\\dist",
       "purpose": "Distribution/build output",
       "fileCount": 4,
-      "lastAccessed": 1778365009864,
+      "lastAccessed": 1779134160570,
       "keyFiles": [
         "index.d.ts",
         "index.d.ts.map",
@@ -137,14 +143,14 @@
       "path": "backend\\node_modules",
       "purpose": "Dependencies",
       "fileCount": 0,
-      "lastAccessed": 1778365009864,
+      "lastAccessed": 1779134160574,
       "keyFiles": []
     },
     "Cyclic Harmony Design System\\assets": {
       "path": "Cyclic Harmony Design System\\assets",
       "purpose": "Static assets",
       "fileCount": 1,
-      "lastAccessed": 1778365009864,
+      "lastAccessed": 1779134160574,
       "keyFiles": [
         "progress-connector.svg"
       ]
@@ -153,7 +159,7 @@
       "path": "shared\\dist",
       "purpose": "Distribution/build output",
       "fileCount": 4,
-      "lastAccessed": 1778365009866,
+      "lastAccessed": 1779134160579,
       "keyFiles": [
         "index.d.ts",
         "index.d.ts.map",
@@ -164,7 +170,7 @@
       "path": "shared\\types",
       "purpose": "Type definitions",
       "fileCount": 1,
-      "lastAccessed": 1778365009866,
+      "lastAccessed": 1779134160579,
       "keyFiles": [
         "index.ts"
       ]
@@ -172,93 +178,195 @@
   },
   "hotPaths": [
     {
-      "path": "frontend\\src\\components\\layout\\sidebar.tsx",
-      "accessCount": 5,
-      "lastAccessed": 1778442196844,
-      "type": "file"
-    },
-    {
-      "path": "backend\\.env",
-      "accessCount": 2,
-      "lastAccessed": 1778431668171,
-      "type": "file"
-    },
-    {
-      "path": "CYCLIC_HARMONY_INTEGRATION.md",
-      "accessCount": 1,
-      "lastAccessed": 1778365037027,
-      "type": "file"
-    },
-    {
-      "path": "",
-      "accessCount": 1,
-      "lastAccessed": 1778431916186,
+      "path": "frontend\\src",
+      "accessCount": 4,
+      "lastAccessed": 1779134337439,
       "type": "directory"
     },
     {
-      "path": "frontend\\src\\app\\(dashboard)\\assessments\\[id]\\page.tsx",
+      "path": "backend\\prisma",
+      "accessCount": 3,
+      "lastAccessed": 1779134570981,
+      "type": "directory"
+    },
+    {
+      "path": "backend\\src\\controllers\\assessmentController.ts",
+      "accessCount": 2,
+      "lastAccessed": 1779134519259,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\controllers\\authController.ts",
+      "accessCount": 2,
+      "lastAccessed": 1779134535666,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\proxy\\errorProxy.ts",
+      "accessCount": 2,
+      "lastAccessed": 1779134554991,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\__tests__\\assessment.test.ts",
+      "accessCount": 2,
+      "lastAccessed": 1779134555625,
+      "type": "file"
+    },
+    {
+      "path": "backend\\prisma\\seed\\questions.ts",
+      "accessCount": 2,
+      "lastAccessed": 1779134570184,
+      "type": "file"
+    },
+    {
+      "path": "backend\\prisma\\seed\\iso9001-seed-data-v2.ts",
+      "accessCount": 2,
+      "lastAccessed": 1779135174009,
+      "type": "file"
+    },
+    {
+      "path": "backend\\prisma\\schema.prisma",
+      "accessCount": 2,
+      "lastAccessed": 1779135179031,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\controllers\\dashboardController.ts",
       "accessCount": 1,
-      "lastAccessed": 1778435116615,
+      "lastAccessed": 1779134318503,
       "type": "file"
     },
     {
       "path": "backend\\src\\services\\assessmentService.ts",
       "accessCount": 1,
-      "lastAccessed": 1778435117356,
+      "lastAccessed": 1779134318601,
       "type": "file"
     },
     {
-      "path": "backend/src/services/assessmentService.ts",
+      "path": "backend\\src\\services\\authService.ts",
       "accessCount": 1,
-      "lastAccessed": 1778435126423,
-      "type": "directory"
-    },
-    {
-      "path": "frontend\\src\\app\\(dashboard)\\assessments\\[id]\\audit\\page.tsx",
-      "accessCount": 1,
-      "lastAccessed": 1778435126983,
+      "lastAccessed": 1779134350856,
       "type": "file"
     },
     {
-      "path": "frontend\\src\\app\\(editorial)\\overview\\page.tsx",
+      "path": "backend\\src\\services\\dashboardService.ts",
       "accessCount": 1,
-      "lastAccessed": 1778442020481,
+      "lastAccessed": 1779134351334,
       "type": "file"
     },
     {
-      "path": "frontend\\src\\app\\(dashboard)\\layout.tsx",
+      "path": "backend\\src\\services\\userService.ts",
       "accessCount": 1,
-      "lastAccessed": 1778442134580,
+      "lastAccessed": 1779134352144,
       "type": "file"
     },
     {
-      "path": "Cyclic Harmony Design System\\README.md",
+      "path": "backend\\src\\services\\reportService.ts",
       "accessCount": 1,
-      "lastAccessed": 1778442363156,
+      "lastAccessed": 1779134352570,
       "type": "file"
     },
     {
-      "path": "Cyclic Harmony Design System\\COMMIT_TO_REPO.md",
+      "path": "frontend\\src\\components\\assessments\\question-card.tsx",
       "accessCount": 1,
-      "lastAccessed": 1778442514438,
+      "lastAccessed": 1779134353751,
       "type": "file"
     },
     {
-      "path": "backend\\src\\proxy\\authProxy.ts",
+      "path": "frontend\\src\\components\\assessments\\section-content.tsx",
       "accessCount": 1,
-      "lastAccessed": 1778443148358,
+      "lastAccessed": 1779134355405,
+      "type": "file"
+    },
+    {
+      "path": "shared\\types\\index.ts",
+      "accessCount": 1,
+      "lastAccessed": 1779134355639,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\src\\components\\cyclic-harmony\\CrownedCard.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779134355954,
+      "type": "file"
+    },
+    {
+      "path": "backend\\prisma\\seed.ts",
+      "accessCount": 1,
+      "lastAccessed": 1779134356128,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\src\\components\\dashboard\\dashboard-empty-state.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779134356200,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\__tests__\\auth.test.ts",
+      "accessCount": 1,
+      "lastAccessed": 1779134356806,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\__tests__\\helpers.ts",
+      "accessCount": 1,
+      "lastAccessed": 1779134356898,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\src\\__tests__\\test-utils.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779134356973,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\controllers\\nonConformityController.ts",
+      "accessCount": 1,
+      "lastAccessed": 1779134520095,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\controllers\\correctiveActionController.ts",
+      "accessCount": 1,
+      "lastAccessed": 1779134521357,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\controllers\\userController.ts",
+      "accessCount": 1,
+      "lastAccessed": 1779134521457,
       "type": "file"
     },
     {
       "path": "backend\\src\\utils\\errors.ts",
       "accessCount": 1,
-      "lastAccessed": 1778443149301,
+      "lastAccessed": 1779134536221,
       "type": "file"
     },
     {
-      "path": "frontend\\src\\lib\\api.ts",
+      "path": "frontend\\src\\app\\(dashboard)\\dashboard\\page.tsx",
       "accessCount": 1,
-      "lastAccessed": 1778443149525,
+      "lastAccessed": 1779134546200,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\src\\components\\ui\\empty-state.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779134546811,
+      "type": "file"
+    },
+    {
+      "path": "frontend\\src\\app\\(dashboard)\\design-showcase\\page.tsx",
+      "accessCount": 1,
+      "lastAccessed": 1779134554090,
+      "type": "file"
+    },
+    {
+      "path": "backend\\src\\services\\csvImportService.ts",
+      "accessCount": 1,
+      "lastAccessed": 1779135174693,
       "type": "file"
     }
   ],
