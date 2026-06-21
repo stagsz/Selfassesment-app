@@ -1,21 +1,14 @@
 {
   "version": 2,
-  "buildCommand": "npm run build --workspace=backend",
+  "buildCommand": "npm run build --workspace=frontend",
+  "outputDirectory": "frontend/.next",
+  "installCommand": "npm install",
+  "framework": "nextjs",
   "functions": {
-    "backend/src/index.ts": {
+    "frontend/src/app/**/*.ts": {
       "runtime": "nodejs20.x",
       "memory": 1024,
       "maxDuration": 60
     }
-  },
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/backend/src/index.ts"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/backend/src/index.ts"
-    }
-  ]
+  }
 }
