@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import '../../../auditflow-design-system/styles.css';
+@import '../../auditflow-design-system/styles.css';
 
 @layer base {
   :root {
